@@ -41,6 +41,7 @@
   text-decoration: none;
   color: white;
 }
+
 /* submenu */
 .container_medium_first_header li .submenu_first_header li {
   float: none;
@@ -105,8 +106,34 @@
 .container_medium_second_header li:hover {
   background-color: #ddd;
 }
+.mobile_hide {
+  display: none;
+  font-size: 25px;
+  color: black;
+}
 /* logo-header */
 .logo_header_img {
   height: 50px;
   width: 50px;
+}
+
+@media screen and (max-width: 1000px) {
+  .desktop_hide {
+    display: none;
+  }
+  .container_medium_first_header li span {
+    display: block;
+    text-align: center;
+    padding: 6px 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+  }
+  .mobile_hide {
+    display: block;
+  }
+
+  .container_medium_second_header li {
+    width: 30px;
+  }
 }
