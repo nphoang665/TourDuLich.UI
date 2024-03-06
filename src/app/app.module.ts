@@ -12,6 +12,7 @@ import { DatTourComponent } from './Pages/GiaoDienKhachHang/DatTour/dat-tour/dat
 import { DiemDenComponent } from './Pages/GiaoDienKhachHang/DiemDen/diem-den/diem-den.component';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { SecondHeaderComponent } from './Pages/GiaoDienKhachHang/Header/second-header/second-header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { RouterLink } from '@angular/router';
     TrangChuComponent,
     LienHeComponent,
     DatTourComponent,
-    DiemDenComponent
+    DiemDenComponent,
+    SecondHeaderComponent
   ],
   imports: [
     BrowserModule,

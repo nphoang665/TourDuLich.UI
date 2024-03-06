@@ -1,4 +1,4 @@
-<header class="container_large_header">
+<header class="container_large_header fixedHeader">
     <div class="container_medium_first_header_total">
         <div class="container_medium_first_header">
             <div class="left_medium_first_header">
@@ -28,23 +28,23 @@
         <div class="left_medium_second_header">
             <div class="logo_header">
                 <!-- <img src="assets/logoHeader.svg" class="logo_header_img" alt="logo_header"> -->
-                <span class="Logo_Team item_medium_second_header" routerLink="/trangchu">ASAP</span>
+                <span class="Logo_Team item_medium_second_header text-dark" routerLink="/trangchu">ASAP</span>
             </div>
         </div>
         <div class="right_medium_second_header ">
 
             <ul class="desktop_hide">
-                <li class="mobile_block">
-                    <div class="box">
+                <li class="mobile_block ">
+                    <div class="box onscrollHeader">
                         <input type="text" placeholder="Tìm kiếm...">
                         <span><i class="bi bi-search" style="color: blue;
                             font-size: 18px;"></i></span>
                     </div>
                 </li>
-                <li routerLink="/trangchu"><a class="item_medium_second_header">Trang chủ</a></li>
-                <li routerLink="/lienhe"><a class="item_medium_second_header">Liên hệ</a></li>
-                <li routerLink="/dattour"><a class="item_medium_second_header">Đặt tour</a></li>
-                <li routerLink="/diemden"><a class="item_medium_second_header">Điểm đến</a></li>
+                <li><a routerLink="/trangchu" class="item_medium_second_header text-dark">Trang chủ</a></li>
+                <li><a routerLink="/lienhe" class="item_medium_second_header text-dark">Liên hệ</a></li>
+                <li><a routerLink="/dattour" class="item_medium_second_header text-dark">Đặt tour</a></li>
+                <li><a routerLink="/diemden" class="item_medium_second_header text-dark">Điểm đến</a></li>
             </ul>
             <ul class="mobile_hide">
                 <!-- phần này để mở off canvas -->
@@ -61,15 +61,22 @@
 <div class="offcanvas offcanvas-start" style="z-index: 100001;" tabindex="-1" id="offcanvasExample"
     aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="menu_canvas_first">
+    <div class="offcanvas-body">
+        <!-- Thêm menu vào đây -->
         <ul>
-            <li routerLink="/trangchu" data-bs-dismiss="offcanvas"><a>Trang chủ</a></li>
-            <li routerLink="/lienhe" data-bs-dismiss="offcanvas"><a>Liên hệ</a></li>
-            <li routerLink="/dattour" data-bs-dismiss="offcanvas"><a>Đặt tour</a></li>
-            <li routerLink="/diemden" data-bs-dismiss="offcanvas"><a>Điểm đến</a></li>
-
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+            <li><a href="#">Đặt tour</a></li>
+            <li><a href="#">Điểm đến</a></li>
         </ul>
+        <li><a href="#">VN <i style="font-size: 10px;" class="bi bi-chevron-down"></i></a>
+            <ul class="submenu_first_header">
+                <li><a href="#">English</a></li>
+                <li><a href="#">Tiếng việt</a></li>
+            </ul>
+        </li>
     </div>
 </div>
