@@ -2,11 +2,20 @@
 .container_large_header {
   font-family: "Roboto", sans-serif;
   /* background-color: #f6f5f5; */
+  user-select: none;
 }
 
 /* first nav */
 .container_medium_first_header_total {
   background-color: #1c9cd8;
+}
+.fixedHeader {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: all 0.3 ease;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 .container_medium_first_header {
   max-width: 1400px;
@@ -113,11 +122,13 @@
   box-shadow: 5px 10px 30px rgb(85 85 85 / 20%);
   border-radius: 4px;
 }
+
 .mobile_hide {
   display: none;
   font-size: 30px;
   color: white;
 }
+
 /* logo-header */
 .logo_header_img {
   height: 50px;
