@@ -1,0 +1,10 @@
+:host ::ng-deep .test {
+  display: block;
+  /* padding: 6px 8px; */
+  text-decoration: none;
+  color: black !important;
+  font-size: 1.2em;
+  /* color: black; */
+  transition: ease 0.4s;
+  font-weight: 400;
+}

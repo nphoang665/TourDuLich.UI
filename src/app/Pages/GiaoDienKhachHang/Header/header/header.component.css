@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 .container_large_header {
-  background-color: #f6f5f5;
+  font-family: "Roboto", sans-serif;
+  /* background-color: #f6f5f5; */
 }
 
 /* first nav */
@@ -99,22 +101,39 @@
   /* padding: 6px 8px; */
   text-decoration: none;
   color: white;
-  font-size: 1.3em;
-  color: black;
+  font-size: 1.2em;
+  /* color: black; */
+  transition: ease 0.4s;
+  font-weight: 400;
 }
 
-.container_medium_second_header li:hover {
-  background-color: #ddd;
+.container_medium_second_header li:hover a {
+  background-color: #fff;
+  color: #221314;
+  box-shadow: 5px 10px 30px rgb(85 85 85 / 20%);
+  border-radius: 4px;
 }
 .mobile_hide {
   display: none;
-  font-size: 25px;
-  color: black;
+  font-size: 30px;
+  color: white;
 }
 /* logo-header */
 .logo_header_img {
   height: 50px;
   width: 50px;
+  cursor: pointer;
+  user-select: none;
+}
+.Logo_Team {
+  font-size: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+}
+.mobile_hide li:hover {
+  background-color: rgba(255, 0, 0, 0);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {
