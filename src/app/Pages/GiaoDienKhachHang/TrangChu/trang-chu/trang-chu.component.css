@@ -10,6 +10,9 @@
 }
 .home-text {
   padding: 10% 20% 20% 20%;
+  /* padding-left: 120px;
+  padding-top: 100px;
+  padding-right: 150px; */
 }
 
 .home-text .title_thumbnail {
@@ -43,6 +46,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.content {
+  padding: 0px;
+}
+.img_bg_search {
+  background: linear-gradient(#5f5d9c, #a4ce95);
+  /* background: radial-gradient(circle at center, #b7c9f2, #ccd3ca); */
+
+  padding: 10px;
+}
+.img_bg_search .row {
+  padding-bottom: 20px;
+  width: 100%;
+}
+.img_bg_search .justify-content-center img {
+  padding-right: 15px;
 }
 
 @media screen and (max-width: 600px) {

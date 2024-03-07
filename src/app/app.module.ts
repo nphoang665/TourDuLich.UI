@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { SanPhamGiaoDienComponent } from './Pages/GiaoDienKhachHang/SanPhamGiaoDien/san-pham-giao-dien/san-pham-giao-dien.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     DatTourComponent,
     DiemDenComponent,
     SecondHeaderComponent,
-    TimKiemTourComponent
+    TimKiemTourComponent,
+    SanPhamGiaoDienComponent
   ],
   imports: [
     BrowserModule,

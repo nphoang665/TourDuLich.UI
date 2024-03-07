@@ -150,11 +150,8 @@
 }
 
 /* logo-header */
-.logo_header_img {
-  height: 50px;
-  width: 50px;
-  cursor: pointer;
-  user-select: none;
+.logo_header {
+  padding-top: 5px;
 }
 .Logo_Team {
   font-size: 30px;
@@ -188,9 +185,8 @@
   transition: 0.8s;
   background: transparent;
 }
-.box a .bi {
-  color: #1daf;
-  font-size: 18px;
+.box span {
+  padding-top: 3px;
 }
 /* khi scroll header phần box */
 .onscrollHeader {
