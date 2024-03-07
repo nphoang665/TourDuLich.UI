@@ -8,10 +8,13 @@
   height: 100vh;
   font-family: "Roboto", sans-serif;
 }
-article {
-  padding: 90px 15%;
+.home-text {
+  padding: 10% 20% 20% 20%;
 }
-.home-text h1 {
+article {
+  /* padding: 90px 15%; */
+}
+.home-text .title_thumbnail {
   font-size: 65px;
   line-height: 1.2;
   color: white;
@@ -37,4 +40,16 @@ article {
 .home-btn:hover {
   background-color: whitesmoke;
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 600px) {
+  .home-text .title_thumbnail {
+    font-size: 40px;
+  }
+  .home-text span {
+    font-size: 20px;
+  }
+  .home-text p {
+    font-size: 13px;
+  }
 }
