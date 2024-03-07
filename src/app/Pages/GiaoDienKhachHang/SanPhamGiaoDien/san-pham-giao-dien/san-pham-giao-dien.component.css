@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.container {
+  max-width: 85%;
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+}
+.container p {
+  font-size: 1.3em;
+  color: #124076;
+}
+.card_tour {
+  /* border: 1px solid gray; */
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+.card_tour {
+  width: 270px;
+}
+.img_tour {
+  width: 100%;
+}
+.total_card {
+  padding: 10px;
+}
+.title_tour {
+  background-color: #e5e5e5;
+  font-size: 15px;
+  padding: 5px;
+  font-weight: 500;
+}
+.card_tour .card_tour_text {
+  padding: 10px;
+  /* border: 1px 0px 0px 1px solid grey; */
+  border-right: 1px solid rgb(214, 210, 210);
+  border-left: 1px solid rgb(214, 210, 210);
+  border-bottom: 1px solid rgb(214, 210, 210);
+}
+.price_tour_text {
+  font-size: 19px;
+  font-weight: 700;
+  color: #124076;
+}
+
+/* hover */
+/* .card_tour:hover .card_tour_text {
+  outline: 1px 0px 1px 1px solid black;
+}
+
+.card_tour:hover .title_tour {
+  outline: 1px solid black;
+} */
+.card_tour:hover {
+  outline: 1px solid black;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    max-width: 100%;
+  }
+  .card_tour {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 560px) {
+  .card_tour {
+    width: 100%;
+  }
+}

@@ -30,44 +30,44 @@ export class TrangChuComponent implements AfterViewInit {
   }
   constructor(private elRef: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) { }
   ngAfterViewInit() {
-    const textTyping = this.elRef.nativeElement.querySelector('.Text_Typing');
-    const myStrings = ["Buôn Đôn", "Thác Dray Sáp ", "Buôn KoTam"];
-    let stringIndex = 0;
+    // const textTyping = this.elRef.nativeElement.querySelector('.Text_Typing');
+    // const myStrings = ["3", "2 ", "1"];
+    // let stringIndex = 0;
 
-    if (isPlatformBrowser(this.platformId)) {
-      let charIndex = 0;
+    // if (isPlatformBrowser(this.platformId)) {
+    //   let charIndex = 0;
 
-      const typeString = () => {
-        const typingInterval = window.setInterval(() => {
-          if (charIndex < myStrings[stringIndex].length) {
-            textTyping.textContent = myStrings[stringIndex].slice(0, charIndex + 1);
-            charIndex++;
-          } else {
-            window.clearInterval(typingInterval);
+    //   const typeString = () => {
+    //     const typingInterval = window.setInterval(() => {
+    //       if (charIndex < myStrings[stringIndex].length) {
+    //         textTyping.textContent = myStrings[stringIndex].slice(0, charIndex + 1);
+    //         charIndex++;
+    //       } else {
+    //         window.clearInterval(typingInterval);
 
-            const deletingInterval = window.setInterval(() => {
-              if (textTyping.textContent.length > 0) {
-                textTyping.textContent = textTyping.textContent.slice(0, -1);
-              } else {
-                window.clearInterval(deletingInterval);
+    //         const deletingInterval = window.setInterval(() => {
+    //           if (textTyping.textContent.length > 0) {
+    //             textTyping.textContent = textTyping.textContent.slice(0, -1);
+    //           } else {
+    //             window.clearInterval(deletingInterval);
 
-                stringIndex++;
-                if (stringIndex === myStrings.length) {
-                  stringIndex = 0;
-                }
+    //             stringIndex++;
+    //             if (stringIndex === myStrings.length) {
+    //               stringIndex = 0;
+    //             }
 
-                setTimeout(() => {
-                  charIndex = 0;
-                  typeString();
-                }, 0);
-              }
-            }, 100);
-          }
-        }, 200);
-      };
+    //             setTimeout(() => {
+    //               charIndex = 0;
+    //               typeString();
+    //             }, 0);
+    //           }
+    //         }, 100);
+    //       }
+    //     }, 200);
+    //   };
 
-      typeString();
-    }
+    //   typeString();
+    // }
   }
 
 
