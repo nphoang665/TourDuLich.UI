@@ -11,9 +11,7 @@
 .home-text {
   padding: 10% 20% 20% 20%;
 }
-article {
-  /* padding: 90px 15%; */
-}
+
 .home-text .title_thumbnail {
   font-size: 65px;
   line-height: 1.2;
@@ -40,6 +38,11 @@ article {
 .home-btn:hover {
   background-color: whitesmoke;
   transform: scale(1.1);
+}
+.Text_Typing {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 600px) {

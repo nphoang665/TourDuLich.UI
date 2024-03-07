@@ -31,7 +31,7 @@ export class TrangChuComponent implements AfterViewInit {
   constructor(private elRef: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) { }
   ngAfterViewInit() {
     const textTyping = this.elRef.nativeElement.querySelector('.Text_Typing');
-    const myStrings = ["Buôn Đôn", "Thác Dray Sáp", "Buôn KoTam"];
+    const myStrings = ["Buôn Đôn", "Thác Dray Sáp ", "Buôn KoTam"];
     let stringIndex = 0;
 
     if (isPlatformBrowser(this.platformId)) {

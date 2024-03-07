@@ -14,6 +14,14 @@ import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { SecondHeaderComponent } from './Pages/GiaoDienKhachHang/Header/second-header/second-header.component';
 import { TimKiemTourComponent } from './Pages/GiaoDienKhachHang/TrangChu/tim-kiem-tour/tim-kiem-tour.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideNativeDateAdapter } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +39,19 @@ import { TimKiemTourComponent } from './Pages/GiaoDienKhachHang/TrangChu/tim-kie
     BrowserModule,
     AppRoutingModule,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    MatIcon, MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync(),
+    provideNativeDateAdapter()
   ],
   bootstrap: [AppComponent]
 })

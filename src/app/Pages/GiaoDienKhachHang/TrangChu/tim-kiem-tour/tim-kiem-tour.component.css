@@ -1,6 +1,18 @@
 .container {
   max-width: 1280px;
-  background-color: aqua;
+  /* background-color: aqua */
   position: relative;
-  top: -20px;
+  top: -50px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+.mat_form {
+  margin-right: 10px;
+  width: 100%;
+}
+.btn_timKiem {
+  /* width: 120px;*/
+  height: 55px;
+  width: 100%;
 }
