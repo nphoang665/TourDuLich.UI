@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+.container {
+  font-family: "Roboto", sans-serif;
+  margin-top: 100px;
+}
+.container .total_item_tourplan {
+  padding-top: 30px;
+}
+.title_tour {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #003c71;
+}
+.sort_tour {
+  border: 1px solid gray;
+  background-color: white;
+}
+.sort_tour .item_sort_tour {
+  color: #003c71;
+  padding: 10px;
+}
+
+.sort_tour .item_sort_tour:hover {
+  background-color: #edeff2;
+  transition: background-color 0.4s ease;
+}
+.total-tour {
+  margin-top: 15px;
+}
+.text_tour {
+  line-height: 25px;
+}
+
+.tour_element {
+  background-color: #fff;
+  padding: 15px;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid #ddd;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.tour_element:hover {
+  background-color: #f5f6f8;
+}
+.khoiHanh_text {
+  color: #003c71;
+}
+.GiaGoc_text {
+  color: gray;
+  text-decoration: line-through;
+}
+.GiaDaGiam_text {
+  color: #00c1de;
+}
+.GiaDaGiam_text ._GiaDaGiam_text {
+  font-size: 26px;
+}
+._card_title_tour {
+  font-size: 20px;
+}
+.price_tour {
+  line-height: 25px;
+}
+@media screen and (max-width: 991px) {
+  .container {
+    max-width: 100%;
+  }
+}
