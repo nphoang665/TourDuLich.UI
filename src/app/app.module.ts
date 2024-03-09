@@ -27,6 +27,12 @@ import { ChiTietTourComponent } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-
 import { QuanLyTourComponent } from './Pages/GiaoDienAdmin/quan-ly-tour/quan-ly-tour.component';
 import { SidebarNavComponent } from './Pages/GiaoDienAdmin/LayoutChung/sidebar-nav/sidebar-nav.component';
 import { HeaderAdminComponent } from './Pages/GiaoDienAdmin/header-admin/header-admin.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { FormsModule } from '@angular/forms';
+import { ThemTourComponent } from './Pages/GiaoDienAdmin/them-tour/them-tour.component';
+import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +49,9 @@ import { HeaderAdminComponent } from './Pages/GiaoDienAdmin/header-admin/header-
     ChiTietTourComponent,
     QuanLyTourComponent,
     SidebarNavComponent,
-    HeaderAdminComponent
+    HeaderAdminComponent,
+    ThemTourComponent,
+    SuaTourComponent
 
   ],
   imports: [
@@ -57,12 +65,16 @@ import { HeaderAdminComponent } from './Pages/GiaoDienAdmin/header-admin/header-
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    FormsModule,
+    EditorModule
 
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+
   ],
   bootstrap: [AppComponent]
 })

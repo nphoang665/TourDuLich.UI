@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 @Component({
-  selector: 'app-quan-ly-tour',
-  templateUrl: './quan-ly-tour.component.html',
-  styleUrl: './quan-ly-tour.component.css'
+  selector: 'app-them-tour',
+  templateUrl: './them-tour.component.html',
+  styleUrl: './them-tour.component.css'
 })
-export class QuanLyTourComponent {
+export class ThemTourComponent {
   Text: string = '';
   editorConfig = {
     base_url: '/tinymce',
@@ -17,6 +16,10 @@ export class QuanLyTourComponent {
   constructor(public domSanitizer: DomSanitizer) { }
   Test() {
     console.log(this.Text);
-
+  }
+  get sanitizedText() {
+    return this.domSanitizer.bypassSecurityTrustHtml(this.Text);
   }
 }
+
+

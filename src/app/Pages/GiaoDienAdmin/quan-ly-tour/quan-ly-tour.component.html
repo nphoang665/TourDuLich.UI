@@ -6,82 +6,103 @@
     <div class="main">
         <app-header-admin></app-header-admin>
         <div class="QuanLuTour_container">
-            <!-- Button trigger modal -->
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Thêm tour
-            </button>
+            <button class="btn btn-primary" routerLink="/themtour">Thêm mới tour</button>
+            <!-- <app-them-tour></app-them-tour> -->
+            <button class="btn btn-primary" routerLink="/suatour">Sửa tour</button>
+            <!-- <table class="table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th scope="col">Mã Tour</th>
+                        <th scope="col">Tên Tour</th>
+                        <th scope="col">Loại Tour</th>
+                        <th scope="col">Phương Tiện Di Chuyển</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">SL người lớn</th>
+                        <th scope="col">SL trẻ em</th>
+                        <th scope="col">Thời gian bắt đầu</th>
+                        <th scope="col">Thời gian kết thúc</th>
+                        <th scope="col">Nơi khởi hanh</th>
+                        <th scope="col">Số chỗ</th>
+                        <th scope="col">Đối tác</th>
+                        <th scope="col">Giá trẻ em</th>
+                        <th scope="col">Giá người lớn</th>
+                        <th scope="col">Ngày thêm</th>
+                        <th scope="col">Dịch vụ đi kèm</th>
+                        <th scope="col">Tình trạng</th>
+                        <th data-toggle="collapse" data-target="#hiddenFields1" aria-expanded="false"
+                            aria-controls="hiddenFields1">More</th>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-fullscreen">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p class="modal-title" id="exampleModalLabel" style="font-size: 25px;">Thêm tour</p>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <mat-form-field class="example-full-width">
-                                            <mat-label>Favorite food</mat-label>
-                                            <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <!-- Other headers -->
+                        <th>More</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <!-- Other data -->
+                        <td>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button"
+                                aria-expanded="false" aria-controls="collapseExample1">
+                                Click to expand
+                            </a>
+                            <div class="collapse" id="collapseExample1">
+                                <!-- Additional information goes here -->
+                                Mã Tour: TOUR001<br>
+                                Tên Tour: Du lịch Đà Nẵng<br>
+                                Loại Tour: Trong nước<br>
+                                Phương Tiện Di Chuyển: Ô tô<br>
+                                Mô Tả: Tour du lịch Đà Nẵng 3 ngày 2 đêm<br>
+                                SL người lớn: 2<br>
+                                SL trẻ em: 1<br>
+                                Thời gian bắt đầu: 2024-03-15<br>
+                                Thời gian kết thúc: 2024-03-18<br>
+                                Nơi khởi hanh: Hà Nội<br>
+                                Số chỗ: 30<br>
+                                Đối tác: Công ty ABC<br>
+                                Giá trẻ em: 2.000.000 VND<br>
+                                Giá người lớn: 3.000.000 VND<br>
+                                Ngày thêm: 2024-01-01<br>
+                                Dịch vụ đi kèm: Bảo hiểm du lịch, hướng dẫn viên<br>
+                                Tình trạng: Còn chỗ
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- More rows -->
+                </tbody>
+            </table>
+
+
 
 
         </div>
