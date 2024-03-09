@@ -61,6 +61,10 @@
 .price_tour {
   line-height: 25px;
 }
+.sort_tour .active {
+  background-color: #f5f6f8;
+  color: #59d5e0;
+}
 @media screen and (max-width: 991px) {
   .container {
     max-width: 100%;

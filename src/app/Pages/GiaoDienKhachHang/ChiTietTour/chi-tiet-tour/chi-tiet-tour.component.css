@@ -1,0 +1,54 @@
+.container {
+  margin-top: 100px;
+  padding: 10px;
+  max-width: 80%;
+}
+.text_tour {
+  font-size: 30px;
+  font-weight: 600;
+  padding-top: 30px;
+  color: #003c71;
+}
+.infor_tour {
+  padding: 10px;
+  background-color: #e3e7ed;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 90%;
+  }
+  .text_tour {
+    font-size: 20px;
+    font-weight: 600;
+    padding-top: 30px;
+    color: #003c71;
+  }
+}
+.sticky-container {
+  position: relative;
+  overflow: visible;
+  border-radius: 5px;
+}
+
+.sticky-item {
+  position: sticky !important;
+  top: 100px;
+  padding: 10px;
+}
+.lichTrinh_div .row {
+  padding-left: 10px;
+}
+.item_lichTrinh {
+  border: 1px solid grey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.title_lichtrinh {
+  font-size: 22px;
+  font-weight: 500;
+  color: #003c71;
+}
