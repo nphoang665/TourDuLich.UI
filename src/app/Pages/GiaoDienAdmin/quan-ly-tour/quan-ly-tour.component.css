@@ -23,3 +23,26 @@
 .QuanLuTour_container {
   padding: 10px;
 }
+.res_Medium_Show {
+  display: none;
+}
+.res_Small_Show {
+  display: none;
+}
+@media screen and (max-width: 1515px) {
+  .res_Medium_Hide {
+    display: none;
+  }
+  .res_Medium_Show {
+    display: table-cell !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .res_Small_Hide {
+    display: none;
+  }
+  .res_Small_Show {
+    display: table-cell !important;
+  }
+}
