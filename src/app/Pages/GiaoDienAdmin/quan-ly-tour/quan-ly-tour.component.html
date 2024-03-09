@@ -9,7 +9,7 @@
             <button class="btn btn-primary" routerLink="/themtour">Thêm mới tour</button>
             <!-- <app-them-tour></app-them-tour> -->
             <button class="btn btn-primary" routerLink="/suatour">Sửa tour</button>
-            <!-- <table class="table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>STT</th>
@@ -17,129 +17,74 @@
                         <th scope="col">Tên Tour</th>
                         <th scope="col">Loại Tour</th>
                         <th scope="col">Phương Tiện Di Chuyển</th>
-                        <th scope="col">Mô Tả</th>
+                        <!-- <th scope="col">Mô Tả</th> -->
                         <th scope="col">SL người lớn</th>
                         <th scope="col">SL trẻ em</th>
                         <th scope="col">Thời gian bắt đầu</th>
                         <th scope="col">Thời gian kết thúc</th>
-                        <th scope="col">Nơi khởi hanh</th>
+                        <!-- <th scope="col">Nơi khởi hanh</th> -->
                         <th scope="col">Số chỗ</th>
                         <th scope="col">Đối tác</th>
                         <th scope="col">Giá trẻ em</th>
                         <th scope="col">Giá người lớn</th>
-                        <th scope="col">Ngày thêm</th>
-                        <th scope="col">Dịch vụ đi kèm</th>
+                        <!-- <th scope="col">Ngày thêm</th> -->
+                        <!-- <th scope="col">Dịch vụ đi kèm</th> -->
                         <th scope="col">Tình trạng</th>
-                        <th data-toggle="collapse" data-target="#hiddenFields1" aria-expanded="false"
-                            aria-controls="hiddenFields1">More</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table> -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <!-- Other headers -->
-                        <th>More</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false"
-                        aria-controls="collapseExample1">
-                        <td>1</td>
-                        <!-- Other data -->
-                        <td>
-                            Click to expand
-                        </td>
+                    @for (item of tours; track $index) {
+                    <tr data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample' + ($index)"
+                        aria-expanded="false" [attr.aria-controls]="'collapseExample' + ($index)">
+                        <td>{{$index+1}}</td>
+                        <td>{{item.idTour}}</td>
+                        <td>{{item.TenTour}}</td>
+                        <td>{{item.loaiTour}}</td>
+                        <td>{{item.PhuongTienDiChuyen}}</td>
+                        <!-- <td>{{item.MoTa}}</td> -->
+                        <td>{{item.SoLuongNguoiLon}}</td>
+                        <td>{{item.SoLuongTreEm}}</td>
+                        <td>{{item.ThoiGianBatDau}}</td>
+                        <td>{{item.ThoiGianKetThuc}}</td>
+                        <!-- <td>{{item.NoiKhoiHanh}}</td> -->
+                        <td>{{item.SoChoConNhan}}</td>
+                        <td>{{item.idDoiTac}}</td>
+                        <td>{{item.giaTreEm}}</td>
+                        <td>{{item.giaNguoiLon}}</td>
+                        <!-- <td>{{item.NgayThem}}</td> -->
+                        <!-- <td>{{item.dichVuDiKem}}</td> -->
+                        <td>{{item.TinhTrang}}</td>
                     </tr>
                     <tr>
                         <td colspan="100%" style="padding:0">
-                            <div class="collapse" id="collapseExample1">
+                            <div class="collapse" [attr.id]="'collapseExample'+ $index">
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <th>1</th>
-                                            <td>1</td>
+                                            <th scope="col">Ngày thêm</th>
+                                            <td>{{item.NgayThem}}</td>
                                         </tr>
                                         <tr>
-                                            <th>1</th>
-                                            <td>1</td>
+                                            <th scope="col">Nơi khởi hành</th>
+                                            <td>{{item.NoiKhoiHanh}}</td>
                                         </tr>
                                         <tr>
-                                            <th>1</th>
-                                            <td>1</td>
+                                            <th scope="col">Dịch vụ đi kèm</th>
+                                            <td>{{item.dichVuDiKem}}</td>
                                         </tr>
                                         <tr>
-                                            <th>1</th>
-                                            <td>1</td>
+                                            <th scope="col">Mô Tả</th>
+                                            <td>{{item.MoTa}}</td>
                                         </tr>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>1</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
                         </td>
                     </tr>
+                    }
 
-                    <tr data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false"
-                        aria-controls="collapseExample2">
-                        <td>2</td>
-                        <!-- Other data -->
-                        <td>
-                            Click to expand
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="100%" style="padding:0">
-                            <div class="collapse" id="collapseExample2">
-                                <!-- Additional information goes here -->
-                                Mã Tour: TOUR001<br>
-                                Tên Tour: Du lịch Đà Nẵng<br>
-                                Loại Tour: Trong nước<br>
-                                Phương Tiện Di Chuyển: Ô tô<br>
-                                Mô Tả: Tour du lịch Đà Nẵng 3 ngày 2 đêm<br>
-                                SL người lớn: 2<br>
-                                SL trẻ em: 1<br>
-                                Thời gian bắt đầu: 2024-03-15<br>
-                                Thời gian kết thúc: 2024-03-18<br>
-                                Nơi khởi hanh: Hà Nội<br>
-                                Số chỗ: 30<br>
-                                Đối tác: Công ty ABC<br>
-                                Giá trẻ em: 2.000.000 VND<br>
-                                Giá người lớn: 3.000.000 VND<br>
-                                Ngày thêm: 2024-01-01<br>
-                                Dịch vụ đi kèm: Bảo hiểm du lịch, hướng dẫn viên<br>
-                                Tình trạng: Còn chỗ
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- More rows -->
                 </tbody>
             </table>
 
