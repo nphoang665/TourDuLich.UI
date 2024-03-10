@@ -1,0 +1,225 @@
+<div class="wrapper ">
+    <div class="sticky-container">
+        <app-sidebar-nav class="sticky-item"></app-sidebar-nav>
+    </div>
+
+    <div class="main">
+        <app-header-admin></app-header-admin>
+        <div class="container-fluid">
+            <h2>Quản lý đặt Tour</h2>
+            <div class="mt-4">
+                <div class="total_card row d-flex justify-content-center">
+                    <div class="card_tour col-lg-3">
+                        <div class="div_img">
+                            <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
+                                    Đang giảm giá
+                                </span></div>
+                            <div> <img class="img_tour"
+                                    src="https://dulichviet.com.vn/thumbs/0/278x229/images/bandidau/Du-lich-Chau-a/Han-Quoc/tour-du-lich-han-quoc-mua-xuan-du-lich-viet.jpg"
+                                    alt=""></div>
+                        </div>
+                        <div class="title_tour">
+                            <span>Du lịch Hàn Quốc mùa Hoa Anh Đào - Busan - Seoul - Đảo Nami từ Sài </span>
+                        </div>
+
+                        <div class="card_tour_text">
+                            <div class="total_time_tour">
+                                <i class="bi bi-clock"></i> 5 ngày 5 đêm
+                            </div>
+                            <div class="start_time_tour">
+                                <i class="bi bi-calendar-check"></i> 27/04/2024
+                            </div>
+
+                            <div class="spot_remaining">
+                                <i class="bi bi-person"></i> Còn 10 chỗ
+                            </div>
+                            <div class="price_tour d-flex justify-content-end">
+                                <span class="price_tour_text">19.000.000 đ</span>
+                            </div>
+                            <div class="btn_bothBuy row gx-2">
+                                <div class="col-sm-6 mt-1">
+                                    <button type="button" class="btn_DatTour equal w-100" data-bs-toggle="modal"
+                                        data-bs-target="#datTourModal">
+                                        Đặt tour
+                                    </button>
+                                </div>
+                                <div class="col-sm-6 mt-1">
+                                    <button type="button" class="btn_ThanhToan equal w-100" data-bs-toggle="modal"
+                                        data-bs-target="#thanhToanModal">
+                                        Thanh toán
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card_tour col-lg-3">
+                        <div class="div_img">
+                            <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
+                                    Đang giảm giá
+                                </span></div>
+                            <div> <img class="img_tour"
+                                    src="https://dulichviet.com.vn/thumbs/0/278x229/images/bandidau/Du-lich-Chau-a/Han-Quoc/tour-du-lich-han-quoc-mua-xuan-du-lich-viet.jpg"
+                                    alt=""></div>
+                        </div>
+                        <div class="title_tour">
+                            <span>Du lịch Hàn Quốc mùa Hoa Anh Đào - Busan - Seoul - Đảo Nami từ Sài </span>
+                        </div>
+
+                        <div class="card_tour_text">
+                            <div class="total_time_tour">
+                                <i class="bi bi-clock"></i> 5 ngày 5 đêm
+                            </div>
+                            <div class="start_time_tour">
+                                <i class="bi bi-calendar-check"></i> 27/04/2024
+                            </div>
+
+                            <div class="spot_remaining">
+                                <i class="bi bi-person"></i> Còn 10 chỗ
+                            </div>
+                            <div class="price_tour d-flex justify-content-end">
+                                <span class="price_tour_text">19.000.000 đ</span>
+                            </div>
+                            <div class="btn_bothBuy row gx-2">
+                                <div class="col-sm-6 mt-1">
+                                    <button type="button" class="btn_DatTour equal w-100" data-bs-toggle="modal"
+                                        data-bs-target="#datTourModal">
+                                        Đặt tour
+                                    </button>
+                                </div>
+                                <div class="col-sm-6 mt-1">
+                                    <button type="button" class="btn_ThanhToan equal w-100" data-bs-toggle="modal"
+                                        data-bs-target="#thanhToanModal">
+                                        Thanh toán
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- modal -->
+<!-- Modal Đặt tour -->
+<div class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="datTourModalLabel">Đặt tour</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid p-0">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#datTour">Đặt tour</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#chiTietTour">Chi tiết tour</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#dichVu">Dịch vụ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " data-bs-toggle="tab" href="#khachHangMoi">Khách hàng mới</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="datTour">
+                            <!-- Nội dung tab Đặt tour -->
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label for="IdDatTour" class="form-label">Id Đặt Tour</label>
+                                        <input type="text" class="form-control" id="IdDatTour" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="IdKhachHang" class="form-label">Id Khách Hàng</label>
+                                        <input type="text" class="form-control" id="IdKhachHang" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="IdTour" class="form-label">Id Tour</label>
+                                        <input type="text" class="form-control" id="IdTour" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="NgayDat" class="form-label">Ngày Đặt</label>
+                                        <input type="date" class="form-control" id="NgayDat" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="SoLuongNguoiLon" class="form-label">Số Lượng Người Lớn</label>
+                                        <input type="number" class="form-control" id="SoLuongNguoiLon" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="SoLuongTreEm" class="form-label">Số Lượng Trẻ Em</label>
+                                        <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="IdNhanVien" class="form-label">Id Nhân Viên</label>
+                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="ThoiGianDatTour" class="form-label">Thời Gian Đặt Tour</label>
+                                        <input type="datetime-local" class="form-control" id="ThoiGianDatTour" required>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label for="GhiChu" class="form-label">Ghi Chú</label>
+                                        <textarea class="form-control" id="GhiChu" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="chiTietTour">
+                            <!-- Nội dung tab Chi tiết tour -->
+                            2
+                        </div>
+                        <div class="tab-pane fade" id="dichVu">
+                            <!-- Nội dung tab Dịch vụ -->
+                            3
+                        </div>
+                        <div class="tab-pane fade" id="khachHangMoi">
+                            <!-- Nội dung tab Dịch vụ -->
+                            4
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thanh toán -->
+<div class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung modal Thanh toán -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>

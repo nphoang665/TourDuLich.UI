@@ -28,11 +28,13 @@ import { QuanLyTourComponent } from './Pages/GiaoDienAdmin/quan-ly-tour/quan-ly-
 import { SidebarNavComponent } from './Pages/GiaoDienAdmin/LayoutChung/sidebar-nav/sidebar-nav.component';
 import { HeaderAdminComponent } from './Pages/GiaoDienAdmin/header-admin/header-admin.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { FormsModule } from '@angular/forms';
+import { FormGroupName, FormsModule } from '@angular/forms';
 import { ThemTourComponent } from './Pages/GiaoDienAdmin/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.component';
 
-
+import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,8 @@ import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.compon
     SidebarNavComponent,
     HeaderAdminComponent,
     ThemTourComponent,
-    SuaTourComponent
+    SuaTourComponent,
+    QuanlydattourComponent
 
   ],
   imports: [
@@ -66,7 +69,11 @@ import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.compon
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    EditorModule
+    EditorModule,
+    ReactiveFormsModule,
+    CommonModule
+
+
 
   ],
   providers: [

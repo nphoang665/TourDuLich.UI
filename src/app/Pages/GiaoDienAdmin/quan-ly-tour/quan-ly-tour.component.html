@@ -5,10 +5,10 @@
 
     <div class="main">
         <app-header-admin></app-header-admin>
+
         <div class="QuanLuTour_container">
+            <h3>Quản lý tour</h3>
             <button class="btn btn-primary" routerLink="/themtour">Thêm mới tour</button>
-            <!-- <app-them-tour></app-them-tour> -->
-            <button class="btn btn-primary" routerLink="/suatour">Sửa tour</button>
             <table class="table table-bordered table-striped  table-reponsive mt-3">
                 <thead class="text-center align-middle">
                     <tr>
@@ -57,7 +57,21 @@
                         <!-- <td>{{item.NgayThem}}</td> -->
                         <!-- <td>{{item.dichVuDiKem}}</td> -->
                         <td class="res_Small_Hide">{{item.TinhTrang}}</td>
-                        <td data-bs-toggle="collapse">:</td>
+                        <td data-bs-toggle="collapse">
+
+                            <div class="dropdown">
+                                <a class="bg-transparent text-black" href="#" role="button" id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" [routerLink]="['/suatour', item.idTour]">Sửa</a></li>
+                                    <li><a class="dropdown-item">Xóa</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="100%" style="padding:0">

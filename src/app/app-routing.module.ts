@@ -8,6 +8,7 @@ import { ChiTietTourComponent } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-
 import { QuanLyTourComponent } from './Pages/GiaoDienAdmin/quan-ly-tour/quan-ly-tour.component';
 import { ThemTourComponent } from './Pages/GiaoDienAdmin/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.component';
+import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'chitiettour', component: ChiTietTourComponent },
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
-  { path: 'suatour', component: SuaTourComponent },
+  { path: 'suatour/:id', component: SuaTourComponent },
+  { path: 'quanlydattour', component: QuanlydattourComponent },
 
 
   { path: '', redirectTo: '/trangchu', pathMatch: 'full' },

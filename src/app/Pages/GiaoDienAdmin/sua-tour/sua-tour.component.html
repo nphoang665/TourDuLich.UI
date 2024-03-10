@@ -9,141 +9,159 @@
             <h2>Sửa tour</h2>
 
 
-            <form action="">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Mã tour</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
+
+            <div class="row">
+                <form [formGroup]="suaTourForm">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idTour">Mã tour</label>
+                                <input type="text" class="form-control" id="idTour" formControlName="idTour"
+                                    placeholder="Nhập mã tour">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TenTour">Tên tour</label>
+                                <input type="text" class="form-control" id="TenTour" formControlName="TenTour"
+                                    placeholder="Nhập tên tour">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="PhuongTienDiChuyen">Phương tiện di chuyển</label>
+                                <input type="text" class="form-control" id="PhuongTienDiChuyen"
+                                    formControlName="PhuongTienDiChuyen" placeholder="Nhập phương tiện di chuyển">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="NoiKhoiHanh">Nơi khởi hành</label>
+                                <input type="text" class="form-control" id="NoiKhoiHanh" formControlName="NoiKhoiHanh"
+                                    placeholder="Nhập nơi khởi hành">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="SoLuongNguoiLon">Sl Người lớn</label>
+                                <input type="number" class="form-control" id="SoLuongNguoiLon"
+                                    formControlName="SoLuongNguoiLon" placeholder="Nhập số lượng người lớn">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="SoLuongTreEm">Sl Trẻ em</label>
+                                <input type="number" class="form-control" id="SoLuongTreEm"
+                                    formControlName="SoLuongTreEm" placeholder="Nhập số lượng trẻ em">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="giaTreEm">Giá trẻ em</label>
+                                <input type="number" class="form-control" id="giaTreEm" formControlName="giaTreEm"
+                                    placeholder="Nhập giá cho trẻ em">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="giaNguoiLon">Giá người lớn</label>
+                                <input type="number" class="form-control" id="giaNguoiLon" formControlName="giaNguoiLon"
+                                    placeholder="Nhập giá cho người lớn">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ThoiGianBatDau">Thời gian bắt đầu</label>
+                                <input type="datetime-local" class="form-control" id="ThoiGianBatDau"
+                                    formControlName="ThoiGianBatDau">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ThoiGianKetThuc">Thời gian kết thúc</label>
+                                <input type="datetime-local" class="form-control" id="ThoiGianKetThuc"
+                                    formControlName="ThoiGianKetThuc">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="SoChoConNhan">Số chỗ còn nhận</label>
+                                <input type="number" class="form-control" id="SoChoConNhan"
+                                    formControlName="SoChoConNhan" placeholder="Nhập số chỗ còn nhận">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idDoiTac">Đối tác</label>
+                                <input type="text" class="form-control" id="idDoiTac" formControlName="idDoiTac"
+                                    placeholder="Nhập đối tác">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idDoiTac">Dịch vụ đi kèm</label>
+                                <input type="text" class="form-control" id="idDichVuDiKem" formControlName="dichVuDiKem"
+                                    placeholder="Nhập đối tác">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idDoiTac">Loại tour</label>
+                                <input type="text" class="form-control" id="idLoaiTour" formControlName="loaiTour"
+                                    placeholder="Nhập đối tác">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TinhTrang">Tình trạng</label>
+                                <select class="form-select" id="TinhTrang" formControlName="TinhTrang">
+                                    <option value="Đang hoạt động">Đang hoạt động</option>
+                                    <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                                    <option value="Tạm hoãn">Tạm hoãn</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- Lưu ý: Angular không hỗ trợ binding cho input type="file", bạn cần xử lý riêng -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="AnhTour">Ảnh tour</label>
+                                <input type="file" class="form-control" id="AnhTour" placeholder="Chọn ảnh tour">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tên tour</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Phương tiện di chuyển</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nơi khởi hành</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Sl Người lớn</label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Sl Trẻ em</label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Giá trẻ em</label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Giá người lớn</label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Thời gian bắt đầu</label>
-                            <input type="datetime-local" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Thời gian kết thúc</label>
-                            <input type="datetime-local" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Số chỗ còn nhận</label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Đối tác</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tình trạng</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Ảnh tour</label>
-                            <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Enter email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Mô tả chi tiết</label>
-                            <editor [(ngModel)]="Text" name="Text" id="exampleInputEmail1" [init]="editorConfig">
-                            </editor>
-
-                        </div>
+                </form>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="MoTa">Mô tả chi tiết</label>
+                        <!-- Lưu ý: editor không phải là một phần của Angular Forms, bạn cần xử lý riêng -->
+                        <editor [(ngModel)]="Text" name="Text" id="MoTa" [init]="editorConfig"></editor>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end mt-2">
-                    <button class="btn btn-secondary" style="margin-right: 5px;" routerLink="/quanlytour">Trở về quản
-                        lý
-                        tour</button>
-                    <button class="btn btn-info text-white" (click)="Fn_Display_Description()"
-                        style="margin-right: 5px;">Hiển thị
-                        previewing mô tả</button>
-                    <button class="btn btn-success" routerLink="/quanlytour">Thêm tour</button>
-                </div>
-            </form>
+
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+                <button class="btn btn-secondary" style="margin-right: 5px;" routerLink="/quanlytour">Trở về quản
+                    lý
+                    tour</button>
+                <button class="btn btn-info text-white" (click)="Fn_Display_Description()"
+                    style="margin-right: 5px;">Hiển thị
+                    previewing mô tả</button>
+                <button class="btn btn-success" (click)="SuaTour()">Sửa tour</button>
+            </div>
+
             <!-- <button (click)="Test()">Lấy kết quả</button> -->
             @if(IsDisplayPreviewDescription === true){
             <div style="margin-top: 20px;  margin: 0 auto; max-width: 800px;">
