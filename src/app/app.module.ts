@@ -35,6 +35,7 @@ import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.compon
 import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,8 @@ import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quan
     FormsModule,
     EditorModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
 
 
 
