@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class SuaTourComponent implements OnInit, OnDestroy {
   //form group 
-  suaTourForm:FormGroup = new FormGroup({
+  suaTourForm: FormGroup = new FormGroup({
     idTour: new FormControl(''),
     tenTour: new FormControl(''),
     loaiTour: new FormControl(''),
@@ -48,15 +48,15 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     plugins: 'lists link image table wordcount'
   };
   constructor(
-    public domSanitizer: DomSanitizer, 
+    public domSanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private quanLyTourService: QuanLyTourService,
-    private router:Router ) { }
+    private router: Router) { }
   Test() {
-    console.log(this.Text);
+    console.log(this.model?.moTa);
   }
   get sanitizedText() {
-    return this.domSanitizer.bypassSecurityTrustHtml(this.Text);
+    return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
   }
   Fn_Display_Description() {
     if (this.IsDisplayPreviewDescription === false) {
@@ -69,21 +69,21 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.routeSubscription = this.route.paramMap.subscribe({
-      next:(prams)=>{
+      next: (prams) => {
         this.id = prams.get('id');
 
-        if(this.id){
+        if (this.id) {
           this.quanLyTourService.getTourDuLichById(this.id)
-          .subscribe({
-            next:(response)=>{
-              this.model = response;
-            }
-          })
+            .subscribe({
+              next: (response) => {
+                this.model = response;
+              }
+            })
         }
       }
     })
 
-    
+
   }
 
   //sửa tour
@@ -93,34 +93,34 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     // console.log(tourData, this.Text);
     // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
 
-    if(this.model && this.id){
-      var updateTourDuLich:SuaTour = {
-        tenTour:this.model.tenTour,
-        loaiTour:this.model.loaiTour,
-        phuongTienDiChuyen:this.model.phuongTienDiChuyen,
-        moTa:this.model.moTa,
-        soLuongNguoiLon:this.model.soLuongNguoiLon,
-        soLuongTreEm:this.model.soLuongTreEm,
-        thoiGianBatDau:this.model.thoiGianBatDau,
-        thoiGianKetThuc:this.model.thoiGianKetThuc,
-        noiKhoiHanh:this.model.noiKhoiHanh,
-        soChoConNhan:this.model.soChoConNhan,
-        idDoiTac:this.model.idDoiTac,
-        giaTreEm:this.model.giaTreEm,
-        giaNguoiLon:this.model.giaNguoiLon,
-        ngayThem:this.model.ngayThem,
-        dichVuDiKem:this.model.dichVuDiKem,
-        tinhTrang:this.model.tinhTrang
+    if (this.model && this.id) {
+      var updateTourDuLich: SuaTour = {
+        tenTour: this.model.tenTour,
+        loaiTour: this.model.loaiTour,
+        phuongTienDiChuyen: this.model.phuongTienDiChuyen,
+        moTa: this.model.moTa,
+        soLuongNguoiLon: this.model.soLuongNguoiLon,
+        soLuongTreEm: this.model.soLuongTreEm,
+        thoiGianBatDau: this.model.thoiGianBatDau,
+        thoiGianKetThuc: this.model.thoiGianKetThuc,
+        noiKhoiHanh: this.model.noiKhoiHanh,
+        soChoConNhan: this.model.soChoConNhan,
+        idDoiTac: this.model.idDoiTac,
+        giaTreEm: this.model.giaTreEm,
+        giaNguoiLon: this.model.giaNguoiLon,
+        ngayThem: this.model.ngayThem,
+        dichVuDiKem: this.model.dichVuDiKem,
+        tinhTrang: this.model.tinhTrang
       }
 
-      this.updateTourSubcription = this.quanLyTourService.suaTourDuLich(this.id,updateTourDuLich)
-      .subscribe({
-        next:(response)=>{
-          this.router.navigateByUrl('/quanlytour');
-          console.log(response);
-          
-        }
-      })
+      this.updateTourSubcription = this.quanLyTourService.suaTourDuLich(this.id, updateTourDuLich)
+        .subscribe({
+          next: (response) => {
+            this.router.navigateByUrl('/quanlytour');
+            console.log(response);
+
+          }
+        })
     }
   }
 

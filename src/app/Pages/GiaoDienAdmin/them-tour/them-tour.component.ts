@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class ThemTourComponent implements OnInit, OnDestroy {
 
   //form group
-  ThemTourForm:FormGroup = new FormGroup({
+  ThemTourForm: FormGroup = new FormGroup({
     idTour: new FormControl(''),
     tenTour: new FormControl(''),
     loaiTour: new FormControl(''),
@@ -102,7 +102,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     console.log(this.Text);
   }
   get sanitizedText() {
-    return this.domSanitizer.bypassSecurityTrustHtml(this.Text);
+    return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
   }
 
   //thêm tour
@@ -113,20 +113,20 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     // console.log(tourData);
 
     // console.log(this.model);
-    
+
     // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
     this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.model)
-    .subscribe({
-      next:(response)=>{
-        this.router.navigateByUrl('/quanlytour');
-        // console.log(response);
-        
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/quanlytour');
+          // console.log(response);
+
+        }
+      })
   }
-  
-  onFormSubmit(){
-   
+
+  onFormSubmit() {
+
   }
 
 
