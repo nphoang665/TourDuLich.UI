@@ -6,6 +6,7 @@ import { TourDuLich } from '../models/tour-du-lich.model';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { SuaTour } from '../models/sua-tour.model';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-sua-tour',
   templateUrl: './sua-tour.component.html',
@@ -66,6 +67,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       this.IsDisplayPreviewDescription = false;
     }
   }
+  previewingFileImg: any[] = [];
   ngOnInit(): void {
 
     this.routeSubscription = this.route.paramMap.subscribe({
@@ -77,6 +79,10 @@ export class SuaTourComponent implements OnInit, OnDestroy {
             .subscribe({
               next: (response) => {
                 this.model = response;
+
+
+
+                this.HienThiAnhPreview()
               }
             })
         }
@@ -85,7 +91,15 @@ export class SuaTourComponent implements OnInit, OnDestroy {
 
 
   }
+  HienThiAnhPreview() {
+    for (let index = 0; index < this.model?.anhTour.length; index++) {
+      const stringHttpsImg = environment.apiBaseUrl + '/uploads/' + this.model?.anhTour[index].imgTour;
+      this.previewingFileImg.push(stringHttpsImg);
+    }
+  }
+  XoaImgPreviewing(index: number) {
 
+  }
   //sửa tour
   SuaTour() {
     // const tourData = this.suaTourForm.value;
@@ -110,7 +124,8 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         giaNguoiLon: this.model.giaNguoiLon,
         ngayThem: this.model.ngayThem,
         dichVuDiKem: this.model.dichVuDiKem,
-        tinhTrang: this.model.tinhTrang
+        tinhTrang: this.model.tinhTrang,
+        anhTour: ''
       }
 
       this.updateTourSubcription = this.quanLyTourService.suaTourDuLich(this.id, updateTourDuLich)

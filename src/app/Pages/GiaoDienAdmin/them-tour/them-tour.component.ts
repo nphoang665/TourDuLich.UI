@@ -142,14 +142,18 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     if (files) {
       for (let index = 0; index < files.length; index++) {
         const file = files[index];
+
         const reader = new FileReader();
         reader.onload = (e) => {
           // Chuyển đổi hình ảnh thành chuỗi Base64 và thêm vào mảng
           this.model.imgSelected.push(e.target?.result as string);
+          this.previewingFileImg.push(e.target?.result as string);
         }
         reader.readAsDataURL(file);
       }
     }
+    console.log(this.previewingFileImg);
+
   }
   XoaImgPreviewing(index: number) {
     this.selectedFile.splice(index, 1);

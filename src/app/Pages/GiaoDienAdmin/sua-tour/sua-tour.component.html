@@ -171,7 +171,13 @@
                     previewing mô tả</button>
                 <button class="btn btn-success" (click)="SuaTour()">Sửa tour</button>
             </div>
-
+            <div>
+                <p>Hiển thị previewing ảnh</p>
+                @for(item of previewingFileImg; track $index){
+                <img [src]="item" width="200px" alt="img">
+                <button (click)="XoaImgPreviewing($index)">Xóa</button>
+                }
+            </div>
             <!-- <button (click)="Test()">Lấy kết quả</button> -->
             @if(IsDisplayPreviewDescription === true){
             <div style="margin-top: 20px;  margin: 0 auto; max-width: 800px;">
