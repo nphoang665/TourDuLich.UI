@@ -5,6 +5,8 @@ import { themTour } from '../models/them-tour.model';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ppid } from 'node:process';
+import { read } from 'node:fs';
 
 @Component({
   selector: 'app-them-tour',
@@ -55,7 +57,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     giaNguoiLon: '',
     ngayThem: new Date(),
     dichVuDiKem: '',
-    tinhTrang: ''
+    tinhTrang: '',
+    imgSelected: [],
   }
 
 
@@ -77,19 +80,19 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       loaiTour: '',
       phuongTienDiChuyen: '',
       moTa: '',
-      soLuongNguoiLon: '',
-      soLuongTreEm: '',
+      soLuongNguoiLon: "0",
+      soLuongTreEm: '0',
       thoiGianBatDau: new Date(),
       thoiGianKetThuc: new Date(),
       noiKhoiHanh: '',
-      soChoConNhan: '',
+      soChoConNhan: '1',
       idDoiTac: '',
-      giaTreEm: '',
-      giaNguoiLon: '',
+      giaTreEm: '1',
+      giaNguoiLon: '1',
       ngayThem: new Date(),
       dichVuDiKem: '',
-      tinhTrang: ''
-
+      tinhTrang: '',
+      imgSelected: this.selectedFile,
     }
   }
   ngOnDestroy(): void {
@@ -98,15 +101,15 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
   }
-  Test() {
-    console.log(this.Text);
-  }
+
   get sanitizedText() {
     return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
   }
 
   //thêm tour
   ThemTour() {
+    console.log(this.model);
+
     // const tourData = this.ThemTourForm.value;
     // tourData.NgayThem = new Date().toISOString();
     // tourData.MoTa = this.Text;
@@ -123,6 +126,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
 
         }
       })
+
+
   }
 
   onFormSubmit() {
@@ -130,8 +135,26 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   }
 
 
-
-
+  selectedFile: any[] = [];
+  previewingFileImg: any[] = [];
+  onFileSelected(event: any) {
+    const files = event.target.files;
+    if (files) {
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // Chuyển đổi hình ảnh thành chuỗi Base64 và thêm vào mảng
+          this.model.imgSelected.push(e.target?.result as string);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+  XoaImgPreviewing(index: number) {
+    this.selectedFile.splice(index, 1);
+    this.previewingFileImg.splice(index, 1);
+  }
 
 
 
