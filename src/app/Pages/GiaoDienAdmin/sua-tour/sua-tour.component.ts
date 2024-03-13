@@ -7,6 +7,8 @@ import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { SuaTour } from '../models/sua-tour.model';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { DoitacService } from '../services/DoiTac/doitac.service';
+import { DoiTac } from '../models/doi-tac.model';
 @Component({
   selector: 'app-sua-tour',
   templateUrl: './sua-tour.component.html',
@@ -48,10 +50,13 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     suffix: '.min',
     plugins: 'lists link image table wordcount'
   };
+  DoiTac: any[] = [];
   constructor(
     public domSanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private quanLyTourService: QuanLyTourService,
+    private doiTacServices: DoitacService,
+
     private router: Router) { }
   Test() {
     console.log(this.model?.moTa);
@@ -87,6 +92,11 @@ export class SuaTourComponent implements OnInit, OnDestroy {
             })
         }
       }
+    });
+    this.doiTacServices.getAllDoiTac().subscribe((data: DoiTac[]) => {
+      this.DoiTac = data;
+      console.log(this.DoiTac);
+
     })
 
 

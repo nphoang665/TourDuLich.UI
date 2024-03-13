@@ -107,8 +107,12 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="idDoiTac">Đối tác</label>
-                                    <input type="text" class="form-control" id="idDoiTac" formControlName="idDoiTac"
-                                        [(ngModel)]="model.idDoiTac" placeholder="Nhập đối tác">
+                                    <select class="form-select" id="idDoiTac" formControlName="idDoiTac"
+                                        [(ngModel)]="model.idDoiTac">
+                                        @for (item of DoiTac; track $index) {
+                                        <option [value]="item.idDoiTac">{{item.tenDoiTac}}</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">

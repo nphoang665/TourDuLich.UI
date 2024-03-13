@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { ppid } from 'node:process';
 import { read } from 'node:fs';
 import { ToastrService } from 'ngx-toastr';
+import { DoitacService } from '../services/DoiTac/doitac.service';
+import { DoiTac } from '../models/doi-tac.model';
 
 @Component({
   selector: 'app-them-tour',
@@ -75,7 +77,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     private quanLyTourService: QuanLyTourService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private doiTacServices: DoitacService
   ) {
     this.model = {
       idTour: '',
@@ -106,84 +109,93 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.addTourSubscribtion?.unsubscribe();
   }
+  DoiTac: any[] = [];
   ngOnInit(): void {
     this.ThemTourForm = this.formBuilder.group({
-      tenTour:['',
+      tenTour: ['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(100)
+        ]
+      ],
+      loaiTour: ['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(200)
+        ]
+      ],
+      phuongTienDiChuyen: [[],
       [
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(100)
       ]
-    ],
-    loaiTour:['',
-    [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(200)
-    ]
-  ],
-  phuongTienDiChuyen:[[],
-  [
-    Validators.required,
-  ]
-],mota:['',
-[
-  Validators.required,
-  Validators.minLength(4),
-]
-],soLuongNguoiLon:[[],
-[
-  Validators.required,
-]
-],soLuongTreEm:[[],
-[
-  Validators.required,
-]
-],thoiGianBatDau:[[],
-[
-  Validators.required,
-]
-],thoiGianKetThuc:[[],
-[
-  Validators.required,
-]
-],noiKhoiHanh:['',
-[
-  Validators.required,
-  Validators.minLength(4),
-  Validators.maxLength(50)
-]
-],soChoConNhan:[[],
-[
-  Validators.required,
-]
-],idDoiTac:[[],
-[
-  Validators.required,
-]
-],giaTreEm:[[],
-[
-  Validators.required,
-]
-],giaNguoiLon:[[],
-[
-  Validators.required,
-]
-],ngayThem:[new Date(),
-[
-  Validators.required,
-]
-],dichVuDiKem:[[],
-[
-  Validators.required,
-]
-],tinhTrang:[[],
-[
-  Validators.required,
-]
-],
+      ], mota: ['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+        ]
+      ], soLuongNguoiLon: [[],
+      [
+        Validators.required,
+      ]
+      ], soLuongTreEm: [[],
+      [
+        Validators.required,
+      ]
+      ], thoiGianBatDau: [[],
+      [
+        Validators.required,
+      ]
+      ], thoiGianKetThuc: [[],
+      [
+        Validators.required,
+      ]
+      ], noiKhoiHanh: ['',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(50)
+        ]
+      ], soChoConNhan: [[],
+      [
+        Validators.required,
+      ]
+      ], idDoiTac: [[],
+      [
+        Validators.required,
+      ]
+      ], giaTreEm: [[],
+      [
+        Validators.required,
+      ]
+      ], giaNguoiLon: [[],
+      [
+        Validators.required,
+      ]
+      ], ngayThem: [new Date(),
+      [
+        Validators.required,
+      ]
+      ], dichVuDiKem: [[],
+      [
+        Validators.required,
+      ]
+      ], tinhTrang: [[],
+      [
+        Validators.required,
+      ]
+      ],
+    })
+
+    //lấy đối tác
+    this.doiTacServices.getAllDoiTac().subscribe((data: DoiTac[]) => {
+      this.DoiTac = data;
+      console.log(this.DoiTac);
+
     })
   }
+
 
   get sanitizedText() {
     return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
@@ -196,7 +208,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   //thêm tour
   ThemTour() {
     console.log(this.model);
-    
+
     // this.submitted = true;
     // if (this.ThemTourForm.invalid) {
     //   return;
@@ -222,7 +234,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
 
 
   }
-  
+
 
   onFormSubmit() {
 

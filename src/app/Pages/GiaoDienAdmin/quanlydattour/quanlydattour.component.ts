@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { TourDuLich } from '../models/tour-du-lich.model';
 import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { KhachhangService } from '../services/KhachHang/khachhang.service';
+import { KhachHang } from '../models/khach-hang.model';
 
 
 @Component({
@@ -10,9 +13,13 @@ import { Observable } from 'rxjs';
   styleUrl: './quanlydattour.component.css'
 })
 export class QuanlydattourComponent implements OnInit {
-  constructor(private quanLyTourService: QuanLyTourService) {
+  TenKhachHang = new FormControl();
+  constructor(private quanLyTourService: QuanLyTourService, private quanLyKhachHangServices: KhachhangService) {
 
   }
+  // Tạo mới arr Khách hàng
+  khachHang$?: Observable<KhachHang[]>;
+  arrKhachHang: any[] = [];
   tourDuLich$?: Observable<TourDuLich[]>;
   //khai báo TourDuLich để html sử dụng hiển thị
   TourDuLich: any[] = [];
@@ -23,6 +30,13 @@ export class QuanlydattourComponent implements OnInit {
       console.log(this.TourDuLich);
       this.Fnc_TinhNgayDem();
     });
+    //lấy khách hàng từ db
+    this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
+    this.khachHang$.subscribe((data: KhachHang[]) => {
+      this.arrKhachHang = data;
+
+    })
+
   }
   Fnc_TinhNgayDem() {
 
@@ -35,5 +49,21 @@ export class QuanlydattourComponent implements OnInit {
     //   console.log(diffTime);
 
     // }
+  }
+
+
+  //xử lý select khách hàng
+  selectValueKhachHang(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
+
+
+    if (khachhang) {
+      console.log(khachhang);
+
+      this.TenKhachHang.setValue(khachhang.tenKhachHang)
+    }
+
+
   }
 }

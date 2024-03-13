@@ -99,38 +99,86 @@
                             <!-- Nội dung tab Đặt tour -->
                             <form>
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <!-- <div class="col-lg-4">
                                         <label for="IdDatTour" class="form-label">Id Đặt Tour</label>
                                         <input type="text" class="form-control" id="IdDatTour" required>
+                                    </div> -->
+                                    <div class="col-lg-4">
+                                        <label for="IdTour" class="form-label">Tên tour</label>
+                                        <input type="text" class="form-control" disabled
+                                            value="Tour Nhật Bản 5N5Đ: Osaka - Kyoto - Yamanashi Fuji - Tokyo - Mùa Hè Rực Rỡ"
+                                            id="IdTour" required>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="IdKhachHang" class="form-label">Id Khách Hàng</label>
-                                        <input type="text" class="form-control" id="IdKhachHang" required>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="IdTour" class="form-label">Id Tour</label>
-                                        <input type="text" class="form-control" id="IdTour" required>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="NgayDat" class="form-label">Ngày Đặt</label>
-                                        <input type="date" class="form-control" id="NgayDat" required>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="SoLuongNguoiLon" class="form-label">Số Lượng Người Lớn</label>
-                                        <input type="number" class="form-control" id="SoLuongNguoiLon" required>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="SoLuongTreEm" class="form-label">Số Lượng Trẻ Em</label>
-                                        <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                        <label for="exampleDataList" class="form-label">Tên khách hàng</label>
+                                        <input spellcheck="false" class="form-control" [formControl]="TenKhachHang"
+                                            (input)="selectValueKhachHang($event)" list="datalistOptions"
+                                            id="exampleDataList" placeholder="Type to search...">
+
+                                        <datalist id="datalistOptions">
+
+                                            @for(item of arrKhachHang; track $index){
+                                            <option [value]="item.soDienThoai + '-' + item.email">
+                                                {{item.tenKhachHang}}
+                                            </option>
+
+                                            }
+                                        </datalist>
                                     </div>
 
                                     <div class="col-lg-4">
-                                        <label for="IdNhanVien" class="form-label">Id Nhân Viên</label>
-                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                        <label for="NgayDat" class="form-label">Ngày đặt</label>
+                                        <input type="date" class="form-control" id="NgayDat" required>
                                     </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-4"> <label for="SoLuongTreEm"
+                                            class="form-label">Số
+                                            lượng người lớn</label>
+
+                                        <div class="row">
+                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
+                                                    class="btn_sl btn btn-outline-secondary w-100">-</button></div>
+                                            <div class="col-8 col-sm-8 col-md-8 col-lg-8 gx-1"><input
+                                                    style="width: 100%;" type="number" class="form-control"
+                                                    id="SoLuongTreEm" required></div>
+
+                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
+                                                    class="btn btn-outline-secondary w-100">+</button></div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4"> <label for="SoLuongTreEm"
+                                            class="form-label">Số
+                                            lượng trẻ em</label>
+
+                                        <div class="row">
+                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
+                                                    class="btn_sl btn btn-outline-secondary w-100">-</button></div>
+                                            <div class="col-8 col-sm-8 col-md-8 col-lg-8 gx-1"><input
+                                                    style="width: 100%;" type="number" class="form-control"
+                                                    id="SoLuongTreEm" required></div>
+
+                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
+                                                    class="btn btn-outline-secondary w-100">+</button></div>
+
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-lg-4">
+                                        <label for="IdNhanVien" class="form-label">Tên nhân viên</label>
+                                        <input type="text" disabled class="form-control" id="IdNhanVien" required>
+                                    </div>
+                                    <div class="col-lg-4" hidden>
+
                                         <label for="ThoiGianDatTour" class="form-label">Thời Gian Đặt Tour</label>
-                                        <input type="datetime-local" class="form-control" id="ThoiGianDatTour" required>
+                                        <div class="row">
+                                            <div class="col-lg-2"><button value="-">232131s</button></div>
+                                            <div class="col-lg-8"><input type="datetime-local" class="form-control"
+                                                    id="ThoiGianDatTour" required></div>
+                                            <div class="col-lg-2"><button value="+">2323</button></div>
+
+                                        </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <label for="GhiChu" class="form-label">Ghi Chú</label>
