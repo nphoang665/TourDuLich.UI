@@ -36,6 +36,7 @@ import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl
 import { CommonModule } from '@angular/common';
 import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import { HttpClientModule } from '@angular/common/http';
     EditorModule,
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
 
 
 
