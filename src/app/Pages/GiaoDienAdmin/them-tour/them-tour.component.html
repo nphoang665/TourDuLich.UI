@@ -329,7 +329,7 @@
             <div>
                 <p>Hiển thị previewing ảnh</p>
                 @for(item of previewingFileImg; track $index){
-                <img [src]="item" width="200px" alt="">
+                <img [src]="item" width="200px" alt="img">
                 <button (click)="XoaImgPreviewing($index)">Xóa</button>
                 }
             </div>
