@@ -16,5 +16,6 @@ export interface TourDuLich {
     ngayThem: Date,
     dichVuDiKem?: string,
     tinhTrang: string,
-    anhTour: any
+    anhTour: any,
+
 }

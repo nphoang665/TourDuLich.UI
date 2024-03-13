@@ -67,7 +67,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       this.IsDisplayPreviewDescription = false;
     }
   }
-  previewingFileImg: any[] = [];
+
   ngOnInit(): void {
 
     this.routeSubscription = this.route.paramMap.subscribe({
@@ -91,14 +91,78 @@ export class SuaTourComponent implements OnInit, OnDestroy {
 
 
   }
+
+  //hiển thị ảnh từ db
+  //khai báo mảng chứa file lấy từ db
+  fileImgPreviewFromDb: any[] = [];
   HienThiAnhPreview() {
     for (let index = 0; index < this.model?.anhTour.length; index++) {
       const stringHttpsImg = environment.apiBaseUrl + '/uploads/' + this.model?.anhTour[index].imgTour;
-      this.previewingFileImg.push(stringHttpsImg);
+      this.fileImgPreviewFromDb.push(stringHttpsImg);
     }
   }
-  XoaImgPreviewing(index: number) {
 
+  //hàm thêm mới ảnh
+  //khai báo mảng chứa file thêm mới chưa có trong db
+  fileImgPreviewFromBrowse: any[] = [];
+  OnFileSelected(event: any) {
+    const files = event.target.files;
+    if (files) {
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.fileImgPreviewFromBrowse.push(e.target?.result as string);
+          // console.log(e.target?.result as string);
+
+        }
+        reader.readAsDataURL(file);
+
+      }
+    }
+
+
+  }
+
+  //xóa ảnh previewing
+  //khai báo mảng chứa những phần tử trong db được người dùng xóa
+  arrImgPreviewClientHandle: any[] = [];
+  XoaImgPreviewing(item: any) {
+    //duyệt xem item có trong arr không? 
+    // 1. Duyệt trong mảng fileImgPreviewFromDb xem đã có dữ liệu chưa? 
+    let found_fileImgPreviewFromDb = this.fileImgPreviewFromDb.find(el => el === item);
+    if (found_fileImgPreviewFromDb) {
+      //nếu tìm thấy trong mảng found_fileImgPreviewFromDb
+      console.log('có trong mảng fileImgPreviewFromDb');
+      // 3. Nếu fileImgPreviewFromDb có thì xóa và dừng hàm.
+      // dùng filter để xóa phần tử trong mảng
+      this.arrImgPreviewClientHandle.push(item);
+      this.fileImgPreviewFromDb = this.fileImgPreviewFromDb.filter(itm => itm !== item);
+      return;
+    }
+    else {
+      // 2. Nếu không có tiếp tục duyệt mảng fileImgPreviewFromBrowse xem có chưa? 
+      let found_fileImgPreviewFromBrowse = this.fileImgPreviewFromBrowse.find(el => el === item);
+      if (found_fileImgPreviewFromBrowse) {
+        // nếu tìm thấy trong mảng fileImgPreviewFromBrowse 
+        // 4. Nếu fileImgPreviewFromBrowse có thì xóa và dừng hàm. 
+        console.log('có trong mảng fileImgPreviewFromBrowse');
+        // dùng filter để xóa phần tử trong mảng
+        this.fileImgPreviewFromBrowse = this.fileImgPreviewFromBrowse.filter(itm => itm !== item);
+        return;
+      }
+      else {
+
+        // 5. Nếu cả 2 không có thì log exception
+        console.log("Không tìm thấy ảnh trong 2 mảng");
+
+      }
+    }
+
+
+    // ```````````````````````````````
+    // Các array đùng để post vào api
+    // fileImgPreviewFromBrowse  &&  arrImgPreviewClientHandle
   }
   //sửa tour
   SuaTour() {
@@ -125,7 +189,9 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         ngayThem: this.model.ngayThem,
         dichVuDiKem: this.model.dichVuDiKem,
         tinhTrang: this.model.tinhTrang,
-        anhTour: ''
+        anhTourDb: this.arrImgPreviewClientHandle,
+        anhTourBrowse: this.fileImgPreviewFromBrowse
+
       }
 
       this.updateTourSubcription = this.quanLyTourService.suaTourDuLich(this.id, updateTourDuLich)

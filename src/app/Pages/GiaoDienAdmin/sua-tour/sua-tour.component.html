@@ -144,7 +144,8 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="AnhTour">Ảnh tour</label>
-                                    <input type="file" class="form-control" id="AnhTour" placeholder="Chọn ảnh tour">
+                                    <input type="file" multiple (change)="OnFileSelected($event)" class="form-control"
+                                        id="AnhTour" placeholder="Chọn ảnh tour">
                                 </div>
                             </div>
                         </div>
@@ -173,10 +174,19 @@
             </div>
             <div>
                 <p>Hiển thị previewing ảnh</p>
-                @for(item of previewingFileImg; track $index){
+                @if(fileImgPreviewFromDb){
+                @for(item of fileImgPreviewFromDb; track $index){
                 <img [src]="item" width="200px" alt="img">
-                <button (click)="XoaImgPreviewing($index)">Xóa</button>
+                <button (click)="XoaImgPreviewing(item)">Xóa</button>
                 }
+                }
+                @if(fileImgPreviewFromBrowse){
+                @for(item of fileImgPreviewFromBrowse; track $index){
+                <img [src]="item" width="200px" alt="img">
+                <button (click)="XoaImgPreviewing(item)">Xóa</button>
+                }
+                }
+
             </div>
             <!-- <button (click)="Test()">Lấy kết quả</button> -->
             @if(IsDisplayPreviewDescription === true){

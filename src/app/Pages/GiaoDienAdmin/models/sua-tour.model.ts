@@ -15,5 +15,7 @@ export interface SuaTour {
     ngayThem: Date,
     dichVuDiKem?: string,
     tinhTrang: string,
-    anhTour: any
+    anhTourDb: any,
+    anhTourBrowse: any,
+
 }
