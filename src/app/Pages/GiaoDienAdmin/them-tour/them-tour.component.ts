@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { themTour } from '../models/them-tour.model';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ppid } from 'node:process';
 import { read } from 'node:fs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-them-tour',
@@ -14,7 +15,7 @@ import { read } from 'node:fs';
   styleUrl: './them-tour.component.css'
 })
 export class ThemTourComponent implements OnInit, OnDestroy {
-
+  submitted = false;
   //form group
   ThemTourForm: FormGroup = new FormGroup({
     idTour: new FormControl(''),
@@ -73,6 +74,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     public domSanitizer: DomSanitizer,
     private quanLyTourService: QuanLyTourService,
     private router: Router,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.model = {
       idTour: '',
@@ -95,20 +98,110 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       imgSelected: this.selectedFile,
     }
   }
+
+  onFieldTouched(fieldName: string): void {
+    this.ThemTourForm.get(fieldName)?.markAsTouched();
+  }
+
   ngOnDestroy(): void {
     this.addTourSubscribtion?.unsubscribe();
   }
   ngOnInit(): void {
-
+    this.ThemTourForm = this.formBuilder.group({
+      tenTour:['',
+      [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(100)
+      ]
+    ],
+    loaiTour:['',
+    [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(200)
+    ]
+  ],
+  phuongTienDiChuyen:[[],
+  [
+    Validators.required,
+  ]
+],mota:['',
+[
+  Validators.required,
+  Validators.minLength(4),
+]
+],soLuongNguoiLon:[[],
+[
+  Validators.required,
+]
+],soLuongTreEm:[[],
+[
+  Validators.required,
+]
+],thoiGianBatDau:[[],
+[
+  Validators.required,
+]
+],thoiGianKetThuc:[[],
+[
+  Validators.required,
+]
+],noiKhoiHanh:['',
+[
+  Validators.required,
+  Validators.minLength(4),
+  Validators.maxLength(50)
+]
+],soChoConNhan:[[],
+[
+  Validators.required,
+]
+],idDoiTac:[[],
+[
+  Validators.required,
+]
+],giaTreEm:[[],
+[
+  Validators.required,
+]
+],giaNguoiLon:[[],
+[
+  Validators.required,
+]
+],ngayThem:[new Date(),
+[
+  Validators.required,
+]
+],dichVuDiKem:[[],
+[
+  Validators.required,
+]
+],tinhTrang:[[],
+[
+  Validators.required,
+]
+],
+    })
   }
 
   get sanitizedText() {
     return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
   }
 
+  get f(): { [key: string]: any } {
+    return this.ThemTourForm.controls;
+  }
+
   //thêm tour
   ThemTour() {
     console.log(this.model);
+    
+    // this.submitted = true;
+    // if (this.ThemTourForm.invalid) {
+    //   return;
+    // }
+    // console.log(this.model);
 
     // const tourData = this.ThemTourForm.value;
     // tourData.NgayThem = new Date().toISOString();
@@ -129,6 +222,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
 
 
   }
+  
 
   onFormSubmit() {
 
