@@ -15,9 +15,7 @@
                             <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
                                     Đang giảm giá
                                 </span></div>
-                            <div> <img class="img_tour"
-                                    src="https://dulichviet.com.vn/thumbs/0/278x229/images/bandidau/Du-lich-Chau-a/Han-Quoc/tour-du-lich-han-quoc-mua-xuan-du-lich-viet.jpg"
-                                    alt=""></div>
+                            <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
                         </div>
                         <div class="title_tour">
                             <span>{{item.tenTour}} </span>
@@ -74,17 +72,17 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="datTourModalLabel">Đặt tour</h5>
+                <h5 class="modal-title" id="datTourModalLabel">Đặt tour - TOUR01</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid p-0">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#datTour">Đặt tour</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#datTour">Nhập thông tin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#chiTietTour">Chi tiết tour</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#chiTietTour">Thông tin tour</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#dichVu">Dịch vụ</a>
@@ -92,6 +90,8 @@
                         <li class="nav-item">
                             <a class="nav-link " data-bs-toggle="tab" href="#khachHangMoi">Khách hàng mới</a>
                         </li>
+
+
                     </ul>
 
                     <div class="tab-content">
@@ -130,68 +130,146 @@
                                         <label for="NgayDat" class="form-label">Ngày đặt</label>
                                         <input type="date" class="form-control" id="NgayDat" required>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4"> <label for="SoLuongTreEm"
-                                            class="form-label">Số
-                                            lượng người lớn</label>
-
-                                        <div class="row">
-                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
-                                                    class="btn_sl btn btn-outline-secondary w-100">-</button></div>
-                                            <div class="col-8 col-sm-8 col-md-8 col-lg-8 gx-1"><input
-                                                    style="width: 100%;" type="number" class="form-control"
-                                                    id="SoLuongTreEm" required></div>
-
-                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
-                                                    class="btn btn-outline-secondary w-100">+</button></div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 col-md-6 col-lg-4"> <label for="SoLuongTreEm"
-                                            class="form-label">Số
-                                            lượng trẻ em</label>
-
-                                        <div class="row">
-                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
-                                                    class="btn_sl btn btn-outline-secondary w-100">-</button></div>
-                                            <div class="col-8 col-sm-8 col-md-8 col-lg-8 gx-1"><input
-                                                    style="width: 100%;" type="number" class="form-control"
-                                                    id="SoLuongTreEm" required></div>
-
-                                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 gx-1"><button
-                                                    class="btn btn-outline-secondary w-100">+</button></div>
-
+                                    <div class="col-sm-6 col-md-6 col-lg-3">
+                                        <label for="SoLuongTreEm" class="form-label">Số lượng người lớn</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="btn btn-outline-secondary btn_sl">-</span>
+                                            </div>
+                                            <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                            <div class="input-group-append">
+                                                <span class="btn btn-outline-secondary btn_sl">+</span>
+                                            </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="col-lg-4">
+
+                                    <div class="col-sm-6 col-md-6 col-lg-3">
+                                        <label for="SoLuongTreEm" class="form-label">Số lượng trẻ em</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="btn btn-outline-secondary btn_sl">-</span>
+                                            </div>
+                                            <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                            <div class="input-group-append">
+                                                <span class="btn btn-outline-secondary btn_sl">+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label for="IdNhanVien" class="form-label">Giá trẻ em</label>
+                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label for="IdNhanVien" class="form-label">Giá người lớn</label>
+                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                    </div>
+
+                                    <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Tên nhân viên</label>
                                         <input type="text" disabled class="form-control" id="IdNhanVien" required>
                                     </div>
-                                    <div class="col-lg-4" hidden>
 
-                                        <label for="ThoiGianDatTour" class="form-label">Thời Gian Đặt Tour</label>
-                                        <div class="row">
-                                            <div class="col-lg-2"><button value="-">232131s</button></div>
-                                            <div class="col-lg-8"><input type="datetime-local" class="form-control"
-                                                    id="ThoiGianDatTour" required></div>
-                                            <div class="col-lg-2"><button value="+">2323</button></div>
-
-                                        </div>
+                                    <div class="col-lg-3">
+                                        <label for="IdNhanVien" class="form-label">Số chỗ còn</label>
+                                        <input type="text" class="form-control" id="IdNhanVien" required>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label for="NgayDat" class="form-label">Ngày khởi hành</label>
+                                        <input type="date" class="form-control" id="NgayDat" required>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label for="NgayDat" class="form-label">Dịch vụ đi kèm</label>
+                                        <input type="text" class="form-control" id="NgayDat" required>
+                                    </div>
+                                    <div class="col-12col-sm-12 col-md-12 col-lg-12">
                                         <label for="GhiChu" class="form-label">Ghi Chú</label>
                                         <textarea class="form-control" id="GhiChu" rows="3"></textarea>
                                     </div>
+                                    <div class="col-12col-sm-12 col-md-12 col-lg-6">
+
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-5 ">
+                                        <div class="mt-3 " style="border-radius: 5px;">
+                                            <div>
+                                                <h5>Thanh toán</h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Thời gian tour: </span><span><b>5 ngày 4 đêm</b></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Số lượng người lớn: </span><span><b>1 x 9.000.000đ</b></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Số lượng trẻ em: </span><span><b>1 x 6.000.000đ</b></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Tổng tiền: </span><span class="price_tour_text">15.000.000đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </form>
+
                         </div>
 
                         <div class="tab-pane fade" id="chiTietTour">
-                            <!-- Nội dung tab Chi tiết tour -->
-                            2
+                            <div class="card mt-5">
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Tên tour:</strong> Tên của tour</div>
+                                            <div class="col text-nowrap"><strong>Loại tour:</strong> Loại của tour</div>
+                                            <div class="col text-nowrap"><strong>Phương tiện di chuyển:</strong>
+                                                Ô tô</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Tình trạng:</strong> Tình trạng</div>
+                                            <div class="col text-nowrap"><strong>Số lượng người lớn:</strong> 2</div>
+                                            <div class="col text-nowrap"><strong>Số lượng trẻ em:</strong>
+                                                2</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Thời gian bắt đầu:</strong> Thời gian
+                                                bắt đầu </div>
+                                            <div class="col text-nowrap"><strong>Thời gian kết thúc:</strong> Thời gian
+                                                kết thúc</div>
+                                            <div class="col text-nowrap"><strong>Nơi khởi hành:</strong>
+                                                Nơi khởi hành</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Số chỗ còn nhận:</strong> Số chỗ còn
+                                                nhận</div>
+                                            <div class="col text-nowrap"><strong>Đối tác:</strong> Đối tác</div>
+                                            <div class="col text-nowrap"><strong>Giá trẻ em:</strong>
+                                                Giá trẻ em</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Giá người lớn:</strong> Giá người lớn
+                                            </div>
+                                            <div class="col text-nowrap"><strong>Ngày thêm:</strong> Ngày thêm</div>
+                                            <div class="col text-nowrap"><strong>Dịch vụ đi kèm:</strong>
+                                                Dịch vụ đi kèm</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="dichVu">
                             <!-- Nội dung tab Dịch vụ -->
                             3
@@ -200,13 +278,14 @@
                             <!-- Nội dung tab Dịch vụ -->
                             4
                         </div>
+
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Xác nhận</button>
+                <button type="button" class="btn btn-primary">Đặt tour</button>
             </div>
         </div>
     </div>
@@ -225,7 +304,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Xác nhận</button>
+                <button type="button" class="btn btn-primary">Thanh toán</button>
             </div>
         </div>
     </div>

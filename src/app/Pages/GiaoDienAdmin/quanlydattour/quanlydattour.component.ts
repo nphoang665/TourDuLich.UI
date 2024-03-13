@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { TourDuLich } from '../models/tour-du-lich.model';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { KhachhangService } from '../services/KhachHang/khachhang.service';
 import { KhachHang } from '../models/khach-hang.model';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -27,7 +28,14 @@ export class QuanlydattourComponent implements OnInit {
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
       this.TourDuLich = data;
+      this.TourDuLich.forEach(element => {
+        var urlFirstImgTour = environment.apiBaseUrl + '/uploads/' + element.anhTour[0].imgTour;
+        element.AnhTourDauTien = urlFirstImgTour;
+
+
+      });
       console.log(this.TourDuLich);
+
       this.Fnc_TinhNgayDem();
     });
     //lấy khách hàng từ db
@@ -66,4 +74,6 @@ export class QuanlydattourComponent implements OnInit {
 
 
   }
+  //chuyển tab pane
+
 }
