@@ -9,6 +9,7 @@
             <h2>Quản lý đặt Tour</h2>
             <div class="mt-4">
                 <div class="total_card row d-flex justify-content-center">
+                    @for(item of TourDuLich; track $index){
                     <div class="card_tour col-lg-3">
                         <div class="div_img">
                             <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
@@ -19,22 +20,22 @@
                                     alt=""></div>
                         </div>
                         <div class="title_tour">
-                            <span>Du lịch Hàn Quốc mùa Hoa Anh Đào - Busan - Seoul - Đảo Nami từ Sài </span>
+                            <span>{{item.tenTour}} </span>
                         </div>
 
                         <div class="card_tour_text">
                             <div class="total_time_tour">
-                                <i class="bi bi-clock"></i> 5 ngày 5 đêm
+                                <i class="bi bi-clock"></i> {{item.thoiGianBatDau}}
                             </div>
                             <div class="start_time_tour">
-                                <i class="bi bi-calendar-check"></i> 27/04/2024
+                                <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau}}
                             </div>
 
                             <div class="spot_remaining">
-                                <i class="bi bi-person"></i> Còn 10 chỗ
+                                <i class="bi bi-person"></i> Còn {{item.soChoConNhan}} chỗ
                             </div>
                             <div class="price_tour d-flex justify-content-end">
-                                <span class="price_tour_text">19.000.000 đ</span>
+                                <span class="price_tour_text">{{item.giaNguoiLon}} đ</span>
                             </div>
                             <div class="btn_bothBuy row gx-2">
                                 <div class="col-sm-6 mt-1">
@@ -53,50 +54,8 @@
                         </div>
 
                     </div>
-                    <div class="card_tour col-lg-3">
-                        <div class="div_img">
-                            <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
-                                    Đang giảm giá
-                                </span></div>
-                            <div> <img class="img_tour"
-                                    src="https://dulichviet.com.vn/thumbs/0/278x229/images/bandidau/Du-lich-Chau-a/Han-Quoc/tour-du-lich-han-quoc-mua-xuan-du-lich-viet.jpg"
-                                    alt=""></div>
-                        </div>
-                        <div class="title_tour">
-                            <span>Du lịch Hàn Quốc mùa Hoa Anh Đào - Busan - Seoul - Đảo Nami từ Sài </span>
-                        </div>
+                    }
 
-                        <div class="card_tour_text">
-                            <div class="total_time_tour">
-                                <i class="bi bi-clock"></i> 5 ngày 5 đêm
-                            </div>
-                            <div class="start_time_tour">
-                                <i class="bi bi-calendar-check"></i> 27/04/2024
-                            </div>
-
-                            <div class="spot_remaining">
-                                <i class="bi bi-person"></i> Còn 10 chỗ
-                            </div>
-                            <div class="price_tour d-flex justify-content-end">
-                                <span class="price_tour_text">19.000.000 đ</span>
-                            </div>
-                            <div class="btn_bothBuy row gx-2">
-                                <div class="col-sm-6 mt-1">
-                                    <button type="button" class="btn_DatTour equal w-100" data-bs-toggle="modal"
-                                        data-bs-target="#datTourModal">
-                                        Đặt tour
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 mt-1">
-                                    <button type="button" class="btn_ThanhToan equal w-100" data-bs-toggle="modal"
-                                        data-bs-target="#thanhToanModal">
-                                        Thanh toán
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
 
 
 
