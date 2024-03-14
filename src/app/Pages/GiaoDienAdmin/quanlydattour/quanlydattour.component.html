@@ -33,7 +33,7 @@
                                 <i class="bi bi-person"></i> Còn {{item.soChoConNhan}} chỗ
                             </div>
                             <div class="price_tour d-flex justify-content-end">
-                                <span class="price_tour_text">{{item.giaNguoiLon}} đ</span>
+                                <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}} đ</span>
                             </div>
                             <div class="btn_bothBuy row gx-2">
                                 <div class="col-sm-6 mt-1">
@@ -179,7 +179,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Giá người lớn</label>
-                                        <input type="text" disabled [(ngModel)]="model.giaNguoiLon" name="GiaNguoiLon"
+                                        <input type="text" disabled [(ngModel)]="model.giaNguoiLon " name="GiaNguoiLon"
                                             class="form-control" id="IdNhanVien" required>
                                     </div>
 
@@ -208,8 +208,25 @@
                                         <label for="GhiChu" class="form-label">Ghi Chú</label>
                                         <textarea class="form-control" id="GhiChu" rows="3"></textarea>
                                     </div>
-                                    <div class="col-12col-sm-12 col-md-12 col-lg-6">
-
+                                    <div class="col-12col-sm-12 col-md-12 col-lg-6 mt-3">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số chỗ người lớn</th>
+                                                    <th>Số chỗ trẻ em</th>
+                                                    <th>Giá người lớn</th>
+                                                    <th>Giá trẻ em</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>2</td>
+                                                    <td>{{model.giaNguoiLon}}</td>
+                                                    <td>{{model.giaTreEm}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="col-lg-1"></div>
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-5 ">
@@ -222,15 +239,15 @@
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <span>Số lượng người lớn: </span><span><b>{{SoLuongNguoiLon_DatTour}} x
-                                                        {{model.giaNguoiLon}}đ</b></span>
+                                                        {{model.giaNguoiLon }}đ </b></span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <span>Số lượng trẻ em: </span><span><b>{{SoLuongTreEm_DatTour}} x
-                                                        {{model.giaTreEm}}đ</b></span>
+                                                        {{model.giaTreEm }}đ</b></span>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <span>Tổng tiền: </span><span
-                                                    class="price_tour_text">{{TongTien_DatTour}}đ</span>
+                                                <span>Tổng tiền: </span><span class="price_tour_text">{{TongTien_DatTour
+                                                    | number:'':'en'}}đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -317,7 +334,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Đặt tour</button>
+                <button type="button" class="btn btn-primary" (click)="DatTour()">Đặt tour</button>
             </div>
             }
         </div>
@@ -326,14 +343,143 @@
 
 <!-- Modal Thanh toán -->
 <div class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán</h5>
+                <h5 class="modal-title" id="thanhToanModalLabel">Tra cứu khách hàng - TOUR01</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Nội dung modal Thanh toán -->
+                <div class="row">
+
+
+                    <div>
+                        <label for="NgayDat" class="form-label">Tên khách hàng</label>
+                        <input type="text" name="dichVu" class="form-control" id="NgayDat" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#thanhToanModal1">
+                    Tra cứu thông tin
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - TOUR01 - KH001</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h5>Thông tin khách hàng</h5>
+
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>KH001</td>
+                                </tr>
+                                <tr>
+                                    <th>Tên khách hàng</th>
+                                    <td>Trương Minh Nhựt</td>
+                                </tr>
+                                <tr>
+                                    <th>Số điện thoại</th>
+                                    <td>0869536182</td>
+                                </tr>
+                                <tr>
+                                    <th>Địa chỉ</th>
+                                    <td>23 Quang Trung</td>
+                                </tr>
+                                <tr>
+                                    <th>CCCD</th>
+                                    <td>111111111111</td>
+                                </tr>
+                                <tr>
+                                    <th>Ngày sinh</th>
+                                    <td>29/09/2004</td>
+                                </tr>
+                                <tr>
+                                    <th>Giới tính</th>
+                                    <td>Nam</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>nhutbmt82gmail.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h5>Thông tin đặt tour</h5>
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>IdDatTour</th>
+                                    <td>DT001</td>
+                                </tr>
+                                <tr>
+                                    <th>IdKhachHang</th>
+                                    <td>KH001</td>
+                                </tr>
+                                <tr>
+                                    <th>IdTour</th>
+                                    <td>T001</td>
+                                </tr>
+                                <tr>
+                                    <th>SoLuongNguoiLon</th>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <th>SoLuongTreEm</th>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <th>GhiChu</th>
+                                    <td>Không có ghi chú</td>
+                                </tr>
+                                <tr>
+                                    <th>IdNhanVien</th>
+                                    <td>NV001</td>
+                                </tr>
+                                <tr>
+                                    <th>ThoiGianDatTour</th>
+                                    <td>2024-03-14 08:09:57</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5>Thông tin thanh toán</h5>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <p class="card-text">
+                                    <strong>Id:</strong>23<br>
+                                    <strong>Số điện thoại:</strong> 23<br>
+                                    <strong>Địa chỉ:</strong> 23<br>
+                                    <strong>CCCD:</strong> 32<br>
+                                    <strong>Ngày sinh:</strong> 3232<br>
+                                    <strong>Giới tính:</strong> 323<br>
+                                    <strong>Email:</strong> 232<br>
+                                    <strong>Tình trạng:</strong> 2312<br>
+                                    <strong>Ngày đăng ký:</strong> 213123
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

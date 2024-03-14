@@ -63,6 +63,7 @@ export class QuanlydattourComponent implements OnInit {
 
 
   //xử lý select khách hàng
+  IdKhachHang !: string;
   selectValueKhachHang(event: Event) {
     const input = event.target as HTMLInputElement;
     const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
@@ -72,6 +73,7 @@ export class QuanlydattourComponent implements OnInit {
       console.log(khachhang);
 
       this.TenKhachHang.setValue(khachhang.tenKhachHang)
+      this.IdKhachHang = khachhang.idKhachHang;
     }
 
 
@@ -84,14 +86,18 @@ export class QuanlydattourComponent implements OnInit {
   SoLuongTreEm_DatTour: number = 0;
   SoNgayDem: string = '';
   TongTien_DatTour!: number;
+
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
+
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
 
       this.TenNhanVien = 'NV0001';
 
       this.model = data;
-
+      //convert giá
+      this.model.giaNguoiLon = this.model.giaNguoiLon.toLocaleString();
+      this.model.giaTreEm = this.model.giaTreEm.toLocaleString();
 
       let ngayThem: Date = new Date();
       let year: string = ngayThem.getFullYear().toString();
@@ -118,7 +124,9 @@ export class QuanlydattourComponent implements OnInit {
   }
   //hàm xử lý tính toán tổng tiền
   TinhTongTien() {
-    this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon)) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm));
+
+    this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon.replace(/,/g, ''))) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm.replace(/,/g, '')));
+    console.log(this.model?.giaNguoiLon);
 
   }
   //hàm tính toán số lượng người dự tour
@@ -144,9 +152,15 @@ export class QuanlydattourComponent implements OnInit {
     else {
       this.SoLuongTreEm_DatTour--;
     }
+    this.TinhTongTien();
 
   }
+  DatTour() {
+    console.log(this.model?.idTour);
+    console.log(this.IdKhachHang);
+    console.log(this.NgayDatTour);
 
+  }
 
 
 }
