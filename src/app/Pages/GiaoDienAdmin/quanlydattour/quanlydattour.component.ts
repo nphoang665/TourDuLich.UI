@@ -17,8 +17,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuanlydattourComponent implements OnInit {
   TenKhachHang = new FormControl();
-  constructor(private quanLyTourService: QuanLyTourService, private quanLyKhachHangServices: KhachhangService, private datTourService: DattourService, private http: HttpClient) {
-
+  constructor(private quanLyTourService: QuanLyTourService,
+    private quanLyKhachHangServices: KhachhangService,
+    private datTourService: DattourService,
+    private http: HttpClient) {
   }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
@@ -34,13 +36,8 @@ export class QuanlydattourComponent implements OnInit {
         var urlFirstImgTour = environment.apiBaseUrl + '/uploads/' + element.anhTour[0].imgTour;
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
-
-
       });
       console.log(this.TourDuLich);
-
-      this.Fnc_TinhNgayDem();
-
     });
     //lấy khách hàng từ db
     this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
@@ -48,37 +45,18 @@ export class QuanlydattourComponent implements OnInit {
       this.arrKhachHang = data;
 
     })
-
   }
-  Fnc_TinhNgayDem() {
-
-    // working
-
-
-    // for (let index = 0; index < this.TourDuLich.length; index++) {
-    //   let diffTime = this.TourDuLich[index].thoiGianBatDau.getTime()
-    //     - this.TourDuLich[index].thoiGianKetThuc.getTime();
-    //   console.log(diffTime);
-
-    // }
-  }
-
-
   //xử lý select khách hàng
   IdKhachHang !: string;
   selectValueKhachHang(event: Event) {
     const input = event.target as HTMLInputElement;
     const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
-
-
     if (khachhang) {
       console.log(khachhang);
 
       this.TenKhachHang.setValue(khachhang.tenKhachHang)
       this.IdKhachHang = khachhang.idKhachHang;
     }
-
-
   }
   TourDuLichById: any;
   TenNhanVien: any;
@@ -88,19 +66,14 @@ export class QuanlydattourComponent implements OnInit {
   SoLuongTreEm_DatTour: number = 0;
   SoNgayDem: string = '';
   TongTien_DatTour!: number;
-
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
-
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
-
       this.TenNhanVien = 'NV0001';
-
       this.model = data;
       //convert giá
       this.model.giaNguoiLon = this.model.giaNguoiLon.toLocaleString();
       this.model.giaTreEm = this.model.giaTreEm.toLocaleString();
-
       let ngayThem: Date = new Date();
       let year: string = ngayThem.getFullYear().toString();
       let month: string = (ngayThem.getMonth() + 1).toString().padStart(2, '0'); // padStart để thêm số 0 phía trước nếu tháng chỉ có 1 chữ số
@@ -111,25 +84,20 @@ export class QuanlydattourComponent implements OnInit {
       this.NgayDatTour = NgayGioConvert;
       this.SoNgayDem = this.calculateDaysAndNights(this.model.thoiGianBatDau, this.model.thoiGianKetThuc);
       this.TinhTongTien();
-
     })
   }
   //hàm tính toán ngày đêm
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
-    // Check if inputs are Date objects, if not convert them
     let startDate = thoiGianBatDau instanceof Date ? thoiGianBatDau : new Date(thoiGianBatDau);
     let endDate = thoiGianKetThuc instanceof Date ? thoiGianKetThuc : new Date(thoiGianKetThuc);
-
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((startDate.getTime() - endDate.getTime()) / oneDay));
     return `${diffDays} ngày ${diffDays - 1} đêm`;
   }
   //hàm xử lý tính toán tổng tiền
   TinhTongTien() {
-
     this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon.replace(/,/g, ''))) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm.replace(/,/g, '')));
     console.log(this.model?.giaNguoiLon);
-
   }
   //hàm tính toán số lượng người dự tour
   TinhSoLuongNguoiDuTour(loaiNguoi: string, kieuNutBam: string) {
@@ -155,7 +123,6 @@ export class QuanlydattourComponent implements OnInit {
       this.SoLuongTreEm_DatTour--;
     }
     this.TinhTongTien();
-
   }
   GhiChu_DatTour!: string;
 
@@ -170,11 +137,7 @@ export class QuanlydattourComponent implements OnInit {
       ghiChu: this.GhiChu_DatTour,
       tinhTrang: 'Đã đặt tour',
       idNhanVien: this.TenNhanVien
-
-
-
     };
-
     console.log(dataToSave);
 
     this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
@@ -184,4 +147,14 @@ export class QuanlydattourComponent implements OnInit {
   }
 
 
+  //các phần khai báo cho thanh toán
+  idTour_ThanhToan !: string;
+
+  LayThanhToanTourDuLich(idTour: string) {
+    this.idTour_ThanhToan = idTour;
+    this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
+      console.log(data);
+
+    })
+  }
 }

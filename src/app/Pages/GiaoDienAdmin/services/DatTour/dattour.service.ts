@@ -3,15 +3,20 @@ import { Injectable } from '@angular/core';
 import { ThemDatTour } from '../../models/them-datTour.model';
 import { environment } from '../../../../../environments/environment';
 import { Observable } from 'rxjs';
+import { DatTour } from '../../models/dat-tour.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DattourService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  themDatTour(data: ThemDatTour) : Observable<ThemDatTour> {
+  themDatTour(data: ThemDatTour): Observable<ThemDatTour> {
     return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour`, data);
   }
+  getDatTourById(id: string): Observable<DatTour> {
+    return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}`);
+  }
+
 }

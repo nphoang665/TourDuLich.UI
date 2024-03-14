@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-6 mt-1">
                                     <button type="button" class="btn_ThanhToan equal w-100" data-bs-toggle="modal"
-                                        data-bs-target="#thanhToanModal">
+                                        data-bs-target="#thanhToanModal" (click)="LayThanhToanTourDuLich(item.idTour)">
                                         Thanh toán
                                     </button>
                                 </div>
@@ -348,7 +348,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="thanhToanModalLabel">Tra cứu khách hàng - TOUR01</h5>
+                <h5 class="modal-title" id="thanhToanModalLabel">Tra cứu khách hàng - {{idTour_ThanhToan}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
