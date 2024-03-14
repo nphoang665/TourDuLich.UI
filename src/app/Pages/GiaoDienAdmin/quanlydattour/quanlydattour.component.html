@@ -23,7 +23,7 @@
 
                         <div class="card_tour_text">
                             <div class="total_time_tour">
-                                <i class="bi bi-clock"></i> {{item.thoiGianBatDau}}
+                                <i class="bi bi-clock"></i> {{item.SoNgayDem}}
                             </div>
                             <div class="start_time_tour">
                                 <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau}}
@@ -38,7 +38,7 @@
                             <div class="btn_bothBuy row gx-2">
                                 <div class="col-sm-6 mt-1">
                                     <button type="button" class="btn_DatTour equal w-100" data-bs-toggle="modal"
-                                        data-bs-target="#datTourModal">
+                                        data-bs-target="#datTourModal" (click)="LayTourDuLich(item.idTour)">
                                         Đặt tour
                                     </button>
                                 </div>
@@ -71,8 +71,11 @@
 <div class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
+            @if(model){
+
+
             <div class="modal-header">
-                <h5 class="modal-title" id="datTourModalLabel">Đặt tour - TOUR01</h5>
+                <h5 class="modal-title" id="datTourModalLabel">Đặt tour - {{model.idTour}} </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -82,7 +85,8 @@
                             <a class="nav-link active" data-bs-toggle="tab" href="#datTour">Nhập thông tin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#chiTietTour">Thông tin tour</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#chiTietTour">Thông
+                                tin tour</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#dichVu">Dịch vụ</a>
@@ -103,13 +107,13 @@
                                         <label for="IdDatTour" class="form-label">Id Đặt Tour</label>
                                         <input type="text" class="form-control" id="IdDatTour" required>
                                     </div> -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <label for="IdTour" class="form-label">Tên tour</label>
                                         <input type="text" class="form-control" disabled
                                             value="Tour Nhật Bản 5N5Đ: Osaka - Kyoto - Yamanashi Fuji - Tokyo - Mùa Hè Rực Rỡ"
-                                            id="IdTour" required>
+                                            id="IdTour" [(ngModel)]="model.tenTour" name="TenTour" required>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <label for="exampleDataList" class="form-label">Tên khách hàng</label>
                                         <input spellcheck="false" class="form-control" [formControl]="TenKhachHang"
                                             (input)="selectValueKhachHang($event)" list="datalistOptions"
@@ -126,19 +130,25 @@
                                         </datalist>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <label for="NgayDat" class="form-label">Ngày đặt</label>
-                                        <input type="date" class="form-control" id="NgayDat" required>
+                                        <input type="datetime-local" disabled class="form-control"
+                                            [(ngModel)]="NgayDatTour" name="NgayThem" id="NgayDat" required>
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-3">
-                                        <label for="SoLuongTreEm" class="form-label">Số lượng người lớn</label>
+                                        <label for="SoLuongTreEm" class="form-label">Số lượng người
+                                            lớn({{model.soLuongNguoiLon}})</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="btn btn-outline-secondary btn_sl">-</span>
+                                                <span class="btn btn-outline-secondary btn_sl"
+                                                    (click)="TinhSoLuongNguoiDuTour('NguoiLon','Tru')">-</span>
                                             </div>
-                                            <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                            <input type="number" class="form-control" id="SoLuongTreEm"
+                                                (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour"
+                                                name="SoLuongNguoiLon" required>
                                             <div class="input-group-append">
-                                                <span class="btn btn-outline-secondary btn_sl">+</span>
+                                                <span class="btn btn-outline-secondary btn_sl"
+                                                    (click)="TinhSoLuongNguoiDuTour('NguoiLon','Cong')">+</span>
                                             </div>
                                         </div>
                                     </div>
@@ -146,42 +156,53 @@
 
 
                                     <div class="col-sm-6 col-md-6 col-lg-3">
-                                        <label for="SoLuongTreEm" class="form-label">Số lượng trẻ em</label>
+                                        <label for="SoLuongTreEm" class="form-label">Số lượng trẻ
+                                            em({{model.soLuongTreEm}})</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="btn btn-outline-secondary btn_sl">-</span>
+                                                <span class="btn btn-outline-secondary btn_sl"
+                                                    (click)="TinhSoLuongNguoiDuTour('TreEm','Tru')">-</span>
                                             </div>
-                                            <input type="number" class="form-control" id="SoLuongTreEm" required>
+                                            <input type="number" [(ngModel)]="SoLuongTreEm_DatTour"
+                                                (input)="TinhTongTien()" name="SoLuongTreEm" class="form-control"
+                                                id="SoLuongTreEm" required>
                                             <div class="input-group-append">
-                                                <span class="btn btn-outline-secondary btn_sl">+</span>
+                                                <span class="btn btn-outline-secondary btn_sl"
+                                                    (click)="TinhSoLuongNguoiDuTour('TreEm','Cong')">+</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Giá trẻ em</label>
-                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                        <input type="text" disabled [(ngModel)]="model.giaTreEm" name="GiaNguoiLon"
+                                            class="form-control" id="IdNhanVien" required>
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Giá người lớn</label>
-                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                        <input type="text" disabled [(ngModel)]="model.giaNguoiLon" name="GiaNguoiLon"
+                                            class="form-control" id="IdNhanVien" required>
                                     </div>
 
                                     <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Tên nhân viên</label>
-                                        <input type="text" disabled class="form-control" id="IdNhanVien" required>
+                                        <input type="text" [(ngModel)]="TenNhanVien" name="TenNhanVien" disabled
+                                            class="form-control" id="IdNhanVien" required>
                                     </div>
 
                                     <div class="col-lg-3">
                                         <label for="IdNhanVien" class="form-label">Số chỗ còn</label>
-                                        <input type="text" class="form-control" id="IdNhanVien" required>
+                                        <input type="text" disabled [(ngModel)]="model.soChoConNhan" name="soChoConNhan"
+                                            class="form-control" id="IdNhanVien" required>
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="NgayDat" class="form-label">Ngày khởi hành</label>
-                                        <input type="date" class="form-control" id="NgayDat" required>
+                                        <input type="datetime-local" disabled [(ngModel)]="model.thoiGianBatDau"
+                                            name="ngaykhoihanh" class="form-control" id="NgayDat" required>
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="NgayDat" class="form-label">Dịch vụ đi kèm</label>
-                                        <input type="text" class="form-control" id="NgayDat" required>
+                                        <input type="text" disabled [(ngModel)]="model.dichVuDiKem" name="dichVu"
+                                            class="form-control" id="NgayDat" required>
                                     </div>
                                     <div class="col-12col-sm-12 col-md-12 col-lg-12">
                                         <label for="GhiChu" class="form-label">Ghi Chú</label>
@@ -194,19 +215,22 @@
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-5 ">
                                         <div class="mt-3 " style="border-radius: 5px;">
                                             <div>
-                                                <h5>Thanh toán</h5>
+                                                <h5>Chi tiết thanh toán</h5>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <span>Thời gian tour: </span><span><b>5 ngày 4 đêm</b></span>
+                                                <span>Thời gian tour: </span><span><b>{{SoNgayDem}}</b></span>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <span>Số lượng người lớn: </span><span><b>1 x 9.000.000đ</b></span>
+                                                <span>Số lượng người lớn: </span><span><b>{{SoLuongNguoiLon_DatTour}} x
+                                                        {{model.giaNguoiLon}}đ</b></span>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <span>Số lượng trẻ em: </span><span><b>1 x 6.000.000đ</b></span>
+                                                <span>Số lượng trẻ em: </span><span><b>{{SoLuongTreEm_DatTour}} x
+                                                        {{model.giaTreEm}}đ</b></span>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <span>Tổng tiền: </span><span class="price_tour_text">15.000.000đ</span>
+                                                <span>Tổng tiền: </span><span
+                                                    class="price_tour_text">{{TongTien_DatTour}}đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -217,53 +241,61 @@
                             </form>
 
                         </div>
-
                         <div class="tab-pane fade" id="chiTietTour">
-                            <div class="card mt-5">
+                            <div class="card mt-2">
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col text-nowrap"><strong>Tên tour:</strong> Tên của tour</div>
-                                            <div class="col text-nowrap"><strong>Loại tour:</strong> Loại của tour</div>
-                                            <div class="col text-nowrap"><strong>Phương tiện di chuyển:</strong>
-                                                Ô tô</div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col text-nowrap"><strong>Tình trạng:</strong> Tình trạng</div>
-                                            <div class="col text-nowrap"><strong>Số lượng người lớn:</strong> 2</div>
-                                            <div class="col text-nowrap"><strong>Số lượng trẻ em:</strong>
-                                                2</div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col text-nowrap"><strong>Thời gian bắt đầu:</strong> Thời gian
-                                                bắt đầu </div>
-                                            <div class="col text-nowrap"><strong>Thời gian kết thúc:</strong> Thời gian
-                                                kết thúc</div>
-                                            <div class="col text-nowrap"><strong>Nơi khởi hành:</strong>
-                                                Nơi khởi hành</div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col text-nowrap"><strong>Số chỗ còn nhận:</strong> Số chỗ còn
-                                                nhận</div>
-                                            <div class="col text-nowrap"><strong>Đối tác:</strong> Đối tác</div>
-                                            <div class="col text-nowrap"><strong>Giá trẻ em:</strong>
-                                                Giá trẻ em</div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col text-nowrap"><strong>Giá người lớn:</strong> Giá người lớn
+                                            <div class="col col-12 col-lg-4 text-nowrap"><strong>Tên tour:</strong>
+                                                {{model.tenTour}}
                                             </div>
-                                            <div class="col text-nowrap"><strong>Ngày thêm:</strong> Ngày thêm</div>
+                                            <div class="col col-12 col-lg-4 text-nowrap"><strong>Loại tour:</strong>
+                                                {{model.loaiTour}}</div>
+                                            <div class="col col-12 col-lg-4 text-nowrap"><strong>Phương tiện di
+                                                    chuyển:</strong>
+                                                {{model.phuongTienDiChuyen}}</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Tình trạng:</strong>
+                                                {{model.tinhTrang}}</div>
+                                            <div class="col text-nowrap"><strong>Số lượng người lớn:</strong>
+                                                {{model.soLuongNguoiLon}}</div>
+                                            <div class="col text-nowrap"><strong>Số lượng trẻ em:</strong>
+                                                {{model.soLuongTreEm}}</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Thời gian bắt đầu:</strong>
+                                                {{model.thoiGianBatDau}} </div>
+                                            <div class="col text-nowrap"><strong>Thời gian kết thúc:</strong>
+                                                {{model.thoiGianKetThuc}}</div>
+                                            <div class="col text-nowrap"><strong>Nơi khởi hành:</strong>
+                                                {{model.noiKhoiHanh}}</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Số chỗ còn nhận:</strong>
+                                                {{model.soChoConNhan}}</div>
+                                            <div class="col text-nowrap"><strong>Đối tác:</strong> {{model.idDoiTac}}
+                                            </div>
+                                            <div class="col text-nowrap"><strong>Giá trẻ em:</strong>
+                                                {{model.giaTreEm}}</div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col text-nowrap"><strong>Giá người lớn:</strong>
+                                                {{model.giaNguoiLon}}
+                                            </div>
+                                            <div class="col text-nowrap"><strong>Ngày thêm:</strong> {{model.ngayThem}}
+                                            </div>
                                             <div class="col text-nowrap"><strong>Dịch vụ đi kèm:</strong>
-                                                Dịch vụ đi kèm</div>
+                                                {{model.dichVuDiKem}}</div>
                                         </div>
                                     </li>
                                 </ul>
@@ -287,6 +319,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-primary">Đặt tour</button>
             </div>
+            }
         </div>
     </div>
 </div>
