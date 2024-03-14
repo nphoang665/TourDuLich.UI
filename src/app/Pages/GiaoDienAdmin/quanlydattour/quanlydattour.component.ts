@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuanlydattourComponent implements OnInit {
   TenKhachHang = new FormControl();
-  constructor(private quanLyTourService: QuanLyTourService, private quanLyKhachHangServices: KhachhangService,private datTourService:DattourService,private http: HttpClient) {
+  constructor(private quanLyTourService: QuanLyTourService, private quanLyKhachHangServices: KhachhangService, private datTourService: DattourService, private http: HttpClient) {
 
   }
   // Tạo mới arr Khách hàng
@@ -157,29 +157,31 @@ export class QuanlydattourComponent implements OnInit {
     this.TinhTongTien();
 
   }
+  GhiChu_DatTour!: string;
+
   DatTour() {
     let dataToSave = {
-      idDatTour:'123',
-        idTour: this.model?.idTour,
-        idKhachHang: this.IdKhachHang,
-        thoiGianDatTour: this.NgayDatTour,
-        soLuongNguoiLon_DatTour: this.SoLuongNguoiLon_DatTour,
-        soLuongTreEm_DatTour: this.SoLuongTreEm_DatTour,
-        ghiChu:'demo123',
-        tinhTrang:'demo',
-        idNhanVien :this.TenNhanVien
+      idDatTour: '123',
+      idTour: this.model?.idTour,
+      idKhachHang: this.IdKhachHang,
+      thoiGianDatTour: this.NgayDatTour,
+      soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
+      soLuongTreEm: this.SoLuongTreEm_DatTour,
+      ghiChu: this.GhiChu_DatTour,
+      tinhTrang: 'Đã đặt tour',
+      idNhanVien: this.TenNhanVien
 
-        // moTa: this.model?.moTa
+
 
     };
 
-    console.log(dataToSave); 
+    console.log(dataToSave);
 
     this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
-        .subscribe(response => {
-            console.log(response); 
-        });
-}
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 
 
 }
