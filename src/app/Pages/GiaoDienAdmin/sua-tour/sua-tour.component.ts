@@ -36,7 +36,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     tinhTrang: new FormControl('')
   });
 
-
+  ///////
   id?: string | null = null;
   model?: TourDuLich;
 
