@@ -1,9 +1,9 @@
 export interface KhachHang {
     idKhachHang: string,
     tenKhachHang: string,
-    doDienThoai: string,
+    soDienThoai: string,
     diaChi: string,
-    cCCD: string,
+    cccd: string,
     ngaySinh: string,
     gioiTinh: string,
     email: string,
