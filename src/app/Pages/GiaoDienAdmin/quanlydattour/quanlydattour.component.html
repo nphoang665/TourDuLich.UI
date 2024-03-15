@@ -357,13 +357,26 @@
 
                     <div>
                         <label for="NgayDat" class="form-label">Tên khách hàng</label>
-                        <input type="text" name="dichVu" class="form-control" id="NgayDat" required>
+                        <input spellcheck="false" class="form-control" [formControl]="TenKhachHang_ThanhToan"
+                            (input)="selectValueKhachHangThanhToan($event)" list="datalistOptions" id="exampleDataList"
+                            placeholder="Tra cứu khách hàng...">
+
+                        <datalist id="datalistOptions">
+
+                            @for(item of arrKhachHangThanhToan; track $index){
+                            <option [value]="item.soDienThoai + '-' + item.email">
+                                {{item.tenKhachHang}}
+                            </option>
+
+                            }
+                        </datalist>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#thanhToanModal1">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#thanhToanModal1"
+                    [disabled]="foundKhachHang==false" (click)="ThongTinThanhToan()">
                     Tra cứu thông tin
                 </button>
             </div>
@@ -371,11 +384,14 @@
     </div>
 </div>
 
+
+@if(foundKhachHang){
 <div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - TOUR01 - KH001</h5>
+                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - {{idTour_ThanhToan}} -
+                    {{KhachHangBamTraCuu[0].idKhachHang}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -386,101 +402,143 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <th>Id</th>
-                                    <td>KH001</td>
+                                    <th>Mã khách hàng</th>
+                                    <td>{{KhachHangBamTraCuu[0].idKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Tên khách hàng</th>
-                                    <td>Trương Minh Nhựt</td>
+                                    <td>{{KhachHangBamTraCuu[0].tenKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Số điện thoại</th>
-                                    <td>0869536182</td>
+                                    <td>{{KhachHangBamTraCuu[0].soDienThoai}}</td>
                                 </tr>
                                 <tr>
                                     <th>Địa chỉ</th>
-                                    <td>23 Quang Trung</td>
+                                    <td>{{KhachHangBamTraCuu[0].diaChi}}</td>
                                 </tr>
                                 <tr>
                                     <th>CCCD</th>
-                                    <td>111111111111</td>
+                                    <td>{{KhachHangBamTraCuu[0].cccd}}</td>
                                 </tr>
                                 <tr>
                                     <th>Ngày sinh</th>
-                                    <td>29/09/2004</td>
+                                    <td>{{KhachHangBamTraCuu[0].ngaySinh}}</td>
                                 </tr>
                                 <tr>
                                     <th>Giới tính</th>
-                                    <td>Nam</td>
+                                    <td>{{KhachHangBamTraCuu[0].gioiTinh}}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>nhutbmt82gmail.com</td>
+                                    <td>{{KhachHangBamTraCuu[0].email}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
-
+                    @if(TourThanhToan_HienThi){
                     <div class="col-lg-4">
                         <h5>Thông tin đặt tour</h5>
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <th>IdDatTour</th>
-                                    <td>DT001</td>
+                                    <th>Mã đặt tour</th>
+                                    <td>{{TourThanhToan_HienThi.idDatTour}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Mã tour</th>
+                                    <td>{{TourThanhToan_HienThi.idTour}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Tour du lịch</th>
+                                    <td>{{TourThanhToan_HienThi.tourDuLich}}</td>
                                 </tr>
                                 <tr>
-                                    <th>IdKhachHang</th>
-                                    <td>KH001</td>
+                                    <th>SL người lớn</th>
+                                    <td>{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
                                 </tr>
                                 <tr>
-                                    <th>IdTour</th>
-                                    <td>T001</td>
+                                    <th>SL trẻ em</th>
+                                    <td>{{TourThanhToan_HienThi.soLuongTreEm}}</td>
                                 </tr>
                                 <tr>
-                                    <th>SoLuongNguoiLon</th>
-                                    <td>2</td>
+                                    <th>Ghi chú</th>
+                                    <td>{{TourThanhToan_HienThi.ghiChu}}</td>
                                 </tr>
                                 <tr>
-                                    <th>SoLuongTreEm</th>
-                                    <td>1</td>
+                                    <th>Nhân viên</th>
+                                    <td>{{TourThanhToan_HienThi.idNhanVien}}</td>
                                 </tr>
                                 <tr>
-                                    <th>GhiChu</th>
-                                    <td>Không có ghi chú</td>
+                                    <th>Thời gian đặt tour</th>
+                                    <td>{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="col-lg-4">
+                        <h5>Thông tin thanh toán</h5>
+                        <table class="table table-bordered table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>Giá người lớn</th>
+                                    <th>Giá trẻ em</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2.000.000</td>
+                                    <td>3.000.000</td>
                                 </tr>
                                 <tr>
-                                    <th>IdNhanVien</th>
-                                    <td>NV001</td>
+                                    <th>Thời gian tour</th>
+                                    <td class="text-right">{{LayTourDangThanhToan.SoNgayDem}}</td>
                                 </tr>
                                 <tr>
-                                    <th>ThoiGianDatTour</th>
-                                    <td>2024-03-14 08:09:57</td>
+                                    <th>Sl người lớn</th>
+                                    <td class="text-right">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
+                                        {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
                                 </tr>
+                                <tr>
+                                    <th>Sl trẻ em</th>
+                                    <td class="text-right">{{TourThanhToan_HienThi.soLuongTreEm}} x
+                                        {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tổng cộng</th>
+                                    <td class="text-right">{{TongTien_ThanhToan| number:'':'en'}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th class="align-middle">Phương thức thanh toán</th>
+                                    <td class="text-right align-middle">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="traTruoc">
+                                            <label class="form-check-label" for="traTruoc">
+                                                Trả trước
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="traSau">
+                                            <label class="form-check-label" for="traSau">
+                                                Trả sau
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+
 
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-lg-4">
-                        <h5>Thông tin thanh toán</h5>
-                        <div class="card">
-                            <div class="card-body">
 
-                                <p class="card-text">
-                                    <strong>Id:</strong>23<br>
-                                    <strong>Số điện thoại:</strong> 23<br>
-                                    <strong>Địa chỉ:</strong> 23<br>
-                                    <strong>CCCD:</strong> 32<br>
-                                    <strong>Ngày sinh:</strong> 3232<br>
-                                    <strong>Giới tính:</strong> 323<br>
-                                    <strong>Email:</strong> 232<br>
-                                    <strong>Tình trạng:</strong> 2312<br>
-                                    <strong>Ngày đăng ký:</strong> 213123
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    }
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -490,3 +548,4 @@
         </div>
     </div>
 </div>
+}

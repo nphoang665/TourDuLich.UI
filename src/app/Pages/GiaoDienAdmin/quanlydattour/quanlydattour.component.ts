@@ -37,7 +37,7 @@ export class QuanlydattourComponent implements OnInit {
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
       });
-      console.log(this.TourDuLich);
+
     });
     //lấy khách hàng từ db
     this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
@@ -125,7 +125,6 @@ export class QuanlydattourComponent implements OnInit {
     this.TinhTongTien();
   }
   GhiChu_DatTour!: string;
-
   DatTour() {
     let dataToSave = {
       idDatTour: '123',
@@ -149,12 +148,75 @@ export class QuanlydattourComponent implements OnInit {
 
   //các phần khai báo cho thanh toán
   idTour_ThanhToan !: string;
-
+  arrKhachHangThanhToan: any[] = [];
+  TenKhachHang_ThanhToan = new FormControl();
+  KhachHangBamTraCuu: any[] = [];
+  foundKhachHang: boolean = false;
+  Tour_ThanhToan: any;
   LayThanhToanTourDuLich(idTour: string) {
+    //reset tra cứu khách hàng trước đó
+    this.KhachHangBamTraCuu = [];
+    this.TenKhachHang_ThanhToan.setValue('');
+    this.foundKhachHang = false;
+
+    //đoạn code lấy thanh toán
+    this.arrKhachHangThanhToan = [];
     this.idTour_ThanhToan = idTour;
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
-      console.log(data);
-
+      this.Tour_ThanhToan = data;
+      for (let index = 0; index < data.length; index++) {
+        this.arrKhachHangThanhToan.push(data[index].khachHang);
+      }
     })
+  }
+  //lấy datalist 
+  selectValueKhachHangThanhToan(event: Event) {
+    this.KhachHangBamTraCuu = [];
+
+    const input = event.target as HTMLInputElement;
+    const khachhang = this.arrKhachHangThanhToan.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[0] || p.tenKhachHang === input.value.split('-')[0]);
+    if (khachhang) {
+      this.TenKhachHang_ThanhToan.setValue(khachhang.tenKhachHang)
+      this.KhachHangBamTraCuu.push(khachhang);
+    }
+    this.TraCuuThongTin();
+  }
+  //nút tra cứu thông tin
+  TraCuuThongTin() {
+    //lấy id tour và {this.idTour_ThanhToan, this.KhachHangBamTraCuu}
+    //nếu KhachHangBamTraCuu có
+    if (this.KhachHangBamTraCuu.length > 0) {
+      this.foundKhachHang = true;
+    }
+    else {
+      this.foundKhachHang = false;
+    }
+  }
+  //hiển thị toàn bộ thông tin thanh toán
+  // đối tượng hiển thị thông tin lên html
+  TourThanhToan_HienThi: any;
+  LayTourDangThanhToan: any = {};
+  ThongTinThanhToan() {
+    for (let index = 0; index < this.Tour_ThanhToan.length; index++) {
+      if (this.idTour_ThanhToan === this.Tour_ThanhToan[index].idTour) {
+        this.TourThanhToan_HienThi = this.Tour_ThanhToan[index]
+      }
+
+    }
+    this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
+
+      this.LayTourDangThanhToan = data;
+      this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);
+      this.TinhTongTienThanhToan();
+    });
+
+
+  }
+  //tính tổng tiền thanh toán
+  TongTien_ThanhToan!: number;
+  TinhTongTienThanhToan() {
+    this.TongTien_ThanhToan = (this.TourThanhToan_HienThi.soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi.soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm));
+
+
   }
 }
