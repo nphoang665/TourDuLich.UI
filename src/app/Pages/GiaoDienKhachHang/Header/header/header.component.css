@@ -102,7 +102,7 @@
 .container_medium_second_header li {
   float: left;
   padding-bottom: 20px;
-  padding-top: 20px;
+  padding-top: 15px;
   width: auto;
   padding-right: 60px;
 }
@@ -112,7 +112,7 @@
   /* padding: 6px 8px; */
   text-decoration: none;
   color: white;
-  font-size: 1.4em;
+  font-size: 1.2em;
   /* color: black; */
   transition: ease 0.4s;
   font-weight: 400;
@@ -151,7 +151,6 @@
 
 /* logo-header */
 .logo_header {
-  padding-top: 5px;
 }
 .Logo_Team {
   font-size: 30px;
@@ -172,6 +171,7 @@
   background: white;
   border-radius: 30px;
   align-items: center;
+  margin-top: 4px;
   /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); */
 }
 .box:hover input {
