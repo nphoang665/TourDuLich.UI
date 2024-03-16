@@ -1,14 +1,26 @@
-<div class="container mt-4">
-    <p>CÁC TOUR NỔI BẬC</p>
-    <div class="total_card row d-flex justify-content-center">
+<div class="container mt-2">
+
+    <div class="total_card gx-3 gy-3 row d-flex justify-content-center">
+        <p class="text-center h2">Du lịch Buôn Ma Thuột - Danh sách Tour du lịch Buôn Ma Thuột - Tour Buôn Ma Thuột</p>
         @for (tour of TourDuLich; track $index) {
-        <div class="card_tour col-lg-2">
-            <div> <img class="img_tour" [src]="tour.HinhAnhDauTien" alt=""></div>
+        <div class="card_tour col-lg-3">
+            <div class="card__ribbon">
+
+                <div class="ribbon-content">tour hot1</div>
+            </div>
+
+            <div> <img class="img_tour img-fluid" [src]="tour.HinhAnhDauTien" alt=""></div>
             <div class="title_tour">
                 <span>{{tour.tenTour}}</span>
             </div>
 
             <div class="card_tour_text">
+                <div class="total_response">
+                    <span class="badge bg-success me-1">9.3</span><span class="text-success me-1"><b>Tuyệt
+                            vời</b></span> |
+                    <span class="ms-1">19
+                        Đánh giá</span>
+                </div>
                 <div class="total_time_tour">
                     <i class="bi bi-clock"></i> {{tour.SoNgayDem}}
                 </div>
@@ -26,5 +38,12 @@
             </div>
         </div>
         }
+        <div class="d-flex justify-content-end">
+            <button mat-button color="primary" style="font-size: 18px;">Xem thêm>></button>
+
+        </div>
     </div>
 </div>
+
+<mat-divider>
+</mat-divider>
