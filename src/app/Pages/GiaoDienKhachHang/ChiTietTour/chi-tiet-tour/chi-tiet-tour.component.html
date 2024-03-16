@@ -1,8 +1,8 @@
 <app-second-header></app-second-header>
-<div style="background-color: #ecf0f5; height: 200vh;">
+<div style="background-color: #ecf0f5;">
     <div class="container">
         <p class="text_tour">
-            Tour Côn Đảo 2N1Đ: Hành Hương Cô Sáu Linh Thiêng
+            {{TourChiTiet.tenTour}}
         </p>
         <span class="badge bg-success">10.0 </span><span> Tuyệt vời | 1 đánh
             giá</span>
@@ -29,19 +29,8 @@
 
                     </div>
                 </div>
-                <div class="content_tour bg-white mt-2">
-                    <h2>Tour Thái Lan 5N4Đ: Bangkok - Pattaya - Wat Arun - Vườn Chim Hải Âu - Lighting Art</h2>
-                    <br>
-                    <p>
-
-                        Tour Thái Lan 5N4Đ: Bangkok - Pattaya - Wat Arun - Vườn Chim Hải Âu - Lighting Art
-
-                        Khám phá Thái Lan: Hòa mình vào cảnh đẹp hùng vĩ, văn hóa độc đáo, từ náo nhiệt Bangkok đến bình
-                        yên Pattaya. Tận hưởng từ Bảo tàng Lighting Art, vẻ đẹp tâm linh của Wat Arun, sự thanh bình tại
-                        Vườn chim Hải Âu, đến không gian mua sắm hiện đại tại IconSiam và làn nước trong xanh của Koh
-                        Larn.
-
-                    </p>
+                <div class="content_tour bg-white mt-2 p-3">
+                    <div [innerHTML]="TextMoTa"></div>
                 </div>
             </div>
             <div class="col-md-5 col-lg-4 bg-secondary p-0 sticky-container">
@@ -63,15 +52,5 @@
 
         </div>
     </div>
-
-
-
-
-
-
-
 </div>
-
-
-
 <app-footer></app-footer>

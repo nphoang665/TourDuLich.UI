@@ -14,14 +14,14 @@ const routes: Routes = [
   { path: 'lienhe', component: LienHeComponent },
   { path: 'dattour', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
-  { path: 'chitiettour', component: ChiTietTourComponent },
+  { path: 'chitiettour/:id', component: ChiTietTourComponent },
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
   { path: 'suatour/:id', component: SuaTourComponent },
   { path: 'quanlydattour', component: QuanlydattourComponent },
 
 
-  { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
+  { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
 ];
 
 @NgModule({

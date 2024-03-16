@@ -5,11 +5,12 @@
   background-image: url("/assets/Images/thumbnailHome.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 75vh;
   font-family: "Roboto", sans-serif;
 }
+
 .home-text {
-  padding: 10% 20% 20% 20%;
+  padding: 4% 20% 20% 20%;
   /* padding-left: 120px;
   padding-top: 100px;
   padding-right: 150px; */
