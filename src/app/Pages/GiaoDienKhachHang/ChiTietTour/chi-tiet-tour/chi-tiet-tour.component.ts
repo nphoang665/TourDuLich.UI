@@ -1,22 +1,26 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
 import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
+
+declare var bootstrap: any;
 @Component({
   selector: 'app-chi-tiet-tour',
   templateUrl: './chi-tiet-tour.component.html',
   styleUrl: './chi-tiet-tour.component.css'
 })
 
-export class ChiTietTourComponent implements OnInit {
+export class ChiTietTourComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
     private tourDuLichServices: QuanLyTourService,
     public domSanitizer: DomSanitizer,
-    private el: ElementRef
+    private el: ElementRef,
+    //đối tượng gọi thủ công dom
+    private cdRef: ChangeDetectorRef
   ) {
 
   }
@@ -28,6 +32,19 @@ export class ChiTietTourComponent implements OnInit {
     // this.images = [...this.images, ...this.images, ...this.images, ...this.images, ...this.images];
 
 
+  }
+  //các phần khai báo cho slide tour chi tiết
+  @ViewChild('carousel') carousel !: ElementRef;
+  ngAfterViewInit(): void {
+    //lấy index slide tour chi tiết
+    const carouselEl = this.carousel.nativeElement;
+
+
+    carouselEl.addEventListener('slid.bs.carousel', (event: any) => {
+      this.indexHienTai = event.to;
+      this.cdRef.detectChanges();
+
+    })
   }
   //hàm lấy tour từ services
   GetTour(idTour: string): void {
@@ -92,6 +109,20 @@ export class ChiTietTourComponent implements OnInit {
 
     }
 
+  }
+
+  //xử lý ảnh con khi click hiển thị preview
+
+  //khai báo biến toàn cục lấy giá trị index
+  indexHienTai: number | null = null;
+  //phần biến này chỉ đảm nhiệm click vào ảnh con tăng độ nhanh chóng
+  index_phu_img_tour !: number;
+  //khai báo viewchildren
+  @ViewChildren('carouselButtons') carouselButton!: QueryList<ElementRef>;
+  ChonAnhHienThi(index: any) {
+    setTimeout(() => {
+      this.carouselButton.toArray()[index].nativeElement.click()
+    }, 0);
   }
 
 
