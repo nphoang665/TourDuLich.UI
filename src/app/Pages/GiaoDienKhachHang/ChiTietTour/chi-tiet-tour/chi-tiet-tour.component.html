@@ -9,31 +9,23 @@
         <div class="row mt-2 tour_item ">
             <div class="col-md-7 col-lg-8 ">
                 <div class="chitiet_img_tour">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
+                    <div #carousel id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators" hidden>
+
+
+                            <button type="button" #carouselButtons *ngFor="let image of images; let index = index"
+                                data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="index"
+                                aria-current="true" class="active" aria-label="Slide 1"></button>
+
                         </div>
+
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://cdn2.ivivu.com/2019/02/13/14/tour-da-nang-cau-rong-750x390.jpg"
-                                    class="d-block w-100" style="width: 100%; max-height: 450px; object-fit: cover;"
-                                    alt="...">
+                            <div class="carousel-item" *ngFor="let image of images; let index = index"
+                                [class.active]="index===0">
+                                <img [src]="image" class="d-block w-100"
+                                    style="width: 100%; max-height: 450px; object-fit: cover;" alt="...">
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://cdn2.ivivu.com/2021/05/07/10/ivivu-ba-na-hill-750x390.gif"
-                                    class="d-block w-100" style="width: 100%; max-height: 450px; object-fit: cover;"
-                                    alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://cdn2.ivivu.com/2021/05/05/16/ivivu-hoi-an-750x390.jpg"
-                                    class="d-block w-100" style="width: 100%; max-height: 450px; object-fit: cover;"
-                                    alt="...">
-                            </div>
+
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="prev">
@@ -48,9 +40,11 @@
                     </div>
 
                     <div class="row __list_img_child p-1 d-flex justify-content-start " appDragScroll
-                        [loadMoreImages]="loadMoreImages">
-                        <div *ngFor="let image of images; let index = index" class="col-lg-1 ___img_element">
+                        appDragScrollMobile [loadMoreImages]="loadMoreImages">
+                        <div *ngFor="let image of images; let index = index" (click)="ChonAnhHienThi(index)"
+                            class="col-lg-1 ___img_element ">
                             <img class="_list_img_element" [src]="image" [alt]="index.toString()">
+                            <div class="overlay_img" [class.active_img_tour_child]="index===indexHienTai "></div>
                         </div>
                     </div>
 

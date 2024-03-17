@@ -38,6 +38,7 @@ import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quan
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
+import { DragScrollMobileDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll-mobile.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-t
     ThemTourComponent,
     SuaTourComponent,
     QuanlydattourComponent,
-    DragScrollDirective
+    DragScrollDirective,
+    DragScrollMobileDirective,
 
   ],
   imports: [

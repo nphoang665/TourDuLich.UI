@@ -42,13 +42,13 @@ export class DragScrollDirective {
         this.el.nativeElement.scrollLeft = this.scrollLeft - walk;
 
         // Determine the direction of mouse movement
-        if (event.pageX > this.lastX) {
-            console.log('Moving right');
+        // if (event.pageX > this.lastX) {
+        //     console.log('Moving right');
 
-        } else if (event.pageX < this.lastX) {
-            console.log('Moving left');
+        // } else if (event.pageX < this.lastX) {
+        //     console.log('Moving left');
 
-        }
+        // }
 
         // Update lastX for the next mousemove event
         this.lastX = event.pageX;
