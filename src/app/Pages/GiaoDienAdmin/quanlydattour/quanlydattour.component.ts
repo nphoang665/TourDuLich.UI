@@ -8,6 +8,8 @@ import { KhachHang } from '../models/khach-hang.model';
 import { environment } from '../../../../environments/environment';
 import { DattourService } from '../services/DatTour/dattour.service';
 import { HttpClient } from '@angular/common/http';
+import { ThanhToan } from '../models/thanh-toan.model';
+import { ThanhToanService } from '../services/ThanhToan/thanh-toan.service';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class QuanlydattourComponent implements OnInit {
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private datTourService: DattourService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private thanhToanService:ThanhToanService) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
@@ -257,6 +260,50 @@ export class QuanlydattourComponent implements OnInit {
           }
         }
       })
+  }
+
+  onThanhToan(){
+    var ngayGioHienTai = new Date();
+    var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
+
+     // Kiểm tra xem checkbox "Trả trước" đã được chọn hay không
+     const traTruocCheckbox = document.getElementById('traTruoc') as HTMLInputElement;
+     const traTruocChecked = traTruocCheckbox.checked;
+ 
+     // Kiểm tra xem checkbox "Trả sau" đã được chọn hay không
+     const traSauCheckbox = document.getElementById('traSau') as HTMLInputElement;
+     const traSauChecked = traSauCheckbox.checked;
+
+      // Tạo biến phương thức thanh toán và gán giá trị tương ứng
+    let phuongThucThanhToan = '';
+    if (traTruocChecked && !traSauChecked) {
+        phuongThucThanhToan = 'Trả trước';
+    } else if (!traTruocChecked && traSauChecked) {
+        phuongThucThanhToan = 'Trả sau';
+    }
+
+    const tongTienTour = this.TongTien_ThanhToan;
+
+    const thanhToanData = {
+      idThanhToan:'',
+      idDatTour: this.TourThanhToan_HienThi.idDatTour,
+      idKhachHang: this.KhachHangBamTraCuu[0].idKhachHang,
+      idNhanVien: this.TourThanhToan_HienThi.idNhanVien,
+      tongTienTour: tongTienTour.toString(),
+      tongTienDichVu: '0',
+      tongTien:tongTienTour.toString(),
+      tinhTrang:'',
+      ngayThanhToan: ngayGioHienTaiFormatted,
+      phuongThucThanhToan: phuongThucThanhToan,
+
+    }
+    
+    this.thanhToanService.thanhToan(thanhToanData)
+    .subscribe({
+      next:(response)=>{
+        console.log(response);
+      }
+    })
   }
 
 }
