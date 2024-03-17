@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Directive, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +37,7 @@ import { CommonModule } from '@angular/common';
 import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { ToastrModule } from 'ngx-toastr';
     HeaderAdminComponent,
     ThemTourComponent,
     SuaTourComponent,
-    QuanlydattourComponent
+    QuanlydattourComponent,
+    DragScrollDirective
 
   ],
   imports: [
@@ -75,6 +77,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
+
     ToastrModule.forRoot()
 
 

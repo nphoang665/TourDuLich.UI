@@ -19,7 +19,7 @@
 
 @media screen and (max-width: 1200px) {
   .container {
-    max-width: 90%;
+    max-width: 100%;
   }
   .text_tour {
     font-size: 20px;
@@ -51,4 +51,26 @@
   font-size: 22px;
   font-weight: 500;
   color: #003c71;
+}
+
+.__list_img_child {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow: hidden;
+  margin: 0 auto;
+  user-select: none;
+  /* pointer-events: none; */
+}
+/* Item đầu tiên */
+
+.___img_element {
+  /* background-color: red; */
+  padding: 0;
+  width: 85px;
+}
+._list_img_element {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
 }
