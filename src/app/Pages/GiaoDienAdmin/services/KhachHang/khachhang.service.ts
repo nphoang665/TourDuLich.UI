@@ -12,4 +12,8 @@ export class KhachhangService {
   getAllTourKhachHang(): Observable<KhachHang[]> {
     return this.http.get<KhachHang[]>(`${environment.apiBaseUrl}/api/KhachHang`);
   }
+
+  addKhachHang(data:KhachHang):Observable<KhachHang>{
+    return this.http.post<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang`,data);
+  }
 }

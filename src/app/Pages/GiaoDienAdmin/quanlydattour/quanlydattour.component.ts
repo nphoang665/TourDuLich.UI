@@ -16,11 +16,28 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './quanlydattour.component.css'
 })
 export class QuanlydattourComponent implements OnInit {
+  themKhachHang: KhachHang;
   TenKhachHang = new FormControl();
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private datTourService: DattourService,
     private http: HttpClient) {
+    var ngayGioHienTai = new Date();
+    var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
+    this.themKhachHang = {
+      idKhachHang: '123123',
+      tenKhachHang: '',
+      soDienThoai: '',
+      diaChi: '',
+      cccd: '',
+      ngaySinh: '',
+      gioiTinh: 'Nam',
+      email: '',
+      tinhTrang: 'Đang hoạt động',
+      matKhau: '123123',
+      ngayDangKy: ngayGioHienTaiFormatted
+    }
+
   }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
@@ -29,6 +46,10 @@ export class QuanlydattourComponent implements OnInit {
   //khai báo TourDuLich để html sử dụng hiển thị
   TourDuLich: any[] = [];
   ngOnInit(): void {
+    var ngayGioHienTai = new Date();
+
+    console.log(ngayGioHienTai.toISOString());
+
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
       this.TourDuLich = data;
@@ -219,4 +240,23 @@ export class QuanlydattourComponent implements OnInit {
 
 
   }
+
+  onSubmitThemKhachHang() {
+    console.log(this.themKhachHang);
+
+    this.quanLyKhachHangServices.addKhachHang(this.themKhachHang)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            console.log(error);
+          } else {
+            console.error('Đã xảy ra lỗi:', error);
+          }
+        }
+      })
+  }
+
 }
