@@ -39,7 +39,8 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     //lấy index slide tour chi tiết
     const carouselEl = this.carousel.nativeElement;
 
-
+    // set index = 0;
+    this.indexHienTai = 0;
     carouselEl.addEventListener('slid.bs.carousel', (event: any) => {
       this.indexHienTai = event.to;
       this.cdRef.detectChanges();
