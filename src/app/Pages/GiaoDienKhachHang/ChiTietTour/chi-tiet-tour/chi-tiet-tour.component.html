@@ -1,9 +1,21 @@
 <app-second-header></app-second-header>
+
 <div style="background-color: #ecf0f5;">
+
     <div class="container">
-        <p class="text_tour">
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+            aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+        </nav>
+        <span class="text_tour">
             {{TourChiTiet.tenTour}}
-        </p>
+        </span>
         <span class="badge bg-success">10.0 </span><span> Tuyệt vời | 1 đánh
             giá</span>
         <div class="row mt-2 tour_item ">
@@ -39,7 +51,7 @@
                         </button>
                     </div>
 
-                    <div class="row __list_img_child p-1 d-flex justify-content-start " appDragScroll
+                    <div class="row __list_img_child pt-1 pb-1 d-flex justify-content-start " appDragScroll
                         appDragScrollMobile [loadMoreImages]="loadMoreImages">
                         <div *ngFor="let image of images; let index = index" (click)="ChonAnhHienThi(index)"
                             class="col-lg-1 ___img_element ">
@@ -69,11 +81,16 @@
                     <div [innerHTML]="TextMoTa"></div>
                 </div>
             </div>
-            <div class="col-md-5 col-lg-4 bg-secondary p-0 sticky-container">
+            <div class="col-md-5 col-lg-4 p-0 sticky-container">
                 <div class="bg-white sticky-item">
-                    <p class="title_lichtrinh">Lịch trình và giá tour</p>
-                    <div class="lichTrinh_div">
+                    <span class="title_lichtrinh">Lịch trình và giá tour</span>
+                    <div class="mt-1">
+                        <span>Lịch trình và xem giá:</span>
+                    </div>
+
+                    <div class="lichTrinh_div mt-1">
                         <div class="row">
+
                             <div class="col-lg-2 col-md-2 col-sm-2 col-2 item_lichTrinh">
                                 <span>25/03</span>
                             </div>
@@ -81,12 +98,359 @@
                         </div>
 
                     </div>
+                    <div class="giaTour">
+                        <div class="giaNguoiLon _inputGroup shadow-sm p-2">
+                            <div class="row flex-nowrap">
+                                <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                    <span class="text-nowrap">Người lớn</span>
+
+                                </div>
+                                <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                    <span class="text-nowrap text-warning">
+                                        x 52.900.000
+                                    </span>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                    style="min-width: 140px;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent "
+                                                id="basic-addon1"><strong>-</strong></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 text-center"
+                                            aria-label="Username" aria-describedby="basic-addon1" value="1">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent"
+                                                id="basic-addon1"><strong>+</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="giaTreEm _inputGroup shadow-sm p-2 mt-2">
+                            <div class="row flex-nowrap">
+                                <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                    <span class="text-nowrap">Trẻ em</span>
+
+                                </div>
+                                <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                    <span class="text-nowrap text-warning">
+                                        x 52.900.000
+                                    </span>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                    style="min-width: 140px;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent "
+                                                id="basic-addon1"><strong>-</strong></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 text-center"
+                                            aria-label="Username" aria-describedby="basic-addon1" value="1">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent"
+                                                id="basic-addon1"><strong>+</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="LienHeDatCho mt-3 text-info">
+                            <i class="bi bi-info-circle me-2"></i><span>Liên hệ để xác nhận chỗ</span>
+                        </div>
+
+                        <div class="GiaTour mt-4">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5 col-lg-6">
+                                    <span>Tổng Giá Tour</span>
+                                </div>
+                                <div
+                                    class="col-md-7 col-lg-6 text-nowrap d-flex align-items-center justify-content-end">
+                                    <span class="text-warning font-weight-bold text_giaTour">105.800.000
+                                    </span><span class="text-warning">VNĐ</span>
+                                </div>
+                            </div>
 
 
+                        </div>
+
+                        <div class="btn_Tour pe-2 pr-2 ps-2 mt-2">
+                            <div class="row">
+                                <div class="col-6 gx-1"> <button class="btn_LienHe">Liên hệ tư vấn</button>
+                                </div>
+                                <div class="col-6 gx-1"><button class="btn_DatTour">Đặt tour ngay</button></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="bg-white pt-2 ">
+                        <div class="row ">
+                            <div class="col-6 col-lg-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item border-0 text-nowrap">
+                                        <span class="text-nowrap"><b><i class="bi bi-check2 text-success"
+                                                    style="font-size: 20px;"></i></b>
+                                            Bảo
+                                            hiểm</span>
+                                    </li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Hướng
+                                            dẫn viên</span>
+                                    </li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Vé
+                                            máy
+                                            bay</span></li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Visa</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-lg-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Bữa
+                                            ăn</span>
+                                    </li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Khách
+                                            sạn 3*</span>
+                                    </li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Vé
+                                            tham quan</span>
+                                    </li>
+                                    <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                    class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                            Xe
+                                            đưa
+                                            đón</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container-fluid p-0 sticky-container-mobile">
+                <div class="bg-white sticky-item-mobile">
+                    <div class="row d-flex align-items-center">
+
+                        <!-- <span>Tổng Giá Tour</span> -->
+                        <div class="col-7 col-md-7 col-lg-6">
+                            <span class="text-nowrap" style="font-size: 15px;">Giá chỉ từ</span>
+                            <br>
+                            <span class="text-nowrap text-warning font-weight-bold text_giaTour">48.900.000
+                            </span><span class="text-warning">đ/khách</span>
+                        </div>
+
+
+                        <div class="col-5 col-md-5 col-lg-4">
+                            <button type="button" class="btn_DatTour btn_DatTour_Mobile" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Lịch khởi hành
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+
+
+<!-- modal -->
+<div class="modal" style="z-index: 10002;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-center"
+                style="background-color: #003C71;">
+                <button type="button" style="font-size: 30px; position: absolute; left: 0;top: -1px;" class="btn"
+                    data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left text-white"></i>
+                </button>
+                <h5 class="text-white" id="exampleModalLabel">Lịch Trình Và Giá Tour</h5>
+            </div>
+
+
+            <div class="modal-body">
+
+                <span class="title_lichtrinh">{{TourChiTiet.tenTour}}</span>
+                <div class="mt-1">
+                    <span>Lịch trình và xem giá:</span>
+                </div>
+
+                <div class="lichTrinh_div mt-1">
+                    <div class="row">
+
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2 item_lichTrinh">
+                            <span>25/03</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="giaTour">
+                    <div class="giaNguoiLon _inputGroup shadow-sm p-2">
+                        <div class="row flex-nowrap">
+                            <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                <span class="text-nowrap">Người lớn</span>
+
+                            </div>
+                            <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                <span class="text-nowrap text-warning">
+                                    x 52.900.000
+                                </span>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                style="min-width: 140px;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-0 bg-transparent "
+                                            id="basic-addon1"><strong>-</strong></span>
+                                    </div>
+                                    <input type="text" class="form-control border-0 text-center" aria-label="Username"
+                                        aria-describedby="basic-addon1" value="1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-0 bg-transparent"
+                                            id="basic-addon1"><strong>+</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="giaTreEm _inputGroup shadow-sm p-2 mt-2">
+                        <div class="row flex-nowrap">
+                            <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                <span class="text-nowrap">Trẻ em</span>
+
+                            </div>
+                            <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                <span class="text-nowrap text-warning">
+                                    x 52.900.000
+                                </span>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                style="min-width: 140px;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-0 bg-transparent "
+                                            id="basic-addon1"><strong>-</strong></span>
+                                    </div>
+                                    <input type="text" class="form-control border-0 text-center" aria-label="Username"
+                                        aria-describedby="basic-addon1" value="1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text border-0 bg-transparent"
+                                            id="basic-addon1"><strong>+</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="LienHeDatCho mt-3 text-info">
+                        <i class="bi bi-info-circle me-2"></i><span>Liên hệ để xác nhận chỗ</span>
+                    </div>
+
+                    <div class="GiaTour mt-4">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-5 col-md-5 col-lg-6 text-nowrap">
+                                <span class="text-nowrap">Tổng Giá Tour</span>
+                            </div>
+                            <div
+                                class="col-7 col-md-7 col-lg-6 text-nowrap d-flex align-items-center justify-content-end">
+                                <span class="text-warning font-weight-bold text_giaTour">105.800.000
+                                </span><span class="text-warning">VNĐ</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <hr>
+                <div class="bg-white  ">
+                    <div class="row ">
+                        <div class="col-6 col-lg-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0 text-nowrap">
+                                    <span class="text-nowrap"><b><i class="bi bi-check2 text-success"
+                                                style="font-size: 20px;"></i></b>
+                                        Bảo
+                                        hiểm</span>
+                                </li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Hướng
+                                        dẫn viên</span>
+                                </li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Vé
+                                        máy
+                                        bay</span></li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Visa</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-lg-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Bữa
+                                        ăn</span>
+                                </li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Khách
+                                        sạn 3*</span>
+                                </li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Vé
+                                        tham quan</span>
+                                </li>
+                                <li class="list-group-item border-0"><span class="text-nowrap"><b><i
+                                                class="bi bi-check2 text-success" style="font-size: 20px;"></i></b>
+                                        Xe
+                                        đưa
+                                        đón</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+            <div class="pb-2 ps-2 pe-2">
+                <div class="btn_Tour pe-2 pr-2 ps-2">
+                    <div class="row">
+                        <div class="col-6 gx-1">
+                            <button class="btn_LienHe w-100">Liên hệ tư vấn</button>
+                        </div>
+                        <div class="col-6 gx-1">
+                            <button class="btn_DatTour w-100">Đặt tour ngay</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-<app-footer></app-footer>

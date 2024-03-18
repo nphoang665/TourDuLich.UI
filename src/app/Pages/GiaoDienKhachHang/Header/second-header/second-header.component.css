@@ -257,6 +257,9 @@
     color: white;
     font-size: 14px;
   }
+  .container_medium_second_header {
+    height: 64px;
+  }
   .mobile_hide {
     display: block;
   }
