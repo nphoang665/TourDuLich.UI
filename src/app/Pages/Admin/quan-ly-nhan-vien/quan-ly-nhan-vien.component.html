@@ -1,0 +1,160 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start dịch vụ -->
+        <div class="main-content-container container-fluid px-4">
+            <div class="page-header row no-gutters py-4">
+              <div class="QuanLuTour_container">
+                <h3>Quản lý nhân viên</h3>
+                <button class="btn btn-primary" routerLink="/themNhanVien">Thêm mới nhân viên</button>
+    
+                <ng-container *ngIf="nhanVien$ | async as nhanVien">
+                
+                  <table class="table table-bordered table-striped  table-reponsive mt-3">
+                    <thead class="text-center align-middle">
+                        <tr>
+                            <th>STT</th>
+                            <th scope="col">Mã nhân viên</th>
+                            <th scope="col">Tên nhân viên</th> 
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Ngày vào làm</th>
+                            <th scope="col">Chức vụ</th>
+                            <th scope="col">Ảnh nhân viên</th>
+                            <th scope="col">Ngày đăng ký</th>
+                            <th scope="col">Mật khẩu</th>
+                            <th scope="col">Tình trạng</th>
+                            <!-- <th scope="col" class="res_Small_Hide">Ngày</th>
+                            <th scope="col" class="res_Medium_Hide">CCCD</th>
+                            <th scope="col" class="res_Medium_Hide">Chức vụ</th>
+                            <th scope="col" class="res_Medium_Hide">Ngày vào làm</th>
+                            <th scope="col" class="res_Small_Hide">Tình trạng</th> -->
+                            <th scope="col">Tùy chọn</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of nhanVien; track $index) {
+                        <tr class="text-center align-middle" data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapseExample' + ($index)" aria-expanded="false"
+                            [attr.aria-controls]="'collapseExample' + ($index)">
+                            <th>{{$index+1}}</th>
+                            <td>{{item.idNhanVien}}</td>
+                            <td>{{item.tenNhanVien}}</td>
+                            <td>{{item.gioiTinh}}</td>
+                            <td>{{item.soDienThoai}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.ngaySinh | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item.diaChi}}</td>
+                            <td>{{item.ngayVaoLam | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item.chucVu}}</td>
+                            <td>{{item.anhNhanVien}}</td>
+                            <td>{{item.ngayDangKy | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item.matKhau}}</td>
+                            <td>{{item.tinhTrang}}</td>
+                            <!-- <td class="res_Small_Hide">{{item.soDienThoai}}</td> -->
+                            <!-- <td class="res_Medium_Hide">{{item.cccd}}</td> -->
+                            <!-- <td class="res_Medium_Hide">{{item.chucVu }}</td> -->
+                            <!-- <td class="res_Medium_Hide">{{item.ngayVaoLam | date:'short'}}</td> -->
+                            <!-- <td class="res_Small_Hide">{{item.tinhTrang}}</td> -->
+                            <td data-bs-toggle="collapse">
+    
+                                <div class="dropdown">
+                                    <a class="bg-transparent text-black" href="#" role="button" id="dropdownMenuLink"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </a>
+    
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" [routerLink]="['/suaNhanVien', item.idNhanVien]">Sửa</a></li>
+                                        <li><a class="dropdown-item" (click)="XoaNhanVien()">Xóa</a></li>
+                                    </ul>
+                                </div>
+    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="100%" style="padding:0">
+                                <div class="collapse" [attr.id]="'collapseExample'+ $index">
+                                    <table class="table table-bordered table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col">Địa chỉ</th>
+                                                <td>{{item.diaChi}}</td>
+                                            </tr>
+                                            
+                                            <!-- <tr>
+                                                <th scope="col" class="res_Medium_Show">Phương Tiện Di Chuyển</th>
+                                                <td class="res_Medium_Show">{{item.phuongTienDiChuyen}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" class="res_Medium_Show">Thời gian bắt đầu</th>   
+                                                <td class="res_Medium_Show">{{item.thoiGianBatDau | date:'short'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" class="res_Medium_Show">Thời gian kết thúc</th>   
+                                                <td class="res_Medium_Show">{{item.thoiGianKetThuc | date:'short'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" class="res_Small_Show">Loại Tour</th>
+    
+                                               <td class="res_Small_Show">{{item.loaiTour}}</td>
+    
+    
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" class="res_Small_Show">Đối tác</th>
+    
+    
+                                                <td class="res_Small_Show">{{item.idDoiTac}}</td>
+    
+    
+                                            </tr> -->
+                                            <tr>
+                                                <th scope="col" class="res_Small_Show">Tình trạng</th>
+    
+    
+                                                <td class="res_Small_Show">{{item.tinhTrang}}</td>
+    
+    
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+    
+                    </tbody>
+                </table>
+
+                </ng-container>
+              </div>
+                
+
+            </div>
+        </div>
+        <!-- End dịch vụ -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>

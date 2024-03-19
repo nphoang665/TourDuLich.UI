@@ -42,6 +42,9 @@ import { FooterMainAdminComponent } from './Pages/Admin/Main/footer-main-admin/f
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.component';
 import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydattour/quanlydattour.component';
+import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
+import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
+import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +69,9 @@ import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydat
     MainNavbarComponent,
     FooterMainAdminComponent,
     QuanlydattourComponent,
+    QuanLyKhachHangComponent,
+    QuanLyNhanVienComponent,
+    QuanLyDichVuComponent
   ],
   imports: [
     BrowserModule,

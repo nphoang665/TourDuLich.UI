@@ -10,6 +10,9 @@ import { QuanLyTourComponent } from './Pages/Admin/quan-ly-tour/quan-ly-tour.com
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.component';
 import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydattour/quanlydattour.component';
+import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
+import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
+import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: 'suatour/:id', component: SuaTourComponent },
   {path:'trangChuAdmin',component:TrangChuAdminComponent},
   {path:'quanLyDatTour',component:QuanlydattourComponent},
+  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
+  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent},
+  {path:'quanLyDichVu',component:QuanLyDichVuComponent},
 
 
 
