@@ -1,18 +1,18 @@
 <app-second-header></app-second-header>
-<div style=" background-color: #ecf0f5;margin-top: 100px; padding-top:1px;">
-    <!-- <div class="container-fluid px-2" style="margin-top: 40px;">
-        <div class="row text-center mt-2 gx-2">
-            <div class="col-4 col-lg-4 bg-success text-white p-2 ">
-                <i class="bi bi-1-circle-fill me-1"></i>Thông tin liên hệ
-            </div>
-            <div class="col-4 col-lg-4 bg-success text-white p-2 ">
-                <i class="bi bi-2-circle-fill me-1"></i>Thông tin đặt tour
-            </div>
-            <div class="col-4 col-lg-4 bg-success text-white p-2 ">
-                <i class="bi bi-3-circle-fill me-1"></i>Gửi đơn đặt tour
-            </div>
+<div style=" background-color: #ecf0f5;margin-top: 100px; padding-top:1px">
+    <!-- <div class=" container-fluid px-2" style="margin-top: 40px;">
+    <div class="row text-center mt-2 gx-2">
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-1-circle-fill me-1"></i>Thông tin liên hệ
         </div>
-    </div> -->
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-2-circle-fill me-1"></i>Thông tin đặt tour
+        </div>
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-3-circle-fill me-1"></i>Gửi đơn đặt tour
+        </div>
+    </div>
+</div> -->
 
     <div class="container-fluid p-0 pb-5" style="margin-top: 20px;">
         <h4><b>THANH TOÁN TOUR DU LỊCH</b></h4>
@@ -253,8 +253,17 @@
                     <div class="p-3">
                         <div class="d-flex justify-content-center mt-1">
 
+                            @if(isfalse===true){
 
-                            <button class="btn btn-primary d-flex justify-content-center">XÁC NHẬN ĐẶT TOUR</button>
+
+                            <button class="btn btn-primary d-flex justify-content-center" (click)="XacNhanDatTour()">XÁC
+                                NHẬN ĐẶT TOUR</button>
+                            }
+                            @else {
+                            <button class="btn btn-warning d-flex justify-content-center text-white"
+                                style="cursor: not-allowed;">ĐANG ĐỢI
+                                DUYỆT</button>
+                            }
                         </div>
                         <div class="text-danger">
                             Lưu ý:

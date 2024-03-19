@@ -22,7 +22,8 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     private el: ElementRef,
     //đối tượng gọi thủ công dom
     private cdRef: ChangeDetectorRef,
-    private dichVuServices: DichVuTestDataService
+    private dichVuServices: DichVuTestDataService,
+    private router: Router
   ) {
 
   }
@@ -155,7 +156,21 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ChuyenTrangThanhToan() {
+    //xử lý lưu thông tin tour khách của khách hàng vào đây
 
+
+
+
+
+
+
+
+
+
+    //```````````
+    this.router.navigate(['/thanhtoankhachhang']);
+  }
 
 
 }

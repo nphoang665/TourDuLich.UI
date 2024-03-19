@@ -112,5 +112,11 @@ export class ThanhtoankhachhangComponent implements OnInit {
       }
     }
   }
+
+  //
+  isfalse: boolean = true;
+  XacNhanDatTour() {
+    this.isfalse = !this.isfalse;
+  }
 }
 
