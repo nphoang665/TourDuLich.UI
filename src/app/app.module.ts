@@ -39,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
 import { DragScrollMobileDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll-mobile.directive';
+import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { DragScrollMobileDirective } from './Pages/GiaoDienKhachHang/ChiTietTour
     QuanlydattourComponent,
     DragScrollDirective,
     DragScrollMobileDirective,
+    ThanhtoankhachhangComponent,
 
   ],
   imports: [

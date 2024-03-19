@@ -5,6 +5,7 @@ import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
+import { DichVuTestDataService } from '../../services/dich-vu-test-data.service';
 
 declare var bootstrap: any;
 @Component({
@@ -20,7 +21,8 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     public domSanitizer: DomSanitizer,
     private el: ElementRef,
     //đối tượng gọi thủ công dom
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private dichVuServices: DichVuTestDataService
   ) {
 
   }
@@ -29,7 +31,10 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //gọi hàm get tour và truyền biến id tour vào
     this.GetTour(this.LayIdRoute());
-    // this.images = [...this.images, ...this.images, ...this.images, ...this.images, ...this.images];
+
+    //gọi hàm lấy dịch vụ mẫu
+    this.GetDichVu();
+    console.log(this.DichVu);
 
 
   }
@@ -94,6 +99,14 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   }
 
 
+  //lấy dịch vụ mẫu from services
+  // biến lấy dịch vụ mẫu
+  DichVu: any[] = [];
+
+  GetDichVu() {
+    this.DichVu = this.dichVuServices.LayDichVuMau();
+  }
+
 
 
   // tạo mảng chứa imgTour
@@ -126,6 +139,21 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
+
+  //xử lý khi kích thước màn hình thay đổi
+  //khai báo view child để đọc dom
+  @ViewChild('closeModal_ThanhToan') closeButton!: ElementRef;
+
+  screenWidth!: number;
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 767) {
+      this.closeButton.nativeElement.click();
+    }
+  }
 
 
 

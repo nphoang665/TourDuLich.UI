@@ -9,12 +9,14 @@ import { QuanLyTourComponent } from './Pages/GiaoDienAdmin/quan-ly-tour/quan-ly-
 import { ThemTourComponent } from './Pages/GiaoDienAdmin/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/GiaoDienAdmin/sua-tour/sua-tour.component';
 import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
+import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
   { path: 'dattour', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
+  { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
   { path: 'suatour/:id', component: SuaTourComponent },
