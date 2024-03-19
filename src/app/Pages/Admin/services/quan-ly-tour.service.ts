@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { themTour } from '../models/them-tour.model';
-import { Observable } from 'rxjs';
-import { TourDuLich } from '../models/tour-du-lich.model';
 import { environment } from '../../../../environments/environment';
+import { TourDuLich } from '../models/tour-du-lich.model';
+import { Observable } from 'rxjs';
+import { themTour } from '../models/them-tour.model';
 import { SuaTour } from '../models/sua-tour.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuanLyTourService {
+export class QuanLyTourService{
 
   constructor(private http: HttpClient) { }
 

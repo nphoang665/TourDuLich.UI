@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
-import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
+import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { environment } from '../../../../../environments/environment';
+import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 
 @Component({
   selector: 'app-san-pham-giao-dien',

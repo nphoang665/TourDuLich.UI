@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { QuanLyTourService } from '../../GiaoDienAdmin/services/quan-ly-tour.service';
-import { Observable, Subscription } from 'rxjs';
-import { TourDuLich } from '../../GiaoDienAdmin/models/tour-du-lich.model';
+import { TourDuLich } from '../models/tour-du-lich.model';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { QuanLyTourService } from '../services/quan-ly-tour.service';
 
 @Component({
   selector: 'app-quan-ly-tour',

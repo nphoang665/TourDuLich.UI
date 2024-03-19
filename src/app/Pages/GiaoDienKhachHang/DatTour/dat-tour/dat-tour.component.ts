@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
 import { environment } from '../../../../../environments/environment';
-import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
+import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
+import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 
 
 @Component({

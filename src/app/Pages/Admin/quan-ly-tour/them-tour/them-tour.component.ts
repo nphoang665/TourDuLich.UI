@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { themTour } from '../../../GiaoDienAdmin/models/them-tour.model';
+import { themTour } from '../../models/them-tour.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DoitacService } from '../../../GiaoDienAdmin/services/DoiTac/doitac.service';
-import { DoiTac } from '../../../GiaoDienAdmin/models/doi-tac.model';
+import { DoiTac } from '../../models/doi-tac.model';
+import { QuanLyTourService } from '../../services/quan-ly-tour.service';
+import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 
 @Component({
   selector: 'app-them-tour',
@@ -76,7 +76,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private doiTacServices: DoitacService
+    private doiTacServices: DoiTacService
   ) {
     this.model = {
       idTour: '',
@@ -224,7 +224,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.model)
       .subscribe({
         next: (response) => {
-          this.router.navigateByUrl('/quanLyTour');
+          this.router.navigateByUrl('/quanlytour');
           // console.log(response);
 
         }

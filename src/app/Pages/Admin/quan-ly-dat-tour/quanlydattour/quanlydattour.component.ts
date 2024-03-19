@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { QuanLyTourService } from '../services/quan-ly-tour.service';
-import { TourDuLich } from '../models/tour-du-lich.model';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { KhachHang } from '../../models/khach-hang.model';
 import { FormControl } from '@angular/forms';
-import { KhachhangService } from '../services/KhachHang/khachhang.service';
-import { KhachHang } from '../models/khach-hang.model';
-import { environment } from '../../../../environments/environment';
-import { DattourService } from '../services/DatTour/dattour.service';
+import { QuanLyTourService } from '../../services/quan-ly-tour.service';
+import { KhachhangService } from '../../services/KhachHang/khachhang.service';
+import { DattourService } from '../../services/DatTour/dattour.service';
 import { HttpClient } from '@angular/common/http';
-import { ThanhToan } from '../models/thanh-toan.model';
-import { ThanhToanService } from '../services/ThanhToan/thanh-toan.service';
-
+import { ThanhToanService } from '../../services/ThanhToan/thanh-toan.service';
+import { Observable } from 'rxjs';
+import { TourDuLich } from '../../models/tour-du-lich.model';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-quanlydattour',

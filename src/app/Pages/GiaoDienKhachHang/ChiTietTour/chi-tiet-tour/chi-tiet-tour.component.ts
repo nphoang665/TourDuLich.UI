@@ -1,10 +1,10 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
-import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
+import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
+import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 
 declare var bootstrap: any;
 @Component({

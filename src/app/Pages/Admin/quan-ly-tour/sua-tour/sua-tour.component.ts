@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
+import { TourDuLich } from '../../models/tour-du-lich.model';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
-import { DoitacService } from '../../../GiaoDienAdmin/services/DoiTac/doitac.service';
-import { DoiTac } from '../../../GiaoDienAdmin/models/doi-tac.model';
+import { DoiTac } from '../../models/doi-tac.model';
 import { environment } from '../../../../../environments/environment';
-import { SuaTour } from '../../../GiaoDienAdmin/models/sua-tour.model';
+import { SuaTour } from '../../models/sua-tour.model';
+import { QuanLyTourService } from '../../services/quan-ly-tour.service';
+import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 
 @Component({
   selector: 'app-sua-tour',
@@ -56,7 +56,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     public domSanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private quanLyTourService: QuanLyTourService,
-    private doiTacServices: DoitacService,
+    private doiTacServices: DoiTacService,
 
     private router: Router) { }
   Test() {

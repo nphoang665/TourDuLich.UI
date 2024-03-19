@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ThemDatTour } from '../../models/them-datTour.model';
-import { environment } from '../../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { DatTour } from '../../models/dat-tour.model';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

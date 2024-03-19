@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DoitacService } from './doitac.service';
+import { DoiTacService } from './doi-tac.service';
 
-describe('DoitacService', () => {
-  let service: DoitacService;
+describe('DoiTacService', () => {
+  let service: DoiTacService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DoitacService);
+    service = TestBed.inject(DoiTacService);
   });
 
   it('should be created', () => {

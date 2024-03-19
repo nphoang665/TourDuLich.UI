@@ -24,20 +24,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { SanPhamGiaoDienComponent } from './Pages/GiaoDienKhachHang/SanPhamGiaoDien/san-pham-giao-dien/san-pham-giao-dien.component';
 import { ChiTietTourComponent } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/chi-tiet-tour.component';
-import { SidebarNavComponent } from './Pages/GiaoDienAdmin/LayoutChung/sidebar-nav/sidebar-nav.component';
-import { HeaderAdminComponent } from './Pages/GiaoDienAdmin/header-admin/header-admin.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { FormGroupName, FormsModule } from '@angular/forms';
 
 import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { QuanlydattourComponent } from './Pages/GiaoDienAdmin/quanlydattour/quanlydattour.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
 import { DragScrollMobileDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll-mobile.directive';
 import { MaterialModule } from './material.module';
-import { DemoQlTourComponent } from './Pages/GiaoDienAdmin/demo-ql-tour/demo-ql-tour.component';
 import { TrangChuAdminComponent } from './Pages/Admin/trang-chu-admin/trang-chu-admin.component';
 import { QuanLyTourComponent } from './Pages/Admin/quan-ly-tour/quan-ly-tour.component';
 import { MainSidebarComponent } from './Pages/Admin/Main/main-sidebar/main-sidebar.component';
@@ -45,6 +41,7 @@ import { MainNavbarComponent } from './Pages/Admin/Main/main-navbar/main-navbar.
 import { FooterMainAdminComponent } from './Pages/Admin/Main/footer-main-admin/footer-main-admin.component';
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.component';
+import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydattour/quanlydattour.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,19 +56,16 @@ import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.c
     TimKiemTourComponent,
     SanPhamGiaoDienComponent,
     ChiTietTourComponent,
-    SidebarNavComponent,
-    HeaderAdminComponent,
     ThemTourComponent,
     SuaTourComponent,
-    QuanlydattourComponent,
     DragScrollDirective,
     DragScrollMobileDirective,
-    DemoQlTourComponent,
     TrangChuAdminComponent,
     QuanLyTourComponent,
     MainSidebarComponent,
     MainNavbarComponent,
     FooterMainAdminComponent,
+    QuanlydattourComponent,
   ],
   imports: [
     BrowserModule,
