@@ -1,0 +1,357 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start dịch vụ -->
+        <div class="main-content-container container-fluid px-4">
+            <div class="page-header row no-gutters py-4">
+              <div class="container">
+                <h2>Thêm mới tour</h2>
+    
+    
+    
+    
+    
+    
+                <form [formGroup]="ThemTourForm">
+                    <div class="row">
+                        <!-- <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idTour">Mã tour</label>
+                                <input type="text" class="form-control" id="idTour" formControlName="idTour"
+                                    placeholder="Nhập mã tour" [(ngModel)]="model.idTour">
+                            </div>
+                        </div> -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TenTour">Tên tour</label>
+                                <input type="text" class="form-control" id="TenTour" formControlName="tenTour"
+                                    placeholder="Nhập tên tour" [(ngModel)]="model.tenTour"
+                                    [ngClass]="{ 'is-invalid': (submitted || f['tenTour'].touched ||f['tenTour'].dirty) && f['tenTour'].errors }"
+                                    (blur)="onFieldTouched('tenTour')" [(ngModel)]="model.tenTour">
+    
+                                @if ((submitted || f['tenTour'].touched ||f['tenTour'].dirty) && f['tenTour'].errors) {
+                                <div class="invalid-feedback">
+                                    @if (f['tenTour'].errors['required']) {
+                                    <div>Tên tour là bắt buộc</div>
+                                    }
+                                    @if (f['tenTour'].errors['minlength']) {
+                                    <div>Tên tour không được bé hơn 4 ký tự</div>
+                                    }
+                                    @if (f['tenTour'].errors['maxlength']) {
+                                    <div>Tên tour không được lớn hơn 100 ký tự</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="PhuongTienDiChuyen">Phương tiện di chuyển</label>
+                                <select class="form-control" id="PhuongTienDiChuyen" formControlName="phuongTienDiChuyen"
+                                    [(ngModel)]="model.phuongTienDiChuyen" [ngClass]="{
+                                            'is-invalid': (submitted || f['phuongTienDiChuyen'].touched ||
+                                                           f['phuongTienDiChuyen'].dirty) && f['phuongTienDiChuyen'].errors
+                                        }" (blur)="onFieldTouched('phuongTienDiChuyen')">
+    
+                                    <option value="Ô tô">Ô tô</option>
+                                    <option value="Xe máy">Xe máy</option>
+    
+                                </select>
+    
+                                @if ((submitted || f['phuongTienDiChuyen'].touched || f['phuongTienDiChuyen'].dirty)
+                                && f['phuongTienDiChuyen'].errors) {
+                                <div class="invalid-feedback">
+                                    @if (f['phuongTienDiChuyen'].errors['required']) {
+                                    <div>Phương tiện di chuyển là bắt buộc</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="NoiKhoiHanh">Nơi khởi hành</label>
+                                <input type="text" class="form-control" id="NoiKhoiHanh" formControlName="noiKhoiHanh"
+                                    [(ngModel)]="model.noiKhoiHanh" placeholder="Nhập nơi khởi hành"
+                                    [ngClass]="{ 'is-invalid': (submitted || f['noiKhoiHanh'].touched ||f['noiKhoiHanh'].dirty) && f['noiKhoiHanh'].errors }"
+                                    (blur)="onFieldTouched('noiKhoiHanh')" [(ngModel)]="model.noiKhoiHanh">
+    
+                                @if ((submitted || f['noiKhoiHanh'].touched ||f['noiKhoiHanh'].dirty) &&
+                                f['noiKhoiHanh'].errors) {
+                                <div class="invalid-feedback">
+                                    @if (f['noiKhoiHanh'].errors['required']) {
+                                    <div>Nơi khởi hành là bắt buộc</div>
+                                    }
+                                    @if (f['noiKhoiHanh'].errors['minlength']) {
+                                    <div>Nơi khởi hành không được bé hơn 4 ký tự</div>
+                                    }
+                                    @if (f['noiKhoiHanh'].errors['maxlength']) {
+                                    <div>Nơi khởi hành không được lớn hơn 50 ký tự</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TinhTrang">Loại tour</label>
+                                <input type="text" class="form-control" id="LoaiTour" formControlName="loaiTour"
+                                    [(ngModel)]="model.loaiTour" placeholder="Nhập loại tour"
+                                    [ngClass]="{ 'is-invalid': (submitted || f['loaiTour'].touched ||f['loaiTour'].dirty) && f['loaiTour'].errors }"
+                                    (blur)="onFieldTouched('loaiTour')" [(ngModel)]="model.loaiTour">
+    
+                                @if ((submitted || f['loaiTour'].touched ||f['loaiTour'].dirty) && f['loaiTour'].errors) {
+                                <div class="invalid-feedback">
+                                    @if (f['loaiTour'].errors['required']) {
+                                    <div>Loại tour là bắt buộc</div>
+                                    }
+                                    @if (f['loaiTour'].errors['minlength']) {
+                                    <div>Loại tour không được bé hơn 4 ký tự</div>
+                                    }
+                                    @if (f['loaiTour'].errors['maxlength']) {
+                                    <div>Loại tour không được lớn hơn 200 ký tự</div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="SoLuongNguoiLon">Sl Người lớn</label>
+                                <input type="number" class="form-control" id="SoLuongNguoiLon"
+                                    formControlName="soLuongNguoiLon" placeholder="Nhập số lượng người lớn"
+                                    [(ngModel)]="model.soLuongNguoiLon" min="1" max="10" [ngClass]="{
+                                           'is-invalid': (submitted || f['soLuongNguoiLon'].touched || f['soLuongNguoiLon'].dirty) && f['soLuongNguoiLon'].errors
+                                       }" (blur)="onFieldTouched('soLuongNguoiLon')">
+    
+                                <div *ngIf="(submitted || f['soLuongNguoiLon'].touched || f['soLuongNguoiLon'].dirty) && f['soLuongNguoiLon'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['soLuongNguoiLon'].errors['required']">
+                                        Số lượng người lớn là bắt buộc
+                                    </div>
+                                    <div *ngIf="f['soLuongNguoiLon'].errors['min']">
+                                        Số lượng người lớn không được bé hơn 1
+                                    </div>
+                                    <div *ngIf="f['soLuongNguoiLon'].errors['max']">
+                                        Số lượng người lớn không được lớn hơn 10
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="SoLuongTreEm">Sl Trẻ em</label>
+                                <input type="number" class="form-control" id="SoLuongTreEm" formControlName="soLuongTreEm"
+                                    placeholder="Nhập số lượng trẻ em" [(ngModel)]="model.soLuongTreEm" min="0" max="10"
+                                    [ngClass]="{
+                                        'is-invalid': (submitted || f['soLuongTreEm'].touched || f['soLuongTreEm'].dirty) && f['soLuongTreEm'].errors
+                                    }" (blur)="onFieldTouched('soLuongTreEm')">
+    
+                                <div *ngIf="(submitted || f['soLuongTreEm'].touched || f['soLuongTreEm'].dirty) && f['soLuongTreEm'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['soLuongTreEm'].errors['required']">
+                                        Số lượng trẻ em là bắt buộc
+                                    </div>
+                                    <div *ngIf="f['soLuongTreEm'].errors['min']">
+                                        Số lượng trẻ em không được bé hơn 0
+                                    </div>
+                                    <div *ngIf="f['soLuongTreEm'].errors['max']">
+                                        Số lượng trẻ em không được lớn hơn 10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="giaTreEm">Giá trẻ em</label>
+                                <input type="number" class="form-control" id="giaTreEm" formControlName="giaTreEm"
+                                    [(ngModel)]="model.giaTreEm" placeholder="Nhập giá cho trẻ em" min="100000" [ngClass]="{
+                                        'is-invalid': (submitted || f['giaTreEm'].touched || f['giaTreEm'].dirty) && f['giaTreEm'].errors
+                                    }" (blur)="onFieldTouched('giaTreEm')">
+    
+                                <div *ngIf="(submitted || f['giaTreEm'].touched || f['giaTreEm'].dirty) && f['giaTreEm'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['giaTreEm'].errors['required']">
+                                        Giá trẻ em là bắt buộc
+                                    </div>
+                                    <div *ngIf="f['giaTreEm'].errors['min']">
+                                        Giá trẻ em không được bé hơn 100.000
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="giaNguoiLon">Giá người lớn</label>
+                                <input type="number" class="form-control" id="giaNguoiLon" formControlName="giaNguoiLon"
+                                    [(ngModel)]="model.giaNguoiLon" placeholder="Nhập giá cho người lớn" min="150000"
+                                    [ngClass]="{
+                                        'is-invalid': (submitted || f['giaNguoiLon'].touched || f['giaNguoiLon'].dirty) && f['giaNguoiLon'].errors
+                                    }" (blur)="onFieldTouched('giaNguoiLon')">
+    
+                                <div *ngIf="(submitted || f['giaNguoiLon'].touched || f['giaNguoiLon'].dirty) && f['giaNguoiLon'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['giaNguoiLon'].errors['required']">
+                                        Giá người lớn là bắt buộc
+                                    </div>
+                                    <div *ngIf="f['giaNguoiLon'].errors['min']">
+                                        Giá người lớn không được bé hơn 150.000
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ThoiGianBatDau">Thời gian bắt đầu</label>
+                                <input type="datetime-local" class="form-control" id="ThoiGianBatDau"
+                                    formControlName="thoiGianBatDau" [ngClass]="{
+                                           'is-invalid': (submitted || f['thoiGianBatDau'].touched || f['thoiGianBatDau'].dirty) && f['thoiGianBatDau'].errors
+                                       }" (blur)="onFieldTouched('thoiGianBatDau')">
+    
+                                <div *ngIf="(submitted || f['thoiGianBatDau'].touched || f['thoiGianBatDau'].dirty) && f['thoiGianBatDau'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['thoiGianBatDau'].errors['required']">
+                                        Thời gian bắt đầu là bắt buộc
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ThoiGianKetThuc">Thời gian kết thúc</label>
+                                <input type="datetime-local" class="form-control" id="ThoiGianKetThuc"
+                                    formControlName="thoiGianKetThuc" [ngClass]="{
+                                        'is-invalid': (submitted || f['thoiGianKetThuc'].touched || f['thoiGianKetThuc'].dirty) && f['thoiGianKetThuc'].errors
+                                    }" (blur)="onFieldTouched('thoiGianKetThuc')">
+    
+                                <div *ngIf="(submitted || f['thoiGianKetThuc'].touched || f['thoiGianKetThuc'].dirty) && f['thoiGianKetThuc'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['thoiGianKetThuc'].errors['required']">
+                                        Thời gian kết thúc là bắt buộc
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="SoChoConNhan">Số chỗ còn nhận</label>
+                                <input type="number" class="form-control" id="SoChoConNhan" formControlName="soChoConNhan"
+                                    placeholder="Nhập số chỗ còn nhận" [(ngModel)]="model.soChoConNhan" min="0" max="10"
+                                    [ngClass]="{
+                                        'is-invalid': (submitted || f['soChoConNhan'].touched || f['soChoConNhan'].dirty) && f['soChoConNhan'].errors
+                                    }" (blur)="onFieldTouched('soChoConNhan')">
+    
+                                <div *ngIf="(submitted || f['soChoConNhan'].touched || f['soChoConNhan'].dirty) && f['soChoConNhan'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['soChoConNhan'].errors['required']">
+                                        Số chỗ còn nhận là bắt buộc
+                                    </div>
+                                    <div *ngIf="f['soChoConNhan'].errors['min']">
+                                        Số chỗ còn nhận không được bé hơn 0
+                                    </div>
+                                    <div *ngIf="f['soChoConNhan'].errors['max']">
+                                        Số chỗ còn nhận không được lớn hơn 10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idDoiTac">Đối tác</label>
+                                <!-- <input type="text" class="form-control" id="idDoiTac" formControlName="idDoiTac"
+                                    [(ngModel)]="model.idDoiTac" placeholder="Nhập đối tác"> -->
+    
+                                <select class="form-select" id="idDoiTac" formControlName="idDoiTac"
+                                    [(ngModel)]="model.idDoiTac">
+                                    @for (item of DoiTac; track $index) {
+                                    <option [value]="item.idDoiTac">{{item.tenDoiTac}}</option>
+                                    }
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TinhTrang">Tình trạng</label>
+                                <input type="text" class="form-control" id="TinhTrang" formControlName="tinhTrang"
+                                    [(ngModel)]="model.tinhTrang" placeholder="Nhập tình trạng">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="TinhTrang">Dịch vụ đi kèm</label>
+                                <input type="text" class="form-control" id="TinhTrang" formControlName="dichVuDiKem"
+                                    [(ngModel)]="model.dichVuDiKem" placeholder="Nhập dịch vụ đi kèm">
+                            </div>
+                        </div>
+                        <!-- Lưu ý: Angular không hỗ trợ binding cho input type="file", bạn cần xử lý riêng -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="AnhTour">Ảnh tour</label>
+                                <input type="file" class="form-control" (change)="onFileSelected($event)" multiple
+                                    id="AnhTour" placeholder="Chọn ảnh tour">
+                            </div>
+                        </div>
+    
+                    </div>
+                </form>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mô tả chi tiết</label>
+                        <editor [(ngModel)]="model.moTa" name="Text" id="exampleInputEmail1" [init]="editorConfig">
+                        </editor>
+    
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-2">
+                    <button class="btn btn-secondary " routerLink="/quanlytour">Hủy thêm</button>
+    
+                    <button class="btn btn-info text-white mx-2">Hiển thị previewing</button>
+                    <button class="btn btn-success" (click)="ThemTour()">Thêm tour</button>
+                </div>
+    
+    
+    
+                <!-- <button (click)="Test()">Lấy kết quả</button> -->
+    
+                <!-- <div style="margin-top: 20px;  margin: 0 auto; max-width: 800px;">
+                    <strong>Preview:</strong>
+                    <div [innerHTML]="sanitizedText"></div>
+                </div> -->
+                <div>
+                    <p>Hiển thị previewing ảnh</p>
+                    @for(item of previewingFileImg; track $index){
+                    <img [src]="item" width="200px" alt="img">
+                    <button (click)="XoaImgPreviewing($index)">Xóa</button>
+                    }
+                </div>
+            </div>
+            
+
+            </div>
+        </div>
+        <!-- End dịch vụ -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>

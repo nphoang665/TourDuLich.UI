@@ -1,0 +1,109 @@
+<div class="wrapper ">
+    <div class="sticky-container">
+        <app-sidebar-nav class="sticky-item"></app-sidebar-nav>
+    </div>
+
+    <div class="main">
+        <app-header-admin></app-header-admin>
+
+        <div class="QuanLuTour_container">
+            <h3>Quản lý tour</h3>
+            <button class="btn btn-primary mb-3" routerLink="/themtour">Thêm mới tour</button>
+
+            
+            <div class="mat-elevation-z8">
+                <table  mat-table [dataSource]="dataSource">
+
+                  <ng-container matColumnDef="idTour">
+                    <th mat-header-cell *matHeaderCellDef> Mã tour </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idTour}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="tenTour">
+                    <th mat-header-cell *matHeaderCellDef> Tên Tour </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tenTour}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="loaiTour">
+                    <th mat-header-cell *matHeaderCellDef> Loai tour </th>
+                    <td mat-cell *matCellDef="let element"> {{element.loaiTour}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="phuongTienDiChuyen">
+                    <th mat-header-cell *matHeaderCellDef> phuongTienDiChuyen </th>
+                    <td mat-cell *matCellDef="let element"> {{element.phuongTienDiChuyen}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="soLuongNguoiLon">
+                    <th mat-header-cell *matHeaderCellDef> soLuongNguoiLon </th>
+                    <td mat-cell *matCellDef="let element"> {{element.soLuongNguoiLon}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="soLuongTreEm">
+                    <th mat-header-cell *matHeaderCellDef> soLuongTreEm </th>
+                    <td mat-cell *matCellDef="let element"> {{element.soLuongTreEm}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="thoiGianBatDau">
+                    <th mat-header-cell *matHeaderCellDef> thoiGianBatDau </th>
+                    <td mat-cell *matCellDef="let element"> {{element.thoiGianBatDau}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="thoiGianKetThuc">
+                    <th mat-header-cell *matHeaderCellDef> thoiGianKetThuc </th>
+                    <td mat-cell *matCellDef="let element"> {{element.thoiGianKetThuc}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="soChoConNhan">
+                    <th mat-header-cell *matHeaderCellDef> soChoConNhan </th>
+                    <td mat-cell *matCellDef="let element"> {{element.soChoConNhan}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="idDoiTac">
+                    <th mat-header-cell *matHeaderCellDef> idDoiTac </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idDoiTac}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="giaTreEm">
+                    <th mat-header-cell *matHeaderCellDef> giaTreEm </th>
+                    <td mat-cell *matCellDef="let element"> {{element.giaTreEm}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="giaNguoiLon">
+                    <th mat-header-cell *matHeaderCellDef> giaNguoiLon </th>
+                    <td mat-cell *matCellDef="let element"> {{element.giaNguoiLon}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="tinhTrang">
+                    <th mat-header-cell *matHeaderCellDef> tinhTrang </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tinhTrang}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="ngayThem">
+                    <th mat-header-cell *matHeaderCellDef> ngayThem </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ngayThem}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dichVuDiKem">
+                    <th mat-header-cell *matHeaderCellDef> dichVuDiKem </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dichVuDiKem}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="noiKhoiHanh">
+                    <th mat-header-cell *matHeaderCellDef> noiKhoiHanh </th>
+                    <td mat-cell *matCellDef="let element"> {{element.noiKhoiHanh}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="moTa">
+                    <th mat-header-cell *matHeaderCellDef> moTa </th>
+                    <td mat-cell *matCellDef="let element"> {{element.moTa}} </td>
+                  </ng-container>
+                  
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="s">
+                </mat-paginator>
+              </div>
+
+           
+
+
+
+
+
+        </div>
+    </div>
+</div>

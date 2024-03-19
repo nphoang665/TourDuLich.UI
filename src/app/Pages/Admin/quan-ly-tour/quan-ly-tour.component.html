@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start quản lý tour -->
+        <div class="main-content-container container-fluid px-4">
+            <div class="page-header row no-gutters py-4">
+              <div class="QuanLuTour_container">
+                <h3>Quản lý tour</h3>
+                <button class="btn btn-primary" routerLink="/themtour">Thêm mới tour</button>
+    
+                <ng-container *ngIf="tourDuLich$ | async as tourDuLich">
+                    <table class="table table-bordered table-striped  table-reponsive mt-3">
+                        <thead class="text-center align-middle">
+                            <tr>
+                                <th>STT</th>
+                                <th scope="col">Mã Tour</th>
+                                <th scope="col">Tên Tour</th> 
+                                <th scope="col" class="res_Small_Hide">Loại Tour</th>
+                                <th scope="col" class="res_Medium_Hide">Phương Tiện Di Chuyển</th>
+                                <!-- <th scope="col">Mô Tả</th> -->
+                                <th scope="col">SL người lớn</th>
+                                <th scope="col">SL trẻ em</th>
+                                <th scope="col" class="res_Medium_Hide">Thời gian bắt đầu</th>
+                                <th scope="col" class="res_Medium_Hide">Thời gian kết thúc</th>
+                                <!-- <th scope="col">Nơi khởi hanh</th> -->
+                                <th scope="col">Số chỗ</th>
+                                <th scope="col" class="res_Small_Hide">Đối tác</th>
+                                <th scope="col">Giá trẻ em</th>
+                                <th scope="col">Giá người lớn</th>
+                                <!-- <th scope="col">Ngày thêm</th> -->
+                                <!-- <th scope="col">Dịch vụ đi kèm</th> -->
+                                <th scope="col" class="res_Small_Hide">Tình trạng</th>
+                                <th scope="col">Tùy chọn</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of tourDuLich; track $index) {
+                            <tr class="text-center align-middle" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapseExample' + ($index)" aria-expanded="false"
+                                [attr.aria-controls]="'collapseExample' + ($index)">
+                                <th>{{$index+1}}</th>
+                                <td>{{item.idTour}}</td>
+                                <td>{{item.tenTour}}</td>
+                                <td class="res_Small_Hide">{{item.loaiTour}}</td>
+                                <td class="res_Medium_Hide">{{item.phuongTienDiChuyen}}</td>
+                                <!-- <td>{{item.MoTa}}</td> -->
+                                <td>{{item.soLuongNguoiLon}}</td>
+                                <td>{{item.soLuongTreEm}}</td>
+                                <td class="res_Medium_Hide">{{item.thoiGianBatDau | date:'short'}}</td>
+                                <td class="res_Medium_Hide">{{item.thoiGianKetThuc | date:'short'}}</td>
+                                <!-- <td>{{item.NoiKhoiHanh}}</td> -->
+                                <td>{{item.soChoConNhan}}</td>
+                                <td class="res_Small_Hide">{{item.idDoiTac}}</td>
+                                <td>{{item.giaTreEm}}</td>
+                                <td>{{item.giaNguoiLon}}</td>
+                                <!-- <td>{{item.NgayThem}}</td> -->
+                                <!-- <td>{{item.dichVuDiKem}}</td> -->
+                                <td class="res_Small_Hide">{{item.tinhTrang}}</td>
+                                <td data-bs-toggle="collapse">
+        
+                                    <div class="dropdown">
+                                        <a class="bg-transparent text-black" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+        
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" [routerLink]="['/suatour', item.idTour]">Sửa</a></li>
+                                            <li><a class="dropdown-item" (click)="XoaTour(item.idTour)">Xóa</a></li>
+                                        </ul>
+                                    </div>
+        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100%" style="padding:0">
+                                    <div class="collapse" [attr.id]="'collapseExample'+ $index">
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">Ngày thêm</th>
+                                                    <td>{{item.ngayThem}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Nơi khởi hành</th>
+                                                    <td>{{item.noiKhoiHanh}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Dịch vụ đi kèm</th>
+                                                    <td>{{item.dichVuDiKem}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Mô Tả</th>
+                                                    <td>{{item.moTa}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Medium_Show">Phương Tiện Di Chuyển</th>
+        
+                                                    <td class="res_Medium_Show">{{item.phuongTienDiChuyen}}</td>
+        
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Medium_Show">Thời gian bắt đầu</th>
+        
+                                                    <td class="res_Medium_Show">{{item.thoiGianBatDau | date:'short'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Medium_Show">Thời gian kết thúc</th>
+        
+                                                    <td class="res_Medium_Show">{{item.thoiGianKetThuc | date:'short'}}</td>
+        
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Small_Show">Loại Tour</th>
+        
+        
+                                                    <td class="res_Small_Show">{{item.loaiTour}}</td>
+        
+        
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Small_Show">Đối tác</th>
+        
+        
+                                                    <td class="res_Small_Show">{{item.idDoiTac}}</td>
+        
+        
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="res_Small_Show">Tình trạng</th>
+        
+        
+                                                    <td class="res_Small_Show">{{item.tinhTrang}}</td>
+        
+        
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+        
+                        </tbody>
+                    </table>
+    
+                </ng-container>
+    
+               
+    
+    
+    
+    
+    
+            </div>
+            
+
+            </div>
+        </div>
+        <!-- End quản lý tour -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>

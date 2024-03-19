@@ -1,0 +1,226 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start dịch vụ -->
+        <div class="main-content-container container-fluid px-4">
+            <div class="page-header row no-gutters py-4">
+                <div class="container">
+                    <h2>Sửa tour</h2>
+                    <ng-container *ngIf="model">
+                        <div class="row">
+                            <form [formGroup]="suaTourForm">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="idTour">Mã tour</label>
+                                            <input type="text" class="form-control" id="idTour" formControlName="idTour"
+                                                [(ngModel)]="model.idTour" placeholder="Nhập mã tour" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="TenTour">Tên tour</label>
+                                            <input type="text" class="form-control" id="TenTour" formControlName="tenTour"
+                                                [(ngModel)]="model.tenTour" placeholder="Nhập tên tour">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="PhuongTienDiChuyen">Phương tiện di chuyển</label>
+                                            <input type="text" class="form-control" id="PhuongTienDiChuyen"
+                                                formControlName="phuongTienDiChuyen" placeholder="Nhập phương tiện di chuyển"
+                                                [(ngModel)]="model.phuongTienDiChuyen">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="NoiKhoiHanh">Nơi khởi hành</label>
+                                            <input type="text" class="form-control" id="NoiKhoiHanh"
+                                                formControlName="noiKhoiHanh" [(ngModel)]="model.noiKhoiHanh"
+                                                placeholder="Nhập nơi khởi hành">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="SoLuongNguoiLon">Sl Người lớn</label>
+                                            <input type="number" class="form-control" id="SoLuongNguoiLon"
+                                                formControlName="soLuongNguoiLon" placeholder="Nhập số lượng người lớn"
+                                                [(ngModel)]="model.soLuongNguoiLon">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="SoLuongTreEm">Sl Trẻ em</label>
+                                            <input type="number" class="form-control" id="SoLuongTreEm"
+                                                formControlName="soLuongTreEm" placeholder="Nhập số lượng trẻ em"
+                                                [(ngModel)]="model.soLuongTreEm">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="giaTreEm">Giá trẻ em</label>
+                                            <input type="number" class="form-control" id="giaTreEm" formControlName="giaTreEm"
+                                                [(ngModel)]="model.giaTreEm" placeholder="Nhập giá cho trẻ em">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="giaNguoiLon">Giá người lớn</label>
+                                            <input type="number" class="form-control" id="giaNguoiLon"
+                                                formControlName="giaNguoiLon" [(ngModel)]="model.giaNguoiLon"
+                                                placeholder="Nhập giá cho người lớn">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="ThoiGianBatDau">Thời gian bắt đầu</label>
+                                            <input type="datetime-local" class="form-control" id="ThoiGianBatDau"
+                                                [(ngModel)]="model.thoiGianBatDau" formControlName="thoiGianBatDau">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="ThoiGianKetThuc">Thời gian kết thúc</label>
+                                            <input type="datetime-local" class="form-control" id="ThoiGianKetThuc"
+                                                [(ngModel)]="model.thoiGianKetThuc" formControlName="thoiGianKetThuc">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="SoChoConNhan">Số chỗ còn nhận</label>
+                                            <input type="number" class="form-control" id="SoChoConNhan"
+                                                formControlName="soChoConNhan" placeholder="Nhập số chỗ còn nhận"
+                                                [(ngModel)]="model.soChoConNhan">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="idDoiTac">Đối tác</label>
+                                            <select class="form-select" id="idDoiTac" formControlName="idDoiTac"
+                                                [(ngModel)]="model.idDoiTac">
+                                                @for (item of DoiTac; track $index) {
+                                                <option [value]="item.idDoiTac">{{item.tenDoiTac}}</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="idDoiTac">Dịch vụ đi kèm</label>
+                                            <input type="text" class="form-control" id="idDichVuDiKem"
+                                                formControlName="dichVuDiKem" [(ngModel)]="model.dichVuDiKem"
+                                                placeholder="Nhập đối tác">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="idDoiTac">Loại tour</label>
+                                            <input type="text" class="form-control" id="idLoaiTour" formControlName="loaiTour"
+                                                [(ngModel)]="model.loaiTour" placeholder="Nhập đối tác">
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="TinhTrang">Tình trạng</label>
+                                            <select class="form-select" id="TinhTrang" formControlName="tinhTrang"
+                                                [(ngModel)]="model.tinhTrang">
+                                                <option value="Đang hoạt động">Đang hoạt động</option>
+                                                <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                                                <option value="Tạm hoãn">Tạm hoãn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+        
+        
+                                    <!-- Lưu ý: Angular không hỗ trợ binding cho input type="file", bạn cần xử lý riêng -->
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="AnhTour">Ảnh tour</label>
+                                            <input type="file" multiple (change)="OnFileSelected($event)" class="form-control"
+                                                id="AnhTour" placeholder="Chọn ảnh tour">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="MoTa">Mô tả chi tiết</label>
+                                    <!-- Lưu ý: editor không phải là một phần của Angular Forms, bạn cần xử lý riêng -->
+                                    <editor [(ngModel)]="model.moTa" name="Text" id="MoTa" [init]="editorConfig"></editor>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </ng-container>
+        
+        
+        
+                    <div class="d-flex justify-content-end mt-2">
+                        <button class="btn btn-secondary" style="margin-right: 5px;" routerLink="/quanlytour">Trở về quản
+                            lý
+                            tour</button>
+                        <button class="btn btn-info text-white" (click)="Fn_Display_Description()"
+                            style="margin-right: 5px;">Hiển thị
+                            previewing mô tả</button>
+                        <button class="btn btn-success" (click)="SuaTour()">Sửa tour</button>
+                    </div>
+                    <div>
+                        <p>Hiển thị previewing ảnh</p>
+                        @if(fileImgPreviewFromDb){
+                        @for(item of fileImgPreviewFromDb; track $index){
+                        <img [src]="item" width="200px" alt="img">
+                        <button (click)="XoaImgPreviewing(item)">Xóa</button>
+                        }
+                        }
+                        @if(fileImgPreviewFromBrowse){
+                        @for(item of fileImgPreviewFromBrowse; track $index){
+                        <img [src]="item" width="200px" alt="img">
+                        <button (click)="XoaImgPreviewing(item)">Xóa</button>
+                        }
+                        }
+        
+                    </div>
+                    <!-- <button (click)="Test()">Lấy kết quả</button> -->
+                    @if(IsDisplayPreviewDescription === true){
+                    <div style="margin-top: 20px;  margin: 0 auto; max-width: 800px;">
+                        <strong>Preview:</strong>
+                        <div [innerHTML]="sanitizedText"></div>
+                    </div>
+                    }
+        
+                </div>
+
+            </div>
+        </div>
+        <!-- End dịch vụ -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>

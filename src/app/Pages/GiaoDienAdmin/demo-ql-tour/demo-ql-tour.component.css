@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    position: relative;
+  }
+  
+  .main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background-color: #fafbfe;
+  }
+  .sticky-container {
+    position: relative;
+    overflow: visible;
+    border-radius: 5px;
+  }
+  
+  .sticky-item {
+    position: sticky !important;
+    top: 0;
+  }
+  .QuanLuTour_container {
+    padding: 10px;
+  }
+  .res_Medium_Show {
+    display: none;
+  }
+  .res_Small_Show {
+    display: none;
+  }
+  @media screen and (max-width: 1515px) {
+    .res_Medium_Hide {
+      display: none;
+    }
+    .res_Medium_Show {
+      display: table-cell !important;
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    .res_Small_Hide {
+      display: none;
+    }
+    .res_Small_Show {
+      display: table-cell !important;
+    }
+  }
+  
+  table {
+    width: 100%;
+  }
+
+  .mat-table-container {
+    overflow-x: auto;
+  }
+  
+  .mat-table {
+    min-width: 100%;
+  }
+  
+  .mat-table th, .mat-table td {
+    white-space: nowrap;
+  }
