@@ -1,13 +1,15 @@
 import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, QueryList, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
-import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
+
 import { environment } from '../../../../../environments/environment';
 import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
-import { DichVu } from '../../../GiaoDienAdmin/models/Dich-Vu.model';
-import { DatTourChoKhachHang } from '../../../GiaoDienAdmin/models/dat-tour-khach-hang.model';
-import { DattourService } from '../../../GiaoDienAdmin/services/DatTour/dattour.service';
+
 import { FormControl, FormGroup } from '@angular/forms';
+import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
+import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
+import { DatTourChoKhachHang } from '../../../Admin/models/dat-tour-khach-hang.model';
+import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
+import { DichVu } from '../../../Admin/models/Dich-Vu.model';
 
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;

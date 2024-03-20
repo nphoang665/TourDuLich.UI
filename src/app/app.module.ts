@@ -45,6 +45,7 @@ import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydat
 import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
 import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
 import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
+import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,8 @@ import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dic
     QuanlydattourComponent,
     QuanLyKhachHangComponent,
     QuanLyNhanVienComponent,
-    QuanLyDichVuComponent
+    QuanLyDichVuComponent,
+    ThanhtoankhachhangComponent
   ],
   imports: [
     BrowserModule,

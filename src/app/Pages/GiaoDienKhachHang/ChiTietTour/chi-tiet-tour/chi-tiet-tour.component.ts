@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
+import { isPlatformBrowser } from '@angular/common';
 
 declare var bootstrap: any;
 @Component({

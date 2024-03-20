@@ -4,6 +4,7 @@ import { ThemDatTour } from '../../models/them-datTour.model';
 import { Observable } from 'rxjs';
 import { DatTour } from '../../models/dat-tour.model';
 import { environment } from '../../../../../environments/environment';
+import { DatTourChoKhachHang } from '../../models/dat-tour-khach-hang.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class DattourService {
   }
   getDatTourById(id: string): Observable<DatTour> {
     return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}`);
+  }
+  DatTourChoKhachHang(data: DatTourChoKhachHang): any {
+    return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang`, data);
   }
 
 }
