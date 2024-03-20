@@ -22,58 +22,66 @@
                         class="bi bi-1-circle-fill me-1"></i>Thông
                     tin liên hệ
                 </div>
+                <form [formGroup]="NhanVien">
+                    <div class="inforKhachHang border p-2 bg-white " style="height: 100%;">
+                        <div class="form-group">
+                            <label for="inputName">Tên</label>
+                            <input type="text" formControlName="TenKhachHang" class="form-control" id="inputName"
+                                placeholder="Nhập tên của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">Số điện thoại</label>
+                            <input type="tel" formControlName="SoDienThoai" class="form-control" id="inputPhone"
+                                placeholder="Nhập số điện thoại của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCCCD">CCCD</label>
+                            <input type="text" formControlName="CCCD" class="form-control" id="inputCCCD"
+                                placeholder="Nhập CCCD của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Năm sinh</label>
+                            <input type="date" formControlName="NgaySinh" class="form-control" id="inputBirthday">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" formControlName="Email" class="form-control" id="inputEmail"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Địa chỉ</label>
+                            <input type="text" formControlName="DiaChi" class="form-control" id="inputAddress"
+                                placeholder="Nhập địa chỉ của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputGender">Giới tính</label>
+                            <select formControlName="GioiTinh" class="form-control" id="inputGender">
+                                <option selected>Chọn...</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
 
-                <div class="inforKhachHang border p-2 bg-white " style="height: 100%;">
-                    <div class="form-group">
-                        <label for="inputName">Tên</label>
-                        <input type="text" class="form-control" id="inputName" placeholder="Nhập tên của bạn">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPhone">Số điện thoại</label>
-                        <input type="tel" class="form-control" id="inputPhone" placeholder="Nhập số điện thoại của bạn">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputCCCD">CCCD</label>
-                        <input type="text" class="form-control" id="inputCCCD" placeholder="Nhập CCCD của bạn">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail">Năm sinh</label>
-                        <input type="date" class="form-control" id="inputBirthday">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputAddress">Địa chỉ</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Nhập địa chỉ của bạn">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputGender">Giới tính</label>
-                        <select class="form-control" id="inputGender">
-                            <option selected>Chọn...</option>
-                            <option>Nam</option>
-                            <option>Nữ</option>
+                            </select>
+                        </div>
 
-                        </select>
                     </div>
-
-                </div>
-            </div>
+                </form>
+            </div> @if(ItemTourById){
             <div class="col-lg-4 col-md-6 col-sm-12 ">
                 <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
                         class="bi bi-2-circle-fill me-1"></i>Thông
                     tin đặt tour
                 </div>
                 <div class="infoTour border p-1 bg-white" style="height: 100%;">
-                    <img src="https://cdn2.ivivu.com/2023/03/31/13/ivivu-cuoc-song-ca-mau-750x390.gif" alt=""
+                    <img [src]="ItemTourById.HinhAnhDauTien" alt=""
                         style="width: 100%; height: 200px; object-fit: cover;">
                     <div class="p-1">
 
 
-                        <span><b>Tiêu đề tour</b></span>
+                        <span><b>{{ItemTourById.tenTour}}</b></span>
+
+
                         <br>
-                        <label>Ngày khởi hành: 22/2/2000</label>
+                        <label>Ngày khởi hành: {{ItemTourById.thoiGianBatDau | date: 'dd/MM/yyyy'}}</label>
                         <div class="giaNguoiLon _inputGroup border shadow-sm p-1 mt-2" style="user-select: none;">
                             <div class="row flex-nowrap">
                                 <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
@@ -82,7 +90,7 @@
                                 </div>
                                 <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                     <span class="text-nowrap text-warning">
-                                        x 52.900.000
+                                        x {{ItemTourById.giaNguoiLon | number:'':'en'}}
                                     </span>
                                 </div>
                                 <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -113,7 +121,7 @@
                                 </div>
                                 <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                     <span class="text-nowrap text-warning">
-                                        x 52.900.000
+                                        x {{ItemTourById.giaTreEm| number:'':'en'}}
                                     </span>
                                 </div>
                                 <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -148,12 +156,13 @@
                                     <div class="row flex-nowrap">
                                         <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
                                             <select class="form-control border-0 shadow-none"
-                                                [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon">
+                                                [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
+                                                (change)="ThayDoiDichVu(i)">
                                                 <option value="">-Chọn dịch vụ-</option>
                                                 <ng-container *ngFor="let dv of DichVu; let j = index">
-                                                    <option *ngIf="!KiemTraDichVuDaChon(dv.IdDichVu,i)"
-                                                        [value]="dv.IdDichVu">
-                                                        {{dv.TenDichVu}}
+                                                    <option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu,i)"
+                                                        [value]="dv.idDichVu">
+                                                        {{dv.tenDichVu}}
                                                     </option>
                                                 </ng-container>
                                             </select>
@@ -202,9 +211,11 @@
                                         <div class="col-3 col-md-3 col-lg-3 text-nowrap px-1">{{Sl_NguoiLon_ThanhToan}}
                                             người lớn</div>
                                         <div class="col-1 col-md-1 col-lg-1 text-center px-1"><b>x</b></div>
-                                        <div class="col-3 col-md-3 col-lg-3 text-center px-1">5.000.000đ</div>
+                                        <div class="col-3 col-md-3 col-lg-3 text-center px-1">
+                                            {{ItemTourById.giaNguoiLon| number:'':'en'}}đ</div>
                                         <div class="col-1 col-md-1 col-lg-1 text-center px-1"><b>=</b></div>
-                                        <div class="col-4 col-md-4 col-lg-4 text-center px-1">5.000.000đ</div>
+                                        <div class="col-4 col-md-4 col-lg-4 text-center px-1">{{Sl_NguoiLon_ThanhToan
+                                            *ItemTourById.giaNguoiLon| number:'':'en' }}đ</div>
                                     </div>
 
 
@@ -215,9 +226,11 @@
                                         <div class="col-3 col-md-3 col-lg-3 text-nowrap px-1">{{Sl_TreEm_ThanhToan}} trẻ
                                             em</div>
                                         <div class="col-1 col-lg-1 text-center"><b>x</b></div>
-                                        <div class="col-3 col-lg-3 text-center">5.000.000đ</div>
+                                        <div class="col-3 col-lg-3 text-center">{{ItemTourById.giaTreEm|
+                                            number:'':'en'}}đ</div>
                                         <div class="col-1 col-lg-1 text-center"><b>=</b></div>
-                                        <div class="col-3 col-lg-4 text-center">5.000.000đ</div>
+                                        <div class="col-3 col-lg-4 text-center">{{Sl_TreEm_ThanhToan *
+                                            ItemTourById.giaTreEm| number:'':'en'}}đ</div>
                                     </div>
 
                                 </div>
@@ -227,7 +240,8 @@
                                     <div class="row p-2 ">
                                         <div class="col-8 col-lg-8"><b>Tổng tiền dịch vụ</b></div>
 
-                                        <div class="col-4 col-lg-4 text-center" dir="rtl">5.000.000đ</div>
+                                        <div class="col-4 col-lg-4 text-center" dir="rtl">{{TongTienDichVu |number: '':
+                                            'en'}}đ</div>
                                     </div>
 
                                 </div>
@@ -236,7 +250,8 @@
                                     <div class="row p-2 ">
                                         <div class="col-8 col-lg-8"><b>Tổng cộng</b></div>
 
-                                        <div class="col-4 col-lg-4 text-center" dir="rtl"><b>5.000.000đ</b></div>
+                                        <div class="col-4 col-lg-4 text-center" dir="rtl"><b>{{TongTienTour | number :
+                                                '' :'en'}}đ</b></div>
                                     </div>
 
                                 </div>
@@ -244,6 +259,7 @@
                     </div>
                 </div>
             </div>
+            }
             <div class="col-lg-4 col-md-12 col-sm-12 mt-md-5 mt-lg-0">
                 <div class="p-2 border  text-white text-center" style="background-color: #496989;"><i
                         class="bi bi-3-circle-fill me-1"></i>Gửi
@@ -297,5 +313,6 @@
 
         </div>
     </div>
+
 </div>
 <app-footer></app-footer>

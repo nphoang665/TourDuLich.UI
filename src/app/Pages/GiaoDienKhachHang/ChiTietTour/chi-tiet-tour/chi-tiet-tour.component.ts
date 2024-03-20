@@ -1,11 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuanLyTourService } from '../../../GiaoDienAdmin/services/quan-ly-tour.service';
 import { TourDuLich } from '../../../GiaoDienAdmin/models/tour-du-lich.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { environment } from '../../../../../environments/environment';
-import { DichVuTestDataService } from '../../services/dich-vu-test-data.service';
+import { isPlatformBrowser } from '@angular/common';
 
 declare var bootstrap: any;
 @Component({
@@ -15,6 +15,8 @@ declare var bootstrap: any;
 })
 
 export class ChiTietTourComponent implements OnInit, AfterViewInit {
+  Sl_NguoiLon_ThanhToan: number = 1;
+  Sl_TreEm_ThanhToan: number = 1;
 
   constructor(private route: ActivatedRoute,
     private tourDuLichServices: QuanLyTourService,
@@ -22,8 +24,9 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     private el: ElementRef,
     //đối tượng gọi thủ công dom
     private cdRef: ChangeDetectorRef,
-    private dichVuServices: DichVuTestDataService,
-    private router: Router
+
+    private router: Router,
+    @Inject(PLATFORM_ID) private _platformId: Object
   ) {
 
   }
@@ -34,8 +37,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     this.GetTour(this.LayIdRoute());
 
     //gọi hàm lấy dịch vụ mẫu
-    this.GetDichVu();
-    console.log(this.DichVu);
+
 
 
   }
@@ -102,11 +104,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
 
   //lấy dịch vụ mẫu from services
   // biến lấy dịch vụ mẫu
-  DichVu: any[] = [];
 
-  GetDichVu() {
-    this.DichVu = this.dichVuServices.LayDichVuMau();
-  }
 
 
 
@@ -160,16 +158,49 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     //xử lý lưu thông tin tour khách của khách hàng vào đây
 
 
+    if (isPlatformBrowser(this._platformId)) {
 
+      let ObjTour = {
+        IdTour: this.TourChiTiet.idTour,
+        SoLuongNguoiLon: this.Sl_NguoiLon_ThanhToan,
+        SoLuongTreEm: this.Sl_TreEm_ThanhToan
+      };
+      localStorage.setItem('DatTourKhachHang', JSON.stringify(ObjTour));
 
-
-
-
-
-
-
+    }
     //```````````
     this.router.navigate(['/thanhtoankhachhang']);
+  }
+
+  ThayDoiSoLuong(loaiNguoi: any, loaiNutBam: any) {
+    console.log(1);
+
+    //nếu loại người =  người lớn 
+    if (loaiNguoi === "NguoiLon") {
+      //nếu loại nút bấm là cộng
+      if (loaiNutBam === "Cong") {
+        this.Sl_NguoiLon_ThanhToan++;
+      }
+      //nếu loại nút bấm là trừ
+      else {
+        if (this.Sl_NguoiLon_ThanhToan > 1) {
+          this.Sl_NguoiLon_ThanhToan--;
+        }
+      }
+    }
+    //nếu loại người =  người trẻ em 
+    else {
+      //nếu loại nút bấm là cộng
+      if (loaiNutBam === "Cong") {
+        this.Sl_TreEm_ThanhToan++;
+      }
+      //nếu loại nút bấm là cộng
+      else {
+        if (this.Sl_TreEm_ThanhToan > 1) {
+          this.Sl_TreEm_ThanhToan--;
+        }
+      }
+    }
   }
 
 
