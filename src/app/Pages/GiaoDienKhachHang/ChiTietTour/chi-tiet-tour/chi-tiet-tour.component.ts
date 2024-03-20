@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -14,13 +14,18 @@ declare var bootstrap: any;
 })
 
 export class ChiTietTourComponent implements OnInit, AfterViewInit {
+  Sl_NguoiLon_ThanhToan: number = 1;
+  Sl_TreEm_ThanhToan: number = 1;
 
   constructor(private route: ActivatedRoute,
     private tourDuLichServices: QuanLyTourService,
     public domSanitizer: DomSanitizer,
     private el: ElementRef,
     //đối tượng gọi thủ công dom
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+
+    private router: Router,
+    @Inject(PLATFORM_ID) private _platformId: Object
   ) {
 
   }
@@ -29,7 +34,9 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //gọi hàm get tour và truyền biến id tour vào
     this.GetTour(this.LayIdRoute());
-    // this.images = [...this.images, ...this.images, ...this.images, ...this.images, ...this.images];
+
+    //gọi hàm lấy dịch vụ mẫu
+
 
 
   }
@@ -94,6 +101,10 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   }
 
 
+  //lấy dịch vụ mẫu from services
+  // biến lấy dịch vụ mẫu
+
+
 
 
   // tạo mảng chứa imgTour
@@ -127,7 +138,69 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   }
 
 
+  //xử lý khi kích thước màn hình thay đổi
+  //khai báo view child để đọc dom
+  @ViewChild('closeModal_ThanhToan') closeButton!: ElementRef;
 
+  screenWidth!: number;
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 767) {
+      this.closeButton.nativeElement.click();
+    }
+  }
+
+  ChuyenTrangThanhToan() {
+    //xử lý lưu thông tin tour khách của khách hàng vào đây
+
+
+    if (isPlatformBrowser(this._platformId)) {
+
+      let ObjTour = {
+        IdTour: this.TourChiTiet.idTour,
+        SoLuongNguoiLon: this.Sl_NguoiLon_ThanhToan,
+        SoLuongTreEm: this.Sl_TreEm_ThanhToan
+      };
+      localStorage.setItem('DatTourKhachHang', JSON.stringify(ObjTour));
+
+    }
+    //```````````
+    this.router.navigate(['/thanhtoankhachhang']);
+  }
+
+  ThayDoiSoLuong(loaiNguoi: any, loaiNutBam: any) {
+    console.log(1);
+
+    //nếu loại người =  người lớn 
+    if (loaiNguoi === "NguoiLon") {
+      //nếu loại nút bấm là cộng
+      if (loaiNutBam === "Cong") {
+        this.Sl_NguoiLon_ThanhToan++;
+      }
+      //nếu loại nút bấm là trừ
+      else {
+        if (this.Sl_NguoiLon_ThanhToan > 1) {
+          this.Sl_NguoiLon_ThanhToan--;
+        }
+      }
+    }
+    //nếu loại người =  người trẻ em 
+    else {
+      //nếu loại nút bấm là cộng
+      if (loaiNutBam === "Cong") {
+        this.Sl_TreEm_ThanhToan++;
+      }
+      //nếu loại nút bấm là cộng
+      else {
+        if (this.Sl_TreEm_ThanhToan > 1) {
+          this.Sl_TreEm_ThanhToan--;
+        }
+      }
+    }
+  }
 
 
 }

@@ -83,6 +83,8 @@
   border: 1px solid grey;
   padding-top: 5px;
   padding-bottom: 5px;
+  width: 70px;
+  height: 36px;
 }
 .title_lichtrinh {
   font-size: 22px;
@@ -161,4 +163,25 @@
   .btn_DatTour_Mobile {
     font-size: 0.8em;
   }
+}
+
+/* custom scroll */
+/* Định nghĩa cho toàn bộ thanh cuộn */
+::-webkit-scrollbar {
+  width: 5px; /* Độ rộng của thanh cuộn */
+}
+
+/* Định nghĩa màu nền của thanh cuộn */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của thanh cuộn */
+}
+
+/* Định nghĩa màu của thanh cuộn */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Màu của thanh cuộn */
+}
+
+/* Định nghĩa màu của thanh cuộn khi rê chuột vào */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Màu của thanh cuộn khi rê chuột vào */
 }

@@ -20,14 +20,15 @@ const routes: Routes = [
   { path: 'dattour', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
+  { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
   { path: 'suatour/:id', component: SuaTourComponent },
-  {path:'trangChuAdmin',component:TrangChuAdminComponent},
-  {path:'quanLyDatTour',component:QuanlydattourComponent},
-  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
-  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent},
-  {path:'quanLyDichVu',component:QuanLyDichVuComponent},
+  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
+  { path: 'quanLyDatTour', component: QuanlydattourComponent },
+  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
+  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
+  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
 
 
 
