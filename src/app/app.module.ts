@@ -80,7 +80,7 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
     ThemNhanVienComponent,
     SuaNhanVienComponent,
     ThemKhachHangComponent,
-    SuaKhachHangComponent
+    SuaKhachHangComponent,
     ThanhtoankhachhangComponent
   ],
   imports: [
