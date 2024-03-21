@@ -17,7 +17,7 @@
           <div class="page-header row no-gutters py-4">
             <div class="QuanLuTour_container">
               <h3>Quản lý khách hàng</h3>
-              <button class="btn btn-primary" routerLink="/themKhachHang">Thêm mới nhân viên</button>
+              <button class="btn btn-primary" routerLink="/themKhachHang">Thêm mới khách hàng</button>
   
               <ng-container *ngIf="khachHang$ | async as khachHang">
               
@@ -76,7 +76,7 @@
                                   </a>
   
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                      <li><a class="dropdown-item" [routerLink]="['/suaNhanVien', item.idKhachHang]">Sửa</a></li>
+                                      <li><a class="dropdown-item" [routerLink]="['/suaKhachHang', item.idKhachHang]">Sửa</a></li>
                                       <li><a class="dropdown-item" (click)="XoaKhachHang()">Xóa</a></li>
                                   </ul>
                               </div>

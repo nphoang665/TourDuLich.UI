@@ -21,8 +21,16 @@ constructor(private quanLyNhanVienService:NhanVienService){}
 
 
 
-  XoaNhanVien(){
-
+  XoaNhanVien(id: string) {
+    if (id) {
+     this.quanLyNhanVienService
+        .xoaNhanVien(id)
+        .subscribe({
+          next: (response) => {
+            this.nhanVien$ = this.quanLyNhanVienService.getAllNhanVien();
+          }
+        });
+    }
   }
     
 }

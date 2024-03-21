@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NhanVien, SuaNhanVien } from '../../models/nhan-vien.model';
+import { NhanVien, SuaNhanVien, ThemNhanVien } from '../../models/nhan-vien.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 
@@ -11,8 +11,8 @@ export class NhanVienService {
 
   constructor(private http: HttpClient) { }
 
-  themNhanVien(data: NhanVien): Observable<NhanVien> {
-    return this.http.post<NhanVien>(`${environment.apiBaseUrl}/api/NhanVien`, data);
+  themNhanVien(data: ThemNhanVien): Observable<ThemNhanVien> {
+    return this.http.post<ThemNhanVien>(`${environment.apiBaseUrl}/api/NhanVien`, data);
   }
 
   getAllNhanVien(): Observable<NhanVien[]> {

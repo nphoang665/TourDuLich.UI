@@ -30,14 +30,15 @@
                             <th scope="col">Giới tính</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Email</th>
+                            <th scope="col">CCCD</th>
                             <th scope="col">Ngày sinh</th>
                             <th scope="col">Địa chỉ</th>
-                            <th scope="col">Ngày vào làm</th>
+                            <!-- <th scope="col">Ngày vào làm</th> -->
                             <th scope="col">Chức vụ</th>
                             <th scope="col">Ảnh nhân viên</th>
                             <th scope="col">Ngày đăng ký</th>
                             <th scope="col">Mật khẩu</th>
-                            <th scope="col">Tình trạng</th>
+                            <!-- <th scope="col">Tình trạng</th> -->
                             <!-- <th scope="col" class="res_Small_Hide">Ngày</th>
                             <th scope="col" class="res_Medium_Hide">CCCD</th>
                             <th scope="col" class="res_Medium_Hide">Chức vụ</th>
@@ -58,14 +59,15 @@
                             <td>{{item.gioiTinh}}</td>
                             <td>{{item.soDienThoai}}</td>
                             <td>{{item.email}}</td>
+                            <td>{{item.cccd}}</td>
                             <td>{{item.ngaySinh | date:'dd/MM/yyyy'}}</td>
                             <td>{{item.diaChi}}</td>
-                            <td>{{item.ngayVaoLam | date:'dd/MM/yyyy'}}</td>
+                            <!-- <td>{{item.ngayVaoLam | date:'dd/MM/yyyy'}}</td> -->
                             <td>{{item.chucVu}}</td>
                             <td>{{item.anhNhanVien}}</td>
                             <td>{{item.ngayDangKy | date:'dd/MM/yyyy'}}</td>
                             <td>{{item.matKhau}}</td>
-                            <td>{{item.tinhTrang}}</td>
+                            <!-- <td>{{item.tinhTrang}}</td> -->
                             <!-- <td class="res_Small_Hide">{{item.soDienThoai}}</td> -->
                             <!-- <td class="res_Medium_Hide">{{item.cccd}}</td> -->
                             <!-- <td class="res_Medium_Hide">{{item.chucVu }}</td> -->
@@ -81,7 +83,7 @@
     
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a class="dropdown-item" [routerLink]="['/suaNhanVien', item.idNhanVien]">Sửa</a></li>
-                                        <li><a class="dropdown-item" (click)="XoaNhanVien()">Xóa</a></li>
+                                        <li><a class="dropdown-item" (click)="XoaNhanVien(item.idNhanVien)">Xóa</a></li>
                                     </ul>
                                 </div>
     

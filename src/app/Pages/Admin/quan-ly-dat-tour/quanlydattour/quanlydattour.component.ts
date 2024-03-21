@@ -9,6 +9,8 @@ import { ThanhToanService } from '../../services/ThanhToan/thanh-toan.service';
 import { Observable } from 'rxjs';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { environment } from '../../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quanlydattour',
@@ -22,7 +24,9 @@ export class QuanlydattourComponent implements OnInit {
     private quanLyKhachHangServices: KhachhangService,
     private datTourService: DattourService,
     private http: HttpClient,
-    private thanhToanService:ThanhToanService) {
+    private thanhToanService:ThanhToanService,
+    private toastr: ToastrService,
+    private router:Router) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
@@ -245,7 +249,7 @@ export class QuanlydattourComponent implements OnInit {
   onSubmitThemKhachHang() {
     console.log(this.themKhachHang);
 
-    this.quanLyKhachHangServices.addKhachHang(this.themKhachHang)
+    this.quanLyKhachHangServices.themKhachHang(this.themKhachHang)
       .subscribe({
         next: (response) => {
           console.log(response);
@@ -300,6 +304,11 @@ export class QuanlydattourComponent implements OnInit {
     .subscribe({
       next:(response)=>{
         console.log(response);
+        this.router.navigateByUrl('/quanLyDatTour'),
+        
+        this.toastr.success('Thanh toán thành công', 'Thông báo', {
+          timeOut: 1000,
+        });
       }
     })
   }
