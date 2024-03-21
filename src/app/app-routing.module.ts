@@ -17,6 +17,7 @@ import { ThemNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/them-nhan
 import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-vien/sua-nhan-vien.component';
 import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
+import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'dattour', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
+  { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
   { path: 'suatour/:id', component: SuaTourComponent },
@@ -36,7 +38,11 @@ const routes: Routes = [
   {path:'suaNhanVien/:id',component:SuaNhanVienComponent},
   {path:'suaKhachHang/:id',component:SuaKhachHangComponent},
   {path:'themKhachHang',component:ThemKhachHangComponent},
-
+  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
+  { path: 'quanLyDatTour', component: QuanlydattourComponent },
+  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
+  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
+  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },

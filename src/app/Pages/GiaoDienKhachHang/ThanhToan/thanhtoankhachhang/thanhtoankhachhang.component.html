@@ -1,0 +1,318 @@
+<app-second-header></app-second-header>
+<div style=" background-color: #ecf0f5;margin-top: 100px; padding-top:1px">
+    <!-- <div class=" container-fluid px-2" style="margin-top: 40px;">
+    <div class="row text-center mt-2 gx-2">
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-1-circle-fill me-1"></i>Thông tin liên hệ
+        </div>
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-2-circle-fill me-1"></i>Thông tin đặt tour
+        </div>
+        <div class="col-4 col-lg-4 bg-success text-white p-2 ">
+            <i class="bi bi-3-circle-fill me-1"></i>Gửi đơn đặt tour
+        </div>
+    </div>
+</div> -->
+
+    <div class="container-fluid p-0 pb-5" style="margin-top: 20px;">
+        <h4><b>THANH TOÁN TOUR DU LỊCH</b></h4>
+        <div class="row gx-3 ">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
+                        class="bi bi-1-circle-fill me-1"></i>Thông
+                    tin liên hệ
+                </div>
+                <form [formGroup]="NhanVien">
+                    <div class="inforKhachHang border p-2 bg-white " style="height: 100%;">
+                        <div class="form-group">
+                            <label for="inputName">Tên</label>
+                            <input type="text" formControlName="TenKhachHang" class="form-control" id="inputName"
+                                placeholder="Nhập tên của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">Số điện thoại</label>
+                            <input type="tel" formControlName="SoDienThoai" class="form-control" id="inputPhone"
+                                placeholder="Nhập số điện thoại của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCCCD">CCCD</label>
+                            <input type="text" formControlName="CCCD" class="form-control" id="inputCCCD"
+                                placeholder="Nhập CCCD của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Năm sinh</label>
+                            <input type="date" formControlName="NgaySinh" class="form-control" id="inputBirthday">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" formControlName="Email" class="form-control" id="inputEmail"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Địa chỉ</label>
+                            <input type="text" formControlName="DiaChi" class="form-control" id="inputAddress"
+                                placeholder="Nhập địa chỉ của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputGender">Giới tính</label>
+                            <select formControlName="GioiTinh" class="form-control" id="inputGender">
+                                <option selected>Chọn...</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+            </div> @if(ItemTourById){
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
+                <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
+                        class="bi bi-2-circle-fill me-1"></i>Thông
+                    tin đặt tour
+                </div>
+                <div class="infoTour border p-1 bg-white" style="height: 100%;">
+                    <img [src]="ItemTourById.HinhAnhDauTien" alt=""
+                        style="width: 100%; height: 200px; object-fit: cover;">
+                    <div class="p-1">
+
+
+                        <span><b>{{ItemTourById.tenTour}}</b></span>
+
+
+                        <br>
+                        <label>Ngày khởi hành: {{ItemTourById.thoiGianBatDau | date: 'dd/MM/yyyy'}}</label>
+                        <div class="giaNguoiLon _inputGroup border shadow-sm p-1 mt-2" style="user-select: none;">
+                            <div class="row flex-nowrap">
+                                <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                    <span class="text-nowrap">Người lớn</span>
+
+                                </div>
+                                <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                    <span class="text-nowrap text-warning">
+                                        x {{ItemTourById.giaNguoiLon | number:'':'en'}}
+                                    </span>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                    style="min-width: 140px;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent " id="basic-addon1"
+                                                style="cursor: pointer;"
+                                                (click)="ThayDoiSoLuong('NguoiLon','Tru')"><strong>-</strong></span>
+                                        </div>
+                                        <input type="text" class="form-control shadow-none border-0 text-center"
+                                            aria-label="Username" aria-describedby="basic-addon1"
+                                            [(ngModel)]="Sl_NguoiLon_ThanhToan">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
+                                                style="cursor: pointer;"
+                                                (click)="ThayDoiSoLuong('NguoiLon','Cong')"><strong>+</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="giaNguoiLon _inputGroup border shadow-sm mt-2 p-1 mb-2" style="user-select: none;">
+                            <div class="row flex-nowrap">
+                                <div class="col-3 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center ">
+                                    <span class="text-nowrap">Trẻ em</span>
+
+                                </div>
+                                <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                    <span class="text-nowrap text-warning">
+                                        x {{ItemTourById.giaTreEm| number:'':'en'}}
+                                    </span>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
+                                    style="min-width: 140px;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent " id="basic-addon1"
+                                                style="cursor: pointer;"
+                                                (click)="ThayDoiSoLuong('TreEm','Tru')"><strong>-</strong></span>
+                                        </div>
+                                        <input type="text" class="form-control shadow-none border-0 text-center"
+                                            aria-label="Username" aria-describedby="basic-addon1"
+                                            [(ngModel)]="Sl_TreEm_ThanhToan">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
+                                                style="cursor: pointer;"
+                                                (click)="ThayDoiSoLuong('TreEm','Cong')"><strong>+</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if(TongDichVu.length!==0){
+                        <span><b>Đăng ký dịch vụ</b></span>
+                        }
+                        <div style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
+
+                            <div *ngFor="let dv of TongDichVu; let i = index">
+                                <!-- Nội dung của bạn ở đây -->
+                                <div class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1"
+                                    style="box-sizing: border-box;">
+                                    <div class="row flex-nowrap">
+                                        <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
+                                            <select class="form-control border-0 shadow-none"
+                                                [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
+                                                (change)="ThayDoiDichVu(i)">
+                                                <option value="">-Chọn dịch vụ-</option>
+                                                <ng-container *ngFor="let dv of DichVu; let j = index">
+                                                    <option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu,i)"
+                                                        [value]="dv.idDichVu">
+                                                        {{dv.tenDichVu}}
+                                                    </option>
+                                                </ng-container>
+                                            </select>
+
+
+                                        </div>
+
+
+                                        <div
+                                            class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center">
+                                            <div class="input-group" style="box-sizing: border-box;">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text border-0 bg-transparent "
+                                                        id="basic-addon1"
+                                                        (click)="ThayDoiSoLuongDichVu(i,'Tru')"><strong>-</strong></span>
+                                                </div>
+                                                <input type="text" class="form-control border-0 text-center"
+                                                    aria-label="Username" aria-describedby="basic-addon1"
+                                                    [(ngModel)]="_ngSoLuongDaChon[i]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text border-0 bg-transparent"
+                                                        id="basic-addon1"
+                                                        (click)="ThayDoiSoLuongDichVu(i,'Cong')"><strong>+</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center"
+                                            style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
+                                            <i class="bi bi-x-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if(TongDichVu.length < DichVu.length){ <span class="text-info p-1 mt-1"
+                            style="cursor: pointer;" (click)="ThemDichVu()">
+                            <i class="bi bi-plus-circle me-1"></i>Thêm dịch vụ
+                            </span>
+                            }
+                            <div class="thongTinThanhToan mt-3">
+                                <h6>THÔNG TIN THANH TOÁN</h6>
+                                <hr class="mt-1 mb-0">
+                                <div class="thanhToan_NguoiLon">
+                                    <div class="row p-2 ">
+                                        <div class="col-3 col-md-3 col-lg-3 text-nowrap px-1">{{Sl_NguoiLon_ThanhToan}}
+                                            người lớn</div>
+                                        <div class="col-1 col-md-1 col-lg-1 text-center px-1"><b>x</b></div>
+                                        <div class="col-3 col-md-3 col-lg-3 text-center px-1">
+                                            {{ItemTourById.giaNguoiLon| number:'':'en'}}đ</div>
+                                        <div class="col-1 col-md-1 col-lg-1 text-center px-1"><b>=</b></div>
+                                        <div class="col-4 col-md-4 col-lg-4 text-center px-1">{{Sl_NguoiLon_ThanhToan
+                                            *ItemTourById.giaNguoiLon| number:'':'en' }}đ</div>
+                                    </div>
+
+
+                                </div>
+                                <hr class="mt-1 mb-0">
+                                <div class="thanhToan_NguoiLon">
+                                    <div class="row p-2 ">
+                                        <div class="col-3 col-md-3 col-lg-3 text-nowrap px-1">{{Sl_TreEm_ThanhToan}} trẻ
+                                            em</div>
+                                        <div class="col-1 col-lg-1 text-center"><b>x</b></div>
+                                        <div class="col-3 col-lg-3 text-center">{{ItemTourById.giaTreEm |
+                                            number:'':'en'}}đ</div>
+                                        <div class="col-1 col-lg-1 text-center"><b>=</b></div>
+                                        <div class="col-3 col-lg-4 text-center">{{Sl_TreEm_ThanhToan *
+                                            ItemTourById.giaTreEm| number:'':'en'}}đ</div>
+                                    </div>
+
+                                </div>
+
+                                <hr class="mt-1 mb-0">
+                                <div class="thanhToan_DichVu">
+                                    <div class="row p-2 ">
+                                        <div class="col-8 col-lg-8"><b>Tổng tiền dịch vụ</b></div>
+
+                                        <div class="col-4 col-lg-4 text-center" dir="rtl">{{TongTienDichVu |number: '':
+                                            'en'}}đ</div>
+                                    </div>
+
+                                </div>
+                                <hr class="mt-1 mb-0">
+                                <div class="thanhToan_DichVu">
+                                    <div class="row p-2 ">
+                                        <div class="col-8 col-lg-8"><b>Tổng cộng</b></div>
+
+                                        <div class="col-4 col-lg-4 text-center" dir="rtl"><b>{{TongTienTour | number :
+                                                '' :'en'}}đ</b></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-md-5 mt-lg-0">
+                <div class="p-2 border  text-white text-center" style="background-color: #496989;"><i
+                        class="bi bi-3-circle-fill me-1"></i>Gửi
+                    đơn đặt tour
+                </div>
+                <div class="bg-white border p-0 " style="height: 100%;">
+                    <div class="p-3">
+                        <div class="d-flex justify-content-center mt-1">
+
+                            @if(isfalse===true){
+
+
+                            <button class="btn btn-primary d-flex justify-content-center" (click)="XacNhanDatTour()">XÁC
+                                NHẬN ĐẶT TOUR</button>
+                            }
+                            @else {
+                            <button class="btn btn-warning d-flex justify-content-center text-white"
+                                style="cursor: not-allowed;">ĐANG ĐỢI
+                                DUYỆT</button>
+                            }
+                        </div>
+                        <div class="text-danger">
+                            Lưu ý:
+                        </div>
+                        <ul class="ps-3">
+                            <li>
+                                <span>Asap Tour sẽ liên hệ với quý khách(qua email hoặc điện thoại) trong vòng <span
+                                        class="text-success">30 phút</span>
+                                    (T2-CN: 06:00 - 23:00) để xác nhậ tour và thời hạn thanh toán.</span>
+
+                            </li>
+
+                            <li>
+                                <span>Quý khách sẽ thanh toán (tại nhà, chuyển khoản hay thẻ) sau khi có xác nhận còn
+                                    tour của ASAP.</span>
+
+                            </li>
+                            <li>
+                                <span>Trường hợp Quý khách muốn xác nhận ngay.
+                                    vui lòng liên hệ với ASAP Hotline:
+                                </span>
+                                <br>
+                                <b>Buôn Ma Thuột: 0869536182</b>
+
+                            </li>
+                        </ul>
+                        <img src="https://hpt.vn/assets/images/contact1.png" style="width: 100%; height: 250px;" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<app-footer></app-footer>

@@ -49,6 +49,7 @@ import { ThemNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/them-nhan
 import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-vien/sua-nhan-vien.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
+import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,6 +81,7 @@ import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khac
     SuaNhanVienComponent,
     ThemKhachHangComponent,
     SuaKhachHangComponent
+    ThanhtoankhachhangComponent
   ],
   imports: [
     BrowserModule,
