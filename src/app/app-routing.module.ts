@@ -13,6 +13,10 @@ import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydat
 import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
 import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
 import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
+import { ThemNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/them-nhan-vien/them-nhan-vien.component';
+import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-vien/sua-nhan-vien.component';
+import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
+import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -28,6 +32,10 @@ const routes: Routes = [
   {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
   {path:'quanLyNhanVien',component:QuanLyNhanVienComponent},
   {path:'quanLyDichVu',component:QuanLyDichVuComponent},
+  {path:'themNhanVien',component:ThemNhanVienComponent},
+  {path:'suaNhanVien/:id',component:SuaNhanVienComponent},
+  {path:'suaKhachHang/:id',component:SuaKhachHangComponent},
+  {path:'themKhachHang',component:ThemKhachHangComponent},
 
 
 

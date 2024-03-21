@@ -45,6 +45,10 @@ import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydat
 import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
 import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
 import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
+import { ThemNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/them-nhan-vien/them-nhan-vien.component';
+import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-vien/sua-nhan-vien.component';
+import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
+import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +75,11 @@ import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dic
     QuanlydattourComponent,
     QuanLyKhachHangComponent,
     QuanLyNhanVienComponent,
-    QuanLyDichVuComponent
+    QuanLyDichVuComponent,
+    ThemNhanVienComponent,
+    SuaNhanVienComponent,
+    ThemKhachHangComponent,
+    SuaKhachHangComponent
   ],
   imports: [
     BrowserModule,
