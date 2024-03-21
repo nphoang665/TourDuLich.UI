@@ -18,7 +18,7 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
-  { path: 'dattour', component: DatTourComponent },
+  { path: 'dattour/:id', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
   { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
