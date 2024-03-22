@@ -1,91 +1,93 @@
 <div class="container-fluid">
     <div class="row">
-      <!-- Main Sidebar -->
-      <app-main-sidebar class="p-0"></app-main-sidebar>
-      <!-- End Main Sidebar -->
-      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <div class="main-navbar sticky-top bg-white">
-          <!-- Main Navbar -->
-          <app-main-navbar></app-main-navbar>
-        </div>
-        <!-- / .main-navbar -->
-
-
-
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
-                <div class="container-fluid">
-                    <h2>Quản lý đặt Tour</h2>
-                    <div class="mt-4">
-                        <div class="total_card row d-flex justify-content-center">
-                            @for(item of TourDuLich; track $index){
-                            <div class="card_tour col-lg-3">
-                                <div class="div_img">
-                                    <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
-                                            Đang giảm giá
-                                        </span></div>
-                                    <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
-                                </div>
-                                <div class="title_tour">
-                                    <span>{{item.tenTour}} </span>
-                                </div>
-        
-                                <div class="card_tour_text">
-                                    <div class="total_time_tour">
-                                        <i class="bi bi-clock"></i> {{item.SoNgayDem}}
-                                    </div>
-                                    <div class="start_time_tour">
-                                        <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau}}
-                                    </div>
-        
-                                    <div class="spot_remaining">
-                                        <i class="bi bi-person"></i> Còn {{item.soChoConNhan}} chỗ
-                                    </div>
-                                    <div class="price_tour d-flex justify-content-end">
-                                        <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}} đ</span>
-                                    </div>
-                                    <div class="btn_bothBuy row gx-2">
-                                        <div class="col-sm-6 mt-1">
-                                            <button type="button" class="btn_DatTour equal w-100" data-bs-toggle="modal"
-                                                data-bs-target="#datTourModal" (click)="LayTourDuLich(item.idTour)">
-                                                Đặt tour
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-6 mt-1">
-                                            <button type="button" class="btn_ThanhToan equal w-100" data-bs-toggle="modal"
-                                                data-bs-target="#thanhToanModal" (click)="LayThanhToanTourDuLich(item.idTour)">
-                                                Thanh toán
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-        
-                            </div>
-                            }
-        
-        
-        
-        
-                        </div>
-        
-        
-                    </div>
-        
-                </div>
-
+        <!-- Main Sidebar -->
+        <app-main-sidebar class="p-0"></app-main-sidebar>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+            <div class="main-navbar sticky-top bg-white">
+                <!-- Main Navbar -->
+                <app-main-navbar></app-main-navbar>
             </div>
-        </div>
-        <!-- End dịch vụ -->
+            <!-- / .main-navbar -->
+
+
+
+            <!-- Start dịch vụ -->
+            <div class="main-content-container container-fluid px-4">
+                <div class="page-header row no-gutters py-4">
+                    <div class="container-fluid">
+                        <h2>Quản lý đặt Tour</h2>
+                        <div class="mt-4">
+                            <div class="total_card row d-flex justify-content-center">
+                                @for(item of TourDuLich; track $index){
+                                <div class="card_tour col-lg-3">
+                                    <div class="div_img">
+                                        <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
+                                                Đang giảm giá
+                                            </span></div>
+                                        <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
+                                    </div>
+                                    <div class="title_tour">
+                                        <span>{{item.tenTour}} </span>
+                                    </div>
+
+                                    <div class="card_tour_text">
+                                        <div class="total_time_tour">
+                                            <i class="bi bi-clock"></i> {{item.SoNgayDem}}
+                                        </div>
+                                        <div class="start_time_tour">
+                                            <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau}}
+                                        </div>
+
+                                        <div class="spot_remaining">
+                                            <i class="bi bi-person"></i> Còn {{item.soChoConNhan}} chỗ
+                                        </div>
+                                        <div class="price_tour d-flex justify-content-end">
+                                            <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}} đ</span>
+                                        </div>
+                                        <div class="btn_bothBuy row gx-2">
+                                            <div class="col-sm-6 mt-1">
+                                                <button type="button" class="btn_DatTour equal w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#datTourModal"
+                                                    (click)="LayTourDuLich(item.idTour)">
+                                                    Đặt tour
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-6 mt-1">
+                                                <button type="button" class="btn_ThanhToan equal w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#thanhToanModal"
+                                                    (click)="LayThanhToanTourDuLich(item.idTour)">
+                                                    Thanh toán
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                }
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End dịch vụ -->
 
 
 
 
 
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
+            <app-footer-main-admin></app-footer-main-admin>
+        </main>
     </div>
-  </div>
+</div>
 
 
 
@@ -98,7 +100,7 @@
 
 
 
-  <!-- modal -->
+<!-- modal -->
 <!-- Modal Đặt tour -->
 <div class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -591,31 +593,31 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>2.000.000</td>
-                                    <td>3.000.000</td>
+                                    <td> {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
+                                    <td> {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Thời gian tour</th>
-                                    <td class="text-right">{{LayTourDangThanhToan.SoNgayDem}}</td>
+                                    <td class="">{{LayTourDangThanhToan.SoNgayDem}}</td>
                                 </tr>
                                 <tr>
                                     <th>Sl người lớn</th>
-                                    <td class="text-right">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
+                                    <td class="">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
                                         {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Sl trẻ em</th>
-                                    <td class="text-right">{{TourThanhToan_HienThi.soLuongTreEm}} x
+                                    <td class="">{{TourThanhToan_HienThi.soLuongTreEm}} x
                                         {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Tổng cộng</th>
-                                    <td class="text-right">{{TongTien_ThanhToan| number:'':'en'}}</td>
+                                    <td class="">{{TongTien_ThanhToan| number:'':'en'}}</td>
                                 </tr>
 
                                 <tr>
                                     <th class="align-middle">Phương thức thanh toán</th>
-                                    <td class="text-right align-middle">
+                                    <td class=" align-middle">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="traTruoc">
                                             <label class="form-check-label" for="traTruoc">
