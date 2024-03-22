@@ -9,6 +9,7 @@ import { environment } from '../../../../../environments/environment';
 import { SuaTour } from '../../models/sua-tour.model';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sua-tour',
@@ -57,7 +58,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private quanLyTourService: QuanLyTourService,
     private doiTacServices: DoiTacService,
-
+    private toastr: ToastrService,
     private router: Router) { }
   Test() {
     console.log(this.model?.moTa);
@@ -209,8 +210,10 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response) => {
             this.router.navigateByUrl('/quanlytour');
-            console.log(response);
-
+            // console.log(response);
+            this.toastr.success('Sửa tour thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
           }
         })
     }

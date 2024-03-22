@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './them-khach-hang.component.html',
   styleUrl: './them-khach-hang.component.css'
 })
-export class ThemKhachHangComponent {
+export class ThemKhachHangComponent implements OnInit{
   themKhachHang:FormGroup = new FormGroup({
     idKhachHang: new FormControl('123'),
     tenKhachHang: new FormControl(''),
@@ -17,7 +17,7 @@ export class ThemKhachHangComponent {
     diaChi: new FormControl(''),
     cccd: new FormControl(''),
     ngaySinh: new FormControl(new Date()),
-    gioiTinh: new FormControl(''),
+    gioiTinh: new FormControl('Nam'),
     email: new FormControl(''),
     tinhTrang: new FormControl(''),
     matKhau: new FormControl(''),
@@ -25,6 +25,10 @@ export class ThemKhachHangComponent {
   });
 
   constructor(private quanlyKhachHangService:KhachhangService, private route:Router, private toastr: ToastrService){}
+  
+  ngOnInit(): void {
+   
+  }
 
   ThemKhachHang(){
     console.log(this.themKhachHang.value);

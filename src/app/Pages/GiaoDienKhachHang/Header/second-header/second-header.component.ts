@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './second-header.component.css'
 })
 export class SecondHeaderComponent {
-
+  clock = new Date().toISOString();
 }

@@ -3,6 +3,7 @@ import { TourDuLich } from '../models/tour-du-lich.model';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-quan-ly-tour',
@@ -13,7 +14,7 @@ export class QuanLyTourComponent implements OnInit, OnDestroy {
 
   tourDuLich$?: Observable<TourDuLich[]>;
   xoaTourSubscription?: Subscription;
-  constructor(private quanLyTourService: QuanLyTourService, private router: Router) {
+  constructor(private quanLyTourService: QuanLyTourService, private router: Router,   private toastr: ToastrService) {
 
   }
 
@@ -29,6 +30,9 @@ export class QuanLyTourComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response) => {
             this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
+            this.toastr.success('Xóa tour thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
           }
         });
     }

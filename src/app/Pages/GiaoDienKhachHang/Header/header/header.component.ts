@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class HeaderComponent implements OnInit {
   constructor(private router: Router, private renderer: Renderer2, private el: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) {
   }
+  clock = new Date().toISOString();
   ngOnInit(): void {
 
   }
