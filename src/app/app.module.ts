@@ -52,6 +52,7 @@ import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khac
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
+import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,9 @@ import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.s
     SuaNhanVienComponent,
     ThemKhachHangComponent,
     SuaKhachHangComponent,
-    ThanhtoankhachhangComponent
+    ThanhtoankhachhangComponent,
+    LoadingGiaodienComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.s
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    LoadingSanphamService,
   ],
   bootstrap: [AppComponent]
 })

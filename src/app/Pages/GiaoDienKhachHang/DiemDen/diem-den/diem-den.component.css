@@ -1,0 +1,417 @@
+/* Base styles */
+
+html,
+body,
+header {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
+/* Navigation */
+
+nav .navbar-brand {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Jumbotrom */
+
+.background {
+  position: relative;
+}
+
+.background .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.background .container h1 {
+  color: #fff;
+  font-size: 5em;
+  line-height: 105%;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.background .container h2 {
+  color: #fff;
+  font-size: 3em;
+  line-height: 105%;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.background .container p {
+  margin-top: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.jumbotron {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url("https://i.imgur.com/gc1HjiF.jpg");
+  height: 600px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  margin-top: 0;
+}
+
+/* Section About*/
+.sectionAbout {
+  margin-bottom: 50px;
+}
+
+.sectionAbout h3 {
+  margin-bottom: 30px;
+}
+.serviceBox {
+  margin-top: 20px;
+  text-align: center;
+  position: relative;
+}
+.serviceBox .service-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 0 auto 45px;
+  /*border: 2px solid rgba(0,0,0,0.7);*/
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  position: relative;
+  transition: all 0.5s ease 0s;
+}
+
+.serviceBox .service-icon span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.serviceBox .service-icon span i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.serviceBox .title {
+  font-size: 20px;
+  color: #000000;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+.serviceBox .description {
+  font-size: 15px;
+  color: #555;
+  padding: 0 10px;
+  margin: 0;
+}
+
+/*Section Banner*/
+
+.banner {
+  height: 150px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+    url("https://i.imgur.com/QfimjM6.jpg");
+  color: #fff;
+  text-align: center;
+  padding-top: 30px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+.banner h1 {
+  font-size: 3em;
+}
+/*Section Travel Options*/
+
+.travelOptions h3 {
+  margin-bottom: 50px;
+}
+
+.travelOptions p {
+  text-align: justify;
+  margin-bottom: 50px;
+}
+
+.travelOptions h6 {
+  font-weight: bold;
+}
+
+/*Section Testimonials*/
+
+.testimonials {
+  margin: 50px 0;
+}
+
+.col-center {
+  margin: 0 auto;
+  float: none !important;
+}
+.carousel {
+  margin: 50px auto;
+  padding: 0 70px;
+}
+.carousel .item {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  min-height: 290px;
+}
+.carousel .item .img-box {
+  width: 135px;
+  height: 135px;
+  margin: 0 auto;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+.carousel .img-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+}
+.carousel .testimonial {
+  padding: 30px 0 10px;
+}
+.carousel .overview {
+  font-style: italic;
+}
+.carousel .overview b {
+  text-transform: uppercase;
+  color: #7aa641;
+}
+.carousel .carousel-control {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  top: 50%;
+  background: none;
+}
+.carousel-control i {
+  font-size: 68px;
+  line-height: 42px;
+  position: absolute;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0 3px 3px #e6e6e6, 0 0 0 #000;
+}
+.carousel .carousel-indicators {
+  bottom: -40px;
+}
+.carousel-indicators li,
+.carousel-indicators li.active {
+  width: 10px;
+  height: 10px;
+  margin: 1px 3px;
+  border-radius: 50%;
+}
+.carousel-indicators li {
+  background: #999;
+  border-color: transparent;
+  box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.carousel-indicators li.active {
+  background: #555;
+  box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+
+footer {
+  height: 100px;
+  background: url("https://imgur.com/gc1HjiF");
+  position: relative;
+}
+
+footer ul {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+footer ul li {
+  list-style-type: none;
+}
+
+footer ul li a {
+  text-decoration: none;
+  font-size: 25px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  margin: 0 15px;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+footer ul li a:hover {
+  transition: 0.5s;
+  color: #333;
+  background: #fff;
+}
+footer p {
+  text-align: center;
+  display: block;
+}
+
+/* Contact Us page*/
+
+.contactForm {
+  width: 80%;
+  margin: 0 auto 30px auto;
+  padding: 20px 0;
+  box-shadow: 0 0px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.contactForm p {
+  text-align: center;
+}
+
+.contactForm form {
+  margin: 50px 0 0 0;
+}
+
+.btnWrapper {
+  width: 33%;
+  margin: 25px auto 0 auto;
+}
+
+.contactTable {
+  margin-top: 50px;
+}
+
+.contactTable p {
+  text-align: center;
+}
+.tableWrapper {
+  width: 80%;
+  margin: 30px auto 40px auto;
+}
+
+table tr,
+table th {
+  text-align: center;
+}
+
+/*About us page*/
+
+.about p {
+  margin-bottom: 50px;
+  text-align: justify;
+  line-height: 2em;
+}
+
+.awards {
+  margin-bottom: 50px;
+}
+.awards h3 {
+  margin-top: 50px;
+}
+
+/*Thailand Page*/
+
+.jumbotronThai {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url("https://i.imgur.com/5HI3qa6.jpg");
+  height: 600px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  margin-top: 0;
+}
+
+.intinerary h3,
+h4 {
+  margin: 30px 0 30px 0;
+  padding: 20px 0;
+}
+
+.intinerary p {
+  text-align: justify;
+}
+
+.colorFirst {
+  background: rgba(119, 151, 146, 0);
+}
+
+.intinerary img {
+  margin-bottom: 25px;
+}
+
+.imgHotel {
+  margin-right: 15px;
+}
+
+.thaiPage footer {
+  margin-top: 50px;
+}
+
+/*Asia Page*/
+.jumbotronAsia {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url("https://i.imgur.com/L65Wbnn.jpg");
+  height: 600px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  margin-top: 0;
+}
+
+/*Asia Page*/
+.jumbotronAustralia {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url("https://i.imgur.com/xbgyzRI.jpg");
+  height: 600px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  margin-top: 0;
+}
+
+/*Video*/
+
+.video h3 {
+  margin-bottom: 30px;
+}
+
+.tripPacks .banner {
+  margin-bottom: 50px;
+}
+
+.video {
+  margin-bottom: 50px;
+}

@@ -110,12 +110,13 @@
                                                     <div class="khoiHanh_text d-flex justify-content-end"><span>
                                                             Khởi hành: <span>{{item.ngayKhoiHanh}}</span>
                                                         </span></div>
-                                                    <div class="GiaGoc_text d-flex justify-content-end">
+                                                    <!-- <div class="GiaGoc_text d-flex justify-content-end">
                                                         <span>6.690.000 VND</span>
 
-                                                    </div>
+                                                    </div> -->
                                                     <div class="GiaDaGiam_text d-flex justify-content-end">
-                                                        <span class="_GiaDaGiam_text">3000000
+                                                        <span class="_GiaDaGiam_text">{{item.giaNguoiLon | number: '':
+                                                            'en'}}
                                                         </span>
                                                         <span>VND</span>
                                                     </div>

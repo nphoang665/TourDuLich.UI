@@ -24,9 +24,9 @@ export class QuanlydattourComponent implements OnInit {
     private quanLyKhachHangServices: KhachhangService,
     private datTourService: DattourService,
     private http: HttpClient,
-    private thanhToanService:ThanhToanService,
+    private thanhToanService: ThanhToanService,
     private toastr: ToastrService,
-    private router:Router) {
+    private router: Router) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
@@ -194,6 +194,8 @@ export class QuanlydattourComponent implements OnInit {
         this.arrKhachHangThanhToan.push(data[index].khachHang);
       }
     })
+
+
   }
   //lấy datalist 
   selectValueKhachHangThanhToan(event: Event) {
@@ -264,53 +266,53 @@ export class QuanlydattourComponent implements OnInit {
       })
   }
 
-  onThanhToan(){
+  onThanhToan() {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
 
-     // Kiểm tra xem checkbox "Trả trước" đã được chọn hay không
-     const traTruocCheckbox = document.getElementById('traTruoc') as HTMLInputElement;
-     const traTruocChecked = traTruocCheckbox.checked;
- 
-     // Kiểm tra xem checkbox "Trả sau" đã được chọn hay không
-     const traSauCheckbox = document.getElementById('traSau') as HTMLInputElement;
-     const traSauChecked = traSauCheckbox.checked;
+    // Kiểm tra xem checkbox "Trả trước" đã được chọn hay không
+    const traTruocCheckbox = document.getElementById('traTruoc') as HTMLInputElement;
+    const traTruocChecked = traTruocCheckbox.checked;
 
-      // Tạo biến phương thức thanh toán và gán giá trị tương ứng
+    // Kiểm tra xem checkbox "Trả sau" đã được chọn hay không
+    const traSauCheckbox = document.getElementById('traSau') as HTMLInputElement;
+    const traSauChecked = traSauCheckbox.checked;
+
+    // Tạo biến phương thức thanh toán và gán giá trị tương ứng
     let phuongThucThanhToan = '';
     if (traTruocChecked && !traSauChecked) {
-        phuongThucThanhToan = 'Trả trước';
+      phuongThucThanhToan = 'Trả trước';
     } else if (!traTruocChecked && traSauChecked) {
-        phuongThucThanhToan = 'Trả sau';
+      phuongThucThanhToan = 'Trả sau';
     }
 
     const tongTienTour = this.TongTien_ThanhToan;
 
     const thanhToanData = {
-      idThanhToan:'',
+      idThanhToan: '',
       idDatTour: this.TourThanhToan_HienThi.idDatTour,
       idKhachHang: this.KhachHangBamTraCuu[0].idKhachHang,
       idNhanVien: this.TourThanhToan_HienThi.idNhanVien,
       tongTienTour: tongTienTour.toString(),
       tongTienDichVu: '0',
-      tongTien:tongTienTour.toString(),
-      tinhTrang:'',
+      tongTien: tongTienTour.toString(),
+      tinhTrang: '',
       ngayThanhToan: ngayGioHienTaiFormatted,
       phuongThucThanhToan: phuongThucThanhToan,
 
     }
-    
+
     this.thanhToanService.thanhToan(thanhToanData)
-    .subscribe({
-      next:(response)=>{
-        console.log(response);
-        this.router.navigateByUrl('/quanLyDatTour'),
-        
-        this.toastr.success('Thanh toán thành công', 'Thông báo', {
-          timeOut: 1000,
-        });
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.router.navigateByUrl('/quanLyDatTour'),
+
+            this.toastr.success('Thanh toán thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
+        }
+      })
   }
 
 }
