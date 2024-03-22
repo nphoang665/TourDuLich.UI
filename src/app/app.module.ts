@@ -53,6 +53,7 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,6 +118,7 @@ import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sa
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     LoadingSanphamService,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

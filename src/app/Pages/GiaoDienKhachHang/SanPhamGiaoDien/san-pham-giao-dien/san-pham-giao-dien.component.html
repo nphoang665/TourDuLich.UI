@@ -8,7 +8,7 @@
                     {{tourType}}
                 </p>
                 <ng-container *ngFor="let tour of getToursByType(tourType)">
-                    <div class="card_tour col-lg-3">
+                    <div class="card_tour col-lg-3" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="card__ribbon">
                             <div class="ribbon-content">tour hot1</div>
                         </div>
@@ -54,7 +54,7 @@
                 <p class="text-center " style="font-size: 29px; font-weight: 600;">Du lịch Buôn Ma Thuột - {{tourType}}
                 </p>
                 <ng-container *ngFor="let tour of getToursByType(tourType)">
-                    <div class="card_tour col-lg-3">
+                    <div class="card_tour col-lg-3" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="card__ribbon">
                             <div class="ribbon-content">tour hot1</div>
                         </div>
