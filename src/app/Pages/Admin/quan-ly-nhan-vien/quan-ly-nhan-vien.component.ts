@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NhanVienService } from '../services/NhanVien/nhan-vien.service';
 import { Observable } from 'rxjs';
 import { NhanVien } from '../models/nhan-vien.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-quan-ly-nhan-vien',
@@ -12,7 +13,7 @@ export class QuanLyNhanVienComponent implements OnInit{
 
   nhanVien$?:Observable<NhanVien[]>;
 
-constructor(private quanLyNhanVienService:NhanVienService){}
+constructor(private quanLyNhanVienService:NhanVienService,  private toastr: ToastrService){}
 
 
   ngOnInit(): void {
@@ -28,6 +29,9 @@ constructor(private quanLyNhanVienService:NhanVienService){}
         .subscribe({
           next: (response) => {
             this.nhanVien$ = this.quanLyNhanVienService.getAllNhanVien();
+            this.toastr.success('Xóa nhân viên thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
           }
         });
     }

@@ -95,7 +95,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       giaNguoiLon: '1',
       ngayThem: new Date(),
       dichVuDiKem: '',
-      tinhTrang: '',
+      tinhTrang: 'Đang hoạt động',
       imgSelected: this.selectedFile,
     }
   }
@@ -226,7 +226,9 @@ export class ThemTourComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.router.navigateByUrl('/quanlytour');
           // console.log(response);
-
+          this.toastr.success('Thêm tour thành công', 'Thông báo', {
+            timeOut: 1000,
+          });
         }
       })
 

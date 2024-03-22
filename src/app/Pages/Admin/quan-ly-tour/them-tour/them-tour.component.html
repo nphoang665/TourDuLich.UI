@@ -58,13 +58,13 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="PhuongTienDiChuyen">Phương tiện di chuyển</label>
-                                <select class="form-control" id="PhuongTienDiChuyen" formControlName="phuongTienDiChuyen"
+                                <select class="form-select" id="PhuongTienDiChuyen" formControlName="phuongTienDiChuyen"
                                     [(ngModel)]="model.phuongTienDiChuyen" [ngClass]="{
                                             'is-invalid': (submitted || f['phuongTienDiChuyen'].touched ||
                                                            f['phuongTienDiChuyen'].dirty) && f['phuongTienDiChuyen'].errors
                                         }" (blur)="onFieldTouched('phuongTienDiChuyen')">
     
-                                    <option value="Ô tô">Ô tô</option>
+                                    <option value="Xe ô tô">Xe ô tô</option>
                                     <option value="Xe máy">Xe máy</option>
     
                                 </select>
@@ -105,22 +105,38 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="TinhTrang">Loại tour</label>
-                                <input type="text" class="form-control" id="LoaiTour" formControlName="loaiTour"
-                                    [(ngModel)]="model.loaiTour" placeholder="Nhập loại tour"
-                                    [ngClass]="{ 'is-invalid': (submitted || f['loaiTour'].touched ||f['loaiTour'].dirty) && f['loaiTour'].errors }"
-                                    (blur)="onFieldTouched('loaiTour')" [(ngModel)]="model.loaiTour">
+                                <label for="">Loại tour</label>
+                                <select class="form-select" id="loaiTour" formControlName="loaiTour"
+                                    [(ngModel)]="model.loaiTour" [ngClass]="{
+                                            'is-invalid': (submitted || f['loaiTour'].touched ||
+                                                           f['loaiTour'].dirty) && f['loaiTour'].errors
+                                        }" (blur)="onFieldTouched('loaiTour')">
     
-                                @if ((submitted || f['loaiTour'].touched ||f['loaiTour'].dirty) && f['loaiTour'].errors) {
+                                    <option value="Du lịch sinh thái">Du lịch sinh thái</option>
+                                    <option value="Du lịch văn hóa">Du lịch văn hóa</option>
+                                    <option value="Du lịch nghỉ dưỡng">Du lịch nghỉ dưỡng</option>
+                                    <option value="Du lịch giải trí">Du lịch giải trí</option>
+                                    <option value="Du lịch thể thao">Du lịch thể thao</option>
+                                    <option value="Du lịch khám phá">Du lịch khám phá</option>
+                                    <option value="Du lịch mạo hiểm">Du lịch mạo hiểm</option>
+                                    <option value="Du lịch kết hợp">Du lịch kết hợp</option>
+                                    <option value="Du lịch gia đình">Du lịch gia đình</option>
+                                    <option value="Du lịch theo đoàn">Du lịch theo đoàn</option>
+                                    <option value="Du lịch cá nhân">Du lịch cá nhân</option>
+                                    <option value="Du lịch biển">Du lịch biển</option>
+                                    <option value="Du lịch núi">Du lịch núi</option>
+                                    <option value="Du lịch đô thị">Du lịch đô thị</option>
+                                    <option value="Du lịch thôn quê">Du lịch thôn quê</option>
+                                    <option value="Tham quan thác">Tham quan thác</option>
+                                    <option value="Thăm quan vườn cà phê">Thăm quan vườn cà phê</option>
+    
+                                </select>
+    
+                                @if ((submitted || f['loaiTour'].touched || f['loaiTour'].dirty)
+                                && f['loaiTour'].errors) {
                                 <div class="invalid-feedback">
                                     @if (f['loaiTour'].errors['required']) {
                                     <div>Loại tour là bắt buộc</div>
-                                    }
-                                    @if (f['loaiTour'].errors['minlength']) {
-                                    <div>Loại tour không được bé hơn 4 ký tự</div>
-                                    }
-                                    @if (f['loaiTour'].errors['maxlength']) {
-                                    <div>Loại tour không được lớn hơn 200 ký tự</div>
                                     }
                                 </div>
                                 }
@@ -285,13 +301,23 @@
     
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <!-- <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="TinhTrang">Tình trạng</label>
                                 <input type="text" class="form-control" id="TinhTrang" formControlName="tinhTrang"
                                     [(ngModel)]="model.tinhTrang" placeholder="Nhập tình trạng">
                             </div>
+                        </div> -->
+
+                        <div class="col-lg-3" hidden>
+                            <div class="form-group">
+                                <label for="">Tình trạng</label>
+                                <select class="form-select" formControlName="tinhTrang" [(ngModel)]="model.tinhTrang">
+                                    <option value="Đang hoạt động">Đang hoạt động</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="TinhTrang">Dịch vụ đi kèm</label>
