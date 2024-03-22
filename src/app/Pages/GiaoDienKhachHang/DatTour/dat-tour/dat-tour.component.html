@@ -1,143 +1,136 @@
 <div style="background-color: #ecf0f5;">
-
     <app-second-header></app-second-header>
     <div class="container " style="padding: 10px">
-        <div class="row total_item_tourplan">
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+            aria-label="breadcrumb" class="mt-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+        </nav>
+        <div class="row total_item_tourplanpt-0">
             <div class=" col-lg-3 order-lg-1 order-2">
                 <div class="card" style="width: 100%;">
                     <div class="card-header">
-                        Featured
+                        <b class="h5">Các Tour HOT</b>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo od1io</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
+                    <ul class="list-group list-group-flush text-nowrap">
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Đà Nẵng - Hội An</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Sapa - Fansipan</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Nha Trang - Đảo Điệp Sơn</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Phú Quốc - VinWonders</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Hà Nội - Hạ Long</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Đà Lạt - Thung lũng Vàng</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Mộc Châu - Đồi chè</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Cần Thơ - Chợ nổi Cái Răng</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Vũng Tàu - Hòn Bà</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Phan Thiết - Mũi Né</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Huế - Lăng Minh Mạng</li>
+                        <li class="list-group-item border-0 ps-3">Tour du lịch Quảng Bình - Hang Én</li>
                     </ul>
                 </div>
-                <br>
-                <br>
-                <div class="card" style="width: 100%;">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo od1io</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                        <li class="list-group-item border-0">Cras justo odio</li>
-                        <li class="list-group-item border-0">Dapibus ac facilisis in</li>
-                        <li class="list-group-item border-0">Vestibulum at eros</li>
-                    </ul>
-                </div>
-
-
             </div>
             <div class="col-lg-9 order-lg-1 tag_tour p-3">
+                @if(TuKhoaTimKiem =='tatca'){
                 <p class="title_tour">Tour du lịch từ Buôn Ma Thuột </p>
+                }
+                @else{
+                <p class="title_tour">Tìm kiếm {{TuKhoaTimKiem}} </p>
+                }
                 <div class="row sort_tour text-center mt-4">
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(1)">Đề xuất</div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(2)">Thời lượng </div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(3)"> khởi hành</div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(4)">Giá tour</div>
-
                 </div>
                 <div class="total-tour">
-
-                    <div class="tour_element" [routerLink]="'/chitiettour/'+item.idTour"
-                        *ngFor="let item of TourDuLich">
-                        <div class="row">
-                            <div class="col-md-3 col-lg-3">
-                                <div class="img_tour">
-                                    <img [src]="item.HinhAnhDauTien" alt=""
-                                        style="width: 100%; min-height: 150px; object-fit: cover;  ">
-
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-lg-9">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <div class="text_tour">
-                                            <div class="_card_title_tour">
-                                                {{item.tenTour}}
-
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success">10.0 </span><span> Tuyệt vời | 1 đánh
-                                                    giá</span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    <i class="bi bi-stopwatch me-1"></i> <span>{{item.SoNgayDem}}</span>
-                                                </span>
-
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    Phương tiện: {{item.phuongTienDiChuyen}}
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    <i class="bi bi-person me-1"></i>
-                                                </span>
-                                                <span>Còn {{item.soChoConNhan}} chỗ</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="price_tour">
-                                            <div class="khoiHanh_text d-flex justify-content-end"><span>
-                                                    Khởi hành: <span>{{item.ngayKhoiHanh}}</span>
-                                                </span></div>
-                                            <div class="GiaGoc_text d-flex justify-content-end">
-                                                <span>6.690.000 VND</span>
-
-                                            </div>
-                                            <div class="GiaDaGiam_text d-flex justify-content-end">
-                                                <span class="_GiaDaGiam_text">3000000
-                                                </span>
-                                                <span>VND</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                        </div>
+                    <div *ngIf="isLoading; else loaded">
+                        <app-loading-giaodien></app-loading-giaodien>
                     </div>
 
+                    <ng-template #loaded>
 
+                        <div class="text-center" *ngIf="!CheckNullTourDuLich(); else tours">
+                            <div class="p-3">
+                                <span class="mb-0" style="font-size: 30px"><b>Không tìm thấy tour
+                                        nào!</b></span>
+                            </div>
+                            <img class="w-100 mt-0" style="max-height: 450px; object-fit: cover;"
+                                src="https://i.pinimg.com/564x/a3/a0/8e/a3a08e6e52deb34dc1126a9af25890ed.jpg" alt="">
+                        </div>
+                        <ng-template #tours>
+                            <div class="tour_element" [routerLink]="'/chitiettour/'+item.idTour"
+                                *ngFor="let item of TourDuLich">
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-3">
+                                        <div class="img_tour">
+                                            <img [src]="item.HinhAnhDauTien" alt=""
+                                                style="width: 100%; min-height: 150px; object-fit: cover;  ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class="text_tour">
+                                                    <div class="_card_title_tour">
+                                                        {{item.tenTour}}
 
+                                                    </div>
+                                                    <div>
+                                                        <span class="badge bg-success">10.0 </span><span> Tuyệt vời | 1
+                                                            đánh
+                                                            giá</span>
+                                                    </div>
+                                                    <div>
+                                                        <span>
+                                                            <i class="bi bi-stopwatch me-1"></i>
+                                                            <span>{{item.SoNgayDem}}</span>
+                                                        </span>
 
+                                                    </div>
+                                                    <div>
+                                                        <span>
+                                                            Phương tiện: {{item.phuongTienDiChuyen}}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span>
+                                                            <i class="bi bi-person me-1"></i>
+                                                        </span>
+                                                        <span>Còn {{item.soChoConNhan}} chỗ</span>
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="price_tour">
+                                                    <div class="khoiHanh_text d-flex justify-content-end"><span>
+                                                            Khởi hành: <span>{{item.ngayKhoiHanh}}</span>
+                                                        </span></div>
+                                                    <div class="GiaGoc_text d-flex justify-content-end">
+                                                        <span>6.690.000 VND</span>
 
+                                                    </div>
+                                                    <div class="GiaDaGiam_text d-flex justify-content-end">
+                                                        <span class="_GiaDaGiam_text">3000000
+                                                        </span>
+                                                        <span>VND</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
-
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-template>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 <app-footer></app-footer>

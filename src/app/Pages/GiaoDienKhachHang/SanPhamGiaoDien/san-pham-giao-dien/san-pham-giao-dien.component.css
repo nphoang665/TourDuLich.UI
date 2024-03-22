@@ -132,3 +132,18 @@
     max-width: 90%;
   }
 }
+.btn_XemThemTour {
+  font-size: 1.2em;
+  font-weight: 600;
+  padding: 8px;
+  border: 1px solid #26bed6;
+  color: #26bed6;
+  background-color: transparent;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+.btn_XemThemTour:hover {
+  background-color: #26bed6;
+  color: white;
+}

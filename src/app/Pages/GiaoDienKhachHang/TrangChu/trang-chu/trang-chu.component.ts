@@ -1,12 +1,16 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, AfterViewInit, HostListener, OnInit, QueryList, ViewChildren, viewChildren, PLATFORM_ID, inject } from '@angular/core';
+import { Component, ElementRef, Inject, AfterViewInit, HostListener, OnInit, QueryList, ViewChildren, viewChildren, PLATFORM_ID, inject, ChangeDetectorRef, OnDestroy, AfterContentChecked } from '@angular/core';
+import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
+import { Observable, Subscription, mapTo, merge, startWith, switchMap } from 'rxjs';
 @Component({
   selector: 'app-trang-chu',
   templateUrl: './trang-chu.component.html',
   styleUrl: './trang-chu.component.css'
 })
-export class TrangChuComponent implements AfterViewInit {
+export class TrangChuComponent implements AfterViewInit, OnInit, OnDestroy {
   id: string = '';
+
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     let originalHeader = document.querySelector('.container_large_header') as HTMLElement;
@@ -28,8 +32,16 @@ export class TrangChuComponent implements AfterViewInit {
     });
 
   }
-  constructor(private elRef: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private elRef: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public loaderServices: LoadingSanphamService,
+    private cdr: ChangeDetectorRef
+  ) {
+    //khởi tạo subscriptions
+
+  }
   ngAfterViewInit() {
+
     const textTyping = this.elRef.nativeElement.querySelector('.Text_Typing');
     const myStrings = ["Buôn Đôn", "Thác Dray Sáp", "Buôn KoTam"];
     let stringIndex = 0;
@@ -42,12 +54,14 @@ export class TrangChuComponent implements AfterViewInit {
           if (charIndex < myStrings[stringIndex].length) {
             textTyping.textContent = myStrings[stringIndex].slice(0, charIndex + 1);
             charIndex++;
+            this.cdr.detectChanges(); // manually trigger change detection here
           } else {
             window.clearInterval(typingInterval);
 
             const deletingInterval = window.setInterval(() => {
               if (textTyping.textContent.length > 0) {
                 textTyping.textContent = textTyping.textContent.slice(0, -1);
+                this.cdr.detectChanges(); // manually trigger change detection here
               } else {
                 window.clearInterval(deletingInterval);
 
@@ -69,6 +83,16 @@ export class TrangChuComponent implements AfterViewInit {
       typeString();
     }
   }
+  ngOnInit(): void {
+
+
+  }
+
+
+  ngOnDestroy(): void {
+
+  }
+
 
 
 

@@ -2,17 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { TourDuLich } from '../models/tour-du-lich.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { themTour } from '../models/them-tour.model';
 import { SuaTour } from '../models/sua-tour.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuanLyTourService{
+export class QuanLyTourService {
 
   constructor(private http: HttpClient) { }
-
   themTourDuLich(data: themTour): Observable<TourDuLich> {
     console.log(data);
 

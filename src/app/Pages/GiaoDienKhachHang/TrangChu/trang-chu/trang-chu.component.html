@@ -1,30 +1,28 @@
-<div style="background-color: #F6F8FA;">
+<div style="background-color: #F6F8FA; width: 100%;">
     <div class="backGroundThumbnail">
-        <app-header class="header"></app-header>
-        <article class="home" id="home">
-            <div class="home-text">
-                <p class="title_thumbnail text-nowrap">ASAP Tour <br> <Span>Đến nơi: </Span> <span
-                        class="Text_Typing text-warning text-nowrap"></span><span class="text-warning">|</span>
+        <app-header></app-header>
+        <div class="container d-flex align-items-center h-100">
 
-                </p>
-                <p>Hành trình, lịch trình của bản thân: Bạn có thể chia sẻ chi tiết về chuyến đi của mình, từ lúc chuẩn
-                    bị,
-                    đến lúc di chuyển, đến lúc ở lại, đến lúc trở về. </p>
-                <!-- <a href="#" class="home-btn">Đặt tour ngay</a> -->
 
+            <div class="container-fluid">
+                <div class="home-text">
+                    <p class="title_thumbnail text-nowrap">ASAP Tour <br> <Span>Đến nơi: </Span> <span
+                            class="Text_Typing text-warning text-nowrap"></span><span class="text-warning">|</span>
+
+                    </p>
+                </div>
+                <app-tim-kiem-tour
+                    class="d-flex flex-column justify-content-center align-items-center"></app-tim-kiem-tour>
             </div>
-            <!-- <div>
 
-
-            </div> -->
-        </article>
+        </div>
 
     </div>
 
-    <section class="content">
+    <section class="content w-100">
         <div class="img_bg_search">
-            <app-tim-kiem-tour></app-tim-kiem-tour>
-            <div class="row justify-content-center mb-2 w-100">
+
+            <div class="row justify-content-center mb-2 mt-4 w-100">
                 <div class="col-6 col-md-6 col-lg-3 d-flex justify-content-center align-items-center">
                     <img src="https://static.vinwonders.com/2022/05/js2Ynthq-bg_sale_bottom_hd_icon1.png" alt="">
                     <div><span class="text-white">Giảm 2% khi đăng nhập</span></div>
@@ -49,14 +47,21 @@
 
 
     </section>
-    <div>
-        <app-san-pham-giao-dien></app-san-pham-giao-dien>
-        <app-san-pham-giao-dien></app-san-pham-giao-dien>
-        <app-san-pham-giao-dien></app-san-pham-giao-dien>
-        <app-san-pham-giao-dien></app-san-pham-giao-dien>
+    <div *ngIf="loaderServices.isLoading | async">
+        <app-loading-giaodien></app-loading-giaodien>
     </div>
-    <div class="banner">
 
+
+
+    <div class="w-100">
+
+        <app-san-pham-giao-dien></app-san-pham-giao-dien>
     </div>
-    <app-footer class="footer"></app-footer>
+    <!-- </ng-template> -->
+    <div class="w-100">
+
+
+        <app-footer style="max-width: 100%; box-sizing: border-box; overflow: hidden;"></app-footer>
+    </div>
+
 </div>
