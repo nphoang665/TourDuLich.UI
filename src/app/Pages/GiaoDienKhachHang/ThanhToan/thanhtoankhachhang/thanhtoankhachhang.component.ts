@@ -48,6 +48,8 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.KhaiBaoContructorDatTour();
     this.GetDichVu();
     this.LayDatTourTuLocalStorage();
+    console.log(this.TongDichVu);
+
 
   }
   KhaiBaoContructorDatTour() {
