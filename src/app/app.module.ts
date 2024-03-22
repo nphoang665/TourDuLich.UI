@@ -29,7 +29,7 @@ import { FormGroupName, FormsModule } from '@angular/forms';
 
 import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
 import { DragScrollMobileDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll-mobile.directive';
@@ -46,6 +46,8 @@ import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-
 import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
 import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
+import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
+import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +75,8 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
     QuanLyKhachHangComponent,
     QuanLyNhanVienComponent,
     QuanLyDichVuComponent,
-    ThanhtoankhachhangComponent
+    ThanhtoankhachhangComponent,
+    LoadingGiaodienComponent
   ],
   imports: [
     BrowserModule,
@@ -101,8 +104,8 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
     provideClientHydration(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
-
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

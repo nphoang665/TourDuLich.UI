@@ -47,9 +47,17 @@
 
 
     </section>
+    <div *ngIf="loaderServices.isLoading | async">
+        <app-loading-giaodien></app-loading-giaodien>
+    </div>
+
+
+
     <div class="w-100">
+
         <app-san-pham-giao-dien></app-san-pham-giao-dien>
     </div>
+    <!-- </ng-template> -->
     <div class="w-100">
 
 

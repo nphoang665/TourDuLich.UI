@@ -1,5 +1,4 @@
 <div style="background-color: #ecf0f5;">
-
     <app-second-header></app-second-header>
     <div class="container " style="padding: 10px">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
@@ -32,10 +31,7 @@
                         <li class="list-group-item border-0 ps-3">Tour du lịch Huế - Lăng Minh Mạng</li>
                         <li class="list-group-item border-0 ps-3">Tour du lịch Quảng Bình - Hang Én</li>
                     </ul>
-
                 </div>
-
-
             </div>
             <div class="col-lg-9 order-lg-1 tag_tour p-3">
                 @if(TuKhoaTimKiem =='tatca'){
@@ -44,38 +40,28 @@
                 @else{
                 <p class="title_tour">Tìm kiếm {{TuKhoaTimKiem}} </p>
                 }
-
                 <div class="row sort_tour text-center mt-4">
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(1)">Đề xuất</div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(2)">Thời lượng </div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(3)"> khởi hành</div>
                     <div class="col-3 col-sm-3 text-nowrap item_sort_tour" (click)="ThayDoiMauSort(4)">Giá tour</div>
-
                 </div>
                 <div class="total-tour">
                     <div *ngIf="isLoading; else loaded">
-                        <!-- Nội dung hiển thị khi trang đang tải -->
-                        <div>Đang tải...</div>
+                        <app-loading-giaodien></app-loading-giaodien>
                     </div>
+
                     <ng-template #loaded>
 
                         <div class="text-center" *ngIf="!CheckNullTourDuLich(); else tours">
                             <div class="p-3">
-
-
                                 <span class="mb-0" style="font-size: 30px"><b>Không tìm thấy tour
                                         nào!</b></span>
                             </div>
-
                             <img class="w-100 mt-0" style="max-height: 450px; object-fit: cover;"
                                 src="https://i.pinimg.com/564x/a3/a0/8e/a3a08e6e52deb34dc1126a9af25890ed.jpg" alt="">
                         </div>
-
-
-
-
                         <ng-template #tours>
-
                             <div class="tour_element" [routerLink]="'/chitiettour/'+item.idTour"
                                 *ngFor="let item of TourDuLich">
                                 <div class="row">
@@ -83,7 +69,6 @@
                                         <div class="img_tour">
                                             <img [src]="item.HinhAnhDauTien" alt=""
                                                 style="width: 100%; min-height: 150px; object-fit: cover;  ">
-
                                         </div>
                                     </div>
                                     <div class="col-md-9 col-lg-9">
@@ -136,8 +121,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
 
@@ -145,21 +128,9 @@
                             </div>
                         </ng-template>
                     </ng-template>
-
-
-
-
-
-
-
-
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 <app-footer></app-footer>

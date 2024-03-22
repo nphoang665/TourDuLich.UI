@@ -1,11 +1,15 @@
 // Nhập các module cần thiết từ thư viện Angular
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, NgZone, OnInit, Output } from '@angular/core';
 // Nhập model TourDuLich từ thư mục models
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 // Nhập biến môi trường từ file environment
 import { environment } from '../../../../../environments/environment';
 // Nhập dịch vụ QuanLyTourService từ thư mục services
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
+import { EventEmitter } from '@angular/core';
+import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
+import { Observable } from 'rxjs';
+
 
 // Định nghĩa metadata cho component
 @Component({
@@ -14,10 +18,17 @@ import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service'
   styleUrl: './san-pham-giao-dien.component.css' // đường dẫn tới file css của component
 })
 // Khai báo class SanPhamGiaoDienComponent kế thừa từ interface OnInit của Angular
-export class SanPhamGiaoDienComponent implements OnInit {
+export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
+  //khai báo output để loading
   // Khởi tạo dịch vụ QuanLyTourService
-  constructor(private quanLyTourServices: QuanLyTourService) {
+  constructor(
+    private quanLyTourServices: QuanLyTourService,
+    private cdr: ChangeDetectorRef,
+    public loaderServices: LoadingSanphamService,
 
+
+
+  ) {
   }
   // Khai báo và nhận dữ liệu đầu vào từ component cha thông qua property binding
   @Input() tour: any;
@@ -30,8 +41,20 @@ export class SanPhamGiaoDienComponent implements OnInit {
 
   // Hàm ngOnInit được gọi sau khi Angular khởi tạo xong component
   ngOnInit(): void {
+    this.LayTour();
+  }
+
+  ngAfterViewInit(): void {
+
+  }
+
+  //lấy tour
+
+
+  async LayTour() {
     // Gọi hàm getAllTourDuLich từ dịch vụ QuanLyTourService để lấy danh sách tất cả tour du lịch
-    this.quanLyTourServices.getAllTourDuLich().subscribe((data: TourDuLich[]) => {
+    const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+    if (data) {
       // Gán dữ liệu nhận được từ server cho mảng TourDuLich
       this.TourDuLich = data;
       // Khởi tạo object tourCounts để lưu trữ số lượng tour của mỗi loại
@@ -58,7 +81,8 @@ export class SanPhamGiaoDienComponent implements OnInit {
       this.selectedTours = this.TourDuLich.filter(tour => this.topTourTypes.includes(tour.loaiTour));
       // In danh sách các tour đã chọn ra console
 
-    })
+
+    }
   }
   // Hàm getToursByType nhận vào một loại tour và trả về danh sách các tour thuộc loại tour đó
   getToursByType(tourType: string) {
