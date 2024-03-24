@@ -2,23 +2,17 @@
     <div class="backGroundThumbnail">
         <app-header></app-header>
         <div class="container d-flex align-items-center h-100">
-
-
             <div class="container-fluid">
                 <div class="home-text">
                     <p class="title_thumbnail text-nowrap">ASAP Tour <br> <Span>Đến nơi: </Span> <span
                             class="Text_Typing text-warning text-nowrap"></span><span class="text-warning">|</span>
-
                     </p>
                 </div>
                 <app-tim-kiem-tour
                     class="d-flex flex-column justify-content-center align-items-center"></app-tim-kiem-tour>
             </div>
-
         </div>
-
     </div>
-
     <section class="content w-100">
         <div class="img_bg_search">
 
@@ -40,28 +34,20 @@
                     <span class="text-white">Check in QR code tiện lợi</span>
                 </div>
             </div>
-
-
-
         </div>
-
-
     </section>
     <div *ngIf="loaderServices.isLoading | async">
         <app-loading-giaodien></app-loading-giaodien>
     </div>
 
-
-
-    <div class="w-100">
-
+    <div>
         <app-san-pham-giao-dien></app-san-pham-giao-dien>
     </div>
-    <!-- </ng-template> -->
-    <div class="w-100">
+    <div class="container-fluid bg-white pt-4">
+        <div class="container">
+            <app-danh-gia-khach-hang></app-danh-gia-khach-hang>
 
-
-        <app-footer style="max-width: 100%; box-sizing: border-box; overflow: hidden;"></app-footer>
+        </div>
     </div>
-
+    <app-footer style="max-width: 100%; box-sizing: border-box; overflow: hidden;"></app-footer>
 </div>

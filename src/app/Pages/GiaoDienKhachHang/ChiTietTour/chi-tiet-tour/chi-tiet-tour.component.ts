@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../../../environments/environment';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { isPlatformBrowser } from '@angular/common';
+import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 
 declare var bootstrap: any;
 @Component({
@@ -24,7 +25,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     private el: ElementRef,
     //đối tượng gọi thủ công dom
     private cdRef: ChangeDetectorRef,
-
+    public loaderServices: LoadingSanphamService,
     private router: Router,
     @Inject(PLATFORM_ID) private _platformId: Object
   ) {
@@ -37,6 +38,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     this.GetTour(this.LayIdRoute());
 
     //gọi hàm lấy dịch vụ mẫu
+
 
 
 
@@ -73,7 +75,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
         //sao chép img gốc thành mảng clone
         this.images_clone.push(environment.apiBaseUrl + '/uploads/' + this.TourChiTiet.anhTour[index].imgTour)
       }
-
+      console.log(this.TourChiTiet);
 
 
 

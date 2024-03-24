@@ -29,15 +29,15 @@ const routes: Routes = [
   { path: 'quanlytour', component: QuanLyTourComponent },
   { path: 'themtour', component: ThemTourComponent },
   { path: 'suatour/:id', component: SuaTourComponent },
-  {path:'trangChuAdmin',component:TrangChuAdminComponent},
-  {path:'quanLyDatTour',component:QuanlydattourComponent},
-  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
-  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent},
-  {path:'quanLyDichVu',component:QuanLyDichVuComponent},
-  {path:'themNhanVien',component:ThemNhanVienComponent},
-  {path:'suaNhanVien/:id',component:SuaNhanVienComponent},
-  {path:'suaKhachHang/:id',component:SuaKhachHangComponent},
-  {path:'themKhachHang',component:ThemKhachHangComponent},
+  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
+  { path: 'quanLyDatTour', component: QuanlydattourComponent },
+  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
+  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
+  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
+  { path: 'themNhanVien', component: ThemNhanVienComponent },
+  { path: 'suaNhanVien/:id', component: SuaNhanVienComponent },
+  { path: 'suaKhachHang/:id', component: SuaKhachHangComponent },
+  { path: 'themKhachHang', component: ThemKhachHangComponent },
   { path: 'trangChuAdmin', component: TrangChuAdminComponent },
   { path: 'quanLyDatTour', component: QuanlydattourComponent },
   { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
@@ -49,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

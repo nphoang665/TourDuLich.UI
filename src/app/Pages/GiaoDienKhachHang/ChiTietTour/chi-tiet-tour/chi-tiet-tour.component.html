@@ -1,5 +1,7 @@
 <app-second-header></app-second-header>
-
+<div *ngIf="loaderServices.isLoading | async">
+    <app-loading-giaodien></app-loading-giaodien>
+</div>
 <div style="background-color: #ecf0f5;">
 
     <div class="container">
@@ -92,7 +94,7 @@
                         <div class="row">
 
                             <div class="col-lg-2 col-md-2 col-sm-2 col-2 item_lichTrinh">
-                                <span>25/03</span>
+                                <span>{{TourChiTiet.thoiGianBatDau | date: "dd/MM"}}</span>
                             </div>
 
                         </div>
@@ -107,7 +109,7 @@
                                 </div>
                                 <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                     <span class="text-nowrap text-warning">
-                                        x 52.900.000
+                                        x {{TourChiTiet.giaNguoiLon | number:'':'en'}}
                                     </span>
                                 </div>
                                 <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -137,7 +139,7 @@
                                 </div>
                                 <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                     <span class="text-nowrap text-warning">
-                                        x 52.900.000
+                                        x {{TourChiTiet.giaTreEm| number:'':'en'}}
                                     </span>
                                 </div>
                                 <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -159,17 +161,19 @@
                             </div>
                         </div>
                         <div class="LienHeDatCho mt-3 text-info">
-                            <i class="bi bi-plus-circle"></i><span>Liên hệ để xác nhận chỗ</span>
+                            <i class="bi bi-plus-circle me-1"></i><span>Liên hệ để xác nhận chỗ</span>
                         </div>
 
                         <div class="GiaTour mt-4">
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-5 col-lg-6">
-                                    <span>Tổng Giá Tour</span>
+                                    <span><b>Tổng Giá Tour: </b></span>
                                 </div>
                                 <div
                                     class="col-md-7 col-lg-6 text-nowrap d-flex align-items-center justify-content-end">
-                                    <span class="text-warning font-weight-bold text_giaTour">105.800.000
+                                    <span class="text-warning font-weight-bold text_giaTour">{{(Sl_NguoiLon_ThanhToan*
+                                        TourChiTiet.giaNguoiLon)+ (Sl_TreEm_ThanhToan*TourChiTiet.giaTreEm) | number:'':
+                                        'en'}}
                                     </span><span class="text-warning">VNĐ</span>
                                 </div>
                             </div>
@@ -236,7 +240,8 @@
                         <div class="col-7 col-md-7 col-lg-6">
                             <span class="text-nowrap" style="font-size: 15px;">Giá chỉ từ</span>
                             <br>
-                            <span class="text-nowrap text-warning font-weight-bold text_giaTour">48.900.000
+                            <span class="text-nowrap text-warning font-weight-bold text_giaTour">
+                                {{TourChiTiet.giaNguoiLon | number: '': 'en'}}
                             </span><span class="text-warning">đ/khách</span>
                         </div>
 
@@ -252,6 +257,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="container-fluid bg-white pt-4">
+    <div class="container">
+        <app-danh-gia-khach-hang></app-danh-gia-khach-hang>
+
     </div>
 </div>
 <app-footer></app-footer>
@@ -286,7 +297,7 @@
                     <div class="row">
 
                         <div class="col-lg-2 col-md-2 col-sm-2 col-2 item_lichTrinh">
-                            <span>25/03</span>
+                            <span>{{TourChiTiet.thoiGianBatDau | date: "dd/MM"}}</span>
                         </div>
 
                     </div>
@@ -301,7 +312,7 @@
                             </div>
                             <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                 <span class="text-nowrap text-warning">
-                                    x 52.900.000
+                                    x {{TourChiTiet.giaNguoiLon}}
                                 </span>
                             </div>
                             <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -330,7 +341,7 @@
                             </div>
                             <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                 <span class="text-nowrap text-warning">
-                                    x 52.900.000
+                                    x {{TourChiTiet.giaTreEm}}
                                 </span>
                             </div>
                             <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center"
@@ -361,7 +372,9 @@
                             </div>
                             <div
                                 class="col-7 col-md-7 col-lg-6 text-nowrap d-flex align-items-center justify-content-end">
-                                <span class="text-warning font-weight-bold text_giaTour">105.800.000
+                                <span class="text-warning font-weight-bold text_giaTour">{{(Sl_NguoiLon_ThanhToan*
+                                    TourChiTiet.giaNguoiLon)+ (Sl_TreEm_ThanhToan*TourChiTiet.giaTreEm) | number:'':
+                                    'en'}}
                                 </span><span class="text-warning">VNĐ</span>
                             </div>
                         </div>

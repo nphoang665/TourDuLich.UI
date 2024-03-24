@@ -269,7 +269,11 @@ export class ThanhtoankhachhangComponent implements OnInit {
       }
     );
 
+    this.ChuyenTrangThaiNut();
+  }
 
+  ChuyenTrangThaiNut() {
+    this.isfalse = !this.isfalse;
   }
   //khai báo tổng tiền dịch vụ
   TongTienDichVu: number = 0;
