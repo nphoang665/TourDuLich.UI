@@ -10,14 +10,15 @@
             <div class="col-auto col-sm-auto pe-1 ps-0">
 
                 <span class="_score_rating ">
-                    4.5
+                    {{TrungBinhDiemDanhGia}}
                 </span>
             </div>
             <!-- </div> -->
             <!-- <div class="col"> -->
             <div class="col-auto col-sm-auto ">
-                <span class="txt_rating">48 Đánh giá</span>
-                <span class="d-block"> Jd rating index based on 48 ratings across the web</span>
+
+                <span class="txt_rating">{{DanhGia.length}} Đánh giá</span>
+                <span class="d-block"> Đánh giá tour của website</span>
             </div>
             <!-- </div> -->
 
@@ -49,9 +50,9 @@
             @if(chooseStart){
             <div class="form-group col-12 col-md-8 col-lg-6 ps-0" style="position: relative;">
                 <label for="review-content" class="col-form-label">Nội dung đánh giá</label>
-                <textarea id="review-content" class="form-control col-12" #textarea
+                <textarea id="review-content" [(ngModel)]="NhanXet" class="form-control col-12" #textarea
                     (input)="adjustHeight($event)"></textarea>
-                <div style="position: absolute; bottom: 5px; right: 25px; cursor: pointer;"
+                <div (click)="SendDanhGia()" style="position: absolute; bottom: 5px; right: 25px; cursor: pointer;"
                     class="_icon_send_DanhGia d-flex justify-content-center align-items-center">
                     <i class="bi bi-send-fill _icon_send_DanhGia"></i>
                 </div>
@@ -127,17 +128,17 @@
                         <div class="dv_tag">
                             <div class="row" #buttonDanhGiaSort (click)="DanhGiaItem($event)">
                                 <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active">Relevant</button>
+                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active text-nowrap">Relevant</button>
                                 </div>
                                 <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1">Friends
+                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Friends
                                         Ratings</button>
                                 </div>
                                 <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1">Latest</button>
+                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Latest</button>
                                 </div>
                                 <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3">
-                                    <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1">High to
+                                    <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">High to
                                         low</button>
                                 </div>
                             </div>
@@ -207,7 +208,7 @@
                 <div class="dv_Handler">
                     <div class="row _col_Hander mt-1">
                         <div class="col-auto __item_Hander p-2 pe-5">
-                            <i class="bi bi-hand-thumbs-up me-2"></i>Like
+                            <i class="bi bi-hand-thumbs-up me-2"></i>Like(2)
                         </div>
                         <div class="col-auto __item_Hander p-2  pe-5">
                             <i class="bi bi-chat-left me-2"></i>Comment
