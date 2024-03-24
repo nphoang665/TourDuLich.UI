@@ -54,6 +54,7 @@ import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loadi
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
 import { DatePipe } from '@angular/common';
+import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khach-hang/danh-gia-khach-hang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +88,7 @@ import { DatePipe } from '@angular/common';
     SuaKhachHangComponent,
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
+    DanhGiaKhachHangComponent,
 
   ],
   imports: [
