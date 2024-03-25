@@ -21,20 +21,27 @@
         </div>
         <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
     </form>
+
     <div class="nav-wrapper">
       <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/trangChuAdmin">
-            <i class="material-icons">edit</i>
-            <span>Trang chủ</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " routerLink="/quanlytour">
-            <i class="material-icons">vertical_split</i>
-            <span>Quản lý tour</span>
-          </a>
-        </li>
+        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/trangChuAdmin">
+              <i class="material-icons">edit</i>
+              <span>Trang chủ</span>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+          <li class="nav-item">
+                <a class="nav-link " routerLink="/quanlytour">
+                  <i class="material-icons">vertical_split</i>
+                  <span>Quản lý tour</span>
+                </a>
+              </li>
+        </ng-container>
+
+       
         <li class="nav-item">
           <a class="nav-link " routerLink="/quanLyDatTour">
             <i class="material-icons">vertical_split</i>
@@ -47,18 +54,22 @@
             <span>Khách hàng</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " routerLink="/quanLyNhanVien">
-            <i class="fa-solid fa-user-tie"></i>
-            <span>Nhân viên</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " routerLink="/quanLyDichVu">
-            <i class="fa-solid fa-bell-concierge"></i>
-            <span>Dịch vụ</span>
-          </a>
-        </li>
+
+        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+          <li class="nav-item">
+                <a class="nav-link " routerLink="/quanLyNhanVien">
+                  <i class="fa-solid fa-user-tie"></i>
+                  <span>Nhân viên</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " routerLink="/quanLyDichVu">
+                  <i class="fa-solid fa-bell-concierge"></i>
+                  <span>Dịch vụ</span>
+                </a>
+              </li>
+        </ng-container>
+        
       </ul>
     </div>
   </aside>

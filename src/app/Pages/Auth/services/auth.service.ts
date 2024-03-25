@@ -17,9 +17,6 @@ export class AuthService {
   constructor(private http: HttpClient,
     private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object,) { 
-      if (typeof localStorage === 'undefined') {
-        console.error('localStorage is not available');
-      }
     }
 
   login(request: LoginRequest): Observable<LoginResponse> {

@@ -17,7 +17,7 @@ export class DichvuService {
 
   }
   LayDichVuMau(): Observable<DichVu[]> {
-    return this.http.get<DichVu[]>(`${environment.apiBaseUrl}/api/DichVu`);
+    return this.http.get<DichVu[]>(`${environment.apiBaseUrl}/api/DichVu?addAuth=true`);
   }
 
 

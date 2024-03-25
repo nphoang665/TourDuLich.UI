@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { User } from '../../../Auth/models/user.model';
 import { Router } from '@angular/router';
+import { User } from '../../../Auth/models/user.model';
 import { AuthService } from '../../../Auth/services/auth.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { AuthService } from '../../../Auth/services/auth.service';
   styleUrl: './second-header.component.css'
 })
 export class SecondHeaderComponent implements OnInit{
+  clock = new Date().toISOString();
   user?:User;
 
   constructor(

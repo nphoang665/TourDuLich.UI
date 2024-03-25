@@ -18,6 +18,7 @@ import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-v
 import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
+
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
 
@@ -31,20 +32,15 @@ const routes: Routes = [
   { path: 'quanlytour', component: QuanLyTourComponent,canActivate: [authGuard] },
   { path: 'themtour', component: ThemTourComponent,canActivate: [authGuard] },
   { path: 'suatour/:id', component: SuaTourComponent,canActivate: [authGuard] },
-  {path:'trangChuAdmin',component:TrangChuAdminComponent},
-  {path:'quanLyDatTour',component:QuanlydattourComponent},
-  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
-  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent},
-  {path:'quanLyDichVu',component:QuanLyDichVuComponent},
-  {path:'themNhanVien',component:ThemNhanVienComponent},
-  {path:'suaNhanVien/:id',component:SuaNhanVienComponent},
-  {path:'suaKhachHang/:id',component:SuaKhachHangComponent},
-  {path:'themKhachHang',component:ThemKhachHangComponent},
-  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
-  { path: 'quanLyDatTour', component: QuanlydattourComponent },
-  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
-  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
-  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
+  {path:'trangChuAdmin',component:TrangChuAdminComponent,canActivate: [authGuard]},
+  {path:'quanLyDatTour',component:QuanlydattourComponent,canActivate: [authGuard]},
+  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent,canActivate: [authGuard]},
+  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent,canActivate: [authGuard]},
+  {path:'quanLyDichVu',component:QuanLyDichVuComponent,canActivate: [authGuard]},
+  {path:'themNhanVien',component:ThemNhanVienComponent,canActivate: [authGuard]},
+  {path:'suaNhanVien/:id',component:SuaNhanVienComponent,canActivate: [authGuard]},
+  {path:'suaKhachHang/:id',component:SuaKhachHangComponent,canActivate: [authGuard]},
+  {path:'themKhachHang',component:ThemKhachHangComponent,canActivate: [authGuard]},
   {path:'login',component:LoginComponent},
 
 
