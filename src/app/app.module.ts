@@ -55,6 +55,8 @@ import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.s
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
 import { DatePipe } from '@angular/common';
 import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khach-hang/danh-gia-khach-hang.component';
+import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-nhan-dat-tour/tiep-nhan-dat-tour.component';
+import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +91,9 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
     DanhGiaKhachHangComponent,
-
+    TiepNhanDatTourComponent,
+    SuaTiepNhanDatTourComponent,
+    
   ],
   imports: [
     BrowserModule,

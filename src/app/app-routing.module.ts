@@ -18,7 +18,8 @@ import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-v
 import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
-
+import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-nhan-dat-tour/tiep-nhan-dat-tour.component';
+import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
@@ -43,8 +44,8 @@ const routes: Routes = [
   { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
   { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
   { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
-
-
+  { path: 'tiepNhanDatTour', component: TiepNhanDatTourComponent },
+  { path: 'suaTiepNhanDatTour/:id', component: SuaTiepNhanDatTourComponent },
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
 ];
 
