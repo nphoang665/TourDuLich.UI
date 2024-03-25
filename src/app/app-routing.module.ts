@@ -18,6 +18,8 @@ import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-v
 import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khach-hang/sua-khach-hang.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
+import { LoginComponent } from './Pages/Auth/login/login.component';
+import { authGuard } from './Pages/Auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -26,9 +28,9 @@ const routes: Routes = [
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
   { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
-  { path: 'quanlytour', component: QuanLyTourComponent },
-  { path: 'themtour', component: ThemTourComponent },
-  { path: 'suatour/:id', component: SuaTourComponent },
+  { path: 'quanlytour', component: QuanLyTourComponent,canActivate: [authGuard] },
+  { path: 'themtour', component: ThemTourComponent,canActivate: [authGuard] },
+  { path: 'suatour/:id', component: SuaTourComponent,canActivate: [authGuard] },
   {path:'trangChuAdmin',component:TrangChuAdminComponent},
   {path:'quanLyDatTour',component:QuanlydattourComponent},
   {path:'quanLyKhachHang',component:QuanLyKhachHangComponent},
@@ -43,6 +45,7 @@ const routes: Routes = [
   { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
   { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
   { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
+  {path:'login',component:LoginComponent},
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },

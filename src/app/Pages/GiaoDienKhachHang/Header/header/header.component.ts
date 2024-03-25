@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit, PLATFORM_ID, Inject, Renderer2, ElementRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../../Auth/services/auth.service';
+import { User } from '../../../Auth/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,35 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router, private renderer: Renderer2, private el: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) {
+
+  user?:User;
+
+  constructor(
+    private router: Router, 
+    private renderer: Renderer2, 
+    private el: ElementRef, 
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private authService:AuthService) {
   }
   ngOnInit(): void {
+    if (typeof localStorage === 'undefined') {
+      console.error('localStorage is not available');
+      return;
+    }
 
+    this.authService.user()
+    .subscribe({
+      next:(response)=>{
+       this.user = response;
+        
+      }
+    });
+    this.user = this.authService.getUser();
   }
+
+  onLogout():void{
+    this.authService.logout();
+    this.router.navigateByUrl('/');
+  }
+
 }

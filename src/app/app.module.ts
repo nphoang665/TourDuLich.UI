@@ -53,6 +53,8 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
+import { LoginComponent } from './Pages/Auth/login/login.component';
+import { AuthInterceptor } from './Pages/interceptor/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +88,7 @@ import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sa
     SuaKhachHangComponent,
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
-
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +113,7 @@ import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sa
 
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true},
     provideClientHydration(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
