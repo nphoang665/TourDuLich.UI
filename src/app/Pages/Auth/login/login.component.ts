@@ -58,6 +58,8 @@ export class LoginComponent {
           email: response.email,
           roles: response.roles
         });
+        console.log(response);
+        
   
         //Redirect based on user role
         if (response.roles.includes('Khách hàng')) {
