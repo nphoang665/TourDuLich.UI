@@ -13,9 +13,7 @@ export class QuanLyTourService {
 
   constructor(private http: HttpClient) { }
   themTourDuLich(data: themTour): Observable<TourDuLich> {
-    console.log(data);
-
-    return this.http.post<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich`, data);
+    return this.http.post<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich?addAuth=true`, data);
   }
 
   getAllTourDuLich(): Observable<TourDuLich[]> {
@@ -23,7 +21,7 @@ export class QuanLyTourService {
   }
 
   suaTourDuLich(id: string, suaTuor: SuaTour): Observable<TourDuLich> {
-    return this.http.put<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}`, suaTuor);
+    return this.http.put<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}?addAuth=true`, suaTuor);
   }
 
   getTourDuLichById(id: string): Observable<TourDuLich> {
@@ -31,6 +29,6 @@ export class QuanLyTourService {
   }
 
   xoaTourDuLich(id: string): Observable<TourDuLich> {
-    return this.http.delete<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}`);
+    return this.http.delete<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}?addAuth=true`);
   }
 }

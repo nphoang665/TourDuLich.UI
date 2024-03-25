@@ -48,17 +48,30 @@
       </div>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" role="button" aria-haspopup="true"
-        aria-expanded="false">
-        <img class="user-avatar rounded-circle mr-2"
-          src="https://i.pinimg.com/474x/e1/05/05/e105050383d1d26ed9009e2deb6528f9.jpg" alt="User Avatar">
-        <span class="d-none d-md-inline-block">Ngần Phi Hoàng</span>
-      </a>
+
+      <ng-container *ngIf="user === undefined; else showLogout">
+        <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <img class="user-avatar rounded-circle mr-2"
+            src="https://i.pinimg.com/474x/e1/05/05/e105050383d1d26ed9009e2deb6528f9.jpg" alt="User Avatar">
+          <span class="d-none d-md-inline-block">Ngần Phi Hoàng</span>
+        </a>
+      </ng-container>
+
+      <ng-template #showLogout>
+        <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <img class="user-avatar rounded-circle mr-2"
+            src="https://i.pinimg.com/474x/e1/05/05/e105050383d1d26ed9009e2deb6528f9.jpg" alt="User Avatar">
+          <span class="d-none d-md-inline-block">{{user?.email}}</span>
+        </a>
+      </ng-template>
+      
       <div class="dropdown-menu dropdown-menu-small">
         <a class="dropdown-item" href="#">
           <i class="material-icons">&#xE7FD;</i> Hồ sơ</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item text-danger" href="#">
+        <a class="dropdown-item text-danger" (click)="onLogout()" style="cursor: pointer;">
           <i class="material-icons text-danger">&#xE879;</i> Đăng xuất </a>
       </div>
     </li>

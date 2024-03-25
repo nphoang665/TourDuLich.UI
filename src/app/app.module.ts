@@ -28,7 +28,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { FormGroupName, FormsModule } from '@angular/forms';
 
 import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
@@ -53,7 +53,8 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
-import { DatePipe } from '@angular/common';
+import { LoginComponent } from './Pages/Auth/login/login.component';
+import { AuthInterceptor } from './Pages/interceptor/auth.interceptor';
 import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khach-hang/danh-gia-khach-hang.component';
 @NgModule({
   declarations: [
@@ -88,8 +89,8 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
     SuaKhachHangComponent,
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
-    DanhGiaKhachHangComponent,
-
+    LoginComponent,
+    DanhGiaKhachHangComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +115,7 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
 
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true},
     provideClientHydration(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),

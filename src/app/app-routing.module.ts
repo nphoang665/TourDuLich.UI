@@ -19,6 +19,9 @@ import { SuaKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/sua-khac
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
 import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan/thanhtoankhachhang/thanhtoankhachhang.component';
 
+import { LoginComponent } from './Pages/Auth/login/login.component';
+import { authGuard } from './Pages/Auth/guards/auth.guard';
+
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
@@ -26,23 +29,19 @@ const routes: Routes = [
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
   { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
-  { path: 'quanlytour', component: QuanLyTourComponent },
-  { path: 'themtour', component: ThemTourComponent },
-  { path: 'suatour/:id', component: SuaTourComponent },
-  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
-  { path: 'quanLyDatTour', component: QuanlydattourComponent },
-  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
-  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
-  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
-  { path: 'themNhanVien', component: ThemNhanVienComponent },
-  { path: 'suaNhanVien/:id', component: SuaNhanVienComponent },
-  { path: 'suaKhachHang/:id', component: SuaKhachHangComponent },
-  { path: 'themKhachHang', component: ThemKhachHangComponent },
-  { path: 'trangChuAdmin', component: TrangChuAdminComponent },
-  { path: 'quanLyDatTour', component: QuanlydattourComponent },
-  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent },
-  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent },
-  { path: 'quanLyDichVu', component: QuanLyDichVuComponent },
+  { path: 'quanlytour', component: QuanLyTourComponent,canActivate: [authGuard] },
+  { path: 'themtour', component: ThemTourComponent,canActivate: [authGuard] },
+  { path: 'suatour/:id', component: SuaTourComponent,canActivate: [authGuard] },
+  {path:'trangChuAdmin',component:TrangChuAdminComponent,canActivate: [authGuard]},
+  {path:'quanLyDatTour',component:QuanlydattourComponent,canActivate: [authGuard]},
+  {path:'quanLyKhachHang',component:QuanLyKhachHangComponent,canActivate: [authGuard]},
+  {path:'quanLyNhanVien',component:QuanLyNhanVienComponent,canActivate: [authGuard]},
+  {path:'quanLyDichVu',component:QuanLyDichVuComponent,canActivate: [authGuard]},
+  {path:'themNhanVien',component:ThemNhanVienComponent,canActivate: [authGuard]},
+  {path:'suaNhanVien/:id',component:SuaNhanVienComponent,canActivate: [authGuard]},
+  {path:'suaKhachHang/:id',component:SuaKhachHangComponent,canActivate: [authGuard]},
+  {path:'themKhachHang',component:ThemKhachHangComponent,canActivate: [authGuard]},
+  {path:'login',component:LoginComponent},
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
