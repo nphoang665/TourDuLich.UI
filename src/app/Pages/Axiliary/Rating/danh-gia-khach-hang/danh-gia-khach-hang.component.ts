@@ -99,6 +99,7 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
       let averageScore = totalScore / this.DanhGia.length;
       this.TrungBinhDiemDanhGia = Number(averageScore.toFixed(1));
 
+      console.log(this.DanhGia);
 
 
     });

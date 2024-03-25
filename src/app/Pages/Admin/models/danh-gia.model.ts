@@ -6,5 +6,7 @@ export interface DanhGia {
     nhanXet: string;
     thoiGianDanhGia: Date;
     khachHang: any;
+    like: number;
+    disLike: number;
 
 }
