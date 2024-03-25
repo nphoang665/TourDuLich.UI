@@ -1,0 +1,132 @@
+.txt_title_ratingandreview {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+._score_rating {
+  background-color: #339d3a;
+  color: white;
+  border-radius: 15px;
+  font-size: 1.8em;
+  font-weight: 700px;
+  padding: 0.5em;
+}
+.txt_rating {
+  font-size: 1.3em;
+  font-weight: 600;
+  line-height: 2px;
+}
+
+/* start rating */
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0;
+}
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1.1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+.rate:not(:checked) > label:before {
+  content: "★ ";
+}
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+/*  */
+.dv_txt_start_recent {
+  clear: both;
+}
+.rating-number {
+  display: inline-block;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.star {
+  display: inline-block;
+  font-size: 1.7em;
+  color: #ffc700;
+  line-height: 0;
+}
+.rating-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e9e8e8;
+  padding: 0;
+  border-radius: 15px;
+}
+.btn_User_Review {
+  font-weight: 600;
+  border-radius: 3px;
+}
+.btn_Active {
+  background-color: #e5f1fb;
+  border: 1px solid #cfe3f3 !important;
+  color: #0075cd;
+}
+
+._img_user {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+.__txt_user {
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 10px;
+}
+.__txt_Rating_Review {
+  color: gray;
+  line-height: 20px;
+}
+.spn_date_DanhGia {
+  font-size: 0.9em;
+  color: gray;
+  font-weight: 500;
+}
+.spn_icon_three_dot {
+  font-size: 1.2em;
+}
+.dv_text_DanhGia {
+  font-weight: 500;
+}
+.__item_Hander {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+textarea {
+  min-height: 50px;
+  overflow: hidden;
+  resize: none;
+}
+._icon_send_DanhGia {
+  padding-top: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+}
+._icon_send_DanhGia:hover {
+  background-color: rgba(220, 220, 220, 0.7);
+  border-radius: 30px;
+}

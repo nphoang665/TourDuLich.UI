@@ -28,7 +28,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { FormGroupName, FormsModule } from '@angular/forms';
 
 import { FormGroup, ReactiveFormsModule, FormControl, Validator, AbstractControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DragScrollDirective } from './Pages/GiaoDienKhachHang/ChiTietTour/chi-tiet-tour/drag-scroll.directive';
@@ -120,6 +120,7 @@ import { AuthInterceptor } from './Pages/interceptor/auth.interceptor';
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     LoadingSanphamService,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

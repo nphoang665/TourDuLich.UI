@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     private authService:AuthService) {
   }
+  clock = new Date().toISOString();
   ngOnInit(): void {
     if (typeof localStorage === 'undefined') {
       console.error('localStorage is not available');

@@ -52,6 +52,8 @@ export class DatTourComponent implements OnInit {
 
   async TimKiemTatCa() {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+    console.log(data);
+    
     if (data) {
       this.TourDuLich = data;
       // Tính toán ngày đêm cho tour
