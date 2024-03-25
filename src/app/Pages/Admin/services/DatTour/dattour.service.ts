@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DatTour } from '../../models/dat-tour.model';
 import { environment } from '../../../../../environments/environment';
 import { DatTourChoKhachHang } from '../../models/dat-tour-khach-hang.model';
+import { SuaDatTour } from '../../models/suaDatTour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,24 @@ export class DattourService {
     return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, data);
   }
   getDatTourById(id: string): Observable<DatTour> {
+
+    
     return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}`);
+  }
+
+  getDatTourByIdDatTour(id: string): Observable<DatTour> {
+
+    
+    return this.http.get<DatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`);
   }
   DatTourChoKhachHang(data: DatTourChoKhachHang): any {
     return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang?addAuth=true`, data);
   }
-
+  
+  getAllDatTour(): Observable<DatTour[]> {
+    return this.http.get<DatTour[]>(`${environment.apiBaseUrl}/api/datTour`);
+  }
+  putDatTour(data :SuaDatTour,id:string): Observable<SuaDatTour> {
+    return this.http.put<SuaDatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`,data);
+  }
 }

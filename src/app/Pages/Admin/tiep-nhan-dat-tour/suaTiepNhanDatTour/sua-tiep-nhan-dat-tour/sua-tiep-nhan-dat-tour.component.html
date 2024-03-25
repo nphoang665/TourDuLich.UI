@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start dịch vụ -->
+        <div class="main-content-container container-fluid px-4">
+            <div class="page-header row no-gutters py-4">
+              <form [formGroup]="suaTiepNhanDatTour">
+                
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="">Id đặt tour</label>
+                            <input type="text" class="form-control" formControlName="idDatTour">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="">Tên khách hàng</label>
+                        <input type="text" class="form-control" formControlName="idKhachHang">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="">Id tour</label>
+                        <input type="text" class="form-control" formControlName="idTour" >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="">Số lượng người lớn</label>
+                        <input type="number" class="form-control" formControlName="soLuongNguoiLon" >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                          <label for="">Số lượng trẻ em</label>
+                          <input type="number" class="form-control" formControlName="soLuongTreEm" >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                          <label for="">Thời gian đặt tour</label>
+                          <input type="datetime-local" class="form-control" formControlName="thoiGianDatTour"  >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="">Nhân viên</label>
+                        <input type="text" class="form-control" formControlName="idNhanVien" >
+                      </div>
+                    </div>
+
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="">Trạng thái</label>
+                        <input type="text" class="form-control" formControlName="tinhTrang">
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                      <button class="btn btn-secondary " routerLink="/tiepNhanDatTour">Hủy sửa</button>
+      
+                 
+                      <button class="btn btn-success mx-2" (click)="suaDatTour()">Sửa</button>
+                  </div>
+                    
+                </div>
+
+            </form>
+
+            </div>
+        </div>
+        <!-- End dịch vụ -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>
