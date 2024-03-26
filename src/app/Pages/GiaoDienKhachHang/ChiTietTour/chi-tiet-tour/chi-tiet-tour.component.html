@@ -65,15 +65,16 @@
                 </div>
                 <div class="infor_tour">
                     <div class="row">
-                        <div class="col-6 col-md-3 col-lg-3"><i class="bi bi-geo-alt-fill"></i> <span>Buôn Ma
-                                Thuột</span></div>
-                        <div class="col-6 col-md-3 col-lg-3"><i class="bi bi-stopwatch"></i><span>Ngày 2 Đêm</span>
+                        <div class="col-6 col-md-3 col-lg-3"><i class="bi bi-geo-alt-fill"></i> <span>
+                                {{TourChiTiet.noiKhoiHanh}}</span></div>
+                        <div class="col-6 col-md-3 col-lg-3"><i
+                                class="bi bi-stopwatch"></i><span>{{TourChiTiet.SoNgayDem}}</span>
                         </div>
-                        <div class="col-6 col-md-3 col-lg-3"><span>Phương tiện</span><span><i
-                                    class="bi bi-car-front-fill"></i></span>
+                        <div class="col-6 col-md-3 col-lg-3"><span class="me-1">Phương tiện:
+                            </span><span>{{TourChiTiet.phuongTienDiChuyen}}</span>
                         </div>
                         <div class="col-6 col-md-3 col-lg-3"><i class="bi bi-person"></i>
-                            <span>Còn 10 chỗ</span>
+                            <span>Còn {{TourChiTiet.soChoConNhan}} chỗ</span>
 
                         </div>
 
@@ -83,6 +84,7 @@
                     <div [innerHTML]="TextMoTa"></div>
                 </div>
             </div>
+
             <div class="col-md-5 col-lg-4 p-0 sticky-container">
                 <div class="bg-white sticky-item">
                     <span class="title_lichtrinh">Lịch trình và giá tour</span>
@@ -258,9 +260,10 @@
             </div>
         </div>
     </div>
+
 </div>
-<div class="container-fluid bg-white pt-4">
-    <div class="container">
+<div class="container-fluid  pt-1" style="background-color: #ecf0f5;">
+    <div class="container bg-white mt-0 ">
         <app-danh-gia-khach-hang></app-danh-gia-khach-hang>
 
     </div>
@@ -452,6 +455,7 @@
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>

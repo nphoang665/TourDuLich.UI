@@ -10,7 +10,7 @@ import { environment } from '../../../../../environments/environment';
 export class KhachhangService {
   constructor(private http: HttpClient) { }
   getAllTourKhachHang(): Observable<KhachHang[]> {
-    return this.http.get<KhachHang[]>(`${environment.apiBaseUrl}/api/KhachHang?addAuth=true`);
+    return this.http.get<KhachHang[]>(`${environment.apiBaseUrl}/api/KhachHang`);
   }
 
   themKhachHang(data:ThemKhachHang):Observable<ThemKhachHang>{
@@ -21,7 +21,7 @@ export class KhachhangService {
   }
 
   getKhachHangById(id:string):Observable<KhachHang>{
-    return this.http.get<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`);
+    return this.http.get<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`);
   }
   xoaKhachHang(id:string):Observable<KhachHang>{
     return this.http.delete<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`);

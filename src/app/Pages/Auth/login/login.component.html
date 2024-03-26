@@ -1,12 +1,10 @@
-<div class="container">
-    <div class="mt-5">
+<!-- <div class="mt-5">
         <div class="col-12 col-md-6 col-lg-4 mx-auto">
             <h1>Đăng nhập</h1>
 
             <form [formGroup]="login" (submit)="onFormSubmit()">
                 <div class="mt-3">
                     <label for="email" class="form-label">Email</label>
-                    <!-- <input type="text" class="form-control" id="email" name="email"  [(ngModel)]="model.email"> -->
                     <input type="text" formControlName="email" class="form-control"
                         />                 
                 </div>
@@ -15,7 +13,6 @@
 
                 <div class="mt-3">
                     <label for="password" class="form-label">Mật khẩu</label>
-                    <!-- <input type="password" class="form-control" id="password" name="password" [(ngModel)]="model.password"> -->
                     <input type="password" formControlName="password" class="form-control"
                        >
                   
@@ -29,5 +26,102 @@
             </form>
 
         </div>
+    </div> -->
+<div class="container-fluid">
+
+
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="row w-100 ">
+
+
+
+                <div
+                    class="patterm_Login bg-white col-lg-auto col-md-8 mx-auto pt-lg-5 pt-md-3 pt-sm-2 pt-0  pb-4 pb-md-3 pb-sm-2 pb-0">
+                    <div class="_title_Login text-center pt-4">
+                        Đăng nhập
+                        
+                    </div>
+                    @if(name){
+                        <h4>{{name}}</h4>
+                    }
+                    <div class="_descriptionTitle mt-1 text-center">
+                        <span>Đăng nhập tài khoản của bạn</span>
+                    </div>
+
+                    <div class="ps-lg-5 ps-md-4 ps-sm-2 ps-1 pe-lg-5 pe-md-4 pe-sm-2 pe-1">
+                        <form [formGroup]="login" (submit)="onFormSubmit()">
+                            <div class="_frm_ipt_login pt-4 ">
+                                <mat-form-field class="example-full-width w-100">
+                                    <mat-label>Email</mat-label>
+                                    <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
+                                        aria-label="Example thumbs up SVG icon"></mat-icon>
+                                    <input matInput formControlName="email" placeholder="Email">
+                                </mat-form-field>
+
+
+                                <mat-form-field class="example-full-width d-block w-100">
+                                    <mat-label>Mật khẩu</mat-label>
+                                    <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
+                                        aria-label="Example thumbs up SVG icon"></mat-icon>
+                                    <input matInput placeholder="Mật khẩu" formControlName="password">
+                                    <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
+                                        aria-label="Example thumbs up SVG icon"></mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="_dv_btn_login  mt-2">
+                                <button class="btn_login w-100" type="submit">
+                                    Đăng nhập
+                                </button>
+                            </div>
+                        </form>
+                        <div>
+                            <div class="_dv_quenmk mt-2 text-right">
+                                <span class="">
+                                    Quên mật khẩu. <i><u>Nhấn tại đây</u></i> !!!
+                                </span>
+                            </div>
+
+                            <hr class="hr-text mt-0 mb-2" data-content="hoặc">
+                        </div>
+                        <div class="dv_btn_login_gg_db">
+                            <div class="row ">
+                                <div class="col-lg-6">
+                                    <button class="w-100 btn_log_fb d-flex align-items-center justify-content-center" (click)="onGoogleLogin()">
+                                        <div>
+                                            <mat-icon class="p-0 m-0 small-icon me-1" svgIcon="facebook-login">
+                                            </mat-icon>
+                                        </div>
+                                        <div class="text-nowrap">
+                                            <span>Đăng nhập với Facebook</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+
+                                <div class="col-lg-6 mt-2 mt-lg-0">
+                                        <asl-google-signin-button type='standard' size='large' (click)="onGoogleLogin()" ></asl-google-signin-button>
+                                </div>
+
+                            </div>
+
+
+                            <!-- <div class="_dv_btn_register  mt-2">
+                                <button class="btn_register w-100">
+                                    Đăng ký tài khoản
+                                </button>
+                            </div> -->
+                            <div class="_dv_quenmk mt-3 text-center">
+                                <span class="">
+                                    Bạn chưa có tài khoản? <i><u>Đăng ký tại đây</u></i> !!!
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
