@@ -61,6 +61,7 @@ import { LoginComponent } from './Pages/Auth/login/login.component';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
+import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +104,7 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
     RegisterComponent,
     DanhGiaKhachHangComponent,
     ThemDichVuComponent,
+    SuaDichVuComponent,
 
   ],
   imports: [

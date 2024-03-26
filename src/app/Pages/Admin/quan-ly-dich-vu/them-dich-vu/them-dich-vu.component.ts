@@ -49,7 +49,7 @@ console.log(this.themDichVu);
     this.dichVuService.createDichVu(this.themDichVu.value)
     .subscribe({
       next:(response)=>{
-        this.router.navigateByUrl('/quanLyNhanVien');
+        this.router.navigateByUrl('/quanLyDichVu');
         this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
           timeOut: 1000,
         });
