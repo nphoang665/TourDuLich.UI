@@ -23,6 +23,7 @@ import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/su
 
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
+import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -63,7 +64,7 @@ const routes: Routes = [
   {path:'suaKhachHang/:id',component:SuaKhachHangComponent,canActivate: [authGuard]},
   {path:'themKhachHang',component:ThemKhachHangComponent,canActivate: [authGuard]},
   {path:'login',component:LoginComponent},
-
+  {path:'themDichVu',component:ThemDichVuComponent},
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
 ];

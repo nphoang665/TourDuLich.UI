@@ -2,9 +2,20 @@ export interface DichVu {
     idDichVu: string;
     tenDichVu: string;
     donViTinh: string;
-    giaTien: number;
+    giaTien: string;
     tinhTrang: string;
-    gioBatDau: Date;
-    gioKetThuc: Date;
-    ngayThem: Date;
+    gioBatDau: string;
+    gioKetThuc: string;
+    ngayThem: string;
 }
+//
+export interface SuaDichVu {
+    tenDichVu: string;
+    donViTinh: string;
+    giaTien: string;
+    tinhTrang: string;
+    gioBatDau: string;
+    gioKetThuc: string;
+    ngayThem: string;
+}
+//
