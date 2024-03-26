@@ -10,6 +10,7 @@ import { DattourService } from '../../../Admin/services/DatTour/dattour.service'
 import { DatTourChoKhachHang } from '../../../Admin/models/dat-tour-khach-hang.model';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { DichVu } from '../../../Admin/models/Dich-Vu.model';
+import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
 
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
@@ -29,6 +30,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     @Inject(PLATFORM_ID) private _platform_id: Object,
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
+    private nguoiDung: NguoiDungService,
   ) {
 
 
@@ -48,7 +50,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.KhaiBaoContructorDatTour();
     this.GetDichVu();
     this.LayDatTourTuLocalStorage();
-    console.log(this.TongDichVu);
+
 
 
   }
@@ -290,6 +292,12 @@ export class ThanhtoankhachhangComponent implements OnInit {
   TinhTongTienTour() {
     this.TongTienTour = 0;
     this.TongTienTour = this.TongTienDichVu + (this.Sl_NguoiLon_ThanhToan * this.ItemTourById.giaNguoiLon) + (this.Sl_TreEm_ThanhToan * this.ItemTourById.giaTreEm);
+  }
+  LayData() {
+    const data = this.nguoiDung.GetResponese();
+    console.log(data);
+
+
   }
 }
 
