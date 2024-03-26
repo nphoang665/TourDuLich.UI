@@ -7,6 +7,7 @@ import { LoginResponse } from '../models/login-response.model';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { isPlatformBrowser } from '@angular/common';
+import { Register } from '../models/register.model';
 import { NguoiDungService } from '../../Admin/services/NguoiDung/nguoi-dung.service';
 
 @Injectable({
@@ -19,6 +20,10 @@ export class AuthService {
     private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private nguoiDungServices: NguoiDungService) {
+  }
+
+  createAcount(data: Register): Observable<Register> {
+    return this.http.post<Register>(`${environment.apiBaseUrl}/api/auth/register`, data);
   }
 
   login(request: LoginRequest): Observable<LoginResponse> {

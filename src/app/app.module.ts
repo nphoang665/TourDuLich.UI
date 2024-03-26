@@ -58,6 +58,7 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
 import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-nhan-dat-tour/tiep-nhan-dat-tour.component';
 import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
 import { LoginComponent } from './Pages/Auth/login/login.component';
+import { RegisterComponent } from './Pages/Auth/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,7 +97,8 @@ import { LoginComponent } from './Pages/Auth/login/login.component';
     SuaTiepNhanDatTourComponent,
     
     LoginComponent,
-    DanhGiaKhachHangComponent
+    DanhGiaKhachHangComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
