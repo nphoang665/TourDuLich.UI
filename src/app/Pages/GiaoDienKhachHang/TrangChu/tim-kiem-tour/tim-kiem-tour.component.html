@@ -4,7 +4,12 @@
         <div class="col-12 col-md-6 col-lg-3">
             <mat-form-field class="mat_form">
                 <mat-label>Nơi đến</mat-label>
-                <input matInput placeholder="Nơi đến" [(ngModel)]="NoiDen">
+                <input type="text" matInput [matAutocomplete]="auto" [formControl]="NoiDen">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.tenTour}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="col-6 col-md-6 col-lg-3">

@@ -1,12 +1,10 @@
-export interface DanhGia {
+export interface ThemDanhGia {
     idDanhGia: string;
     idKhachHang: string;
-    idTour: string;
+    idTour: string | null;
     diemDanhGia: number;
     nhanXet: string;
     thoiGianDanhGia: Date;
-    khachHang: any;
-    like: number;
-    disLike: number;
+
 
 }
