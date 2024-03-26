@@ -25,7 +25,7 @@ import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
-
+import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
@@ -68,6 +68,7 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
 
   {path:'themDichVu',component:ThemDichVuComponent},
+  {path:'suaDichVu/:id',component:SuaDichVuComponent},
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
 ];

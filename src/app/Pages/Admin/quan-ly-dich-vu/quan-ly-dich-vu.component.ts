@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DichvuService } from '../../GiaoDienAdmin/services/DichVu/dichvu.service';
 import { QuanLyDichVuService } from '../services/DichVu/quan-ly-dich-vu.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-quan-ly-dich-vu',
@@ -8,7 +10,11 @@ import { QuanLyDichVuService } from '../services/DichVu/quan-ly-dich-vu.service'
   styleUrl: './quan-ly-dich-vu.component.css'
 })
 export class QuanLyDichVuComponent implements OnInit {
-        constructor(private dichVuServices :QuanLyDichVuService){
+        constructor(
+          private dichVuServices :QuanLyDichVuService,
+          private router:Router,
+          private toastr: ToastrService
+          ){
 
         }
   dichVu:any;
@@ -28,7 +34,10 @@ export class QuanLyDichVuComponent implements OnInit {
     
    }
    this.dichVuServices.deleteDichVu(id).subscribe((data:any)=>{
-    console.log(data);
+    this.router.navigateByUrl('/quanLyDichVu');
+        this.toastr.success('Xóa dịch vụ thành công', 'Thông báo', {
+          timeOut: 1000,
+        });
     
    })
   }
