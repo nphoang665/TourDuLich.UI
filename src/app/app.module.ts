@@ -100,7 +100,7 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
 
     LoginComponent,
     DanhGiaKhachHangComponent,
-    RegisterComponent
+    RegisterComponent,
     DanhGiaKhachHangComponent,
     ThemDichVuComponent,
 
@@ -123,7 +123,7 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
     HttpClientModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
     ToastrModule.forRoot(),
  
 
