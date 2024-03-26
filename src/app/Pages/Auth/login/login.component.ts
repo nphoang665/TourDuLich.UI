@@ -1,3 +1,4 @@
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -6,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { GoogleLoginDto } from '../models/login-google.model';
@@ -56,6 +58,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    @Inject(PLATFORM_ID) private platformId: Object,
     sanitizer: DomSanitizer,
 
 
@@ -184,7 +188,20 @@ export class LoginComponent implements OnInit {
           email: response.email,
           roles: response.roles
         });
-        console.log(response);
+
+        if (isPlatformBrowser(this.platformId)) {
+          if (response.khachHang != null) {
+            localStorage.setItem('NguoiDung', JSON.stringify(response.khachHang));
+          }
+          else {
+            localStorage.setItem('NguoiDung', JSON.stringify(response.nhanVien));
+          }
+        }
+
+        // if (isPlatformBrowser(this.platformId)) {
+        //   localStorage.setItem('NguoiDung',JSON.stringify(response.khachHang));
+
+        // }
 
 
         //Redirect based on user role
