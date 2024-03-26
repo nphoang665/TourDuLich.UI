@@ -13,49 +13,49 @@ import { time } from 'console';
   templateUrl: './them-dich-vu.component.html',
   styleUrl: './them-dich-vu.component.css'
 })
-export class ThemDichVuComponent implements OnInit{
+export class ThemDichVuComponent implements OnInit {
   themDichVu: FormGroup = new FormGroup({
-    idDichVu:new FormControl('11'),
-    tenDichVu:new FormControl(''),
-    donViTinh:new FormControl(''),
-    giaTien:new FormControl(''),
-    tinhTrang:new FormControl('11'),
-    gioBatDau:new FormControl(''),
-    gioKetThuc:new FormControl(''),
-    ngayThem :new FormControl(new Date()),
+    idDichVu: new FormControl('11'),
+    tenDichVu: new FormControl(''),
+    donViTinh: new FormControl(''),
+    giaTien: new FormControl(''),
+    tinhTrang: new FormControl('11'),
+    gioBatDau: new FormControl(''),
+    gioKetThuc: new FormControl(''),
+    ngayThem: new FormControl(new Date()),
   });
   constructor(
-    private dichVuService:QuanLyDichVuService,
-    private router:Router,
+    private dichVuService: QuanLyDichVuService,
+    private router: Router,
     private toastr: ToastrService
-  ){
+  ) {
 
   }
-  
+
   ngOnInit(): void {
-    
+
   }
-  themDichVuTodb(){
-  
+  themDichVuTodb() {
+
     // this.themDichVu.controls['donViTinh'].setValue(this.themDichVu.controls['donViTinh']?.value);
 
-     this.themDichVu.controls['gioBatDau'].setValue(this.themDichVu.controls['gioBatDau']?.value + ':00');
-     this.themDichVu.controls['gioKetThuc'].setValue(this.themDichVu.controls['gioKetThuc']?.value+':00');
+    this.themDichVu.controls['gioBatDau'].setValue(this.themDichVu.controls['gioBatDau']?.value + ':00');
+    this.themDichVu.controls['gioKetThuc'].setValue(this.themDichVu.controls['gioKetThuc']?.value + ':00');
 
     //  this.themDichVu.controls['ngayThem'].setValue(new Date(this.themDichVu.controls['ngayThem']?.value).toISOString());
 
-console.log(this.themDichVu);
+    console.log(this.themDichVu);
 
     this.dichVuService.createDichVu(this.themDichVu.value)
-    .subscribe({
-      next:(response)=>{
-        this.router.navigateByUrl('/quanLyNhanVien');
-        this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
-          timeOut: 1000,
-        });
-      }
-    })
-  } 
-  
+      .subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/quanLyNhanVien');
+          this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
+            timeOut: 1000,
+          });
+        }
+      })
+  }
+
 
 }
