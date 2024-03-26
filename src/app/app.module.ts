@@ -56,6 +56,7 @@ import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sa
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { AuthInterceptor } from './Pages/interceptor/auth.interceptor';
 import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khach-hang/danh-gia-khach-hang.component';
+import { RegisterComponent } from './Pages/Auth/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,8 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
     LoginComponent,
-    DanhGiaKhachHangComponent
+    DanhGiaKhachHangComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

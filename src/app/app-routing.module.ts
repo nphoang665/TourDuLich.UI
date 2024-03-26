@@ -21,6 +21,7 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
+import { RegisterComponent } from './Pages/Auth/register/register.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path:'suaKhachHang/:id',component:SuaKhachHangComponent,canActivate: [authGuard]},
   {path:'themKhachHang',component:ThemKhachHangComponent,canActivate: [authGuard]},
   {path:'login',component:LoginComponent},
+  {path:'register',component:RegisterComponent},
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
