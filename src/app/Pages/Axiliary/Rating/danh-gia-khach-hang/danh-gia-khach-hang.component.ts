@@ -3,6 +3,7 @@ import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service'
 import { DanhGia } from '../../../Admin/models/danh-gia.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThemDanhGia } from '../../../Admin/models/them-danh-gia.model';
+import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
 
 @Component({
   selector: 'app-danh-gia-khach-hang',
@@ -16,7 +17,8 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   chooseStart: boolean = false;
   scrollPosition = 0;
   constructor(private danhGiaServices: DanhgiaService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private nguoiDung: NguoiDungService
   ) { }
   DanhGiaItem(event: Event) {
     const clickedElement = event.target as HTMLElement;
@@ -49,10 +51,12 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   }
   NhanXet!: string;
   SendDanhGia() {
+    const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
+
     var data_nhanxet: ThemDanhGia;
     data_nhanxet = {
       idDanhGia: '1',
-      idKhachHang: 'KH0001',
+      idKhachHang: khachHang.idKhachHang,
       idTour: this.router.snapshot.paramMap.get('id') ?? 'null',
       diemDanhGia: this.SoSaoDaChon,
       nhanXet: this.NhanXet,
@@ -94,15 +98,36 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
       else {
 
         this.DanhGia = data.filter(data => data.idTour === this.router.snapshot.paramMap.get('id'));
+        this.kiemTraNguoiDungDaDanhGia(this.DanhGia);
       }
-      let totalScore = this.DanhGia.reduce((sum, danhGia) => sum + danhGia.diemDanhGia, 0);
-      let averageScore = totalScore / this.DanhGia.length;
-      this.TrungBinhDiemDanhGia = Number(averageScore.toFixed(1));
+      if (this.DanhGia.length === 0) {
+        this.TrungBinhDiemDanhGia = 0;
 
-      console.log(this.DanhGia);
+      } else {
+        let totalScore = this.DanhGia.reduce((sum, danhGia) => sum + danhGia.diemDanhGia, 0);
+        let averageScore = totalScore / this.DanhGia.length;
+        this.TrungBinhDiemDanhGia = Number(averageScore.toFixed(1));
+      }
+
+
 
 
     });
+
+  }
+  KiemTraNguoiDungDaDanhGiaChua: boolean = false;
+
+  kiemTraNguoiDungDaDanhGia(danhGia: any) {
+    const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
+    const isNguoiDungDaDanhGia = danhGia.filter((data: any) => data.idKhachHang == khachHang.idKhachHang);
+    console.log(isNguoiDungDaDanhGia);
+
+    if (isNguoiDungDaDanhGia.length > 0) {
+      this.KiemTraNguoiDungDaDanhGiaChua = true;
+    }
+
+    console.log(this.KiemTraNguoiDungDaDanhGiaChua);
+
 
   }
 }

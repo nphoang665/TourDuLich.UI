@@ -293,11 +293,6 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.TongTienTour = 0;
     this.TongTienTour = this.TongTienDichVu + (this.Sl_NguoiLon_ThanhToan * this.ItemTourById.giaNguoiLon) + (this.Sl_TreEm_ThanhToan * this.ItemTourById.giaTreEm);
   }
-  LayData() {
-    const data = this.nguoiDung.GetResponese();
-    console.log(data);
 
-
-  }
 }
 

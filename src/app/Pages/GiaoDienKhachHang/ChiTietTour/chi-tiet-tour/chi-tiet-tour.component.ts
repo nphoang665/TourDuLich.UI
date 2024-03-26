@@ -75,7 +75,6 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
         //sao chép img gốc thành mảng clone
         this.images_clone.push(environment.apiBaseUrl + '/uploads/' + this.TourChiTiet.anhTour[index].imgTour)
       }
-      console.log(this.TourChiTiet);
 
 
 

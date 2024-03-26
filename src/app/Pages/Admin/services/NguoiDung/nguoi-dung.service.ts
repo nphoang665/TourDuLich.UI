@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NguoiDungService {
-  response!: any;
-  constructor() { }
-  LayResponse(res: any) {
-    this.response = res;
-  }
-  GetResponese() {
-    console.log(this.response);
 
-    return this.response;
+  constructor(@Inject(PLATFORM_ID) private playform_id: Object) { }
+
+  LayNguoiDungTuLocalStorage() {
+    if (isPlatformBrowser(this.playform_id)) {
+      const NguoiDung = localStorage.getItem('NguoiDung');
+      if (NguoiDung) {
+        let nguoiDung = JSON.parse(NguoiDung);
+        return nguoiDung;
+      }
+    }
+    return null;
   }
 }
