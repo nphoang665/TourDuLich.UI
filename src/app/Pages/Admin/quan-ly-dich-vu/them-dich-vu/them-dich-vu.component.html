@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Main Sidebar -->
+      <app-main-sidebar class="p-0"></app-main-sidebar>
+      <!-- End Main Sidebar -->
+      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        <div class="main-navbar sticky-top bg-white">
+          <!-- Main Navbar -->
+          <app-main-navbar></app-main-navbar>
+        </div>
+        <!-- / .main-navbar -->
+
+
+
+        <!-- Start dịch vụ -->
+        <div class="main-content-container container-fluid px-4">
+          <div class="page-header row no-gutters py-4">
+            <form [formGroup]="themDichVu">
+              
+              <div class="row">
+                  <div class="col-lg-3">
+                      <div class="form-group">
+                          <label for="">Id dịch vụ</label>
+                          <input type="text" class="form-control" formControlName="idDichVu">
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="">Tên dịch vụ</label>
+                      <input type="text" class="form-control" formControlName="tenDichVu">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="">Đơn vị tính</label>
+                      <input type="text" class="form-control" formControlName="donViTinh" >
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="">Giá tiền</label>
+                      <input type="number" class="form-control" formControlName="giaTien" >
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="">Tình trạng</label>
+                        <input type="number" class="form-control" formControlName="tinhTrang" >
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="">Giờ bắt đầu</label>
+                        <input type="time" class="form-control" formControlName="gioBatDau">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="">Giờ kết thúc</label>
+                      <input type="time" class="form-control" formControlName="gioKetThuc" >
+                    </div>
+                  </div>
+
+
+
+                  <div class="d-flex justify-content-end mt-2">
+                    <button class="btn btn-secondary " routerLink="/quanLyDichVu">Hủy</button>
+    
+               
+                    <button class="btn btn-success mx-2" (click)="themDichVuTodb()">Thêm</button>
+                </div>
+                  
+              </div>
+
+          </form>
+
+          </div>
+      </div>
+        <!-- End dịch vụ -->
+
+
+
+
+
+        <app-footer-main-admin></app-footer-main-admin>
+      </main>
+    </div>
+  </div>

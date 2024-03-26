@@ -60,6 +60,7 @@ import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/su
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +100,10 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig 
 
     LoginComponent,
     DanhGiaKhachHangComponent,
-    RegisterComponent
+    RegisterComponent,
+    DanhGiaKhachHangComponent,
+    ThemDichVuComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -119,7 +123,9 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig 
     HttpClientModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    ToastrModule.forRoot(),
+ 
 
 
 

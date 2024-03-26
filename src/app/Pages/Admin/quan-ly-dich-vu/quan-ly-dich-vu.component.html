@@ -14,11 +14,62 @@
 
         <!-- Start dịch vụ -->
         <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
-                <h1>Dich vu</h1>
+          <div class="page-header row no-gutters py-4">
+            <div class="QuanLuTour_container">
+              <h3>Quản lý dịch vụ</h3>
+              <button class="btn btn-primary" routerLink="/themDichVu">Thêm mới dịch vụ</button>
+  
+              <ng-container>
+              
+                <table class="table table-bordered table-striped  table-reponsive mt-3">
+                  <thead class="text-center align-middle">
+                      <tr>
+                          <th>STT</th>
+                          <th scope="col">Mã dịch vụ</th>
+                          <th scope="col">Tên dịch vụ</th> 
+                          <th scope="col">Đơn vị tính</th>
+                          <th scope="col">Giá tiền</th>
+                          <th scope="col">Tình trạng</th>
+                          <th scope="col">Giờ bắt đầu</th>
+                          <th scope="col">Giờ kết thúc</th>
+                          <th scope="col">Ngày thêm</th>
+                          <th scope="col">Tùy chọn</th>
+  
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @for (item of dichVu; track $index) {
+                      <tr class="text-center align-middle" data-bs-toggle="collapse"
+                          [attr.data-bs-target]="'#collapseExample' + ($index)" aria-expanded="false"
+                          [attr.aria-controls]="'collapseExample' + ($index)">
+                          <th>{{$index+1}}</th>
+                          <td>{{item.idDichVu}}</td>
+                          <td>{{item.tenDichVu}}</td>
+                          <td>{{item.donViTinh}}</td>
+                          <td>{{item.giaTien}}</td>
+                          <td>{{item.tinhTrang}}</td>
+                          <td>{{item.gioBatDau}}</td>
+                          <td>{{item.gioKetThuc}}</td>
+                          <td>{{item.ngayThem}}</td>
+                         
+                          <td>
+                            <button class="btn btn-primary mx-2" ><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-danger mx-2" (click)="deleteDichVu(item.idDichVu)" ><i class="bi bi-trash3"></i></button>
+                              </td>
 
+                      </tr>
+         
+                      }
+  
+                  </tbody>
+              </table>
+
+              </ng-container>
             </div>
-        </div>
+              
+
+          </div>
+      </div>
         <!-- End dịch vụ -->
 
 
