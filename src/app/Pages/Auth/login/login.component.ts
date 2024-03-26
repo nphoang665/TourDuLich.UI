@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { HttpClient } from '@angular/common/http';
+import { GoogleLoginDto } from '../models/login-google.model';
 const icon_User = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.7274 20.4471C19.2716 19.1713 18.2672 18.0439 16.8701 17.2399C15.4729 16.4358 13.7611 16 12 16C10.2389 16 8.52706 16.4358 7.12991 17.2399C5.73276 18.0439 4.72839 19.1713 4.27259 20.4471" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
@@ -40,7 +43,8 @@ const google_login = `
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  name!: string;
 
   login: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -52,7 +56,10 @@ export class LoginComponent {
     private router: Router,
     private toastr: ToastrService,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
+    sanitizer: DomSanitizer,
+
+
+    private socialAuthService: SocialAuthService, private http: HttpClient
   ) {
     iconRegistry.addSvgIconLiteral('user-login', sanitizer.bypassSecurityTrustHtml(icon_User));
     iconRegistry.addSvgIconLiteral('password-login', sanitizer.bypassSecurityTrustHtml(icon_Password));
@@ -60,6 +67,83 @@ export class LoginComponent {
     iconRegistry.addSvgIconLiteral('facebook-login', sanitizer.bypassSecurityTrustHtml(facebook_login));
     iconRegistry.addSvgIconLiteral('google-login', sanitizer.bypassSecurityTrustHtml(google_login));
 
+  }
+  ngOnInit(): void {
+    this.socialAuthService.authState.subscribe({
+      next: (result) => {
+        this.name = result.name;
+        const googleLoginDto: GoogleLoginDto = {
+          email: '',  // Bạn cần cung cấp giá trị email
+          idToken: result.idToken
+        };
+        this.authService.googleLogin(googleLoginDto).subscribe(
+          res => {
+            if (res.token) {
+              localStorage.setItem('token', res.token);
+              this.router.navigateByUrl('/');
+            }
+          },
+          error => {
+            console.error('Đăng nhập bằng Google thất bại:', error);
+          }
+        );
+        console.log(result);
+
+      },
+      error: (err) => {
+        console.error(err);
+
+      }
+    })
+  }
+
+
+  // onGoogleLogin(idToken?: string): void {
+  //   const googleLoginDto: GoogleLoginDto = {
+  //     email: '',  // Bạn cần cung cấp giá trị email
+  //     password: '',  // Bạn cần cung cấp giá trị password
+  //     idToken: idToken ?? ''
+  //   };
+  
+  //   this.authService.googleLogin(googleLoginDto).subscribe(
+  //     response => {
+  //       // ... (cùng phần code cũ)
+  //     },
+  //     error => {
+  //       console.error('Đăng nhập bằng Google thất bại:', error);
+  //     }
+  //   );
+  // }
+  
+  onGoogleLogin(): void {
+    console.log('demo');
+    
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
+      user => {
+        const idToken = user.idToken;
+        if (idToken) {
+          const googleLoginDto: GoogleLoginDto = {
+            email: '',  // Bạn cần cung cấp giá trị email
+            idToken: idToken
+          };
+
+          this.authService.googleLogin(googleLoginDto).subscribe(
+            response => {
+              console.log(response);
+              this.router.navigateByUrl('/')
+            },
+            error => {
+              console.error('Đăng nhập bằng Google thất bại:', error);
+            }
+          );
+        } else {
+          console.error('idToken không tồn tại');
+        }
+      },
+      error => {
+        console.error('Đăng nhập bằng Google thất bại:', error);
+      }
+    );
   }
 
   // onFormSubmit() {
@@ -93,7 +177,9 @@ export class LoginComponent {
         this.cookieService.set('Authorization', `Bearer ${response.token}`,
           undefined, '/', undefined, true, 'Strict');
 
+        this.authService.setUser(response);
         // Set User
+
         this.authService.setUser({
           email: response.email,
           roles: response.roles
