@@ -53,9 +53,11 @@ import { ThanhtoankhachhangComponent } from './Pages/GiaoDienKhachHang/ThanhToan
 import { LoadingGiaodienComponent } from './Pages/GiaoDienKhachHang/Header/Loading/loading-giaodien/loading-giaodien.component';
 import { InterceptorService } from './Pages/Admin/services/Loading/interceptor.service';
 import { LoadingSanphamService } from './Pages/Admin/services/Loading/loading-sanpham.service';
-import { LoginComponent } from './Pages/Auth/login/login.component';
 import { AuthInterceptor } from './Pages/interceptor/auth.interceptor';
 import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khach-hang/danh-gia-khach-hang.component';
+import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-nhan-dat-tour/tiep-nhan-dat-tour.component';
+import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
+import { LoginComponent } from './Pages/Auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +91,10 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
     SuaKhachHangComponent,
     ThanhtoankhachhangComponent,
     LoadingGiaodienComponent,
+    DanhGiaKhachHangComponent,
+    TiepNhanDatTourComponent,
+    SuaTiepNhanDatTourComponent,
+    
     LoginComponent,
     DanhGiaKhachHangComponent
   ],
