@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.user = this.authService.getUser();
+    
   }
 
   onLogout():void{

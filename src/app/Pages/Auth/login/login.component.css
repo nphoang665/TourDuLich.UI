@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.container-fluid {
+  background-color: #f3efef;
+  font-family: "Roboto", sans-serif;
+}
+.patterm_Login {
+  font-size: 18px;
+  position: relative;
+  border-right: 10px solid #667eea;
+  border-bottom: 10px solid #667eea;
+}
+
+.patterm_Login::before,
+.patterm_Login::after {
+  content: "";
+  position: absolute;
+  background: #f3efef;
+}
+
+.patterm_Login::before {
+  width: 10px;
+  height: 10px;
+  top: 0px;
+  right: -10px;
+}
+
+.patterm_Login::after {
+  width: 10px;
+  height: 10px;
+  bottom: -10px;
+  left: 0px;
+}
+
+._title_Login {
+  font-size: 2em;
+  font-weight: 500;
+  color: #667eea;
+}
+._descriptionTitle {
+  font-size: 0.9em;
+}
+._descriptionTitle span {
+  font-weight: 400;
+  font-size: 1em;
+  color: #667eea;
+}
+._dv_btn_login {
+  height: 50px;
+}
+.btn_login {
+  height: 100%;
+  background-color: #667eea;
+  color: #ffffff;
+  border: 0;
+}
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: 1;
+  &:before {
+    content: "";
+
+    background: linear-gradient(to right, transparent, #0833f5, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: white;
+  }
+}
+.btn_log_fb {
+  font-size: 0.8em;
+  border: 1px solid black;
+  /* border-radius: 8px; */
+  /* padding: 10px; */
+  background-color: transparent;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.btn_log_gg {
+  font-size: 0.8em;
+  border: 1px solid black;
+  /* border-radius: 8px; */
+  padding: 10px;
+  background-color: transparent;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.small-icon {
+  vertical-align: middle; /* Căn giữa biểu tượng với văn bản */
+}
+._dv_quenmk {
+  font-size: 0.8em;
+}
+._dv_quenmk {
+  color: #667eea;
+}
+._dv_btn_register {
+  height: 50px;
+}
+.btn_register {
+  height: 100%;
+  background-color: #f9f9f9;
+  color: #667eea;
+  border: 2px solid #667eea;
+}

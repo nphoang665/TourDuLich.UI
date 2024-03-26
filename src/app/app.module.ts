@@ -58,6 +58,8 @@ import { DanhGiaKhachHangComponent } from './Pages/Axiliary/Rating/danh-gia-khac
 import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-nhan-dat-tour/tiep-nhan-dat-tour.component';
 import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
 import { LoginComponent } from './Pages/Auth/login/login.component';
+import { RegisterComponent } from './Pages/Auth/register/register.component';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 @NgModule({
   declarations: [
@@ -95,8 +97,10 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
     DanhGiaKhachHangComponent,
     TiepNhanDatTourComponent,
     SuaTiepNhanDatTourComponent,
-    
+
     LoginComponent,
+    DanhGiaKhachHangComponent,
+    RegisterComponent
     DanhGiaKhachHangComponent,
     ThemDichVuComponent,
 
@@ -119,13 +123,15 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
     HttpClientModule,
     MaterialModule,
     ToastrModule.forRoot(),
+    GoogleSigninButtonModule
+    ToastrModule.forRoot(),
  
 
 
 
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideClientHydration(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
@@ -133,6 +139,30 @@ import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     LoadingSanphamService,
     DatePipe,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '101863175272-n460ifjdvtb6gevl0sa64md26bt0r22v.apps.googleusercontent.com',{
+                oneTapEnabled:false,
+                prompt:'consent'
+              }
+            )
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('clientId')
+          // }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })
