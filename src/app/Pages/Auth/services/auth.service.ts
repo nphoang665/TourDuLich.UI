@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { isPlatformBrowser } from '@angular/common';
 import { Register } from '../models/register.model';
 import { NguoiDungService } from '../../Admin/services/NguoiDung/nguoi-dung.service';
+import { GoogleLoginDto } from '../models/login-google.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,15 @@ export class AuthService {
       email: request.email,
       password: request.password
     })
+  }
+
+    // googleLogin(request: GoogleLoginDto): Observable<LoginResponse> {
+  //   return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/google-login`, {
+  //     idToken: request.idToken
+  //   });
+  // }
+  googleLogin(data: GoogleLoginDto): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/api/auth/google-login`, data);
   }
 
   // setUser(user: User): void {
@@ -69,6 +79,8 @@ export class AuthService {
     return undefined;
 
   }
+
+
 
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
