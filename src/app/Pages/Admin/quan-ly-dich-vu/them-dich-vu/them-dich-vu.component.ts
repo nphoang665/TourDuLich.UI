@@ -49,11 +49,21 @@ export class ThemDichVuComponent implements OnInit {
     this.dichVuService.createDichVu(this.themDichVu.value)
       .subscribe({
         next: (response) => {
-          this.router.navigateByUrl('/quanLyNhanVien');
+          this.router.navigateByUrl('/quanLyDichVu');
           this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
             timeOut: 1000,
           });
         }
+      })
+  } 
+  
+      .subscribe({
+    next: (response) => {
+      this.router.navigateByUrl('/quanLyNhanVien');
+      this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
+        timeOut: 1000,
+      });
+    }
       })
   }
 

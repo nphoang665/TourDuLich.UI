@@ -10,6 +10,7 @@ export interface DichVu {
 }
 //
 export interface SuaDichVu {
+    idDichVu: string;
     tenDichVu: string;
     donViTinh: string;
     giaTien: string;
