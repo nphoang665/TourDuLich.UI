@@ -87,3 +87,9 @@
   align-items: center;
   z-index: 9999; /* Đảm bảo rằng lớp này luôn nằm trên cùng */
 }
+.star {
+  display: inline-block;
+  font-size: 1.7em;
+  color: #ffc700;
+  line-height: 0;
+}

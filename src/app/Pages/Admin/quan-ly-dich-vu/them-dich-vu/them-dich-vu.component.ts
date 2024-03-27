@@ -55,17 +55,9 @@ export class ThemDichVuComponent implements OnInit {
           });
         }
       })
-  } 
-  
-      .subscribe({
-    next: (response) => {
-      this.router.navigateByUrl('/quanLyNhanVien');
-      this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
-        timeOut: 1000,
-      });
-    }
-      })
   }
+
+
 
 
 }

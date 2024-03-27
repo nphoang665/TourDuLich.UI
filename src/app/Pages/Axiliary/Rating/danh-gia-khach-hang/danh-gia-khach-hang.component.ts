@@ -37,6 +37,7 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
     event.stopPropagation();
     const clickedElement = event.target as HTMLInputElement;
     if (clickedElement.tagName === 'INPUT') {
+
       // Lưu lại vị trí cuộn hiện tại
       this.scrollPosition = window.pageYOffset || this.buttonDanhGiaSort.nativeElement.scrollTop;
       // giá trị số sao input là biến `clickedElement.tagName`
@@ -52,20 +53,27 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   NhanXet!: string;
   SendDanhGia() {
     const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
+    if (khachHang) {
 
-    var data_nhanxet: ThemDanhGia;
-    data_nhanxet = {
-      idDanhGia: '1',
-      idKhachHang: khachHang.idKhachHang,
-      idTour: this.router.snapshot.paramMap.get('id') ?? 'null',
-      diemDanhGia: this.SoSaoDaChon,
-      nhanXet: this.NhanXet,
-      thoiGianDanhGia: new Date(),
+
+      var data_nhanxet: ThemDanhGia;
+      data_nhanxet = {
+        idDanhGia: '1',
+        idKhachHang: khachHang.idKhachHang,
+        idTour: this.router.snapshot.paramMap.get('id') ?? 'null',
+        diemDanhGia: this.SoSaoDaChon,
+        nhanXet: this.NhanXet,
+        thoiGianDanhGia: new Date(),
+      }
+      this.danhGiaServices.themDanhGia(data_nhanxet).subscribe((data: any) => {
+
+        this.LayTatCaDanhGia();
+      })
+    } else {
+      alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để được đánh giá');
+
     }
-    this.danhGiaServices.themDanhGia(data_nhanxet).subscribe((data: any) => {
 
-      this.LayTatCaDanhGia();
-    })
   }
 
   ngAfterViewInit(): void {

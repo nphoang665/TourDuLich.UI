@@ -26,15 +26,18 @@ interface DichVuThemVaoDb {
   styleUrl: './thanhtoankhachhang.component.css'
 })
 export class ThanhtoankhachhangComponent implements OnInit {
+
   constructor(private dichVuServices: DichvuService,
     @Inject(PLATFORM_ID) private _platform_id: Object,
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
     private nguoiDung: NguoiDungService,
+
   ) {
 
-
   }
+  private nguoiDungLogin = this.nguoiDung.LayNguoiDungTuLocalStorage();
+
   n: number = 0;
   DichVu: any[] = [];
   _ngDichVuDaChon: string[] = [];
@@ -47,9 +50,11 @@ export class ThanhtoankhachhangComponent implements OnInit {
   datTourKhachHang!: DatTourChoKhachHang;
 
   ngOnInit(): void {
+
     this.KhaiBaoContructorDatTour();
     this.GetDichVu();
     this.LayDatTourTuLocalStorage();
+    console.log(this.nguoiDungLogin);
 
 
 
@@ -219,17 +224,20 @@ export class ThanhtoankhachhangComponent implements OnInit {
   isfalse: boolean = true;
 
   //tạo formgroup và formcontrol
-  NhanVien = new FormGroup({
-    IdKhachHang: new FormControl('12345'),
-    TenKhachHang: new FormControl(''),
-    SoDienThoai: new FormControl(''),
-    DiaChi: new FormControl(''),
-    CCCD: new FormControl(''),
-    NgaySinh: new FormControl(''),
-    GioiTinh: new FormControl(''),
-    Email: new FormControl(''),
+  private ngaySinh = this.nguoiDungLogin ? new Date(this.nguoiDungLogin.ngaySinh).toISOString().split('T')[0] : '';
+  ThanhToan = new FormGroup({
+    IdKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.idKhachHang : ''),
+    TenKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.tenKhachHang : ''),
+    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : ''),
+    DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : ''),
+    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : ''),
+    NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : ''),
+    GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : ''),
+    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : ''),
     TinhTrangKhachHang: new FormControl('Đang hoạt động'),
   });
+
+
   XacNhanDatTour() {
     // this.isfalse = !this.isfalse;
     this.DatTourChoKhachHang();
@@ -241,15 +249,15 @@ export class ThanhtoankhachhangComponent implements OnInit {
       SoLuongTreEm: this.Sl_TreEm_ThanhToan,
       ThoiGianDatTour: new Date().toISOString(),
       TinhTrangDatTour: 'Đang đợi duyệt',
-      IdKhachHang: this.NhanVien.get('IdKhachHang')?.value ?? '',
-      TenKhachHang: this.NhanVien.get('TenKhachHang')?.value ?? '',
-      SoDienThoai: this.NhanVien.get('SoDienThoai')?.value ?? '',
-      DiaChi: this.NhanVien.get('DiaChi')?.value ?? '',
-      CCCD: this.NhanVien.get('CCCD')?.value ?? '',
-      NgaySinh: this.NhanVien.get('NgaySinh')?.value ?? '',
-      GioiTinh: this.NhanVien.get('GioiTinh')?.value ?? '',
-      Email: this.NhanVien.get('Email')?.value ?? '',
-      TinhTrangKhachHang: this.NhanVien.get('TinhTrangKhachHang')?.value ?? '',
+      IdKhachHang: this.ThanhToan.get('IdKhachHang')?.value ?? '',
+      TenKhachHang: this.ThanhToan.get('TenKhachHang')?.value ?? '',
+      SoDienThoai: this.ThanhToan.get('SoDienThoai')?.value ?? '',
+      DiaChi: this.ThanhToan.get('DiaChi')?.value ?? '',
+      CCCD: this.ThanhToan.get('CCCD')?.value ?? '',
+      NgaySinh: this.ThanhToan.get('NgaySinh')?.value ?? '',
+      GioiTinh: this.ThanhToan.get('GioiTinh')?.value ?? '',
+      Email: this.ThanhToan.get('Email')?.value ?? '',
+      TinhTrangKhachHang: this.ThanhToan.get('TinhTrangKhachHang')?.value ?? '',
       NgayDangKy: new Date().toISOString(),
       DichVuChiTiet: this.TongDichVu_Db.map(dichvu => ({
         IdDichVuChiTiet: '12121',
