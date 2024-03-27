@@ -102,6 +102,7 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
 
       if (this.router.snapshot.paramMap.get('id') === null) {
         this.DanhGia = data.filter(data => data.idTour === null);
+        this.kiemTraNguoiDungDaDanhGia(this.DanhGia);
       }
       else {
 
@@ -127,15 +128,16 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
 
   kiemTraNguoiDungDaDanhGia(danhGia: any) {
     const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
-    const isNguoiDungDaDanhGia = danhGia.filter((data: any) => data.idKhachHang == khachHang.idKhachHang);
-    console.log(isNguoiDungDaDanhGia);
-
-    if (isNguoiDungDaDanhGia.length > 0) {
-      this.KiemTraNguoiDungDaDanhGiaChua = true;
+    if (khachHang) {
+      const isNguoiDungDaDanhGia = danhGia.filter((data: any) => data.idKhachHang == khachHang.idKhachHang);
+      if (isNguoiDungDaDanhGia.length > 0) {
+        this.KiemTraNguoiDungDaDanhGiaChua = true;
+      }
     }
+    else {
+      this.KiemTraNguoiDungDaDanhGiaChua = true;
 
-    console.log(this.KiemTraNguoiDungDaDanhGiaChua);
-
+    }
 
   }
 }

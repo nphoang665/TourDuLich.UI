@@ -7,6 +7,7 @@ import { environment } from '../../../../../environments/environment';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { isPlatformBrowser } from '@angular/common';
 import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
+import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 
 declare var bootstrap: any;
 @Component({
@@ -27,7 +28,8 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     private cdRef: ChangeDetectorRef,
     public loaderServices: LoadingSanphamService,
     private router: Router,
-    @Inject(PLATFORM_ID) private _platformId: Object
+    @Inject(PLATFORM_ID) private _platformId: Object,
+    private danhGiaServices: DanhgiaService
   ) {
 
   }
@@ -66,7 +68,15 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
 
       this.TourChiTiet.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
       this.TourChiTiet.SoNgayDem = this.calculateDaysAndNights(this.TourChiTiet.thoiGianBatDau, this.TourChiTiet.thoiGianKetThuc);
+      this.danhGiaServices.LayTrungBinhSaoMotTour(this.TourChiTiet.idTour).subscribe(result => {
+        this.TourChiTiet.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
+        this.TourChiTiet.soLuongDanhGia = result.soLuongDanhGia;
 
+
+
+
+
+      });
       //gán ảnh tour vào mảng 
       //xử lý ảnh và gán vào mảng tour
       for (let index = 0; index < this.TourChiTiet.anhTour.length; index++) {

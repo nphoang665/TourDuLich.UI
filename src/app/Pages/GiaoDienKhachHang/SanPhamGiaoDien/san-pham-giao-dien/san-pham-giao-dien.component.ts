@@ -9,6 +9,7 @@ import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service'
 import { EventEmitter } from '@angular/core';
 import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 import { Observable } from 'rxjs';
+import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 
 
 // Định nghĩa metadata cho component
@@ -25,7 +26,7 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
     private quanLyTourServices: QuanLyTourService,
     private cdr: ChangeDetectorRef,
     public loaderServices: LoadingSanphamService,
-
+    private danhGiaServices: DanhgiaService
 
 
   ) {
@@ -67,6 +68,13 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
           // Gán đường dẫn hình ảnh đầu tiên cho tour
           element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
         })
+        this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
+          element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
+          element.SoLuongDanhGia = result.soLuongDanhGia;
+          console.log(element);
+
+
+        });
         // Tính toán số ngày đêm của tour
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
         // Tính toán số lượng tour của mỗi loại và lưu vào object tourCounts

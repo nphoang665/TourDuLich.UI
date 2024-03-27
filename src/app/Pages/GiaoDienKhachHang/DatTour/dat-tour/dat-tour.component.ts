@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
+import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 
 export enum SortCriteria {
   DeXuat = 'DeXuat',
@@ -22,6 +23,7 @@ export class DatTourComponent implements OnInit {
     private renderer: Renderer2,
     private quanLyTourServices: QuanLyTourService,
     private route: ActivatedRoute,
+    private danhGiaServices: DanhgiaService
   ) {
 
   }
@@ -35,7 +37,6 @@ export class DatTourComponent implements OnInit {
   TourDuLich: any[] = [];
   ngOnInit(): void {
 
-    this.TimKiem();
     this.ThayDoiMauSort(1);
   }
 
@@ -66,6 +67,13 @@ export class DatTourComponent implements OnInit {
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
         element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
+        this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
+          element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
+          element.SoLuongDanhGia = result.soLuongDanhGia;
+          console.log(element);
+
+
+        });
       }
     }
 
@@ -138,5 +146,26 @@ export class DatTourComponent implements OnInit {
     const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((startDate.getTime() - endDate.getTime()) / oneDay));
     return diffDays;
+  }
+
+  async SortTheoYeuCau(index: number) {
+
+
+    await this.TimKiem();
+    switch (index) {
+      case 1:
+
+
+
+        this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon <= 500000);
+        break;
+
+      case 2:
+
+        this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon > 500000 && s.giaNguoiLon <= 2000000);
+
+
+        break;
+    }
   }
 }

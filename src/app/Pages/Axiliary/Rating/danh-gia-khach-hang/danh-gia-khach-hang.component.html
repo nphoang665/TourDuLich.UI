@@ -70,162 +70,121 @@
                 <span>Những đánh giá gần đây</span>
             </div>
             <div class="mt-4 row">
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
+                @for (item of DanhGia; track $index) {
+                @if($index < 3){ <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
                     <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
+                        <span class="rating-number pe-2 ps-1">{{item.diemDanhGia}}.0</span>
                         <span class="star mb-1 pe-1">★</span>
                     </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-                <div class="col-auto col-sm-auto col-md-auto col-lg-auto mt-lg-0 mt-2">
-                    <div class="rating-container p-1">
-                        <span class="rating-number pe-2 ps-1">5.0</span>
-                        <span class="star mb-1 pe-1">★</span>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <div class="dv_user_Review mt-3 ">
-            <span class="txt_title_ratingandreview">Đánh giá người dùng</span>
-            <div class="_item_userReview mt-3 ms-1">
-                <div class="row">
-                    <div class=" col-md-12 mb-lg-0 mb-md-2  mb-2 col-lg-7 order-lg-1 order-md-2 order-sm-2 order-2">
-                        <div class="dv_tag">
-                            <div class="row" #buttonDanhGiaSort (click)="DanhGiaItem($event)">
-                                <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active text-nowrap">Relevant</button>
-                                </div>
-                                <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Friends
-                                        Ratings</button>
-                                </div>
-                                <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                        class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Latest</button>
-                                </div>
-                                <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3">
-                                    <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">High to
-                                        low</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 ps-2 pe-2 order-md-1 order-sm-1 order-1">
-                        <div class="_dv_searching">
-                            <div class="input-group mb-3 border rounded ">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i
-                                            class="bi bi-search text-primary"></i></span>
-                                </div>
-                                <input type="text" class="form-control border-0 shadow-none"
-                                    placeholder="Tìm kiếm đánh giá" aria-label="Search" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="dv_Total_DanhGia">
-            @for (item of DanhGia; track $index) {
-
-
-            <div class="_item_DanhGia_User">
-                <div class="dv_DanhGia ps-2 pt-2">
-                    <div class="row ps-1 ">
-                        <div class="col-auto">
-                            <div class="_dv_User">
-                                <div class="row align-items-center">
-                                    <div class="col-auto gx-0">
-                                        <img class="_img_user rounded"
-                                            src="https://img.freepik.com/premium-photo/image-generated-by-ai-portrait-handsome-asian-man_803126-1182.jpg"
-                                            alt="">
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="__txt_user">{{item.khachHang.tenKhachHang}}</span>
-                                        <span class="d-block __txt_Rating_Review">1 review</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto ms-auto">
-                            <div class="row  p-2 align-items-center">
-                                <div class="col-auto pt-1">
-                                    <span class="spn_date_DanhGia">
-                                        {{item.thoiGianDanhGia | date: "dd/MM/yyyy"}}
-                                    </span>
-
-                                </div>
-                                <div class="col-auto pt-1">
-                                    <span class="spn_icon_three_dot">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="dv_start_DanhGia pt-3">
-                    @for (star of [].constructor(item.diemDanhGia); track $index) { <span class="star ">★</span>}
-
-                </div>
-                <div class="dv_text_DanhGia pt-1">
-                    {{item.nhanXet}}
-                </div>
-                <div class="dv_Handler">
-                    <div class="row _col_Hander mt-1">
-                        <div class="col-auto __item_Hander p-2 pe-5">
-                            <i class="bi bi-hand-thumbs-up me-2"></i>Like @if(item.like >0){
-                            ({{item.like}})}
-                        </div>
-                        <div class="col-auto __item_Hander p-2  pe-5">
-                            <i class="bi bi-chat-left me-2"></i>Comment
-                        </div>
-                        <div class="col-auto __item_Hander p-2  pe-5">
-                            <i class="bi bi-share me-2"></i>Share
-                        </div>
-                    </div>
-                </div>
-                @if($index+1 <DanhGia.length){ <hr class="m-3">}
             </div>
             }
+            }
+
+
+        </div>
+
+    </div>
+
+    <div class="dv_user_Review mt-3 ">
+        <span class="txt_title_ratingandreview">Đánh giá người dùng</span>
+        <div class="_item_userReview mt-3 ms-1">
+            <div class="row">
+                <div class=" col-md-12 mb-lg-0 mb-md-2  mb-2 col-lg-7 order-lg-1 order-md-2 order-sm-2 order-2">
+                    <div class="dv_tag">
+                        <div class="row" #buttonDanhGiaSort (click)="DanhGiaItem($event)">
+                            <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active text-nowrap">Relevant</button>
+                            </div>
+                            <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Friends
+                                    Ratings</button>
+                            </div>
+                            <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3"><button
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Latest</button>
+                            </div>
+                            <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3">
+                                <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">High to
+                                    low</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 ps-2 pe-2 order-md-1 order-sm-1 order-1">
+                    <div class="_dv_searching">
+                        <div class="input-group mb-3 border rounded ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i
+                                        class="bi bi-search text-primary"></i></span>
+                            </div>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Tìm kiếm đánh giá"
+                                aria-label="Search" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div id="dv_Total_DanhGia">
+        @for (item of DanhGia; track $index) {
+
+
+        <div class="_item_DanhGia_User">
+            <div class="dv_DanhGia ps-2 pt-2">
+                <div class="row ps-1 ">
+                    <div class="col-auto">
+                        <div class="_dv_User">
+                            <div class="row align-items-center">
+                                <div class="col-auto gx-0">
+                                    <img class="_img_user rounded"
+                                        src="https://img.freepik.com/premium-photo/image-generated-by-ai-portrait-handsome-asian-man_803126-1182.jpg"
+                                        alt="">
+                                </div>
+                                <div class="col-auto">
+                                    <span class="__txt_user">{{item.khachHang.tenKhachHang}}</span>
+                                    <span class="d-block __txt_Rating_Review">1 review</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto ms-auto">
+                        <div class="row  p-2 align-items-center">
+                            <div class="col-auto pt-1">
+                                <span class="spn_date_DanhGia">
+                                    {{item.thoiGianDanhGia | date: "dd/MM/yyyy"}}
+                                </span>
+
+                            </div>
+                            <div class="col-auto pt-1">
+                                <span class="spn_icon_three_dot">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dv_start_DanhGia pt-3">
+                @for (star of [].constructor(item.diemDanhGia); track $index) { <span class="star ">★</span>}
+
+            </div>
+            <div class="dv_text_DanhGia pt-1">
+                {{item.nhanXet}}
+            </div>
+            <div class="dv_Handler">
+                <div class="row _col_Hander mt-1">
+                    <div class="col-auto __item_Hander p-2 pe-5">
+                        <i class="bi bi-hand-thumbs-up me-2"></i>Like @if(item.like >0){
+                        ({{item.like}})}
+                    </div>
+                    <div class="col-auto __item_Hander p-2 pe-5">
+                        <i class="bi bi-hand-thumbs-down me-2"></i>UnLike @if(item.like >0){
+                        ({{item.like}})}
+                    </div>
+                </div>
+            </div>
+            @if($index+1 <DanhGia.length){ <hr class="m-3">}
+        </div>
+        }
+    </div>
+</div>
 </div>
