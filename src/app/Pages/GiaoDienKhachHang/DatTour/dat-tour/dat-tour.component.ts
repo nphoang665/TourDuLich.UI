@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
@@ -23,7 +23,8 @@ export class DatTourComponent implements OnInit {
     private renderer: Renderer2,
     private quanLyTourServices: QuanLyTourService,
     private route: ActivatedRoute,
-    private danhGiaServices: DanhgiaService
+    private danhGiaServices: DanhgiaService,
+    private tourServices: QuanLyTourService,
   ) {
 
   }
@@ -38,6 +39,17 @@ export class DatTourComponent implements OnInit {
   ngOnInit(): void {
 
     this.ThayDoiMauSort(1);
+    this.GetUniqueTypeTour();
+  }
+  //
+  getUniqueTypeTour: any[] = [];
+  GetUniqueTypeTour() {
+    this.tourServices.getUniqueTypeOfTour().subscribe((result: any) => {
+      if (result) {
+        this.getUniqueTypeTour = result;
+      }
+    });
+
   }
 
   isLoading: boolean = true;
@@ -56,7 +68,6 @@ export class DatTourComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
   async TimKiemTatCa() {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
 
@@ -70,17 +81,13 @@ export class DatTourComponent implements OnInit {
         this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
           element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
           element.SoLuongDanhGia = result.soLuongDanhGia;
-          console.log(element);
+          // console.log(element);
 
 
         });
       }
     }
-
-
-
   }
-
   async TimKiemTheoYeuCauKhachHang(TuKhoaTimKiem: string) {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
 
@@ -98,7 +105,6 @@ export class DatTourComponent implements OnInit {
       }
     }
   }
-
   //lọc string
   LocString(tukhoa: any) {
     return tukhoa.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -107,9 +113,6 @@ export class DatTourComponent implements OnInit {
   CheckNullTourDuLich() {
     return this.TourDuLich && this.TourDuLich.length > 0;
   }
-
-
-
   //hàm tính toán ngày đêm
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
     let startDate = thoiGianBatDau instanceof Date ? thoiGianBatDau : new Date(thoiGianBatDau);
@@ -147,25 +150,118 @@ export class DatTourComponent implements OnInit {
     const diffDays = Math.round(Math.abs((startDate.getTime() - endDate.getTime()) / oneDay));
     return diffDays;
   }
+  @ViewChild('sortClientForTour') sortClientForTour !: ElementRef;
 
-  async SortTheoYeuCau(index: number) {
+  SortClientForTour(event: Event) {
+    const eventFilter = event.target as HTMLInputElement;
+    if (eventFilter.tagName === "INPUT") {
+      let checkedInput = this.sortClientForTour.nativeElement.querySelectorAll('input:checked');
+      let arrCheckedInput: any[] = [];
+      checkedInput.forEach((input: any) => {
 
+        arrCheckedInput.push(input.value);
 
-    await this.TimKiem();
-    switch (index) {
-      case 1:
-
-
-
-        this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon <= 500000);
-        break;
-
-      case 2:
-
-        this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon > 500000 && s.giaNguoiLon <= 2000000);
+      }); this.SwitchOptionSortTour(arrCheckedInput);
 
 
-        break;
+
     }
+
   }
+  async SwitchOptionSortTour(option: any) {
+    await this.TimKiem();
+    option.forEach((element: any) => {
+
+
+      switch (element) {
+        case 'SortDuoi500k':
+          this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon <= 500000);
+          console.log(this.TourDuLich);
+
+          break;
+        case 'Sort500kDen2Trieu':
+          this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon > 500000 && s.giaNguoiLon <= 2000000);
+
+          break;
+        case 'Sort2TrieuDen4Trieu':
+          this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon > 2000000 && s.giaNguoiLon <= 4000000);
+
+          break;
+        case 'SortTren4Trieu':
+          this.TourDuLich = this.TourDuLich.filter(s => s.giaNguoiLon > 4000000);
+          break;
+
+        case 'SortDuoi2Ngay1Dem':
+          this.TourDuLich = this.TourDuLich.filter(s => {
+            const duration = Math.ceil((new Date(s.thoiGianKetThuc).getTime() - new Date(s.thoiGianBatDau).getTime()) / (1000 * 60 * 60 * 24));
+            return duration < 2;
+          });
+          break;
+
+        case 'Sort2Ngay1Dem':
+          this.TourDuLich = this.TourDuLich.filter(s => {
+            const duration = Math.ceil((new Date(s.thoiGianKetThuc).getTime() - new Date(s.thoiGianBatDau).getTime()) / (1000 * 60 * 60 * 24));
+            return duration === 2;
+          });
+          break;
+
+        case 'Sort3Ngay2Dem':
+          this.TourDuLich = this.TourDuLich.filter(s => {
+            const duration = Math.ceil((new Date(s.thoiGianKetThuc).getTime() - new Date(s.thoiGianBatDau).getTime()) / (1000 * 60 * 60 * 24));
+            return duration === 3;
+          });
+          break;
+
+        case 'Sort4Ngay3Dem':
+          this.TourDuLich = this.TourDuLich.filter(s => {
+            const duration = Math.ceil((new Date(s.thoiGianKetThuc).getTime() - new Date(s.thoiGianBatDau).getTime()) / (1000 * 60 * 60 * 24));
+            return duration === 4;
+          });
+          break;
+
+        case 'SortTren4Ngay3Dem':
+          this.TourDuLich = this.TourDuLich.filter(s => {
+            const duration = Math.ceil((new Date(s.thoiGianKetThuc).getTime() - new Date(s.thoiGianBatDau).getTime()) / (1000 * 60 * 60 * 24));
+            return duration > 4;
+          });
+          break;
+        case 'SortTatCaGia':
+          break;
+        case 'SortTatCaThoiGian':
+          break;
+        case 'SortTatCaDanhGia':
+          break;
+        case 'SortTour5Sao':
+          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia === 5);
+          break;
+        case 'SortTour4Sao':
+          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 4);
+
+          break;
+        case 'SortTour3Sao':
+          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 3);
+          break;
+        default:
+
+          this.SortTourTheoLoaiTour(element);
+          break;
+      }
+      console.log(this.TourDuLich);
+
+
+    });
+
+
+  }
+  async SortTourTheoLoaiTour(option: string) {
+    if (option === 'SortTatCaLoaiTour') {
+      this.TourDuLich = this.TourDuLich.filter(s => s.loaiTour);
+
+    }
+    else {
+      this.TourDuLich = this.TourDuLich.filter(s => s.loaiTour === option);
+    }
+
+  }
+
 }

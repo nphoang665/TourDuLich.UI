@@ -13,128 +13,153 @@
         </nav>
         <div class="row total_item_tourplanpt-0">
             <div class=" col-lg-3 order-lg-1 order-2 mt-4 " style="user-select: none;">
-                <div class="border bg-white p-2">
+                <div class="border bg-white p-2" #sortClientForTour (click)="SortClientForTour($event)">
 
+                    <div>
+                        <span style="font-size: 1.1em ;color: rgb(112, 112, 112);" class="text-secondary">Ngân sách du
+                            lịch</span>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions1"
+                                id="inlineCheckboxGiaTatCa" value="SortTatCaGia" checked>
+                            <label class="form-check-label" for="inlineCheckboxGiaTatCa"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Tất cả giá</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions1"
+                                id="inlineCheckbox1" value="SortDuoi500k">
+                            <label class="form-check-label" style="color: rgb(112, 112, 112);font-size: 0.7;"
+                                for="inlineCheckbox1">Dưới
+                                500.000đ</label>
+                        </div>
 
-                    <span style="font-size: 1.1em ;color: rgb(112, 112, 112);" class="text-secondary">Ngân sách du
-                        lịch</span>
-                    <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
-                        <input (input)="SortTheoYeuCau(1)" class="form-check-input rounded-0 me-2" type="checkbox"
-                            id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" style="color: rgb(112, 112, 112);font-size: 0.7;"
-                            for="inlineCheckbox1">Dưới
-                            500.000đ</label>
+                        <div class="form-check form-check-inline d-flex align-items-center d-block pb-111">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions1"
+                                id="inlineCheckbox111" value="Sort500kDen2Trieu">
+                            <label class="form-check-label" for="inlineCheckbox111"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Từ 500.000đ đến 2.000.000đ</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center  mt-1 d-block pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions1"
+                                id="inlineCheckbox2" value="Sort2TrieuDen4Trieu">
+                            <label class="form-check-label" for="inlineCheckbox2"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Từ 2.000.000đ đến 4.000.000đ</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center d-block pb-3">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions1"
+                                id="inlineCheckbox3" value="SortTren4Trieu">
+                            <label class="form-check-label" for="inlineCheckbox3"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Trên 4.000.000đ</label>
+                        </div>
                     </div>
+                    <div>
+                        <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Thời
+                            gian</span>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckboxThoiGianTatCa" value="SortTatCaThoiGian" checked>
+                            <label class="form-check-label" for="inlineCheckboxThoiGianTatCa"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Tất cả thời gian</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckbox4" value="SortDuoi2Ngay1Dem">
+                            <label class="form-check-label" for="inlineCheckbox4"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Dưới 2 ngày 1 đêm</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckbox2134" value="Sort2Ngay1Dem">
+                            <label class="form-check-label" for="inlineCheckbox2134"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">2 ngày 1 đêm</label>
+                        </div>
 
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-111">
-                        <input (click)="SortTheoYeuCau(2)" class="form-check-input rounded-0 me-2" type="checkbox"
-                            id="inlineCheckbox111" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox111"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">Từ 500.000đ đến 2.000.000đ</label>
+                        <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
+                            <input class="form-check-input me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckbox15" value="Sort3Ngay2Dem">
+                            <label class="form-check-label" for="inlineCheckbox15"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">3 ngày 2 đêm</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckbox5" value="Sort4Ngay3Dem">
+                            <label class="form-check-label" for="inlineCheckbox5"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">4 ngày 3 đêm</label>
+                        </div>
+                        <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions2"
+                                id="inlineCheckbox6" value="SortTren4Ngay3Dem">
+                            <label class="form-check-label" for="inlineCheckbox6"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Trên 4 ngày 3 đêm</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox2"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox2"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">Từ 2.000.000đ đến 4.000.000đ</label>
-                    </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-3">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox3"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox3"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">Trên 4.000.000đ</label>
-                    </div>
+                    <div>
+                        <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Loại
+                            tour</span>
+                        @for (item of getUniqueTypeTour; track $index) {
+                        @if($index ===0){
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
 
-                    <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Thời gian</span>
-                    <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox4"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox4"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">2 ngày 1 đêm</label>
-                    </div>
+                            <input class="form-check-input me-2" type="radio" name="ratingOptions4"
+                                [attr.id]="'inlineCheckbox' + $index+ 900" value="SortTatCaLoaiTour" checked>
+                            <label class="form-check-label" [attr.for]="'inlineCheckbox' + $index+ 900"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Tất cả loại tour</label>
+                        </div>
+                        }
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
 
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox15"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox15"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">3 ngày 2 đêm</label>
+                            <input class="form-check-input me-2" type="radio" name="ratingOptions4"
+                                [attr.id]="'inlineCheckbox' + $index+ 1001" [attr.value]="item">
+                            <label class="form-check-label" [attr.for]="'inlineCheckbox' + $index+ 1001"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">{{item}}</label>
+                        </div>
+                        }
                     </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox5"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox5"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">4 ngày 3 đêm</label>
-                    </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox6"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox6"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">5 ngày 4 đêm</label>
-                    </div>
+                    <div>
 
-                    <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Loại tour</span>
-                    <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox7"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox7"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">Thăm quan</label>
-                    </div>
+                        <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Đánh giá</span>
+                        <div class="form-check form-check-inline d-flex align-items-center mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions5"
+                                id="inlineCheckboxDanhgiaTatCa" value="SortTatCaDanhGia" checked>
+                            <label class="form-check-label" for="inlineCheckboxDanhgiaTatCa"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">Tất cả đánh giá</label>
+                        </div>
 
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox8"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox8"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">Tour ...</label>
-                    </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox9"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox9"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">4 ngày 3 đêm</label>
-                    </div>
-                    <div class="form-check form-check-inline d-flex align-items-center d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox20"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox20"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">5 ngày 4 đêm</label>
-                    </div>
+                        <div class="form-check form-check-inline d-block mt-1 pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions5" id="inlineRadio19"
+                                value="SortTour5Sao">
+                            <label class="form-check-label" for="inlineRadio19"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                            </label>
+                        </div>
 
-                    <span style="font-size: 1.1em ;color: rgb(112, 112, 112)" class="text-secondary">Đánh giá</span>
-                    <div class="form-check form-check-inline d-block mt-1 pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox19"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox19"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                        </label>
-                    </div>
+                        <div class="form-check form-check-inline  d-block pb-1">
+                            <input class="form-check-input  me-2" type="radio" name="ratingOptions5" id="inlineRadio10"
+                                value="SortTour4Sao">
+                            <label class="form-check-label" for="inlineRadio10"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                            </label>
+                        </div>
+                        <div class="form-check  d-block pb-1">
+                            <input class="form-check-input me-2" type="radio" name="ratingOptions5" id="inlineRadio11"
+                                value="SortTour3Sao">
+                            <label class="form-check-label" for="inlineRadio11"
+                                style="color: rgb(112, 112, 112);font-size: 0.7;">
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                                <span class="star mb-1 pe-1">★</span>
+                            </label>
+                        </div>
 
-                    <div class="form-check form-check-inline  d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox10"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox10"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-                        </label>
                     </div>
-                    <div class="form-check form-check-inline d-block pb-1">
-                        <input class="form-check-input rounded-0 me-2" type="checkbox" id="inlineCheckbox11"
-                            value="option1">
-                        <label class="form-check-label" for="inlineCheckbox11"
-                            style="color: rgb(112, 112, 112);font-size: 0.7;">
-                            <span class="star mb-1 pe-1">★</span>
-                            <span class="star mb-1 pe-1">★</span>
-
-                            <span class="star mb-1 pe-1">★</span></label>
-                    </div>
-
                 </div>
             </div>
             <div class="col-lg-9 order-lg-1 tag_tour p-3">

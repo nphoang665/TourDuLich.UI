@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { TourDuLich } from '../models/tour-du-lich.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, pipe } from 'rxjs';
 import { themTour } from '../models/them-tour.model';
 import { SuaTour } from '../models/sua-tour.model';
 
@@ -30,5 +30,17 @@ export class QuanLyTourService {
 
   xoaTourDuLich(id: string): Observable<TourDuLich> {
     return this.http.delete<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}?addAuth=true`);
+  }
+  getUniqueTypeOfTour() {
+    return this.getAllTourDuLich().pipe(map((data: TourDuLich[]) => {
+
+      let uniQueLoaiTour = new Set();
+      data.forEach(element => {
+        uniQueLoaiTour.add(element.loaiTour);
+      });
+      let loaiTourKhongTrung = Array.from(uniQueLoaiTour);
+      return loaiTourKhongTrung;
+
+    }))
   }
 }
