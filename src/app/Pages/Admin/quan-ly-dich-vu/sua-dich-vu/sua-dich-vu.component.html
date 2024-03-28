@@ -1,53 +1,51 @@
-
-<form [formGroup]="myForm" (ngSubmit)="suaDichVu()">
-    <h1 mat-dialog-title>Sửa dịch vụ -  {{model?.idDichVu}}</h1>
-    <div mat-dialog-content>
-      <!-- <mat-form-field>
+<form [formGroup]="myForm" (ngSubmit)="suaDichVu($event)">
+  <h1 mat-dialog-title>Sửa dịch vụ - {{model?.idDichVu}}</h1>
+  <div mat-dialog-content>
+    <!-- <mat-form-field>
         <mat-label>Mã dịch vụ</mat-label>
         <input matInput formControlName="idDichVu" readonly=""/>
       </mat-form-field> -->
-  
-      <mat-form-field>
-        <mat-label>Tên dịch vụ</mat-label>
-        <input matInput formControlName="tenDichVu"/>
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Đơn vị tính</mat-label>
-        <input matInput formControlName="donViTinh"/>
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Giá tiền</mat-label>
-        <input matInput formControlName="giaTien"/>
-      </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Tình trạng</mat-label>
-        <mat-select formControlName="tinhTrang">
-            <mat-option value="Đang hoạt động">Đang hoạt động</mat-option>
-            <mat-option value="Ngưng hoạt động">Ngưng hoạt động</mat-option>
-            <mat-option value="Tạm dừng">Tạm dừng</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <mat-form-field> -->
-        <br>
-        <mat-label>Giờ bắt đầu</mat-label>
-        <input matInput id='element' formControlName="gioBatDau"/>
-      <!-- </mat-form-field> -->
-      <!-- <mat-form-field> -->
-        <mat-label>Giờ kết thúc</mat-label>
-        <input matInput id='element2' color="primary" formControlName="gioKetThuc"/>
-      <!-- </mat-form-field> -->
-      <mat-form-field style="width: 98%;">
-        <mat-label>Ngày thêm</mat-label>
-        <input matInput formControlName="ngayThem" readonly=""/>
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-raised-button color="primary">Lưu</button>
-      <button (click)="ClosePopup()" mat-raised-button color="warn">Đóng</button>
-      <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
-    </div>
-  </form>
-  
+    <mat-form-field>
+      <mat-label>Tên dịch vụ</mat-label>
+      <input matInput formControlName="tenDichVu" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Đơn vị tính</mat-label>
+      <input matInput formControlName="donViTinh" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Giá tiền</mat-label>
+      <input matInput formControlName="giaTien" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tình trạng</mat-label>
+      <mat-select formControlName="tinhTrang">
+        <mat-option value="Đang hoạt động">Đang hoạt động</mat-option>
+        <mat-option value="Ngưng hoạt động">Ngưng hoạt động</mat-option>
+        <mat-option value="Tạm dừng">Tạm dừng</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field> -->
+    <br>
+    <mat-label>Giờ bắt đầu</mat-label>
+    <input matInput id='element' formControlName="gioBatDau" />
+    <!-- </mat-form-field> -->
+    <!-- <mat-form-field> -->
+    <mat-label>Giờ kết thúc</mat-label>
+    <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+    <!-- </mat-form-field> -->
+    <mat-form-field style="width: 98%;">
+      <mat-label>Ngày thêm</mat-label>
+      <input matInput formControlName="ngayThem" readonly="" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary">Lưu</button>
+    <button (click)="ClosePopup()" mat-dialog-close mat-raised-button color="warn">Đóng</button>
+    <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
+  </div>
+</form>

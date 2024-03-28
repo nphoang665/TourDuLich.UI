@@ -106,9 +106,8 @@ export class SuaDichVuComponent implements OnInit {
     this.ref.close();
   }
 
-  suaDichVu() {
-    console.log('Model:', this.model);
-    console.log('Form Value:', this.myForm.value);
+  suaDichVu(event: Event) {
+
     if (this.model && this.id) {
       const suaDichVU: SuaDichVu = { ...this.myForm.value };
       this.dichVuService.updateDichVu(this.id, suaDichVU).subscribe((response) => {
