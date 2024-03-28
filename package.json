@@ -25,6 +25,7 @@
     "@angular/router": "^17.1.0",
     "@angular/ssr": "^17.1.2",
     "@popperjs/core": "^2.11.8",
+    "@syncfusion/ej2-calendars": "^25.1.37",
     "@tinymce/tinymce-angular": "^7.0.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",

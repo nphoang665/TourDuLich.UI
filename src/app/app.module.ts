@@ -44,7 +44,6 @@ import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.c
 import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydattour/quanlydattour.component';
 import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
 import { QuanLyNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/quan-ly-nhan-vien.component';
-import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 import { ThemNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/them-nhan-vien/them-nhan-vien.component';
 import { SuaNhanVienComponent } from './Pages/Admin/quan-ly-nhan-vien/sua-nhan-vien/sua-nhan-vien.component';
 import { ThemKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/them-khach-hang/them-khach-hang.component';
@@ -60,6 +59,7 @@ import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/su
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
 @NgModule({
@@ -88,7 +88,6 @@ import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/su
     QuanlydattourComponent,
     QuanLyKhachHangComponent,
     QuanLyNhanVienComponent,
-    QuanLyDichVuComponent,
     ThemNhanVienComponent,
     SuaNhanVienComponent,
     ThemKhachHangComponent,
@@ -98,14 +97,13 @@ import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/su
     DanhGiaKhachHangComponent,
     TiepNhanDatTourComponent,
     SuaTiepNhanDatTourComponent,
-
     LoginComponent,
     DanhGiaKhachHangComponent,
     RegisterComponent,
     DanhGiaKhachHangComponent,
+    QuanLyDichVuComponent,
     ThemDichVuComponent,
-    SuaDichVuComponent,
-
+    SuaDichVuComponent
   ],
   imports: [
     BrowserModule,
