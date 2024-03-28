@@ -11,3 +11,15 @@ export interface DichVuChiTietDto {
     dichVu: any; // You'll need to define the type for DichVu
     datTour: any; // You'll need to define the type for DatTour
 }
+
+export interface ThemDichVuChiTietRequestDto {
+    idDichVuChiTiet: string;
+    idDichVu: string;
+    idKhachHang: string;
+    idDatTour: string;
+    idNhanVien: string;
+    thoiGianDichVu: string;
+    soLuong: number;
+
+}
+

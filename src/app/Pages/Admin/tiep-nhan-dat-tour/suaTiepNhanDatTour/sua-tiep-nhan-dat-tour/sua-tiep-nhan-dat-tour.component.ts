@@ -9,6 +9,8 @@ import { SuaDatTour } from '../../../models/suaDatTour.model';
 import { DichVu } from '../../../models/Dich-Vu.model';
 import { DichvuService } from '../../../../GiaoDienAdmin/services/DichVu/dichvu.service';
 import { DichVuChiTietService } from '../../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
+import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../../models/dich-vu-chi-tiet.model';
+import { NguoiDungService } from '../../../services/NguoiDung/nguoi-dung.service';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -25,7 +27,10 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private datTourService: DattourService,
     private dichVuServices: DichvuService,
-    private dichVuChiTiet: DichVuChiTietService) {
+    private dichVuChiTiet: DichVuChiTietService,
+    private nguoiDungServices: NguoiDungService
+
+  ) {
 
   }
   id!: string;
@@ -55,14 +60,23 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
   //
   hienThongTin() {
     this.suaTiepNhanDatTour.getRawValue();
+    const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     // console.log(this.datTour)
+
+
     this.suaTiepNhanDatTour.get('idDatTour')?.setValue(this.datTour.idDatTour);
     this.suaTiepNhanDatTour.get('idKhachHang')?.setValue(this.datTour.idKhachHang);
     this.suaTiepNhanDatTour.get('idTour')?.setValue(this.datTour.idTour);
     this.suaTiepNhanDatTour.get('soLuongNguoiLon')?.setValue(this.datTour.soLuongNguoiLon);
     this.suaTiepNhanDatTour.get('soLuongTreEm')?.setValue(this.datTour.soLuongTreEm);
     this.suaTiepNhanDatTour.get('ghiChu')?.setValue(this.datTour.ghiChu);
-    this.suaTiepNhanDatTour.get('idNhanVien')?.setValue(this.datTour.idNhanVien);
+    if (this.datTour.idNhanVien) {
+      this.suaTiepNhanDatTour.get('idNhanVien')?.setValue(this.datTour.idNhanVien);
+    }
+    else {
+      this.suaTiepNhanDatTour.get('idNhanVien')?.setValue(nguoiDung.idNhanVien);
+
+    }
 
     let thoiGianDatTour = new Date(this.datTour.thoiGianDatTour);
     let formattedDate = thoiGianDatTour.getFullYear() + '-' + ('0' + (thoiGianDatTour.getMonth() + 1)).slice(-2) + '-' + ('0' + thoiGianDatTour.getDate()).slice(-2);
@@ -87,13 +101,55 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
       IdNhanVien: this.suaTiepNhanDatTour.controls['idNhanVien'].value,
     }
 
+
     this.datTourService.putDatTour(DatTour, this.id).subscribe((data: any) => {
       console.log(data);
 
-    })
+    });
+    this.LuuDichVuChiTietVaoDb(DatTour);
 
   }
   //
+
+  LuuDichVuChiTietVaoDb(DatTour: SuaDatTour) {
+    const db_ObjDichVuChiTiet: ThemDichVuChiTietRequestDto[] = [];
+    let dichVuChiTiet: ThemDichVuChiTietRequestDto;
+    // console.log(this.nguoiDungServices.LayNguoiDungTuLocalStorage());
+    const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
+    if (nguoiDung) {
+
+
+      this.TongDichVu_Db.forEach(element => {
+        dichVuChiTiet = {
+          idDichVuChiTiet: 'test',
+          idDichVu: element.idDichVu,
+          soLuong: element.soLuong,
+          thoiGianDichVu: new Date().toISOString(),
+          idKhachHang: this.datTour.idKhachHang,
+          idDatTour: this.datTour.idDatTour,
+          idNhanVien: nguoiDung.idNhanVien,
+        }
+        db_ObjDichVuChiTiet.push(dichVuChiTiet);
+      });
+      //push vào mảng
+      this.dichVuChiTiet.LuuDichVuChiTietVaoDb(DatTour.IdDatTour, db_ObjDichVuChiTiet).subscribe((data: any) => {
+        alert(data);
+
+      });
+      console.log(this.TongDichVu_Db);
+
+
+    }
+    else {
+      alert('Người dùng không tồn tại');
+    }
+
+
+
+
+
+    // this.dichVuChiTiet.LuuDichVuChiTietVaoDb(DatTour.IdDatTour, )
+  }
 
 
   getDuLieu() {
@@ -133,11 +189,16 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
       let count = 0;
       this.dichVuDaDatTrongDatTour.forEach((element: any) => {
         // console.log(element);
+        //gọi hàm để thêm mới 1 dịch vụ
         this.ThemDichVu();
+        //gán id dịch vụ để hiển thị 
         this._ngDichVuDaChon[count] = element.idDichVu;
+        //gán vào số lượng hiển thị
         this._ngSoLuongDaChon[count] = element.soLuong;
-        console.log(this._ngDichVuDaChon);
-        count++;
+        //gán vào db tổng dịch vụ để thao tác tăng số lượng và lưu vào db
+        this.TongDichVu_Db[count].soLuong = element.soLuong,
+          // console.log(this._ngDichVuDaChon);
+          count++;
       })
     }
   }
@@ -176,8 +237,7 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
   }
   //xóa dịch vụ 
   //khai báo sl người lớn, trẻ em sử dụng biến và lưu vào db
-  Sl_NguoiLon_ThanhToan: number = 1; // gán =  sl đã đặt trước đó
-  Sl_TreEm_ThanhToan: number = 1;// gán =  sl đã đặt trước đó
+
 
   XoaDichVuDaChon(i: any) {
     this.TongDichVu.splice(i, 1);
@@ -187,34 +247,7 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     this.TinhTienDichVu();
 
   }
-  ThayDoiSoLuong(loaiNguoi: any, loaiNutBam: any) {
-    //nếu loại người =  người lớn 
-    if (loaiNguoi === "NguoiLon") {
-      //nếu loại nút bấm là cộng
-      if (loaiNutBam === "Cong") {
-        this.Sl_NguoiLon_ThanhToan++;
-      }
-      //nếu loại nút bấm là trừ
-      else {
-        if (this.Sl_NguoiLon_ThanhToan > 1) {
-          this.Sl_NguoiLon_ThanhToan--;
-        }
-      }
-    }
-    //nếu loại người =  người trẻ em 
-    else {
-      //nếu loại nút bấm là cộng
-      if (loaiNutBam === "Cong") {
-        this.Sl_TreEm_ThanhToan++;
-      }
-      //nếu loại nút bấm là cộng
-      else {
-        if (this.Sl_TreEm_ThanhToan > 1) {
-          this.Sl_TreEm_ThanhToan--;
-        }
-      }
-    }
-  }
+
   ThayDoiSoLuongDichVu(index: number, kieuNutBam: string) {
     //nếu loại nút bấm là cộng
     if (kieuNutBam === "Cong") {

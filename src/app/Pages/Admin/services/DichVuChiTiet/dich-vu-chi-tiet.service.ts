@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { DichVuChiTiet } from '../../models/dat-tour-khach-hang.model';
 import { environment } from '../../../../../environments/environment';
-import { DichVuChiTietDto } from '../../models/dich-vu-chi-tiet.model';
+import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../models/dich-vu-chi-tiet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,8 @@ export class DichVuChiTietService {
       }
     }));
   }
-  LuuDichVuChiTietVaoDb() {
+  LuuDichVuChiTietVaoDb(idDatTour: string, data: ThemDichVuChiTietRequestDto[]) {
+    return this.http.put<ThemDichVuChiTietRequestDto[]>(`${environment.apiBaseUrl}/api/DichVuChiTiet/${idDatTour}?addAuth=true`, data);
 
   }
 }
