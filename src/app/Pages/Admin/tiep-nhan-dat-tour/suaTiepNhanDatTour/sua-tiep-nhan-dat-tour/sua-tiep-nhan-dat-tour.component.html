@@ -1,99 +1,149 @@
 <div class="container-fluid">
-    <div class="row">
-      <!-- Main Sidebar -->
-      <app-main-sidebar class="p-0"></app-main-sidebar>
-      <!-- End Main Sidebar -->
-      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <div class="main-navbar sticky-top bg-white">
-          <!-- Main Navbar -->
-          <app-main-navbar></app-main-navbar>
-        </div>
-        <!-- / .main-navbar -->
+  <div class="row">
+    <!-- Main Sidebar -->
+    <app-main-sidebar class="p-0"></app-main-sidebar>
+    <!-- End Main Sidebar -->
+    <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+      <div class="main-navbar sticky-top bg-white">
+        <!-- Main Navbar -->
+        <app-main-navbar></app-main-navbar>
+      </div>
+      <!-- / .main-navbar -->
 
 
 
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
-              <form [formGroup]="suaTiepNhanDatTour">
-                
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="">Id đặt tour</label>
-                            <input type="text" class="form-control" formControlName="idDatTour">
-                        </div>
-                    </div>
+      <!-- Start dịch vụ -->
+      <div class="main-content-container container-fluid px-4">
+        <div class="page-header row no-gutters py-4">
+          <form [formGroup]="suaTiepNhanDatTour">
 
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="">Tên khách hàng</label>
-                        <input type="text" class="form-control" formControlName="idKhachHang">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="">Id tour</label>
-                        <input type="text" class="form-control" formControlName="idTour" >
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="">Số lượng người lớn</label>
-                        <input type="number" class="form-control" formControlName="soLuongNguoiLon" >
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                          <label for="">Số lượng trẻ em</label>
-                          <input type="number" class="form-control" formControlName="soLuongTreEm" >
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                          <label for="">Thời gian đặt tour</label>
-                          <input type="datetime-local" class="form-control" formControlName="thoiGianDatTour"  >
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="">Nhân viên</label>
-                        <input type="text" class="form-control" formControlName="idNhanVien" >
-                      </div>
-                    </div>
-
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="">Trạng thái</label>
-                        <input type="text" class="form-control" formControlName="tinhTrang">
-                      </div>
-                    </div>
-                    <div class="d-flex justify-content-end mt-2">
-                      <button class="btn btn-secondary " routerLink="/tiepNhanDatTour">Hủy sửa</button>
-      
-                 
-                      <button class="btn btn-success mx-2" (click)="suaDatTour()">Sửa</button>
-                  </div>
-                    
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Id đặt tour</label>
+                  <input type="text" class="form-control" formControlName="idDatTour">
                 </div>
+              </div>
 
-            </form>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Tên khách hàng</label>
+                  <input type="text" class="form-control" formControlName="idKhachHang">
+                </div>
+              </div>
 
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Id tour</label>
+                  <input type="text" class="form-control" formControlName="idTour">
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Số lượng người lớn</label>
+                  <input type="number" class="form-control" formControlName="soLuongNguoiLon">
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Số lượng trẻ em</label>
+                  <input type="number" class="form-control" formControlName="soLuongTreEm">
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Thời gian đặt tour</label>
+                  <input type="datetime-local" class="form-control" formControlName="thoiGianDatTour">
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Nhân viên</label>
+                  <input type="text" class="form-control" formControlName="idNhanVien">
+                </div>
+              </div>
+
+
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label for="">Trạng thái</label>
+                  <input type="text" class="form-control" formControlName="tinhTrang">
+                </div>
+              </div>
             </div>
+          </form>
+          <div>
+            @if(TongDichVu.length!==0){
+            <span><b>Đăng ký dịch vụ</b></span>
+            }
+            <div style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
+
+              <div *ngFor="let dv of TongDichVu; let i = index">
+                <!-- Nội dung của bạn ở đây -->
+                <div class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1" style="box-sizing: border-box;">
+                  <div class="row flex-nowrap">
+                    <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
+                      <select class="form-control border-0 shadow-none" [(ngModel)]="_ngDichVuDaChon[i]"
+                        name="DichVuDaChon" (change)="ThayDoiDichVu(i)">
+                        <option value="">-Chọn dịch vụ-</option>
+                        <ng-container *ngFor="let dv of DichVu; let j = index">
+                          <option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu,i)" [value]="dv.idDichVu">
+                            {{dv.tenDichVu}}
+                          </option>
+                        </ng-container>
+                      </select>
+
+
+                    </div>
+
+
+                    <div class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center">
+                      <div class="input-group" style="box-sizing: border-box;">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text border-0 bg-transparent " id="basic-addon1"
+                            (click)="ThayDoiSoLuongDichVu(i,'Tru')"><strong>-</strong></span>
+                        </div>
+                        <input type="text" class="form-control border-0 text-center" aria-label="Username"
+                          aria-describedby="basic-addon1" [(ngModel)]="_ngSoLuongDaChon[i]">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
+                            (click)="ThayDoiSoLuongDichVu(i,'Cong')"><strong>+</strong></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center"
+                      style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
+                      <i class="bi bi-x-circle"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            @if(TongDichVu.length < DichVu.length){ <span class="text-info p-1 mt-1" style="cursor: pointer;"
+              (click)="ThemDichVu()">
+              <i class="bi bi-plus-circle me-1"></i>Thêm dịch vụ
+              </span>
+              }
+          </div>
+          <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-secondary " routerLink="/tiepNhanDatTour">Hủy sửa</button>
+            <button class="btn btn-success mx-2" (click)="suaDatTour()">Sửa</button>
+          </div>
         </div>
-        <!-- End dịch vụ -->
+      </div>
+      <!-- End dịch vụ -->
 
 
 
 
 
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
-    </div>
+
+      <app-footer-main-admin></app-footer-main-admin>
+    </main>
   </div>
+</div>

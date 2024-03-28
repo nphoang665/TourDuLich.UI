@@ -4,9 +4,9 @@ import { DichVu } from '../../models/Dich-Vu.model';
 import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 import { getPackedSettings } from 'http2';
 import { time } from 'console';
+import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 
 @Component({
   selector: 'app-them-dich-vu',

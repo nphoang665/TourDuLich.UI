@@ -246,7 +246,6 @@ export class DatTourComponent implements OnInit {
           this.SortTourTheoLoaiTour(element);
           break;
       }
-      console.log(this.TourDuLich);
 
 
     });

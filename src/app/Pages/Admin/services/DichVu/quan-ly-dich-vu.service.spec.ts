@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { QuanLyDichVuService } from './quan-ly-dich-vu.service';
+import { QuanLyDichVuService } from '../DichVuChiTiet/quan-ly-dich-vu.service';
 
 describe('QuanLyDichVuService', () => {
   let service: QuanLyDichVuService;

@@ -11,6 +11,7 @@ import { DatTourChoKhachHang } from '../../../Admin/models/dat-tour-khach-hang.m
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { DichVu } from '../../../Admin/models/Dich-Vu.model';
 import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
+import { DichVuChiTietService } from '../../../Admin/services/DichVuChiTiet/dich-vu-chi-tiet.service';
 
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
@@ -32,6 +33,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
     private nguoiDung: NguoiDungService,
+    private dichVuChiTiet: DichVuChiTietService,
 
   ) {
 
@@ -54,7 +56,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.KhaiBaoContructorDatTour();
     this.GetDichVu();
     this.LayDatTourTuLocalStorage();
-    console.log(this.nguoiDungLogin);
+
 
 
 
@@ -99,7 +101,6 @@ export class ThanhtoankhachhangComponent implements OnInit {
           this.ItemTourById = data;
           this.TinhTongTienTour();
           this.ItemTourById.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
-
         })
 
       }
@@ -111,7 +112,6 @@ export class ThanhtoankhachhangComponent implements OnInit {
   GetDichVu() {
     this.dichVuServices.LayDichVuMau().subscribe((data: DichVu[]) => {
       this.DichVu = data;
-      console.log(this.DichVu);
 
 
     });
