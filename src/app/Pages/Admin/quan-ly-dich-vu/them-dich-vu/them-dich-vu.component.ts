@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 import { DichVu } from '../../models/Dich-Vu.model';
-import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
+import { TimePicker } from '@syncfusion/ej2-calendars';
+import { enableRipple } from '@syncfusion/ej2-base';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { getPackedSettings } from 'http2';
-import { time } from 'console';
-import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 
 @Component({
   selector: 'app-them-dich-vu',
@@ -14,50 +14,123 @@ import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.servi
   styleUrl: './them-dich-vu.component.css'
 })
 export class ThemDichVuComponent implements OnInit {
-  themDichVu: FormGroup = new FormGroup({
-    idDichVu: new FormControl('11'),
+  isEditing: boolean = false;
+  myForm: FormGroup = new FormGroup({
+    idDichVu: new FormControl(''),
     tenDichVu: new FormControl(''),
     donViTinh: new FormControl(''),
     giaTien: new FormControl(''),
-    tinhTrang: new FormControl('11'),
+    tinhTrang: new FormControl(''),
     gioBatDau: new FormControl(''),
     gioKetThuc: new FormControl(''),
     ngayThem: new FormControl(new Date()),
-  });
-  constructor(
-    private dichVuService: QuanLyDichVuService,
-    private router: Router,
-    private toastr: ToastrService
-  ) {
+  })
 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<ThemDichVuComponent>,
+    private dichVuService: QuanLyDichVuService,
+    private toastr: ToastrService
+  ) { }
+  formatTime(hours: number, minutes: number): string {
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+  }
+  ClosePopup() {
+    this.ref.close();
   }
 
   ngOnInit(): void {
+    let month: number = new Date().getMonth();
+    let fullYear: number = new Date().getFullYear();
+    let date: number = new Date().getDate();
 
+    let timeObject: TimePicker = new TimePicker({
+      min: new Date(fullYear, month, date, 4),
+      max: new Date(fullYear, month, date, 16),
+      value: new Date(fullYear, month, date, 20, 0) // 20:00 PM
+    });
+    timeObject.appendTo('#element');
+    timeObject.change = (args: any) => {
+      const selectedTime = args.value;
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = this.formatTime(hours, minutes);
+      this.myForm.get('gioBatDau')?.setValue(formattedTime);
+    };
+
+    let timeObject2: TimePicker = new TimePicker({
+      min: new Date(fullYear, month, date, 4),
+      max: new Date(fullYear, month, date, 16),
+      value: new Date(fullYear, month, date, 20, 0) // 20:00 PM
+    });
+    timeObject2.appendTo('#element2');
+    timeObject2.change = (args: any) => {
+      const selectedTime = args.value;
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = this.formatTime(hours, minutes);
+      this.myForm.get('gioKetThuc')?.setValue(formattedTime);
+    };
   }
-  themDichVuTodb() {
 
-    // this.themDichVu.controls['donViTinh'].setValue(this.themDichVu.controls['donViTinh']?.value);
+  themDichVu() {
+    if (!this.isEditing) {
+      // Chuyển đổi giá trị giaTien từ chuỗi sang số nguyên
+      const giaTienValue = parseInt(this.myForm.get('giaTien')?.value, 10);
+      this.myForm.get('giaTien')?.setValue(giaTienValue);
 
-    this.themDichVu.controls['gioBatDau'].setValue(this.themDichVu.controls['gioBatDau']?.value + ':00');
-    this.themDichVu.controls['gioKetThuc'].setValue(this.themDichVu.controls['gioKetThuc']?.value + ':00');
+      // Chuyển đổi định dạng giờ từ "5:00 PM" hoặc "20:00 AM" sang "HH:mm"
+      const gioBatDauValue = this.convertTimeStringToHHMM(this.myForm.get('gioBatDau')?.value);
+      this.myForm.get('gioBatDau')?.setValue(gioBatDauValue);
 
-    //  this.themDichVu.controls['ngayThem'].setValue(new Date(this.themDichVu.controls['ngayThem']?.value).toISOString());
+      const gioKetThucValue = this.convertTimeStringToHHMM(this.myForm.get('gioKetThuc')?.value);
+      this.myForm.get('gioKetThuc')?.setValue(gioKetThucValue);
 
-    console.log(this.themDichVu);
+      // Gửi yêu cầu đến backend
+      const formData = {
+        ...this.myForm.value,
+        gioBatDau: this.convertStringToTimeOnly(gioBatDauValue),
+        gioKetThuc: this.convertStringToTimeOnly(gioKetThucValue)
+      };
 
-    this.dichVuService.createDichVu(this.themDichVu.value)
-      .subscribe({
-        next: (response) => {
-          this.router.navigateByUrl('/quanLyDichVu');
-          this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
-            timeOut: 1000,
-          });
-        }
-      })
+      this.dichVuService.createDichVu(formData)
+        .subscribe({
+          next: (response) => {
+            this.ClosePopup();
+            this.toastr.success('Thêm dịch vụ thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
+
+          },
+          error: (error) => {
+            console.error('Lỗi khi thêm dịch vụ:', error);
+            this.toastr.error('Đã có lỗi xảy ra', 'Thông báo', {
+              timeOut: 2000,
+            });
+          },
+        });
+    }
+    console.log(this.myForm.value);
   }
 
+  convertTimeStringToHHMM(timeString: string): string {
+    const [hourMinute, period] = timeString.split(' ');
+    let [hour, minute] = hourMinute.split(':').map(Number);
 
+    if (period === 'PM' && hour < 12) {
+      hour += 12;
+    }
 
+    const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+    return formattedTime;
+  }
 
+  convertStringToTimeOnly(timeString: string): string {
+    const [hourStr, minuteStr] = timeString.split(':').map(Number);
+    const formattedTime = `${hourStr.toString().padStart(2, '0')}:${minuteStr.toString().padStart(2, '0')}:00`;
+    return formattedTime;
+  }
 }

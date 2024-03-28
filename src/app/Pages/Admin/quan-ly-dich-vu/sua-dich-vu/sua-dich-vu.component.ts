@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { TimePicker } from '@syncfusion/ej2-calendars/src';
 import { FormControl, FormGroup } from '@angular/forms';
-import { SuaDichVu } from '../../models/Dich-Vu.model';
-
+import { DichVu, SuaDichVu } from '../../models/Dich-Vu.model';
+import { enableRipple } from '@syncfusion/ej2-base';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sua-dich-vu',
@@ -12,26 +14,10 @@ import { SuaDichVu } from '../../models/Dich-Vu.model';
   styleUrl: './sua-dich-vu.component.css'
 })
 export class SuaDichVuComponent implements OnInit {
-  constructor(
-    private DichVuService: QuanLyDichVuService,
-    private router: Router,
-    private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) {
-
-  }
-  id: any;
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log(this.id);
-      this.getDuLieu();
-
-    })
-  }
-  //
-  suaDichVu: FormGroup = new FormGroup({
-    idDichVu: new FormControl(''),
+  isEditing: boolean = false;
+  inputdata: any;
+  model?: DichVu;
+  myForm: FormGroup = new FormGroup({
     tenDichVu: new FormControl(''),
     donViTinh: new FormControl(''),
     giaTien: new FormControl(''),
@@ -39,54 +25,100 @@ export class SuaDichVuComponent implements OnInit {
     gioBatDau: new FormControl(''),
     gioKetThuc: new FormControl(''),
     ngayThem: new FormControl(new Date()),
-  });
-  //
-  dichVu!: any
-  getDuLieu() {
+  })
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<SuaDichVuComponent>,
+    private dichVuService: QuanLyDichVuService,
+    private toastr: ToastrService,
+    private datePipe: DatePipe
+  ) { }
+  id?: string | null = null;
 
-    this.DichVuService.getDichVuById(this.id).subscribe((data: any) => {
-      this.dichVu = data;
-
-      this.hienThongTin();
-    })
-  }
-  //
-  hienThongTin() {
-    this.suaDichVu.getRawValue();
-
-    this.suaDichVu.get('idDichVu')?.setValue(this.dichVu.idDichVu);
-    this.suaDichVu.get('tenDichVu')?.setValue(this.dichVu.tenDichVu);
-    this.suaDichVu.get('donViTinh')?.setValue(this.dichVu.donViTinh);
-    this.suaDichVu.get('giaTien')?.setValue(this.dichVu.giaTien);
-    this.suaDichVu.get('tinhTrang')?.setValue(this.dichVu.tinhTrang);
-    this.suaDichVu.get('gioBatDau')?.setValue(this.dichVu.gioBatDau);
-    this.suaDichVu.get('gioKetThuc')?.setValue(this.dichVu.gioKetThuc);
-    this.suaDichVu.get('ngayThem')?.setValue(this.dichVu.ngayThem);
-    ;
-  }
-  //
-  suaDichVutoDb() {
-    this.suaDichVu.getRawValue();
-    let dichVu: SuaDichVu = {
-      idDichVu: this.suaDichVu.controls['idDichVu'].value,
-      tenDichVu: this.suaDichVu.controls['tenDichVu'].value,
-      donViTinh: this.suaDichVu.controls['donViTinh'].value,
-      giaTien: this.suaDichVu.controls['giaTien'].value,
-      tinhTrang: this.suaDichVu.controls['tinhTrang'].value,
-      gioBatDau: this.suaDichVu.controls['gioBatDau'].value,
-      gioKetThuc: this.suaDichVu.controls['gioKetThuc'].value,
-      ngayThem: this.suaDichVu.controls['ngayThem'].value
-    }
-    console.log(dichVu);
-    this.DichVuService.updateDichVu(this.id, dichVu).subscribe((data: any) => {
-
-      this.router.navigateByUrl('/quanLyDichVu');
-      this.toastr.success('Sửa dịch vụ thành công', 'Thông báo', {
-        timeOut: 1000,
+  ngOnInit(): void {
+    enableRipple(true);
+    this.inputdata = this.data;
+    this.id = this.data.idDichVu;
+    if (this.id) {
+      this.dichVuService.getDichVuById(this.id).subscribe((data: DichVu) => {
+        if (data) {
+          this.model = data;
+          this.initalizeForm();
+        } else {
+          console.error('không tìm thấy dịch vụ', this.id);
+        }
       });
-    })
+    }
 
+    let month: number = new Date().getMonth();
+    let fullYear: number = new Date().getFullYear();
+    let date: number = new Date().getDate();
+
+    let timeObject: TimePicker = new TimePicker({
+      min: new Date(fullYear, month, date, 7),
+      max: new Date(fullYear, month, date, 16),
+      value: new Date(fullYear, month, date, 20, 0) // 20:00 PM
+    });
+    timeObject.appendTo('#element');
+    timeObject.change = (args: any) => {
+      const selectedTime = args.value;
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = this.formatTime(hours, minutes);
+      this.myForm.get('gioBatDau')?.setValue(formattedTime);
+    };
+
+    let timeObject2: TimePicker = new TimePicker({
+      min: new Date(fullYear, month, date, 7),
+      max: new Date(fullYear, month, date, 16),
+      value: new Date(fullYear, month, date, 20, 0) // 20:00 PM
+    });
+    timeObject2.appendTo('#element2');
+    timeObject2.change = (args: any) => {
+      const selectedTime = args.value;
+      const hours = selectedTime.getHours();
+      const minutes = selectedTime.getMinutes();
+      const formattedTime = this.formatTime(hours, minutes);
+      this.myForm.get('gioKetThuc')?.setValue(formattedTime);
+    };
   }
-  //
+  initalizeForm(): void {
+    this.myForm = new FormGroup({
+      idDichVu: new FormControl(this.model?.idDichVu),
+      tenDichVu: new FormControl(this.model?.tenDichVu),
+      donViTinh: new FormControl(this.model?.donViTinh),
+      giaTien: new FormControl(this.model?.giaTien),
+      tinhTrang: new FormControl(this.model?.tinhTrang),
+      gioBatDau: new FormControl(this.model?.gioBatDau),
+      gioKetThuc: new FormControl(this.model?.gioKetThuc),
+      // ngayThem: new FormControl(this.datePipe.transform(this.model?.ngayThem, 'dd-MM-yyyy')),
+      ngayThem: new FormControl(this.model?.ngayThem)
+
+    })
+  }
+  formatTime(hours: number, minutes: number): string {
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+  }
+  ClosePopup() {
+    this.ref.close();
+  }
+
+  suaDichVu() {
+    console.log('Model:', this.model);
+    console.log('Form Value:', this.myForm.value);
+    if (this.model && this.id) {
+      const suaDichVU: SuaDichVu = { ...this.myForm.value };
+      this.dichVuService.updateDichVu(this.id, suaDichVU).subscribe((response) => {
+        console.log(response);
+        this.toastr.success('Sửa dịch vụ thành công', 'Thông báo', {
+          timeOut: 1000,
+        });
+      })
+      this.ref.close();
+    }
+  }
 
 }

@@ -1,82 +1,141 @@
 <div class="container-fluid">
-    <div class="row">
-      <!-- Main Sidebar -->
-      <app-main-sidebar class="p-0"></app-main-sidebar>
-      <!-- End Main Sidebar -->
-      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <div class="main-navbar sticky-top bg-white">
-          <!-- Main Navbar -->
-          <app-main-navbar></app-main-navbar>
-        </div>
-        <!-- / .main-navbar -->
+  <div class="row">
+    <!-- Main Sidebar -->
+    <app-main-sidebar class="p-0"></app-main-sidebar>
+    <!-- End Main Sidebar -->
+    <main
+      class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3"
+    >
+      <div class="main-navbar sticky-top bg-white">
+        <!-- Main Navbar -->
+        <app-main-navbar></app-main-navbar>
+      </div>
+      <!-- / .main-navbar -->
 
+      <!-- Start dịch vụ -->
+      <div class="main-content-container container-fluid px-4">
+        <div class="page-header row no-gutters py-4">
+          <div class="QuanLuTour_container">
+            <button
+              mat-raised-button
+              color="primary"
+              class="mb-3"
+              (click)="themDichVu()"
+            >
+              Thêm dịch vụ (+)
+            </button>
+            <mat-form-field>
+              <mat-label>Tìm kiếm</mat-label>
+              <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder="Nhập từ khóa tìm kiếm"
+                #input
+              />
+            </mat-form-field>
 
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <!-- ID DichVu Column -->
+                <ng-container matColumnDef="idDichVu">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Mã Dịch Vụ
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.idDichVu }}</td>
+                </ng-container>
 
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-          <div class="page-header row no-gutters py-4">
-            <div class="QuanLuTour_container">
-              <h3>Quản lý dịch vụ</h3>
-              <button class="btn btn-primary" routerLink="/themDichVu">Thêm mới dịch vụ</button>
-  
-              <ng-container>
-              
-                <table class="table table-bordered table-striped  table-reponsive mt-3">
-                  <thead class="text-center align-middle">
-                      <tr>
-                          <th>STT</th>
-                          <th scope="col">Mã dịch vụ</th>
-                          <th scope="col">Tên dịch vụ</th> 
-                          <th scope="col">Đơn vị tính</th>
-                          <th scope="col">Giá tiền</th>
-                          <th scope="col">Tình trạng</th>
-                          <th scope="col">Giờ bắt đầu</th>
-                          <th scope="col">Giờ kết thúc</th>
-                          <th scope="col">Ngày thêm</th>
-                          <th scope="col">Tùy chọn</th>
-  
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @for (item of dichVu; track $index) {
-                      <tr class="text-center align-middle" data-bs-toggle="collapse"
-                          [attr.data-bs-target]="'#collapseExample' + ($index)" aria-expanded="false"
-                          [attr.aria-controls]="'collapseExample' + ($index)">
-                          <th>{{$index+1}}</th>
-                          <td>{{item.idDichVu}}</td>
-                          <td>{{item.tenDichVu}}</td>
-                          <td>{{item.donViTinh}}</td>
-                          <td>{{item.giaTien}}</td>
-                          <td>{{item.tinhTrang}}</td>
-                          <td>{{item.gioBatDau}}</td>
-                          <td>{{item.gioKetThuc}}</td>
-                          <td>{{item.ngayThem}}</td>
-                         
-                          <td>
-                            <button class="btn btn-primary mx-2" [routerLink]="'/suaDichVu/'+item.idDichVu" ><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-danger mx-2" (click)="deleteDichVu(item.idDichVu)" ><i class="bi bi-trash3"></i></button>
-                              </td>
+                <!-- Ten DichVu Column -->
+                <ng-container matColumnDef="tenDichVu">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Tên Dịch Vụ
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.tenDichVu }}</td>
+                </ng-container>
 
-                      </tr>
-         
-                      }
-  
-                  </tbody>
+                <!-- DonViTinh Column -->
+                <ng-container matColumnDef="donViTinh">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Đơn Vị Tính
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.donViTinh }}</td>
+                </ng-container>
+
+                <!-- GiaTien Column -->
+                <ng-container matColumnDef="giaTien">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Giá Tiền
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.giaTien }}</td>
+                </ng-container>
+
+                <!-- GioBatDau Column -->
+                <ng-container matColumnDef="gioBatDau">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Giờ Bắt Đầu
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.gioBatDau }}</td>
+                </ng-container>
+
+                <!-- GioKetThuc Column -->
+                <ng-container matColumnDef="gioKetThuc">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Giờ Kết Thúc
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.gioKetThuc }}</td>
+                </ng-container>
+
+                <!-- NgayThem Column -->
+                <!-- <ng-container matColumnDef="ngayThem">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Ngày Thêm
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.ngayThem | date : "dd/MM/yyyy" }}
+                  </td>
+                </ng-container> -->
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Hành động</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="suaDichVu(element.idDichVu)"
+                      class="m-1"
+                    >
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button mat-raised-button color="warn" class="m-1">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="7">
+                    Không có dữ liệu phù hợp với từ khóa "{{ input.value }}"
+                  </td>
+                </tr>
               </table>
 
-              </ng-container>
+              <mat-paginator
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page of users"
+              ></mat-paginator>
             </div>
-              
-
           </div>
+        </div>
       </div>
-        <!-- End dịch vụ -->
+      <!-- End dịch vụ -->
 
-
-
-
-
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
-    </div>
+      <app-footer-main-admin></app-footer-main-admin>
+    </main>
   </div>
+</div>
