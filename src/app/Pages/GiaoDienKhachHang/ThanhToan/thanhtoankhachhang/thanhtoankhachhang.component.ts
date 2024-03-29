@@ -29,11 +29,11 @@ interface DichVuThemVaoDb {
 export class ThanhtoankhachhangComponent implements OnInit {
 
   constructor(private dichVuServices: DichvuService,
+
     @Inject(PLATFORM_ID) private _platform_id: Object,
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
     private nguoiDung: NguoiDungService,
-    private dichVuChiTiet: DichVuChiTietService,
 
   ) {
 
@@ -241,7 +241,9 @@ export class ThanhtoankhachhangComponent implements OnInit {
   XacNhanDatTour() {
     // this.isfalse = !this.isfalse;
     this.DatTourChoKhachHang();
-  } DatTourChoKhachHang() {
+
+  }
+  DatTourChoKhachHang() {
     this.datTourKhachHang = {
       IdDatTour: 'DLRamDom',
       IdTour: this.ItemTourById.idTour,

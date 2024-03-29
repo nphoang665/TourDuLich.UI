@@ -26,7 +26,9 @@ export class TiepNhanDatTourComponent implements OnInit {
     for (let index = 0; index < this.datTour.length; index++) {
       if (this.datTour[index].idDatTour == id) {
         this.tourById = this.datTour[index];
+        this.tourById.idNhanVien = nguoiDung.idNhanVien;
         this.tourById.tinhTrang = "Đã được duyệt";
+        this.tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} chấp nhận tour`;
       }
 
     }
@@ -38,11 +40,15 @@ export class TiepNhanDatTourComponent implements OnInit {
 
   //
   huyDatTour(id: string) {
+    const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
 
     for (let index = 0; index < this.datTour.length; index++) {
       if (this.datTour[index].idDatTour == id) {
         this.tourById = this.datTour[index];
         this.tourById.tinhTrang = "Đã từ chối";
+        this.tourById.idNhanVien = nguoiDung.idNhanVien;
+        this.tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} hủy tour`;
+
       }
 
     }

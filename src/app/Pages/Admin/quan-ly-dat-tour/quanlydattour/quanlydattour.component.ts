@@ -11,7 +11,18 @@ import { TourDuLich } from '../../models/tour-du-lich.model';
 import { environment } from '../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
+import { DichVu } from '../../models/Dich-Vu.model';
+import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../models/dich-vu-chi-tiet.model';
+import { NguoiDungService } from '../../services/NguoiDung/nguoi-dung.service';
+import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
+interface DichVuThemVaoDb {
+  idDihVuChiTiet: string;
+  idDichVu: string;
+  soLuong: number;
+  giaTien: number;
 
+}
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
@@ -19,13 +30,16 @@ import { Router } from '@angular/router';
 })
 export class QuanlydattourComponent implements OnInit {
   themKhachHang: KhachHang;
-  TenKhachHang = new FormControl();
+  TenKhachHang = new FormControl('');
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
+    private dichVuServices: DichvuService,
     private datTourService: DattourService,
     private http: HttpClient,
     private thanhToanService: ThanhToanService,
+    private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
+    private dichVuChiTietServices: DichVuChiTietService,
     private router: Router) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
@@ -43,6 +57,20 @@ export class QuanlydattourComponent implements OnInit {
       ngayDangKy: ngayGioHienTaiFormatted
     }
 
+
+  }
+  //disable khách hàng ở thêm đặt tour khi có ở thêm khách hàng
+  checkValue() {
+    if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
+
+
+      this.TenKhachHang.disable();
+    } else {
+      this.TenKhachHang.enable();
+    }
+  }
+  TypingKhachHang() {
+    this.checkValue();
   }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
@@ -51,10 +79,6 @@ export class QuanlydattourComponent implements OnInit {
   //khai báo TourDuLich để html sử dụng hiển thị
   TourDuLich: any[] = [];
   ngOnInit(): void {
-    var ngayGioHienTai = new Date();
-
-    console.log(ngayGioHienTai.toISOString());
-
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
       this.TourDuLich = data;
@@ -69,8 +93,8 @@ export class QuanlydattourComponent implements OnInit {
     this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
     this.khachHang$.subscribe((data: KhachHang[]) => {
       this.arrKhachHang = data;
-
     })
+    this.GetDichVu();
   }
   //xử lý select khách hàng
   IdKhachHang !: string;
@@ -78,9 +102,9 @@ export class QuanlydattourComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
     if (khachhang) {
-      console.log(khachhang);
-
       this.TenKhachHang.setValue(khachhang.tenKhachHang)
+
+
       this.IdKhachHang = khachhang.idKhachHang;
     }
   }
@@ -151,11 +175,48 @@ export class QuanlydattourComponent implements OnInit {
     this.TinhTongTien();
   }
   GhiChu_DatTour!: string;
+  //hàm đặt tour
   DatTour() {
+    //nếu thêm khách hàng không có value
+    if (this.themKhachHang.tenKhachHang == '') {
+      this.onDatTour(null);
+    }
+    //nếu thêm khách hàng có value
+    else {
+      this.onSubmitThemKhachHang();
+
+    }
+
+
+
+  }
+  //hàm thêm khách hàng
+  //biến chứa khách hàng reponse 
+  onSubmitThemKhachHang() {
+
+
+    this.quanLyKhachHangServices.themKhachHang(this.themKhachHang)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+
+          this.onDatTour(response);
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            console.log(error);
+          } else {
+            console.error('Đã xảy ra lỗi:', error);
+          }
+        }
+      })
+  }
+  onDatTour(khachHangRes: any) {
+    console.log(khachHangRes, this.IdKhachHang);
     let dataToSave = {
       idDatTour: '123',
       idTour: this.model?.idTour,
-      idKhachHang: this.IdKhachHang,
+      idKhachHang: this.IdKhachHang != '' ? this.IdKhachHang : khachHangRes.idKhachHang,
       thoiGianDatTour: this.NgayDatTour,
       soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
       soLuongTreEm: this.SoLuongTreEm_DatTour,
@@ -168,7 +229,29 @@ export class QuanlydattourComponent implements OnInit {
     this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
       .subscribe(response => {
         console.log(response);
+        this.onThemDichVuChiTiet(response);
       });
+  }
+  //hàm thêm dịch vụ chi tiết vào db
+  onThemDichVuChiTiet(datTour: any) {
+    const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
+    //mảng chứa những dịch vụ chi tiết để thêm vào db
+    let arr_TongDichVuRequest: any[] = [];
+    this.TongDichVu_Db.forEach(element => {
+      const objDichVu: ThemDichVuChiTietRequestDto = {
+        idDichVuChiTiet: 'DataDefault',
+        idDichVu: element.idDichVu,
+        idKhachHang: datTour.idKhachHang,
+        idDatTour: datTour.idDatTour,
+        idNhanVien: nguoiDung.idNhanVien,
+        thoiGianDichVu: new Date().toISOString(),
+        soLuong: element.soLuong,
+      }
+      arr_TongDichVuRequest.push(objDichVu);
+    });
+    this.dichVuChiTietServices.LuuDichVuChiTietVaoDb(datTour.idDatTour, arr_TongDichVuRequest).subscribe((result: any) => {
+      alert(result);
+    })
   }
 
 
@@ -248,24 +331,8 @@ export class QuanlydattourComponent implements OnInit {
 
   }
 
-  onSubmitThemKhachHang() {
-    console.log(this.themKhachHang);
 
-    this.quanLyKhachHangServices.themKhachHang(this.themKhachHang)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          if (error.status === 400) {
-            console.log(error);
-          } else {
-            console.error('Đã xảy ra lỗi:', error);
-          }
-        }
-      })
-  }
-
+  //hàm thanh toán
   onThanhToan() {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
@@ -314,5 +381,100 @@ export class QuanlydattourComponent implements OnInit {
         }
       })
   }
+  // hàm xử lý dịch vụ
+  n: number = 0;
+  DichVu: any[] = [];
+  _ngDichVuDaChon: string[] = [];
+  TongDichVu: any[] = [];
+  //mảng được tách để lưu vào db
+  TongDichVu_Db: DichVuThemVaoDb[] = [];
+  //khai báo số lượng người dùng chọn
+  _ngSoLuongDaChon: number[] = [];
+  GetDichVu() {
+    this.dichVuServices.LayDichVuMau().subscribe((data: DichVu[]) => {
+      this.DichVu = data;
 
+
+    });
+  }
+
+  ThemDichVu() {
+    this.TongDichVu.push('');
+    this._ngDichVuDaChon.push('');
+    const servicesMoi: DichVuThemVaoDb = {
+      idDihVuChiTiet: '',
+      idDichVu: '',
+      soLuong: 1,
+      giaTien: 0,
+    };
+    //lấy index cuối cùng của thêm dịch vụ
+    this._ngSoLuongDaChon[this.TongDichVu_Db.length] = 1;
+    this.TongDichVu_Db.push(servicesMoi);
+  }
+
+  KiemTraDichVuDaChon(idDichVu: string, index: number): boolean {
+
+    let flag = false;
+    if (index != 0) {
+      for (let i = 0; i < this._ngDichVuDaChon.length; i++) {
+        if (i != index && this._ngDichVuDaChon[i] == idDichVu) {
+          flag = true;
+        }
+      }
+    }
+    //sao chép array
+    this.TongDichVu_Db[index].idDichVu = this._ngDichVuDaChon[index];
+    //lấy giá dịch vụ khi thay đổi
+
+
+    return flag;
+  }
+  //xóa dịch vụ 
+  XoaDichVuDaChon(i: any) {
+    this.TongDichVu.splice(i, 1);
+    this._ngDichVuDaChon.splice(i, 1);
+    this.TongDichVu_Db.splice(i, 1);
+    this._ngSoLuongDaChon.splice(i, 1);
+    this.TinhTienDichVu();
+
+  }
+
+  ThayDoiSoLuongDichVu(index: number, kieuNutBam: string) {
+    //nếu loại nút bấm là cộng
+    if (kieuNutBam === "Cong") {
+      this.TongDichVu_Db[index].soLuong++;
+      this._ngSoLuongDaChon[index] = this.TongDichVu_Db[index].soLuong;
+    }
+    //nếu loại nút bấm là trừ
+    else {
+      if (this.TongDichVu_Db[index].soLuong > 1) {
+        this.TongDichVu_Db[index].soLuong--;
+        this._ngSoLuongDaChon[index] = this.TongDichVu_Db[index].soLuong;
+      }
+    }
+    this.TinhTienDichVu();
+  }
+  ThayDoiDichVu(i: number) {
+    // console.log(this._ngDichVuDaChon[0], this.DichVu);
+    for (let index = 0; index < this.DichVu.length; index++) {
+      if (this._ngDichVuDaChon[i] == this.DichVu[index].idDichVu) {
+
+        this.TongDichVu_Db[i].giaTien = this.DichVu[index].giaTien
+
+      }
+
+    }
+    //update tiền dịch vụ
+    this.TinhTienDichVu();
+  }
+  //khai báo tổng tiền dịch vụ
+  TongTienDichVu: number = 0;
+  TinhTienDichVu() {
+    //reset khi tính tiền 
+    this.TongTienDichVu = 0;
+    this.TongDichVu_Db.forEach(element => {
+      this.TongTienDichVu += element.giaTien * element.soLuong;
+    });
+
+  }
 }

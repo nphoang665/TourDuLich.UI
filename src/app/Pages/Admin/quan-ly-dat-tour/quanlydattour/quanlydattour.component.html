@@ -22,7 +22,7 @@
                                 @for(item of TourDuLich; track $index){
                                 <div class="card_tour col-lg-3">
                                     <div class="div_img">
-                                        <div class="tinhTrang"><span class="  badge rounded-pill bg-success">
+                                        <div class="tinhTrang"><span class="  badge rounded-0 bg-success">
                                                 Đang giảm giá
                                             </span></div>
                                         <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
@@ -123,13 +123,17 @@
                                 tin tour</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#dichVu">Dịch vụ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " data-bs-toggle="tab" href="#khachHangMoi">Khách hàng mới</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#dichVu">
+                                Dịch vụ
+                                <span class="badge bg-primary">{{TongDichVu_Db.length}}</span>
+                            </a>
                         </li>
 
-
+                        <li class="nav-item text-nowrap" [hidden]="TenKhachHang.value !== ''">
+                            <a class="nav-link " data-bs-toggle="tab" href="#khachHangMoi">Khách hàng mới<span
+                                    class="badge bg-primary ms-1" [hidden]="themKhachHang.tenKhachHang==''"><i
+                                        class="bi bi-person-plus"></i></span></a>
+                        </li>
                     </ul>
 
                     <div class="tab-content">
@@ -150,19 +154,21 @@
                                     <div class="col-lg-3">
                                         <label for="exampleDataList" class="form-label">Tên khách hàng</label>
                                         <input spellcheck="false" class="form-control" [formControl]="TenKhachHang"
-                                            (input)="selectValueKhachHang($event)" list="datalistOptions"
-                                            id="exampleDataList" placeholder="Type to search...">
+                                            (input)="TypingKhachHang()" list="datalistOptions" id="exampleDataList"
+                                            placeholder="Type to search..." data-bs-toggle="tooltip"
+                                            data-placement="top"
+                                            [attr.title]="themKhachHang.tenKhachHang != '' ?'Bạn đang thêm mới nhân viên': ''">
 
                                         <datalist id="datalistOptions">
-
                                             @for(item of arrKhachHang; track $index){
                                             <option [value]="item.soDienThoai + '-' + item.email">
                                                 {{item.tenKhachHang}}
                                             </option>
-
                                             }
                                         </datalist>
                                     </div>
+
+
 
                                     <div class="col-lg-3">
                                         <label for="NgayDat" class="form-label">Ngày đặt</label>
@@ -355,9 +361,68 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="dichVu">
+                        <div class="tab-pane fade pt-3" id="dichVu">
                             <!-- Nội dung tab Dịch vụ -->
-                            3
+                            @if(TongDichVu.length!==0){
+                            <span class=""><b>Đăng ký dịch vụ</b></span>
+                            }
+                            <div
+                                style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
+
+                                <div *ngFor="let dv of TongDichVu; let i = index">
+                                    <!-- Nội dung của bạn ở đây -->
+                                    <div class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1"
+                                        style="box-sizing: border-box;">
+                                        <div class="row flex-nowrap">
+                                            <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
+                                                <select class="form-control border-0 shadow-none"
+                                                    [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
+                                                    (change)="ThayDoiDichVu(i)">
+                                                    <option value="">-Chọn dịch vụ-</option>
+                                                    <ng-container *ngFor="let dv of DichVu; let j = index">
+                                                        <option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu,i)"
+                                                            [value]="dv.idDichVu">
+                                                            {{dv.tenDichVu}}
+                                                        </option>
+                                                    </ng-container>
+                                                </select>
+
+
+                                            </div>
+
+
+                                            <div
+                                                class="col-4 col-sm-4 col-md-5 col-lg-4  d-flex align-items-center justify-content-center">
+                                                <div class="input-group" style="box-sizing: border-box;">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text border-0 bg-transparent "
+                                                            id="basic-addon1"
+                                                            (click)="ThayDoiSoLuongDichVu(i,'Tru')"><strong>-</strong></span>
+                                                    </div>
+                                                    <input type="text" class="form-control border-0 text-center"
+                                                        aria-label="Username" aria-describedby="basic-addon1"
+                                                        [(ngModel)]="_ngSoLuongDaChon[i]">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text border-0 bg-transparent"
+                                                            id="basic-addon1"
+                                                            (click)="ThayDoiSoLuongDichVu(i,'Cong')"><strong>+</strong></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center"
+                                                style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
+                                                <i class="bi bi-x-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if(TongDichVu.length < DichVu.length){ <span class="text-info p-1 mt-1"
+                                style="cursor: pointer;" (click)="ThemDichVu()">
+                                <i class="bi bi-plus-circle me-1"></i>Thêm dịch vụ
+                                </span>
+                                }
                         </div>
                         <div class="tab-pane fade" id="khachHangMoi">
                             <!-- Nội dung tab Dịch vụ -->
@@ -367,30 +432,30 @@
                                         <label for="IdKhachHang" class="form-label">Mã khách hàng</label>
                                         <input type="text" class="form-control" id="IdKhachHang" [(ngModel)]="themKhachHang.idKhachHang">
                                     </div> -->
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label class="form-label">Tên khách hàng</label>
                                         <input type="text" class="form-control" id="tenKhachHang" name="tenKhachHang"
                                             placeholder="Nhập tên khách hàng..."
-                                            [(ngModel)]="themKhachHang.tenKhachHang">
+                                            [(ngModel)]="themKhachHang.tenKhachHang" (input)="TypingKhachHang()">
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label for="exampleDataList" class="form-label">Số điện thoại</label>
                                         <input type="text" class="form-control" id="soDienThoai" name="soDienThoai"
                                             placeholder="Nhập số điện thoại..." [(ngModel)]="themKhachHang.soDienThoai">
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label for="exampleDataList" class="form-label">Địa chỉ</label>
                                         <input type="text" class="form-control" id="diaChi" name="diaChi"
                                             placeholder="Nhập địa chỉ..." [(ngModel)]="themKhachHang.diaChi">
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label for="exampleDataList" class="form-label">CCCD</label>
                                         <input type="text" class="form-control" id="cCCD" name="cccd"
                                             placeholder="Nhập CCCD..." [(ngModel)]="themKhachHang.cccd">
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label class="form-label">Ngày sinh</label>
                                         <input type="date" name="ngaySinh" class="form-control" id="ngaySinh"
                                             [(ngModel)]="themKhachHang.ngaySinh">
@@ -398,7 +463,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label class="form-label">Giới tính</label>
                                         <select class="form-select" id="gioiTinh" name="gioiTinh"
                                             [(ngModel)]="themKhachHang.gioiTinh">
@@ -408,7 +473,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <label class="form-label">Email</label>
                                         <input type="text" class="form-control" id="email" name="email"
                                             placeholder="Nhập email..." [(ngModel)]="themKhachHang.email">
@@ -418,13 +483,13 @@
 
 
 
-                                    <div class="col-lg-1"></div>
 
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 " style="text-align: right;">
+
+                                    <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 " style="text-align: right;">
                                         <div class="mt-3 " style="border-radius: 5px;">
                                             <button class="btn btn-primary" type="submit">Thêm khách hàng</button>
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                 </div>

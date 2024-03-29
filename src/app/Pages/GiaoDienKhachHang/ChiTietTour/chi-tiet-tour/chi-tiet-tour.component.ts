@@ -18,7 +18,7 @@ declare var bootstrap: any;
 
 export class ChiTietTourComponent implements OnInit, AfterViewInit {
   Sl_NguoiLon_ThanhToan: number = 1;
-  Sl_TreEm_ThanhToan: number = 1;
+  Sl_TreEm_ThanhToan: number = 0;
 
   constructor(private route: ActivatedRoute,
     private tourDuLichServices: QuanLyTourService,
