@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Main Sidebar -->
-        <app-main-sidebar class="p-0"></app-main-sidebar>
+        <app-main-sidebar class="p-0" style="z-index: 1;"></app-main-sidebar>
         <!-- End Main Sidebar -->
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
             <div class="main-navbar sticky-top bg-white">
@@ -102,7 +102,7 @@
 
 <!-- modal -->
 <!-- Modal Đặt tour -->
-<div class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
+<div style="z-index: 9999;" class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             @if(model){
@@ -510,7 +510,7 @@
 </div>
 
 <!-- Modal Thanh toán -->
-<div class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+<div style="z-index:9999;" class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
