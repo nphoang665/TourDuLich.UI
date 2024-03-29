@@ -154,9 +154,9 @@
                                     <div class="col-lg-3">
                                         <label for="exampleDataList" class="form-label">Tên khách hàng</label>
                                         <input spellcheck="false" class="form-control" [formControl]="TenKhachHang"
-                                            (input)="TypingKhachHang()" list="datalistOptions" id="exampleDataList"
-                                            placeholder="Type to search..." data-bs-toggle="tooltip"
-                                            data-placement="top"
+                                            (input)="selectValueKhachHang($event)" list="datalistOptions"
+                                            id="exampleDataList" placeholder="Type to search..."
+                                            data-bs-toggle="tooltip" data-placement="top"
                                             [attr.title]="themKhachHang.tenKhachHang != '' ?'Bạn đang thêm mới nhân viên': ''">
 
                                         <datalist id="datalistOptions">

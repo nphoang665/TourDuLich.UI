@@ -99,12 +99,12 @@ export class QuanlydattourComponent implements OnInit {
   //xử lý select khách hàng
   IdKhachHang !: string;
   selectValueKhachHang(event: Event) {
+    // tắt form thêm khách hàng
+    this.TypingKhachHang();
     const input = event.target as HTMLInputElement;
     const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
     if (khachhang) {
       this.TenKhachHang.setValue(khachhang.tenKhachHang)
-
-
       this.IdKhachHang = khachhang.idKhachHang;
     }
   }
