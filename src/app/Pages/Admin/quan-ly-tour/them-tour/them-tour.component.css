@@ -1,4 +1,18 @@
-.btn_Xoa {
-  position: absolute;
-  top: -100px;
+mat-card{
+  margin: 2%;
+  text-align: left;
+}
+
+.mat-mdc-form-field{
+  width: 30%;
+  margin: 1%;
+}
+
+.mat-50{
+  width: 48%;
+  margin: 1%;
+}
+
+button{
+  margin: 2px;
 }

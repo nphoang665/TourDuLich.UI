@@ -13,7 +13,7 @@ export class QuanLyTourService {
 
   constructor(private http: HttpClient) { }
   themTourDuLich(data: themTour): Observable<TourDuLich> {
-    return this.http.post<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich?addAuth=true`, data);
+    return this.http.post<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich`, data);
   }
 
   getAllTourDuLich(): Observable<TourDuLich[]> {
