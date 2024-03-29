@@ -10,6 +10,7 @@ import { SuaTour } from '../../models/sua-tour.model';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ToastrService } from 'ngx-toastr';
+import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 
 @Component({
   selector: 'app-sua-tour',
@@ -76,32 +77,80 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id')
 
-    this.routeSubscription = this.route.paramMap.subscribe({
-      next: (prams) => {
-        this.id = prams.get('id');
-
-        if (this.id) {
-          this.quanLyTourService.getTourDuLichById(this.id)
-            .subscribe({
-              next: (response) => {
-                this.model = response;
-
-
-
-                this.HienThiAnhPreview()
-              }
-            })
+    if(this.id){
+      this.quanLyTourService.getTourDuLichById(this.id).subscribe((data:TourDuLich)=>{
+        if(data){
+          this.model = data;
+          this.initializeForm();
+        }else{
+          console.error('Không tìm thấy tour có ID: ', this.id);
         }
-      }
-    });
+      })
+    }
+  
     this.doiTacServices.getAllDoiTac().subscribe((data: DoiTac[]) => {
       this.DoiTac = data;
       console.log(this.DoiTac);
 
     })
+    
+    let datetimepicker: DateTimePicker = new DateTimePicker({
+      placeholder: "Select DateTime",
+      change: (args: ChangeEventArgs) => {
+        const selectedDate = args.value as Date;
+        const formattedDate = this.formatDate(selectedDate);
+        var a = new Date(formattedDate).toISOString();
+        this.suaTourForm.get('thoiGianBatDau')?.setValue(a);
+      }
+    });
+    datetimepicker.appendTo('#element');
 
+    let datetimepicker2: DateTimePicker = new DateTimePicker({
+      placeholder: "Select DateTime2",
+      change: (args: ChangeEventArgs) => {
+        const selectedDate = args.value as Date;
+        const formattedDate = this.formatDate(selectedDate);
+        var a = new Date(formattedDate).toISOString();
+        this.suaTourForm.get('thoiGianKetThuc')?.setValue(a);
+      }
+    });
+    datetimepicker2.appendTo('#element2');
+    }
 
+    formatDate(date: Date): string {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
+      const year = date.getFullYear();
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const seconds = date.getSeconds().toString().padStart(2, '0');
+      
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+  initializeForm():void{
+    this.suaTourForm = new FormGroup({
+      tenTour: new FormControl(this.model?.tenTour || ''),
+      loaiTour: new FormControl(this.model?.loaiTour || ''),
+      phuongTienDiChuyen: new FormControl(this.model?.phuongTienDiChuyen || ''),
+      moTa: new FormControl(this.model?.moTa || ''),
+      soLuongNguoiLon: new FormControl(this.model?.soLuongNguoiLon || 0),
+      soLuongTreEm: new FormControl(this.model?.soLuongTreEm || 0),
+      thoiGianBatDau: new FormControl(this.model?.thoiGianBatDau || ''),
+      thoiGianKetThuc: new FormControl(this.model?.thoiGianKetThuc || ''),
+      noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || ''),
+      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0),
+      idDoiTac: new FormControl(this.model?.idDoiTac || ''),
+      giaTreEm: new FormControl(this.model?.giaTreEm || 0),
+      giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0),
+      ngayThem: new FormControl(this.model?.ngayThem || ''),
+      dichVuDiKem: new FormControl(this.model?.dichVuDiKem || ''),
+      tinhTrang: new FormControl(this.model?.tinhTrang || ''),
+      anhTourDb: new FormControl(this.arrImgPreviewClientHandle || []),
+      anhTourBrowse: new FormControl(this.fileImgPreviewFromBrowse || [])
+    });    
   }
 
   //hiển thị ảnh từ db
@@ -178,45 +227,19 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   }
   //sửa tour
   SuaTour() {
-    // const tourData = this.suaTourForm.value;
-    // tourData.moTa = this.Text;
-    // console.log(tourData, this.Text);
-    // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
+    console.log(this.suaTourForm.value);
+    
+      if(this.model && this.id){
+        const suaTour:SuaTour = {...this.suaTourForm.value};
 
-    if (this.model && this.id) {
-      var updateTourDuLich: SuaTour = {
-        tenTour: this.model.tenTour,
-        loaiTour: this.model.loaiTour,
-        phuongTienDiChuyen: this.model.phuongTienDiChuyen,
-        moTa: this.model.moTa,
-        soLuongNguoiLon: this.model.soLuongNguoiLon,
-        soLuongTreEm: this.model.soLuongTreEm,
-        thoiGianBatDau: this.model.thoiGianBatDau,
-        thoiGianKetThuc: this.model.thoiGianKetThuc,
-        noiKhoiHanh: this.model.noiKhoiHanh,
-        soChoConNhan: this.model.soChoConNhan,
-        idDoiTac: this.model.idDoiTac,
-        giaTreEm: this.model.giaTreEm,
-        giaNguoiLon: this.model.giaNguoiLon,
-        ngayThem: this.model.ngayThem,
-        dichVuDiKem: this.model.dichVuDiKem,
-        tinhTrang: this.model.tinhTrang,
-        anhTourDb: this.arrImgPreviewClientHandle,
-        anhTourBrowse: this.fileImgPreviewFromBrowse
-
-      }
-
-      this.updateTourSubcription = this.quanLyTourService.suaTourDuLich(this.id, updateTourDuLich)
-        .subscribe({
-          next: (response) => {
-            this.router.navigateByUrl('/quanlytour');
-            // console.log(response);
-            this.toastr.success('Sửa tour thành công', 'Thông báo', {
-              timeOut: 1000,
-            });
-          }
+        this.quanLyTourService.suaTourDuLich(this.id,suaTour).subscribe((response)=>{
+          this.router.navigateByUrl('/quanlytour');
+          // console.log(response);
+          this.toastr.success('Sửa tour thành công', 'Thông báo', {
+            timeOut: 1000,
+          });
         })
-    }
+      }
   }
 
 

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemTourComponent } from './them-tour/them-tour.component';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-quan-ly-tour',
@@ -16,9 +17,11 @@ import { QuanLyTourService } from '../services/quan-ly-tour.service';
 export class QuanLyTourComponent implements AfterViewInit, OnInit{
   displayedColumns: string[] = ['idTour','tenTour', 'loaiTour', 'phuongTienDiChuyen', 'soChoConNhan', 'action'];
   dataSource: MatTableDataSource<TourDuLich>;
+  
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  tourDuLich$?: Observable<TourDuLich[]>;
 
   constructor(private quanLyTourService: QuanLyTourService, private toastr: ToastrService,
     private dialog: MatDialog) {
@@ -72,5 +75,20 @@ export class QuanLyTourComponent implements AfterViewInit, OnInit{
         console.error('Error fetching DichVu data: ', error);
       }
     );
+  }
+
+  XoaTour(id: string) {
+    if (id) {
+      this.quanLyTourService
+        .xoaTourDuLich(id)
+        .subscribe({
+          next: (response) => {
+            this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
+            this.toastr.success('Xóa tour thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
+          }
+        });
+    }
   }
 }

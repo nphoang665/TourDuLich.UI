@@ -84,10 +84,11 @@
                         mat-raised-button
                         color="primary"
                         class="m-1"
+                        [routerLink]="['/suatour', element.idTour]"
                       >
                         <i class="fa-solid fa-pen-to-square"></i>
                       </button>
-                      <button mat-raised-button color="warn" class="m-1">
+                      <button mat-raised-button color="warn"(click)="XoaTour(element.idTour)" class="m-1">
                         <i class="bi bi-trash3"></i>
                       </button>
                     </td>

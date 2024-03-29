@@ -51,8 +51,6 @@ const routes: Routes = [
   { path: 'tiepNhanDatTour', component: TiepNhanDatTourComponent },
   { path: 'suaTiepNhanDatTour/:id', component: SuaTiepNhanDatTourComponent },
   { path: 'quanlytour', component: QuanLyTourComponent,canActivate: [authGuard] },
-  { path: 'themtour', component: ThemTourComponent,canActivate: [authGuard] },
-  { path: 'suatour/:id', component: SuaTourComponent,canActivate: [authGuard] },
   {path:'trangChuAdmin',component:TrangChuAdminComponent,canActivate: [authGuard]},
   {path:'quanLyDatTour',component:QuanlydattourComponent,canActivate: [authGuard]},
   {path:'quanLyKhachHang',component:QuanLyKhachHangComponent,canActivate: [authGuard]},
@@ -65,7 +63,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'themTour',component:ThemTourComponent},
-
+  {path:'suaTour/:id',component:SuaTourComponent},
   
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
