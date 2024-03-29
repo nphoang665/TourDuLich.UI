@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 import { DichVu } from '../../models/Dich-Vu.model';
@@ -7,7 +7,15 @@ import { TimePicker } from '@syncfusion/ej2-calendars';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-them-dich-vu',
   templateUrl: './them-dich-vu.component.html',
@@ -15,17 +23,60 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ThemDichVuComponent implements OnInit {
   isEditing: boolean = false;
+  matcher = new MyErrorStateMatcher();
   myForm: FormGroup = new FormGroup({
-    idDichVu: new FormControl(''),
-    tenDichVu: new FormControl(''),
-    donViTinh: new FormControl(''),
-    giaTien: new FormControl(''),
-    tinhTrang: new FormControl(''),
-    gioBatDau: new FormControl(''),
-    gioKetThuc: new FormControl(''),
-    ngayThem: new FormControl(new Date()),
+    idDichVu: new FormControl(''
+      
+    ),
+    tenDichVu: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+      
+    ]),
+    donViTinh: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50), 
+    ]),
+    giaTien: new FormControl('',[
+      Validators.required,
+      Validators.min(10000),
+      
+      
+    ]),
+    tinhTrang: new FormControl('',[
+    
+      
+    ]),
+    gioBatDau: new FormControl('',
+    Validators.required),
+    gioKetThuc: new FormControl('',
+    Validators.required),
+    ngayThem: new FormControl(new Date()
+   ),
   })
-
+  get tenDichVu(){
+    return this.myForm.get('tenDichVu');
+  }
+  get donViTinh(){
+    return this.myForm.get('donViTinh');
+  }
+  get giaTien(){
+    return this.myForm.get('giaTien');
+  }
+  get tinhTrang(){
+    return this.myForm.get('tinhTrang');
+  }
+  get gioBatDau(){
+    return this.myForm.get('gioBatDau');
+  }
+  get gioKetThuc(){
+    return this.myForm.get('gioKetThuc');
+  }
+  get ngayThem(){
+    return this.myForm.get('ngayThem');
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ref: MatDialogRef<ThemDichVuComponent>,
