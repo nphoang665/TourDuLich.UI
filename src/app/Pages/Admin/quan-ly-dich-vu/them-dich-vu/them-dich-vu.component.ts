@@ -32,12 +32,13 @@ export class ThemDichVuComponent implements OnInit {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
-      
+      this.noSpecialCharValidator(),
     ]),
     donViTinh: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
+      this.noSpecialCharValidator(),
     ]),
     giaTien: new FormControl('',[
       Validators.required,
@@ -70,10 +71,18 @@ export class ThemDichVuComponent implements OnInit {
   }
   get gioBatDau(){
     return this.myForm.get('gioBatDau');
+
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
   }
   get gioKetThuc(){
     return this.myForm.get('gioKetThuc');
   }
+  
   get ngayThem(){
     return this.myForm.get('ngayThem');
   }
