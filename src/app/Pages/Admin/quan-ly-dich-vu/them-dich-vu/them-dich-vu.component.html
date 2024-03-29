@@ -12,7 +12,10 @@
         }
       @else if (tenDichVu?.errors?.['maxlength']) {
           <mat-error>Tên dịch vụ quá dài</mat-error>
-          }
+        }
+      @else if (tenDichVu?.errors?.['invalidChar']) {
+            <mat-error>Tên dịch vụ không chứa ký tự đặc biệt & số</mat-error>
+        }    
     </mat-form-field>
 
     <mat-form-field>
@@ -26,7 +29,10 @@
         }
       @else if (donViTinh?.errors?.['maxlength']) {
           <mat-error>Đơn vị tính quá dài</mat-error>
-          }
+        }
+        @else if (donViTinh?.errors?.['invalidChar']) {
+          <mat-error>Đơn vị tính không chứa ký tự đặc biệt & số</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>

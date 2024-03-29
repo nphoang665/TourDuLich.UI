@@ -3,11 +3,19 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { QuanLyDichVuService } from '../../services/DichVu/quan-ly-dich-vu.service';
 import { ToastrService } from 'ngx-toastr';
 import { TimePicker } from '@syncfusion/ej2-calendars/src';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { DichVu, SuaDichVu } from '../../models/Dich-Vu.model';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { DatePipe } from '@angular/common';
-
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-sua-dich-vu',
   templateUrl: './sua-dich-vu.component.html',
@@ -17,7 +25,8 @@ export class SuaDichVuComponent implements OnInit {
   isEditing: boolean = false;
   inputdata: any;
   model?: DichVu;
-  myForm: FormGroup = new FormGroup({
+  matcher = new MyErrorStateMatcher();
+  myForm : FormGroup = new FormGroup({
     tenDichVu: new FormControl(''),
     donViTinh: new FormControl(''),
     giaTien: new FormControl(''),
@@ -25,7 +34,36 @@ export class SuaDichVuComponent implements OnInit {
     gioBatDau: new FormControl(''),
     gioKetThuc: new FormControl(''),
     ngayThem: new FormControl(new Date()),
+    
   })
+  get tenDichVu(){
+    return this.myForm.get('tenDichVu');
+  }
+  get donViTinh(){
+    return this.myForm.get('donViTinh');
+  }
+  get giaTien(){
+    return this.myForm.get('giaTien');
+  }
+  get tinhTrang(){
+    return this.myForm.get('tinhTrang');
+  }
+  get gioBatDau(){
+    return this.myForm.get('gioBatDau');
+
+  }
+  get gioKetThuc(){
+    return this.myForm.get('gioKetThuc');
+  }
+  get ngayThem(){
+    return this.myForm.get('ngayThem');
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ref: MatDialogRef<SuaDichVuComponent>,
@@ -85,9 +123,22 @@ export class SuaDichVuComponent implements OnInit {
   initalizeForm(): void {
     this.myForm = new FormGroup({
       idDichVu: new FormControl(this.model?.idDichVu),
-      tenDichVu: new FormControl(this.model?.tenDichVu),
-      donViTinh: new FormControl(this.model?.donViTinh),
-      giaTien: new FormControl(this.model?.giaTien),
+      tenDichVu: new FormControl(this.model?.tenDichVu,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        this.noSpecialCharValidator(),
+      ]),
+      donViTinh: new FormControl(this.model?.donViTinh,[
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50), 
+        this.noSpecialCharValidator(),
+      ]),
+      giaTien: new FormControl(this.model?.giaTien,[
+        Validators.required,
+        Validators.min(10000),
+      ]),
       tinhTrang: new FormControl(this.model?.tinhTrang),
       gioBatDau: new FormControl(this.model?.gioBatDau),
       gioKetThuc: new FormControl(this.model?.gioKetThuc),
