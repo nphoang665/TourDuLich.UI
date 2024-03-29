@@ -1,44 +1,76 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { TourDuLich } from '../models/tour-du-lich.model';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { QuanLyTourService } from '../services/quan-ly-tour.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { ThemTourComponent } from './them-tour/them-tour.component';
+import { QuanLyTourService } from '../services/quan-ly-tour.service';
 
 @Component({
   selector: 'app-quan-ly-tour',
   templateUrl: './quan-ly-tour.component.html',
   styleUrl: './quan-ly-tour.component.css'
 })
-export class QuanLyTourComponent implements OnInit, OnDestroy {
+export class QuanLyTourComponent implements AfterViewInit, OnInit{
+  displayedColumns: string[] = ['idTour','tenTour', 'loaiTour', 'phuongTienDiChuyen', 'soChoConNhan', 'action'];
+  dataSource: MatTableDataSource<TourDuLich>;
 
-  tourDuLich$?: Observable<TourDuLich[]>;
-  xoaTourSubscription?: Subscription;
-  constructor(private quanLyTourService: QuanLyTourService, private router: Router,   private toastr: ToastrService) {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
+  constructor(private quanLyTourService: QuanLyTourService, private toastr: ToastrService,
+    private dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource<TourDuLich>([]);
+    this.getDichVuData();
   }
-
 
   ngOnInit(): void {
-    this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
 
   }
-  XoaTour(id: string) {
-    if (id) {
-      this.xoaTourSubscription = this.quanLyTourService
-        .xoaTourDuLich(id)
-        .subscribe({
-          next: (response) => {
-            this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
-            this.toastr.success('Xóa tour thành công', 'Thông báo', {
-              timeOut: 1000,
-            });
-          }
-        });
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
-  ngOnDestroy(): void {
-    this.xoaTourSubscription?.unsubscribe();
+  OpenPopup(id: any, title: any): void {
+    const _popup = this.dialog.open(ThemTourComponent, {
+      width: '60%',
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '250ms',
+      data: {
+        title: title,
+        idDichVu: id // Pass idDichVu to PopupComponent
+      },
+    });
+    _popup.afterClosed().subscribe((item) => {
+      console.log(item);
+      this.getDichVuData(); // Reload the list after closing the popup
+    });
+  }
+
+  themTour(): void {
+    this.OpenPopup(0, 'Thêm dịch vụ');
+  }
+
+  getDichVuData() {
+    this.quanLyTourService.getAllTourDuLich().subscribe(
+      (data: TourDuLich[]) => {
+        this.dataSource.data = data;
+      },
+      (error) => {
+        console.error('Error fetching DichVu data: ', error);
+      }
+    );
   }
 }
