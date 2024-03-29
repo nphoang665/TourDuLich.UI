@@ -22,12 +22,24 @@
     <div mat-dialog-content>
       <mat-form-field>
         <mat-label>Tên tour</mat-label>
-        <input matInput formControlName="tenTour" />
+        <input matInput formControlName="tenTour" [errorStateMatcher]="matcher" />
+        @if (tenTour?.errors?.['required']) {
+          <mat-error>Vui lòng nhập tên tour</mat-error>
+          } 
+        @else if (tenTour?.errors?.['minlength']) {
+          <mat-error>Tên tour quá ngắn</mat-error>
+          }
+        @else if (tenTour?.errors?.['maxlength']) {
+            <mat-error>Tên tour quá dài</mat-error>
+          }
+        @else if (tenTour?.errors?.['invalidChar']) {
+              <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
+          }   
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Loại Tour</mat-label>
-        <mat-select formControlName="loaiTour">
+        <mat-select formControlName="loaiTour" [errorStateMatcher]="matcher">
           <mat-option value="Du lịch sinh thái">Du lịch sinh thái</mat-option>
           <mat-option value="Du lịch văn hóa">Du lịch văn hóa</mat-option>
           <mat-option value="Du lịch nghỉ dưỡng">Du lịch nghỉ dưỡng</mat-option>
@@ -46,49 +58,121 @@
           <mat-option value="Tham quan thác">Tham quan thác</mat-option>
           <mat-option value="Thăm quan vườn cà phê">Thăm quan vườn cà phê</mat-option>
         </mat-select>
+        @if (loaiTour?.errors?.['required']) {
+          <mat-error>Vui lòng chọn loại tour</mat-error>
+          } 
       </mat-form-field>
       
       <mat-form-field>
         <mat-label>Phương tiện di chuyển</mat-label>
-        <mat-select formControlName="phuongTienDiChuyen">
+        <mat-select formControlName="phuongTienDiChuyen" [errorStateMatcher]="matcher">
           <mat-option value="Xe ô tô">Xe ô tô</mat-option>
           <mat-option value="Xe máy">Xe máy</mat-option>
         </mat-select>
+        @if (phuongTienDiChuyen?.errors?.['required']) {
+          <mat-error>Vui lòng chọn phương tiện di chuyển</mat-error>
+          } 
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Số lượng người lớn</mat-label>
-        <input matInput type="number" formControlName="soLuongNguoiLon" />
+        <input matInput type="number" formControlName="soLuongNguoiLon" [errorStateMatcher]="matcher"/>
+        @if (soLuongNguoiLon?.errors?.['required']) {
+          <mat-error>Vui lòng nhập số lượng người lớn</mat-error>
+          } 
+        @else if (soLuongNguoiLon?.errors?.['min']) {
+          <mat-error>Số lượng người lớn phải hơn 0</mat-error>
+          }
+        @else if (soLuongNguoiLon?.errors?.['max']) {
+            <mat-error>Số lượng người vượt quá mức cho phép</mat-error>
+          }
+        @else if (soLuongNguoiLon?.errors?.['invalidChar']) {
+              <mat-error>Số lượng người không chứa ký tự đặc biệt</mat-error>
+          }  
       </mat-form-field>
   
       <mat-form-field>
         <mat-label>Số lượng trẻ em</mat-label>
-        <input matInput type="number" formControlName="soLuongTreEm" />
+        <input matInput type="number" formControlName="soLuongTreEm" [errorStateMatcher]="matcher"/>
+        @if (soLuongTreEm?.errors?.['required']) {
+          <mat-error>Vui lòng nhập số lượng trẻ em</mat-error>
+          } 
+        @else if (soLuongTreEm?.errors?.['min']) {
+          <mat-error>Số lượng trẻ em phải hơn 0</mat-error>
+          }
+        @else if (soLuongTreEm?.errors?.['max']) {
+            <mat-error>Số lượng trẻ em vượt quá mức cho phép</mat-error>
+          }
+        @else if (soLuongTreEm?.errors?.['invalidChar']) {
+              <mat-error>Số lượng trẻ em không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Giá người lớn</mat-label>
-        <input matInput type="number" formControlName="giaNguoiLon" />
+        <input matInput type="number" formControlName="giaNguoiLon" [errorStateMatcher]="matcher"/>
+        @if (giaNguoiLon?.errors?.['required']) {
+          <mat-error>Vui lòng nhập giá người lớn</mat-error>
+          } 
+        @else if (giaNguoiLon?.errors?.['min']) {
+          <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+          }
+        @else if (giaNguoiLon?.errors?.['max']) {
+            <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+          }
+        @else if (giaNguoiLon?.errors?.['invalidChar']) {
+              <mat-error>Giá vé không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
   
       <mat-form-field>
         <mat-label>Giá trẻ em</mat-label>
-        <input matInput type="number" formControlName="giaTreEm" />
+        <input matInput type="number" formControlName="giaTreEm"[errorStateMatcher]="matcher" />
+        @if (giaTreEm?.errors?.['required']) {
+          <mat-error>Vui lòng nhập giá trẻ em</mat-error>
+          } 
+        @else if (giaTreEm?.errors?.['min']) {
+          <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+          }
+        @else if (giaTreEm?.errors?.['max']) {
+            <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+          }
+        @else if (giaTreEm?.errors?.['invalidChar']) {
+              <mat-error>Giá vé không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Số chỗ còn nhận</mat-label>
-        <input matInput type="number" formControlName="soChoConNhan" />
+        <input matInput type="number" formControlName="soChoConNhan"[errorStateMatcher]="matcher" />
+        @if (soChoConNhan?.errors?.['required']) {
+          <mat-error>Vui lòng nhập số chỗ còn nhận</mat-error>
+          } 
+        @else if (soChoConNhan?.errors?.['min']) {
+          <mat-error>Số chỗ quá ít</mat-error>
+          }
+        @else if (soChoConNhan?.errors?.['max']) {
+            <mat-error>Số chỗ quá nhiều</mat-error>
+          }
+        @else if (soChoConNhan?.errors?.['invalidChar']) {
+              <mat-error>Số chỗ không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
 
       <div class="row">
         <div class="col-lg-6">
           <mat-label>Thời gian bắt đầu</mat-label>
-          <input matInput formControlName="thoiGianBatDau" id='element'/>
+          <input matInput formControlName="thoiGianBatDau" id='element'[errorStateMatcher]="matcher"/>
+          @if (thoiGianBatDau?.errors?.['required']) {
+            <mat-error>Vui lòng chọn thời gian bắt đầu</mat-error>
+            } 
         </div>
         <div class="col-lg-6">
             <mat-label>Thời gian kết thúc</mat-label>
-            <input matInput formControlName="thoiGianKetThuc" id='element2'/>
+            <input matInput formControlName="thoiGianKetThuc" id='element2'[errorStateMatcher]="matcher"/>
+            @if (thoiGianKetThuc?.errors?.['required']) {
+              <mat-error>Vui lòng chọn thời gian kết thúc</mat-error>
+              } 
         </div>
       </div>
     
@@ -96,7 +180,19 @@
 
       <mat-form-field>
         <mat-label>Nơi khởi hành</mat-label>
-        <input matInput formControlName="noiKhoiHanh" />
+        <input matInput formControlName="noiKhoiHanh"[errorStateMatcher]="matcher" />
+        @if (noiKhoiHanh?.errors?.['required']) {
+          <mat-error>Vui lòng nhập nơi khởi hành</mat-error>
+          } 
+        @else if (noiKhoiHanh?.errors?.['minlength']) {
+          <mat-error>Nơi khởi hành quá ngắn</mat-error>
+          }
+        @else if (noiKhoiHanh?.errors?.['maxlength']) {
+            <mat-error>Nơi khởi hành quá dài</mat-error>
+          }
+        @else if (noiKhoiHanh?.errors?.['invalidChar']) {
+              <mat-error>Nơi khởi hành không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -110,7 +206,19 @@
       
       <mat-form-field>
         <mat-label>Dịch vụ đi kèm</mat-label>
-        <input matInput formControlName="dichVuDiKem" />
+        <input matInput formControlName="dichVuDiKem"[errorStateMatcher]="matcher" />
+        @if (dichVuDiKem?.errors?.['required']) {
+          <mat-error>Vui lòng nhập dịch vụ đi kèm</mat-error>
+          } 
+        @else if (dichVuDiKem?.errors?.['minlength']) {
+          <mat-error>Độ dài quá ngắn</mat-error>
+          }
+        @else if (dichVuDiKem?.errors?.['maxlength']) {
+            <mat-error>Vượt quá mức quy định</mat-error>
+          }
+        @else if (dichVuDiKem?.errors?.['invalidChar']) {
+              <mat-error>Dịch vụ đi kèm không chứa ký tự đặc biệt</mat-error>
+          } 
       </mat-form-field>
 
       <div class="col-lg-12">
