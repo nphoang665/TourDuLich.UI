@@ -212,11 +212,11 @@ export class QuanlydattourComponent implements OnInit {
       })
   }
   onDatTour(khachHangRes: any) {
-    console.log(khachHangRes, this.IdKhachHang);
+    console.log(this.IdKhachHang);
     let dataToSave = {
       idDatTour: '123',
       idTour: this.model?.idTour,
-      idKhachHang: this.IdKhachHang != '' ? this.IdKhachHang : khachHangRes.idKhachHang,
+      idKhachHang: this.IdKhachHang ? this.IdKhachHang : khachHangRes.idKhachHang,
       thoiGianDatTour: this.NgayDatTour,
       soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
       soLuongTreEm: this.SoLuongTreEm_DatTour,

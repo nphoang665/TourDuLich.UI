@@ -39,7 +39,6 @@ import { QuanLyTourComponent } from './Pages/Admin/quan-ly-tour/quan-ly-tour.com
 import { MainSidebarComponent } from './Pages/Admin/Main/main-sidebar/main-sidebar.component';
 import { MainNavbarComponent } from './Pages/Admin/Main/main-navbar/main-navbar.component';
 import { FooterMainAdminComponent } from './Pages/Admin/Main/footer-main-admin/footer-main-admin.component';
-import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 import { SuaTourComponent } from './Pages/Admin/quan-ly-tour/sua-tour/sua-tour.component';
 import { QuanlydattourComponent } from './Pages/Admin/quan-ly-dat-tour/quanlydattour/quanlydattour.component';
 import { QuanLyKhachHangComponent } from './Pages/Admin/quan-ly-khach-hang/quan-ly-khach-hang.component';
@@ -62,6 +61,7 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig 
 import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dich-vu.component';
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
+import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +76,6 @@ import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/su
     TimKiemTourComponent,
     SanPhamGiaoDienComponent,
     ChiTietTourComponent,
-    ThemTourComponent,
     SuaTourComponent,
     DragScrollDirective,
     DragScrollMobileDirective,
@@ -103,7 +102,8 @@ import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/su
     DanhGiaKhachHangComponent,
     QuanLyDichVuComponent,
     ThemDichVuComponent,
-    SuaDichVuComponent
+    SuaDichVuComponent,
+    ThemTourComponent
   ],
   imports: [
     BrowserModule,

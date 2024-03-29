@@ -64,6 +64,7 @@ const routes: Routes = [
   {path:'themKhachHang',component:ThemKhachHangComponent,canActivate: [authGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
+  {path:'themTour',component:ThemTourComponent},
 
   
 

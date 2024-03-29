@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { themTour } from '../../models/them-tour.model';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DoiTac } from '../../models/doi-tac.model';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
+import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 
 @Component({
   selector: 'app-them-tour',
@@ -18,7 +19,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   submitted = false;
   //form group
   ThemTourForm: FormGroup = new FormGroup({
-    idTour: new FormControl(''),
+    idTour: new FormControl('123'),
     tenTour: new FormControl(''),
     loaiTour: new FormControl(''),
     phuongTienDiChuyen: new FormControl(''),
@@ -32,35 +33,16 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     idDoiTac: new FormControl(''),
     giaTreEm: new FormControl(0),
     giaNguoiLon: new FormControl(0),
-    ngayThem: new FormControl(''),
+    ngayThem: new FormControl(new Date()),
     dichVuDiKem: new FormControl(''),
-    tinhTrang: new FormControl('')
+    tinhTrang: new FormControl('z')
   });
 
 
 
   private addTourSubscribtion?: Subscription;
 
-  model: themTour = {
-    idTour: '',
-    tenTour: '',
-    loaiTour: '',
-    phuongTienDiChuyen: '',
-    moTa: '',
-    soLuongNguoiLon: '',
-    soLuongTreEm: '',
-    thoiGianBatDau: new Date(),
-    thoiGianKetThuc: new Date(),
-    noiKhoiHanh: '',
-    soChoConNhan: '',
-    idDoiTac: '',
-    giaTreEm: '',
-    giaNguoiLon: '',
-    ngayThem: new Date(),
-    dichVuDiKem: '',
-    tinhTrang: '',
-    imgSelected: [],
-  }
+ 
 
 
   Text: string = '';
@@ -74,30 +56,10 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     public domSanitizer: DomSanitizer,
     private quanLyTourService: QuanLyTourService,
     private router: Router,
-    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private doiTacServices: DoiTacService
   ) {
-    this.model = {
-      idTour: '',
-      tenTour: '',
-      loaiTour: '',
-      phuongTienDiChuyen: '',
-      moTa: '',
-      soLuongNguoiLon: "0",
-      soLuongTreEm: '0',
-      thoiGianBatDau: new Date(),
-      thoiGianKetThuc: new Date(),
-      noiKhoiHanh: '',
-      soChoConNhan: '1',
-      idDoiTac: '',
-      giaTreEm: '1',
-      giaNguoiLon: '1',
-      ngayThem: new Date(),
-      dichVuDiKem: '',
-      tinhTrang: 'Đang hoạt động',
-      imgSelected: this.selectedFile,
-    }
+   
   }
 
   onFieldTouched(fieldName: string): void {
@@ -109,82 +71,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   }
   DoiTac: any[] = [];
   ngOnInit(): void {
-    this.ThemTourForm = this.formBuilder.group({
-      tenTour: ['',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(100)
-        ]
-      ],
-      loaiTour: ['',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(200)
-        ]
-      ],
-      phuongTienDiChuyen: [[],
-      [
-        Validators.required,
-      ]
-      ], mota: ['',
-        [
-          Validators.required,
-          Validators.minLength(4),
-        ]
-      ], soLuongNguoiLon: [[],
-      [
-        Validators.required,
-      ]
-      ], soLuongTreEm: [[],
-      [
-        Validators.required,
-      ]
-      ], thoiGianBatDau: [[],
-      [
-        Validators.required,
-      ]
-      ], thoiGianKetThuc: [[],
-      [
-        Validators.required,
-      ]
-      ], noiKhoiHanh: ['',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(50)
-        ]
-      ], soChoConNhan: [[],
-      [
-        Validators.required,
-      ]
-      ], idDoiTac: [[],
-      [
-        Validators.required,
-      ]
-      ], giaTreEm: [[],
-      [
-        Validators.required,
-      ]
-      ], giaNguoiLon: [[],
-      [
-        Validators.required,
-      ]
-      ], ngayThem: [new Date(),
-      [
-        Validators.required,
-      ]
-      ], dichVuDiKem: [[],
-      [
-        Validators.required,
-      ]
-      ], tinhTrang: [[],
-      [
-        Validators.required,
-      ]
-      ],
-    })
 
     //lấy đối tác
     this.doiTacServices.getAllDoiTac().subscribe((data: DoiTac[]) => {
@@ -192,12 +78,47 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       console.log(this.DoiTac);
 
     })
-  }
+
+    let datetimepicker: DateTimePicker = new DateTimePicker({
+      placeholder: "Select DateTime",
+      change: (args: ChangeEventArgs) => {
+        const selectedDate = args.value as Date;
+        const formattedDate = this.formatDate(selectedDate);
+        var a = new Date(formattedDate).toISOString();
+        this.ThemTourForm.get('thoiGianBatDau')?.setValue(a);
+      }
+    });
+    datetimepicker.appendTo('#element');
+
+    let datetimepicker2: DateTimePicker = new DateTimePicker({
+      placeholder: "Select DateTime2",
+      change: (args: ChangeEventArgs) => {
+        const selectedDate = args.value as Date;
+        const formattedDate = this.formatDate(selectedDate);
+        var a = new Date(formattedDate).toISOString();
+        this.ThemTourForm.get('thoiGianKetThuc')?.setValue(a);
+      }
+    });
+    datetimepicker2.appendTo('#element2');
+    }
+
+    formatDate(date: Date): string {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
+      const year = date.getFullYear();
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const seconds = date.getSeconds().toString().padStart(2, '0');
+      
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
 
 
-  get sanitizedText() {
-    return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
-  }
+    get sanitizedText() {
+      const moTaControl = this.ThemTourForm.get('moTa');
+      return this.domSanitizer.bypassSecurityTrustHtml(moTaControl?.value || '');
+    }
+    
 
   get f(): { [key: string]: any } {
     return this.ThemTourForm.controls;
@@ -205,23 +126,10 @@ export class ThemTourComponent implements OnInit, OnDestroy {
 
   //thêm tour
   ThemTour() {
-    console.log(this.model);
-
-    // this.submitted = true;
-    // if (this.ThemTourForm.invalid) {
-    //   return;
-    // }
-    // console.log(this.model);
-
-    // const tourData = this.ThemTourForm.value;
-    // tourData.NgayThem = new Date().toISOString();
-    // tourData.MoTa = this.Text;
-    // console.log(tourData);
-
-    // console.log(this.model);
-
+    console.log(this.ThemTourForm.value);
+    
     // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
-    this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.model)
+    this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.ThemTourForm.value)
       .subscribe({
         next: (response) => {
           this.router.navigateByUrl('/quanlytour');
@@ -248,25 +156,43 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     if (files) {
       for (let index = 0; index < files.length; index++) {
         const file = files[index];
-
+  
         const reader = new FileReader();
         reader.onload = (e) => {
-          // Chuyển đổi hình ảnh thành chuỗi Base64 và thêm vào mảng
-          this.model.imgSelected.push(e.target?.result as string);
+          // Khởi tạo hoặc lấy FormArray 'imgSelected'
+          let imgSelectedControl = this.ThemTourForm.get('imgSelected') as FormArray<any>;
+          if (!imgSelectedControl) {
+            imgSelectedControl = new FormArray<any>([]);
+            this.ThemTourForm.addControl('imgSelected', imgSelectedControl);
+          }
+  
+          // Thêm new FormControl vào FormArray và ép kiểu
+          imgSelectedControl.push(new FormControl(e.target?.result as string));
+          
+          // Thêm chuỗi Base64 vào mảng previewingFileImg
           this.previewingFileImg.push(e.target?.result as string);
-        }
+        };
         reader.readAsDataURL(file);
       }
     }
     console.log(this.previewingFileImg);
-
   }
+  
   XoaImgPreviewing(index: number) {
-    this.selectedFile.splice(index, 1);
+    // Lấy FormArray 'imgSelected' và xóa FormControl tương ứng
+    let imgSelectedControl = this.ThemTourForm.get('imgSelected') as FormArray<any>;
+    if (imgSelectedControl) {
+      imgSelectedControl.removeAt(index);
+    }
+  
+    // Xóa khỏi mảng previewingFileImg
     this.previewingFileImg.splice(index, 1);
   }
+  
 
+  themTour(){
 
+  }
 
 
 

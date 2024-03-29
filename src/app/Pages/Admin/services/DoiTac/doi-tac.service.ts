@@ -11,6 +11,6 @@ export class DoiTacService {
 
   constructor(private http: HttpClient) { }
   getAllDoiTac(): Observable<DoiTac[]> {
-    return this.http.get<DoiTac[]>(`${environment.apiBaseUrl}/api/DoiTac?addAuth=true`);
+    return this.http.get<DoiTac[]>(`${environment.apiBaseUrl}/api/DoiTac`);
   }
 }
