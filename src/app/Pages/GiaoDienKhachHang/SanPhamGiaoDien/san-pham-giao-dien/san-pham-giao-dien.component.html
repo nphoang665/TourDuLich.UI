@@ -8,7 +8,7 @@
                     {{tourType}}
                 </p>
                 <ng-container *ngFor="let tour of getToursByType(tourType)">
-                    <div class="card_tour col-lg-3" [routerLink]="'/chitiettour/'+tour.idTour">
+                    <div class="card_tour col-lg-3" data-label="In Progress" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="card__ribbon">
                             <div class="ribbon-content">tour hot1</div>
                         </div>
@@ -17,8 +17,8 @@
                             <span>{{tour.tenTour}}</span>
                         </div>
                         <div class="card_tour_text">
-                            <div class="total_response">
-                                <span class="badge bg-success me-1">{{tour.TrungBinhDiemDanhGia}}</span><span
+                            <div class="total_response text-wrap" style="width: 100%;">
+                                <span class="badge bg-success me-1 ">{{tour.TrungBinhDiemDanhGia}}</span><span
                                     class="text-success me-1"><b>Tuyệt
                                         vời</b></span> |
                                 <span class="ms-1">{{tour.SoLuongDanhGia}} Đánh giá</span>
@@ -93,5 +93,12 @@
         </div>
     </div>
     }
+
+
+
+
+
+
+
     <!-- <mat-divider></mat-divider> -->
 </ng-container>

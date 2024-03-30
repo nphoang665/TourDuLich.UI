@@ -47,6 +47,7 @@ const google_login = `
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
+  hide = true;
   name!: string;
 
   login: FormGroup = new FormGroup({

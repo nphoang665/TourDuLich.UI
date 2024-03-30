@@ -125,19 +125,23 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
 
   }
   KiemTraNguoiDungDaDanhGiaChua: boolean = false;
-
   kiemTraNguoiDungDaDanhGia(danhGia: any) {
     const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
     if (khachHang) {
-      const isNguoiDungDaDanhGia = danhGia.filter((data: any) => data.idKhachHang == khachHang.idKhachHang);
-      if (isNguoiDungDaDanhGia.length > 0) {
+      if (khachHang.idKhachHang) {
+        const isNguoiDungDaDanhGia = danhGia.filter((data: any) => data.idKhachHang == khachHang.idKhachHang);
+        if (isNguoiDungDaDanhGia.length > 0) {
+          this.KiemTraNguoiDungDaDanhGiaChua = true;
+          return;
+        }
+      }
+      else if (khachHang.idNhanVien) {
         this.KiemTraNguoiDungDaDanhGiaChua = true;
+        return;
+      }
+      else {
+        this.KiemTraNguoiDungDaDanhGiaChua = false;
       }
     }
-    else {
-      this.KiemTraNguoiDungDaDanhGiaChua = true;
-
-    }
-
   }
 }

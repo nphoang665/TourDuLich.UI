@@ -7,7 +7,7 @@
 
 /* first nav */
 .container_medium_first_header_total {
-  background-color: #1c9cd8;
+  background-color: #40679e;
 }
 .fixedHeader {
   background-color: white;
@@ -17,7 +17,7 @@
   transition: all 0.3 ease;
   /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); */
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-  z-index: 10000;
+  z-index: 1000;
 }
 .container_medium_first_header {
   max-width: 1400px;
@@ -111,7 +111,7 @@
   display: block;
   /* padding: 6px 8px; */
   text-decoration: none;
-  color: black;
+  color: white;
   font-size: 1.2em;
   /* color: black; */
   transition: ease 0.4s;
@@ -156,7 +156,7 @@
   font-size: 30px;
   font-weight: 600;
   cursor: pointer;
-  color: black;
+  color: white;
 }
 .mobile_hide li:hover {
   background-color: rgba(255, 0, 0, 0);
@@ -169,11 +169,11 @@
   cursor: pointer;
   padding: 10px 20px;
   background: white;
-  border-radius: 30px;
+  border-radius: 3px;
   align-items: center;
   margin-top: 4px;
-  border: 2px solid gray;
   /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); */
+  border: 2px solid #40679e;
 }
 .box:hover input {
   width: 400px;
@@ -196,9 +196,9 @@
   cursor: pointer;
   padding: 10px 20px;
   background: white;
-  border-radius: 30px;
+  border-radius: 3px;
   align-items: center;
-  border: 2px solid gray;
+  border: 2px solid #40679e;
   /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); */
 }
 
@@ -256,9 +256,6 @@
     text-decoration: none;
     color: white;
     font-size: 14px;
-  }
-  .container_medium_second_header {
-    height: 64px;
   }
   .mobile_hide {
     display: block;

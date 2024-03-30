@@ -170,13 +170,14 @@
                 <p class="title_tour">Tìm kiếm {{TuKhoaTimKiem}} </p>
                 }
                 <div class="row sort_tour text-center mt-4">
-                    <div class="col-3 col-sm-3 text-nowrap item_sort_tour" [class.active]="activeIndex === 1"
+                    <div class="col text-nowrap item_sort_tour d-none d-md-block d-lg-block">Sắp xếp theo: </div>
+                    <div class="col text-nowrap item_sort_tour" [class.active]="activeIndex === 1"
                         (click)="ThayDoiMauSort(1)">Đề xuất</div>
-                    <div class="col-3 col-sm-3 text-nowrap item_sort_tour" [class.active]="activeIndex === 2"
+                    <div class="col text-nowrap item_sort_tour" [class.active]="activeIndex === 2"
                         (click)="ThayDoiMauSort(2)">Thời lượng </div>
-                    <div class="col-3 col-sm-3 text-nowrap item_sort_tour" [class.active]="activeIndex === 3"
+                    <div class="col text-nowrap item_sort_tour" [class.active]="activeIndex === 3"
                         (click)="ThayDoiMauSort(3)"> khởi hành</div>
-                    <div class="col-3 col-sm-3 text-nowrap item_sort_tour" [class.active]="activeIndex === 4"
+                    <div class="col text-nowrap item_sort_tour" [class.active]="activeIndex === 4"
                         (click)="ThayDoiMauSort(4)">Giá tour</div>
                 </div>
                 <div class="total-tour">

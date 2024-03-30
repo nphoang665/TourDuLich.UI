@@ -16,7 +16,8 @@ import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service'
 @Component({
   selector: 'app-san-pham-giao-dien', // tên selector để sử dụng component trong template
   templateUrl: './san-pham-giao-dien.component.html', // đường dẫn tới file template của component
-  styleUrl: './san-pham-giao-dien.component.css' // đường dẫn tới file css của component
+  // styleUrl: './san-pham-giao-dien.component.css' 
+  styleUrls: ['./san-pham-giao-dien.component.css', './style_element_sanpham.css'],
 })
 // Khai báo class SanPhamGiaoDienComponent kế thừa từ interface OnInit của Angular
 export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {

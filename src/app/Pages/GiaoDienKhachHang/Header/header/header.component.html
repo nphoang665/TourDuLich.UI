@@ -1,5 +1,5 @@
 <header class="container_large_header">
-    <div class="container_medium_first_header_total">
+    <div class="container_medium_first_header_total" style="z-index: 10000;">
         <div class="container_medium_first_header">
             <div class="left_medium_first_header">
                 <ul style="user-select: text;" class="desktop_hide">
@@ -28,13 +28,34 @@
                 <ng-template #showLogout>
 
                     <ul>
-                        <li> <span>{{user?.email}}</span></li>
-                        <li> <button class="btn btn-primary ms-3" (click)="onLogout()">Đăng xuất</button></li>
-                        <li><a href="#">VN <i style="font-size: 10px;" class="bi bi-chevron-down"></i></a>
+                        <li>
+                            <!-- <span>{{user?.email}}</span> -->
+
+                            <button mat-button [matMenuTriggerFor]="menu" class="text-white">Xin chào!
+                                {{user?.email}}</button>
+                            <mat-menu #menu="matMenu" style="z-index: 10000;">
+                                <button mat-menu-item><mat-icon svgIcon="icon_User"></mat-icon> Thông tin cá
+                                    nhân</button>
+                                <button mat-menu-item (click)="onLogout()"> <mat-icon svgIcon="icon_Logout"></mat-icon>
+                                    Đăng xuất</button>
+                            </mat-menu>
+
+                        </li>
+                        <!-- <li> <button class="btn btn-primary ms-3" (click)="onLogout()">Đăng xuất</button></li> -->
+                        <li>
+                            <!-- <a href="#">VN <i style="font-size: 10px;" class="bi bi-chevron-down"></i></a>
                             <ul class="submenu_first_header">
                                 <li><a href="#">English</a></li>
                                 <li><a href="#">Tiếng việt</a></li>
-                            </ul>
+                            </ul> -->
+
+
+                            <button mat-button [matMenuTriggerFor]="menu1" class="text-white">Ngôn ngữ</button>
+                            <mat-menu #menu1="matMenu">
+                                <button mat-menu-item><mat-icon svgIcon="icon_VietNam"></mat-icon> Tiếng việt</button>
+                                <button mat-menu-item (click)="onLogout()"> <mat-icon svgIcon="icon_Us"></mat-icon>
+                                    Tiếng anh</button>
+                            </mat-menu>
                         </li>
                     </ul>
                 </ng-template>
@@ -44,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="container_medium_second_header">
+    <div class="container_medium_second_header" style="z-index: 0;">
         <div class="left_medium_second_header">
             <div class="logo_header">
                 <!-- <img src="assets/logoHeader.svg" class="logo_header_img" alt="logo_header"> -->
@@ -55,10 +76,13 @@
 
             <ul class="desktop_hide">
                 <li class="mobile_block">
-                    <div class="box">
+                    <div class="box align-items-center d-flex">
                         <input type="text" placeholder="Tìm kiếm...">
-                        <span><i class="bi bi-search" style="color: blue;
-                            font-size: 18px;"></i></span>
+                        <span class="align-items-center">
+                            <!-- <i class="bi bi-search" style="color: #40679E;
+                            font-size: 18px;"></i> -->
+                            <mat-icon svgIcon="icon_Search"> </mat-icon>
+                        </span>
                     </div>
                 </li>
                 <li routerLink="/trangchu"><a class="item_medium_second_header">Trang chủ</a></li>
