@@ -12,7 +12,7 @@ import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ToastrService } from 'ngx-toastr';
 import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
-import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -47,52 +47,52 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     dichVuDiKem: new FormControl(''),
     tinhTrang: new FormControl('')
   });
-  get tenTour(){
+  get tenTour() {
     return this.suaTourForm.get('tenTour');
   }
-  get loaiTour(){
+  get loaiTour() {
     return this.suaTourForm.get('loaiTour');
   }
-  get phuongTienDiChuyen(){
+  get phuongTienDiChuyen() {
     return this.suaTourForm.get('phuongTienDiChuyen');
   }
-  get moTa(){
+  get moTa() {
     return this.suaTourForm.get('moTa');
   }
-  get soLuongNguoiLon(){
+  get soLuongNguoiLon() {
     return this.suaTourForm.get('soLuongNguoiLon');
   }
-  get soLuongTreEm(){
+  get soLuongTreEm() {
     return this.suaTourForm.get('soLuongTreEm');
   }
-  get thoiGianBatDau(){
+  get thoiGianBatDau() {
     return this.suaTourForm.get('thoiGianBatDau');
   }
-  get thoiGianKetThuc(){
+  get thoiGianKetThuc() {
     return this.suaTourForm.get('thoiGianKetThuc');
   }
-  get noiKhoiHanh(){
+  get noiKhoiHanh() {
     return this.suaTourForm.get('noiKhoiHanh');
   }
-  get soChoConNhan(){
+  get soChoConNhan() {
     return this.suaTourForm.get('soChoConNhan');
   }
-  get idDoiTac(){
+  get idDoiTac() {
     return this.suaTourForm.get('idDoiTac');
   }
-  get giaTreEm(){
+  get giaTreEm() {
     return this.suaTourForm.get('giaTreEm');
   }
-  get giaNguoiLon(){
+  get giaNguoiLon() {
     return this.suaTourForm.get('giaNguoiLon');
   }
-  get ngayThem(){
+  get ngayThem() {
     return this.suaTourForm.get('ngayThem');
   }
-  get dichVuDiKem(){
+  get dichVuDiKem() {
     return this.suaTourForm.get('dichVuDiKem');
   }
-  get tinhTrang(){
+  get tinhTrang() {
     return this.suaTourForm.get('tinhTrang');
   }
   noSpecialCharValidator(): ValidatorFn {
@@ -141,23 +141,24 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
 
-    if(this.id){
-      this.quanLyTourService.getTourDuLichById(this.id).subscribe((data:TourDuLich)=>{
-        if(data){
+    if (this.id) {
+      this.quanLyTourService.getTourDuLichById(this.id).subscribe((data: TourDuLich) => {
+        if (data) {
           this.model = data;
+          this.HienThiAnhPreview();
           this.initializeForm();
-        }else{
+
+        } else {
           console.error('Không tìm thấy tour có ID: ', this.id);
         }
       })
+
     }
-  
+
     this.doiTacServices.getAllDoiTac().subscribe((data: DoiTac[]) => {
       this.DoiTac = data;
-      console.log(this.DoiTac);
-
     })
-    
+
     let datetimepicker: DateTimePicker = new DateTimePicker({
       placeholder: "Select DateTime",
       change: (args: ChangeEventArgs) => {
@@ -179,87 +180,87 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       }
     });
     datetimepicker2.appendTo('#element2');
-    }
+  }
 
-    formatDate(date: Date): string {
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
-      const year = date.getFullYear();
-      const hours = date.getHours().toString().padStart(2, '0');
-      const minutes = date.getMinutes().toString().padStart(2, '0');
-      const seconds = date.getSeconds().toString().padStart(2, '0');
-      
-      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
 
-  initializeForm():void{
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  initializeForm(): void {
     this.suaTourForm = new FormGroup({
-      tenTour: new FormControl(this.model?.tenTour || '',[
+      tenTour: new FormControl(this.model?.tenTour || '', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-        
+
       ]),
       loaiTour: new FormControl(this.model?.loaiTour || '',
-      Validators.required),
+        Validators.required),
       phuongTienDiChuyen: new FormControl(this.model?.phuongTienDiChuyen || '',
-      Validators.required),
+        Validators.required),
       moTa: new FormControl(this.model?.moTa || '',
-      Validators.required),
-      soLuongNguoiLon: new FormControl(this.model?.soLuongNguoiLon || 0,[
+        Validators.required),
+      soLuongNguoiLon: new FormControl(this.model?.soLuongNguoiLon || 0, [
         Validators.required,
         Validators.min(0),
         Validators.max(50),
-        
+
       ]),
-      soLuongTreEm: new FormControl(this.model?.soLuongTreEm || 0,[
+      soLuongTreEm: new FormControl(this.model?.soLuongTreEm || 0, [
         Validators.required,
         Validators.min(0),
         Validators.max(50),
-        
+
       ]),
       thoiGianBatDau: new FormControl(this.model?.thoiGianBatDau || '',
-      Validators.required),
+        Validators.required),
       thoiGianKetThuc: new FormControl(this.model?.thoiGianKetThuc || '',
-      Validators.required),
-      noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || '',[
+        Validators.required),
+      noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || '', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-        
+
       ]),
-      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0,[
+      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0, [
         Validators.required,
         Validators.min(2),
         Validators.max(50),
-        
+
       ]),
       idDoiTac: new FormControl(this.model?.idDoiTac || '',
-      Validators.required),
-      giaTreEm: new FormControl(this.model?.giaTreEm || 0,[
+        Validators.required),
+      giaTreEm: new FormControl(this.model?.giaTreEm || 0, [
         Validators.required,
         Validators.min(0),
         Validators.max(1000000),
-        
+
       ]),
-      giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0,[
+      giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0, [
         Validators.required,
         Validators.min(0),
         Validators.max(1000000),
-        
+
       ]),
       ngayThem: new FormControl(this.model?.ngayThem || ''),
-      dichVuDiKem: new FormControl(this.model?.dichVuDiKem || '',[
+      dichVuDiKem: new FormControl(this.model?.dichVuDiKem || '', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
         this.noSpecialCharValidator(),
       ]),
       tinhTrang: new FormControl(this.model?.tinhTrang || '',
-      Validators.required),
+        Validators.required),
       anhTourDb: new FormControl(this.arrImgPreviewClientHandle || []),
       anhTourBrowse: new FormControl(this.fileImgPreviewFromBrowse || [])
-    });    
+    });
   }
 
   //hiển thị ảnh từ db
@@ -269,6 +270,8 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.model?.anhTour.length; index++) {
       const stringHttpsImg = environment.apiBaseUrl + '/uploads/' + this.model?.anhTour[index].imgTour;
       this.fileImgPreviewFromDb.push(stringHttpsImg);
+      console.log(this.fileImgPreviewFromDb);
+
     }
   }
 
@@ -336,19 +339,21 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   }
   //sửa tour
   SuaTour() {
-    console.log(this.suaTourForm.value);
-    
-      if(this.model && this.id){
-        const suaTour:SuaTour = {...this.suaTourForm.value};
 
-        this.quanLyTourService.suaTourDuLich(this.id,suaTour).subscribe((response)=>{
-          this.router.navigateByUrl('/quanlytour');
-          // console.log(response);
-          this.toastr.success('Sửa tour thành công', 'Thông báo', {
-            timeOut: 1000,
-          });
-        })
-      }
+    if (this.model && this.id) {
+      const suaTour: SuaTour = { ...this.suaTourForm.value };
+      suaTour.anhTourBrowse = this.fileImgPreviewFromBrowse;
+      suaTour.anhTourDb = this.arrImgPreviewClientHandle;
+      // console.log(suaTour);
+
+      this.quanLyTourService.suaTourDuLich(this.id, suaTour).subscribe((response) => {
+        this.router.navigateByUrl('/quanlytour');
+        // console.log(response);
+        this.toastr.success('Sửa tour thành công', 'Thông báo', {
+          timeOut: 1000,
+        });
+      })
+    }
   }
 
 
