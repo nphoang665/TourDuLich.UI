@@ -218,27 +218,32 @@
                     </button>
                     <input #fileInput type="file" (change)="onFileSelected($event)" multiple style="display: none;">
                   </div>
-                  <div class="row dv_khung_img p-2">
+                  @if(previewingFileImg.length >0){
+
+                  <div class="col-lg-12">
+                    <div class="row dv_khung_img p-2">
 
 
 
-                    @for(item of previewingFileImg; track $index){
+                      @for(item of previewingFileImg; track $index){
 
-                    <div class="dv_img_previewing col-auto">
+                      <div class="dv_img_previewing col-auto gx-2">
 
-                      <img [src]="item" style="width: 150px; height: 70px; object-fit: cover; border: 1px solid black;"
-                        alt="img">
-                      <button (click)="XoaImgPreviewing($index)" class="btn_Delete_Img ps-1 pe-1"><i
-                          class="bi bi-x"></i></button>
+                        <img [src]="item"
+                          style="width: 150px; height: 70px; object-fit: cover; border: 1px solid #40679E;" alt="img">
+                        <button (click)="XoaImgPreviewing($index)" class="btn_Delete_Img ps-1 pe-1"><i
+                            class="bi bi-x"></i></button>
+                      </div>
+
+                      }
+
                     </div>
-
-                    }
-
                   </div>
-                  <br>
+                  }
                 </div>
 
-                <div class="col-lg-12">
+
+                <div class="col-lg-12 mt-2">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Mô tả chi tiết</label>
                     <editor name="Text" id="exampleInputEmail1" formControlName="moTa" [init]="editorConfig">
