@@ -194,6 +194,9 @@
                                             {{ item.tenDoiTac }}
                                           </mat-option>
                                         </mat-select>
+                                        @if (idDoiTac?.errors?.['required']) {
+                                          <mat-error>Vui lòng chọn đối tác</mat-error>
+                                          } 
                                       </mat-form-field>
                                       
                                       <mat-form-field>

@@ -52,13 +52,34 @@
                   <mat-label>Email</mat-label>
                   <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput formControlName="email" placeholder="Email">
+                  <input matInput formControlName="email" placeholder="Email" [errorStateMatcher]="matcher">
+                  @if (email?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập email</mat-error>
+                    } 
+                  @else if (email?.errors?.['minlength']) {
+                    <mat-error>Email không đúng định dạng</mat-error>
+                    }
+                  @else if (email?.errors?.['maxlength']) {
+                      <mat-error>Email quá dài</mat-error>
+                    }
                 </mat-form-field>
                 <mat-form-field class="example-full-width w-100">
                   <mat-label>Họ và tên</mat-label>
                   <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput formControlName="email" placeholder="Họ và tên">
+                  <input matInput formControlName="email" placeholder="Họ và tên"[errorStateMatcher]="matcher">
+                  @if (name?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập họ và tên</mat-error>
+                    } 
+                  @else if (name?.errors?.['minlength']) {
+                    <mat-error>Họ và tên quá ngắn</mat-error>
+                    }
+                  @else if (name?.errors?.['maxlength']) {
+                      <mat-error>Họ và tên quá dài</mat-error>
+                    }
+                  @else if (name?.errors?.['invalidChar']) {
+                        <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
+                    }    
                 </mat-form-field>
 
 
@@ -66,7 +87,16 @@
                   <mat-label>Mật khẩu</mat-label>
                   <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput placeholder="Mật khẩu" formControlName="password">
+                  <input matInput placeholder="Mật khẩu" formControlName="password"[errorStateMatcher]="matcher">
+                  @if (password?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập mật khẩu</mat-error>
+                    } 
+                  @else if (password?.errors?.['minlength']) {
+                    <mat-error>Mật khẩu quá ngắn</mat-error>
+                    }
+                  @else if (password?.errors?.['maxlength']) {
+                      <mat-error>Mật khẩu quá dài</mat-error>
+                    }
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                 </mat-form-field>
@@ -75,7 +105,16 @@
                   <mat-label>Nhập lại mật khẩu</mat-label>
                   <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword">
+                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword"[errorStateMatcher]="matcher">
+                  @if (password?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập lại mật khẩu</mat-error>
+                    } 
+                  @else if (password?.errors?.['minlength']) {
+                    <mat-error>Mật khẩu không đúng</mat-error>
+                    }
+                  @else if (password?.errors?.['maxlength']) {
+                      <mat-error>Mật khẩu không đúng</mat-error>
+                    }
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                 </mat-form-field>

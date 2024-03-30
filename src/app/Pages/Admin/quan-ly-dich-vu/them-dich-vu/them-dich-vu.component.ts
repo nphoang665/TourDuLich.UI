@@ -46,10 +46,7 @@ export class ThemDichVuComponent implements OnInit {
       
       
     ]),
-    tinhTrang: new FormControl('',[
-    
-      
-    ]),
+    tinhTrang: new FormControl(''),
     gioBatDau: new FormControl('',
     Validators.required),
     gioKetThuc: new FormControl('',

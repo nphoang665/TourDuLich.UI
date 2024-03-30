@@ -57,7 +57,16 @@
                                     <mat-label>Email</mat-label>
                                     <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                                         aria-label="Example thumbs up SVG icon"></mat-icon>
-                                    <input matInput formControlName="email" placeholder="Email">
+                                    <input matInput formControlName="email" placeholder="Email"[errorStateMatcher]="matcher">
+                                    @if (email?.errors?.['required']) {
+                                        <mat-error>Vui lòng nhập email</mat-error>
+                                        } 
+                                      @else if (email?.errors?.['minlength']) {
+                                        <mat-error>Email không đúng định dạng</mat-error>
+                                        }
+                                      @else if (email?.errors?.['maxlength']) {
+                                          <mat-error>Email quá dài</mat-error>
+                                        }
                                 </mat-form-field>
 
 
@@ -65,14 +74,23 @@
                                     <mat-label>Mật khẩu</mat-label>
                                     <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                                         aria-label="Example thumbs up SVG icon"></mat-icon>
-                                    <input matInput placeholder="Mật khẩu" formControlName="password">
+                                    <input matInput placeholder="Mật khẩu" formControlName="password"[errorStateMatcher]="matcher">
+                                    @if (password?.errors?.['required']) {
+                                        <mat-error>Vui lòng nhập mật khẩu</mat-error>
+                                        } 
+                                      @else if (password?.errors?.['minlength']) {
+                                        <mat-error>Mật khẩu quá ngắn</mat-error>
+                                        }
+                                      @else if (password?.errors?.['maxlength']) {
+                                          <mat-error>Mật khẩu quá dài</mat-error>
+                                        }
                                     <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                                         aria-label="Example thumbs up SVG icon"></mat-icon>
                                 </mat-form-field>
                             </div>
 
                             <div class="_dv_btn_login  mt-2">
-                                <button class="btn_login w-100" type="submit">
+                                <button class="btn_login w-100"  type="submit">
                                     Đăng nhập
                                 </button>
                             </div>

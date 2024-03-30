@@ -1,10 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 const icon_User = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.7274 20.4471C19.2716 19.1713 18.2672 18.0439 16.8701 17.2399C15.4729 16.4358 13.7611 16 12 16C10.2389 16 8.52706 16.4358 7.12991 17.2399C5.73276 18.0439 4.72839 19.1713 4.27259 20.4471" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
@@ -39,13 +48,48 @@ const google_login = `
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-
+  matcher = new MyErrorStateMatcher();
   register: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
+    email: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ]),
+    name: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+      this.noSpecialCharValidator(),
+    ]),
+    password: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ]),
+    confirmPassword: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ])
   })
-
+  get email(){
+    return this.register.get('email');
+  }
+  get password(){
+    return this.register.get('password');
+  }
+  get confirmPassword(){
+    return this.register.get('confirmPassword');
+  }
+  get name(){
+    return this.register.get('confirmPassword');
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
   constructor(private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
