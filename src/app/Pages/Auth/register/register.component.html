@@ -67,7 +67,7 @@
                   <mat-label>Họ và tên</mat-label>
                   <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput formControlName="email" placeholder="Họ và tên"[errorStateMatcher]="matcher">
+                  <input matInput formControlName="name" placeholder="Họ và tên"[errorStateMatcher]="matcher">
                   @if (name?.errors?.['required']) {
                     <mat-error>Vui lòng nhập họ và tên</mat-error>
                     } 
@@ -121,7 +121,7 @@
               </div>
 
               <div class="_dv_btn_login  mt-2">
-                <button class="btn_login w-100" type="submit">
+                <button class="btn_login w-100" type="submit" [disabled]="register.invalid">
                   Đăng ký
                 </button>
               </div>
