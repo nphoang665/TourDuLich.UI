@@ -20,232 +20,246 @@
             <h1 mat-dialog-title>Thêm mới tour</h1>
 
             <div mat-dialog-content>
-              <mat-form-field>
-                <mat-label>Tên tour</mat-label>
-                <input matInput formControlName="tenTour" [errorStateMatcher]="matcher" />
-                @if (tenTour?.errors?.['required']) {
-                <mat-error>Vui lòng nhập tên tour</mat-error>
-                }
-                @else if (tenTour?.errors?.['minlength']) {
-                <mat-error>Tên tour quá ngắn</mat-error>
-                }
-                @else if (tenTour?.errors?.['maxlength']) {
-                <mat-error>Tên tour quá dài</mat-error>
-                }
+              <div class="row ">
 
-              </mat-form-field>
 
-              <mat-form-field appearance="fill">
-                <mat-label>Loại Tour</mat-label>
-                <mat-select formControlName="loaiTour" [errorStateMatcher]="matcher">
-                  <mat-option value="Du lịch sinh thái">Du lịch sinh thái</mat-option>
-                  <mat-option value="Du lịch văn hóa">Du lịch văn hóa</mat-option>
-                  <mat-option value="Du lịch nghỉ dưỡng">Du lịch nghỉ dưỡng</mat-option>
-                  <mat-option value="Du lịch giải trí">Du lịch giải trí</mat-option>
-                  <mat-option value="Du lịch thể thao">Du lịch thể thao</mat-option>
-                  <mat-option value="Du lịch khám phá">Du lịch khám phá</mat-option>
-                  <mat-option value="Du lịch mạo hiểm">Du lịch mạo hiểm</mat-option>
-                  <mat-option value="Du lịch kết hợp">Du lịch kết hợp</mat-option>
-                  <mat-option value="Du lịch gia đình">Du lịch gia đình</mat-option>
-                  <mat-option value="Du lịch theo đoàn">Du lịch theo đoàn</mat-option>
-                  <mat-option value="Du lịch cá nhân">Du lịch cá nhân</mat-option>
-                  <mat-option value="Du lịch biển">Du lịch biển</mat-option>
-                  <mat-option value="Du lịch núi">Du lịch núi</mat-option>
-                  <mat-option value="Du lịch đô thị">Du lịch đô thị</mat-option>
-                  <mat-option value="Du lịch thôn quê">Du lịch thôn quê</mat-option>
-                  <mat-option value="Tham quan thác">Tham quan thác</mat-option>
-                  <mat-option value="Thăm quan vườn cà phê">Thăm quan vườn cà phê</mat-option>
-                </mat-select>
-                @if (loaiTour?.errors?.['required']) {
-                <mat-error>Vui lòng chọn loại tour</mat-error>
-                }
-              </mat-form-field>
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Tên tour</mat-label>
+                  <input matInput formControlName="tenTour" [errorStateMatcher]="matcher" />
+                  @if (tenTour?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập tên tour</mat-error>
+                  }
+                  @else if (tenTour?.errors?.['minlength']) {
+                  <mat-error>Tên tour quá ngắn</mat-error>
+                  }
+                  @else if (tenTour?.errors?.['maxlength']) {
+                  <mat-error>Tên tour quá dài</mat-error>
+                  }
 
-              <mat-form-field>
-                <mat-label>Phương tiện di chuyển</mat-label>
-                <mat-select formControlName="phuongTienDiChuyen" [errorStateMatcher]="matcher">
-                  <mat-option value="Xe ô tô">Xe ô tô</mat-option>
-                  <mat-option value="Xe máy">Xe máy</mat-option>
-                </mat-select>
-                @if (phuongTienDiChuyen?.errors?.['required']) {
-                <mat-error>Vui lòng chọn phương tiện di chuyển</mat-error>
-                }
-              </mat-form-field>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Số lượng người lớn</mat-label>
-                <input matInput type="number" formControlName="soLuongNguoiLon" [errorStateMatcher]="matcher" />
-                @if (soLuongNguoiLon?.errors?.['required']) {
-                <mat-error>Vui lòng nhập số lượng người lớn</mat-error>
-                }
-                @else if (soLuongNguoiLon?.errors?.['min']) {
-                <mat-error>Số lượng người lớn phải hơn 0</mat-error>
-                }
-                @else if (soLuongNguoiLon?.errors?.['max']) {
-                <mat-error>Số lượng người vượt quá mức cho phép</mat-error>
-                }
+                <mat-form-field appearance="fill" class="col-lg-3">
+                  <mat-label>Loại Tour</mat-label>
+                  <mat-select formControlName="loaiTour" [errorStateMatcher]="matcher">
+                    <mat-option value="Du lịch sinh thái">Du lịch sinh thái</mat-option>
+                    <mat-option value="Du lịch văn hóa">Du lịch văn hóa</mat-option>
+                    <mat-option value="Du lịch nghỉ dưỡng">Du lịch nghỉ dưỡng</mat-option>
+                    <mat-option value="Du lịch giải trí">Du lịch giải trí</mat-option>
+                    <mat-option value="Du lịch thể thao">Du lịch thể thao</mat-option>
+                    <mat-option value="Du lịch khám phá">Du lịch khám phá</mat-option>
+                    <mat-option value="Du lịch mạo hiểm">Du lịch mạo hiểm</mat-option>
+                    <mat-option value="Du lịch kết hợp">Du lịch kết hợp</mat-option>
+                    <mat-option value="Du lịch gia đình">Du lịch gia đình</mat-option>
+                    <mat-option value="Du lịch theo đoàn">Du lịch theo đoàn</mat-option>
+                    <mat-option value="Du lịch cá nhân">Du lịch cá nhân</mat-option>
+                    <mat-option value="Du lịch biển">Du lịch biển</mat-option>
+                    <mat-option value="Du lịch núi">Du lịch núi</mat-option>
+                    <mat-option value="Du lịch đô thị">Du lịch đô thị</mat-option>
+                    <mat-option value="Du lịch thôn quê">Du lịch thôn quê</mat-option>
+                    <mat-option value="Tham quan thác">Tham quan thác</mat-option>
+                    <mat-option value="Thăm quan vườn cà phê">Thăm quan vườn cà phê</mat-option>
+                  </mat-select>
+                  @if (loaiTour?.errors?.['required']) {
+                  <mat-error>Vui lòng chọn loại tour</mat-error>
+                  }
+                </mat-form-field>
 
-              </mat-form-field>
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Phương tiện di chuyển</mat-label>
+                  <mat-select formControlName="phuongTienDiChuyen" [errorStateMatcher]="matcher">
+                    <mat-option value="Xe ô tô">Xe ô tô</mat-option>
+                    <mat-option value="Xe máy">Xe máy</mat-option>
+                  </mat-select>
+                  @if (phuongTienDiChuyen?.errors?.['required']) {
+                  <mat-error>Vui lòng chọn phương tiện di chuyển</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Số chỗ còn nhận</mat-label>
+                  <input matInput type="number" formControlName="soChoConNhan" [errorStateMatcher]="matcher" />
+                  @if (soChoConNhan?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập số chỗ còn nhận</mat-error>
+                  }
+                  @else if (soChoConNhan?.errors?.['min']) {
+                  <mat-error>Số chỗ quá ít</mat-error>
+                  }
+                  @else if (soChoConNhan?.errors?.['max']) {
+                  <mat-error>Số chỗ quá nhiều</mat-error>
+                  }
 
-              <mat-form-field>
-                <mat-label>Số lượng trẻ em</mat-label>
-                <input matInput type="number" formControlName="soLuongTreEm" [errorStateMatcher]="matcher" />
-                @if (soLuongTreEm?.errors?.['required']) {
-                <mat-error>Vui lòng nhập số lượng trẻ em</mat-error>
-                }
-                @else if (soLuongTreEm?.errors?.['min']) {
-                <mat-error>Số lượng trẻ em phải hơn 0</mat-error>
-                }
-                @else if (soLuongTreEm?.errors?.['max']) {
-                <mat-error>Số lượng trẻ em vượt quá mức cho phép</mat-error>
-                }
+                </mat-form-field>
+                <mat-form-field class="col-lg-2">
+                  <mat-label>Số lượng người lớn</mat-label>
+                  <input matInput type="number" formControlName="soLuongNguoiLon" [errorStateMatcher]="matcher" />
+                  @if (soLuongNguoiLon?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập số lượng người lớn</mat-error>
+                  }
+                  @else if (soLuongNguoiLon?.errors?.['min']) {
+                  <mat-error>Số lượng người lớn phải hơn 0</mat-error>
+                  }
+                  @else if (soLuongNguoiLon?.errors?.['max']) {
+                  <mat-error>Số lượng người vượt quá mức cho phép</mat-error>
+                  }
 
-              </mat-form-field>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Giá người lớn</mat-label>
-                <input matInput type="number" formControlName="giaNguoiLon" [errorStateMatcher]="matcher" />
-                @if (giaNguoiLon?.errors?.['required']) {
-                <mat-error>Vui lòng nhập giá người lớn</mat-error>
-                }
-                @else if (giaNguoiLon?.errors?.['min']) {
-                <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
-                }
-                @else if (giaNguoiLon?.errors?.['max']) {
-                <mat-error>Giá vé vượt quá mức cho phép</mat-error>
-                }
+                <mat-form-field class="col-lg-2">
+                  <mat-label>Số lượng trẻ em</mat-label>
+                  <input matInput type="number" formControlName="soLuongTreEm" [errorStateMatcher]="matcher" />
+                  @if (soLuongTreEm?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập số lượng trẻ em</mat-error>
+                  }
+                  @else if (soLuongTreEm?.errors?.['min']) {
+                  <mat-error>Số lượng trẻ em phải hơn 0</mat-error>
+                  }
+                  @else if (soLuongTreEm?.errors?.['max']) {
+                  <mat-error>Số lượng trẻ em vượt quá mức cho phép</mat-error>
+                  }
 
-              </mat-form-field>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Giá trẻ em</mat-label>
-                <input matInput type="number" formControlName="giaTreEm" [errorStateMatcher]="matcher" />
-                @if (giaTreEm?.errors?.['required']) {
-                <mat-error>Vui lòng nhập giá trẻ em</mat-error>
-                }
-                @else if (giaTreEm?.errors?.['min']) {
-                <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
-                }
-                @else if (giaTreEm?.errors?.['max']) {
-                <mat-error>Giá vé vượt quá mức cho phép</mat-error>
-                }
+                <mat-form-field class="col-lg-2">
+                  <mat-label>Giá người lớn</mat-label>
+                  <input matInput type="number" formControlName="giaNguoiLon" [errorStateMatcher]="matcher" />
+                  @if (giaNguoiLon?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập giá người lớn</mat-error>
+                  }
+                  @else if (giaNguoiLon?.errors?.['min']) {
+                  <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+                  }
+                  @else if (giaNguoiLon?.errors?.['max']) {
+                  <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+                  }
 
-              </mat-form-field>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Số chỗ còn nhận</mat-label>
-                <input matInput type="number" formControlName="soChoConNhan" [errorStateMatcher]="matcher" />
-                @if (soChoConNhan?.errors?.['required']) {
-                <mat-error>Vui lòng nhập số chỗ còn nhận</mat-error>
-                }
-                @else if (soChoConNhan?.errors?.['min']) {
-                <mat-error>Số chỗ quá ít</mat-error>
-                }
-                @else if (soChoConNhan?.errors?.['max']) {
-                <mat-error>Số chỗ quá nhiều</mat-error>
-                }
+                <div class="col-lg-2">
+                  <mat-form-field>
+                    <mat-label>Giá trẻ em</mat-label>
+                    <input matInput type="number" formControlName="giaTreEm" [errorStateMatcher]="matcher" />
+                    @if (giaTreEm?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập giá trẻ em</mat-error>
+                    }
+                    @else if (giaTreEm?.errors?.['min']) {
+                    <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+                    }
+                    @else if (giaTreEm?.errors?.['max']) {
+                    <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+                    }
 
-              </mat-form-field>
+                  </mat-form-field>
 
-              <div class="row">
-                <div class="col-lg-6">
+                </div>
+
+
+
+                <div class="col-lg-2">
                   <mat-label>Thời gian bắt đầu</mat-label>
                   <input matInput formControlName="thoiGianBatDau" id='element' [errorStateMatcher]="matcher" />
                   @if (thoiGianBatDau?.errors?.['required']) {
                   <mat-error>Vui lòng chọn thời gian bắt đầu</mat-error>
                   }
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-2">
                   <mat-label>Thời gian kết thúc</mat-label>
                   <input matInput formControlName="thoiGianKetThuc" id='element2' [errorStateMatcher]="matcher" />
                   @if (thoiGianKetThuc?.errors?.['required']) {
                   <mat-error>Vui lòng chọn thời gian kết thúc</mat-error>
                   }
                 </div>
-              </div>
 
 
 
-              <mat-form-field>
-                <mat-label>Nơi khởi hành</mat-label>
-                <input matInput formControlName="noiKhoiHanh" [errorStateMatcher]="matcher" />
-                @if (noiKhoiHanh?.errors?.['required']) {
-                <mat-error>Vui lòng nhập nơi khởi hành</mat-error>
-                }
-                @else if (noiKhoiHanh?.errors?.['minlength']) {
-                <mat-error>Nơi khởi hành quá ngắn</mat-error>
-                }
-                @else if (noiKhoiHanh?.errors?.['maxlength']) {
-                <mat-error>Nơi khởi hành quá dài</mat-error>
-                }
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Nơi khởi hành</mat-label>
+                  <input matInput formControlName="noiKhoiHanh" [errorStateMatcher]="matcher" />
+                  @if (noiKhoiHanh?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập nơi khởi hành</mat-error>
+                  }
+                  @else if (noiKhoiHanh?.errors?.['minlength']) {
+                  <mat-error>Nơi khởi hành quá ngắn</mat-error>
+                  }
+                  @else if (noiKhoiHanh?.errors?.['maxlength']) {
+                  <mat-error>Nơi khởi hành quá dài</mat-error>
+                  }
 
-              </mat-form-field>
+                </mat-form-field>
 
-              <mat-form-field appearance="fill">
-                <mat-label>Đối tác</mat-label>
-                <mat-select formControlName="idDoiTac" id="idDoiTac">
-                  <mat-option *ngFor="let item of DoiTac; let i = index" [value]="item.idDoiTac">
-                    {{ item.tenDoiTac }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field appearance="fill" class="col-lg-3">
+                  <mat-label>Đối tác</mat-label>
+                  <mat-select formControlName="idDoiTac" id="idDoiTac">
+                    <mat-option *ngFor="let item of DoiTac; let i = index" [value]="item.idDoiTac">
+                      {{ item.tenDoiTac }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Dịch vụ đi kèm</mat-label>
-                <input matInput formControlName="dichVuDiKem" [errorStateMatcher]="matcher" />
-                @if (dichVuDiKem?.errors?.['required']) {
-                <mat-error>Vui lòng nhập dịch vụ đi kèm</mat-error>
-                }
-                @else if (dichVuDiKem?.errors?.['minlength']) {
-                <mat-error>Độ dài quá ngắn</mat-error>
-                }
-                @else if (dichVuDiKem?.errors?.['maxlength']) {
-                <mat-error>Vượt quá mức quy định</mat-error>
-                }
-                @else if (dichVuDiKem?.errors?.['invalidChar']) {
-                <mat-error>Dịch vụ đi kèm không chứa ký tự đặc biệt</mat-error>
-                }
-              </mat-form-field>
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Dịch vụ đi kèm</mat-label>
+                  <input matInput formControlName="dichVuDiKem" [errorStateMatcher]="matcher" />
+                  @if (dichVuDiKem?.errors?.['required']) {
+                  <mat-error>Vui lòng nhập dịch vụ đi kèm</mat-error>
+                  }
+                  @else if (dichVuDiKem?.errors?.['minlength']) {
+                  <mat-error>Độ dài quá ngắn</mat-error>
+                  }
+                  @else if (dichVuDiKem?.errors?.['maxlength']) {
+                  <mat-error>Vượt quá mức quy định</mat-error>
+                  }
+                  @else if (dichVuDiKem?.errors?.['invalidChar']) {
+                  <mat-error>Dịch vụ đi kèm không chứa ký tự đặc biệt</mat-error>
+                  }
+                </mat-form-field>
 
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label>Ảnh tour</label> <br>
-                  <button mat-raised-button color="primary" (click)="fileInput.click()">
-                    Chọn ảnh
-                  </button>
-                  <input #fileInput type="file" (change)="onFileSelected($event)" multiple style="display: none;">
-                </div>
-                <div class="row">
-                  @for(item of previewingFileImg; track $index){
-
-                  <div class="dv_img_previewing col-auto">
-
-                    <img [src]="item" style="width: 150px; max-height: 70px; object-fit: cover;" alt="img">
-                    <button (click)="XoaImgPreviewing($index)" class="btn_Delete_Img ps-1 pe-1"><i
-                        class="bi bi-x"></i></button>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <button mat-raised-button color="primary" (click)="fileInput.click()">
+                      Chọn ảnh
+                    </button>
+                    <input #fileInput type="file" (change)="onFileSelected($event)" multiple style="display: none;">
                   </div>
+                  @if(previewingFileImg.length >0){
 
+                  <div class="col-lg-12">
+                    <div class="row dv_khung_img p-2">
+
+
+
+                      @for(item of previewingFileImg; track $index){
+
+                      <div class="dv_img_previewing col-auto gx-2">
+
+                        <img [src]="item"
+                          style="width: 150px; height: 70px; object-fit: cover; border: 1px solid #40679E;" alt="img">
+                        <button (click)="XoaImgPreviewing($index)" class="btn_Delete_Img ps-1 pe-1"><i
+                            class="bi bi-x"></i></button>
+                      </div>
+
+                      }
+
+                    </div>
+                  </div>
                   }
                 </div>
-                <br>
-              </div>
 
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Mô tả chi tiết</label>
-                  <editor name="Text" id="exampleInputEmail1" formControlName="moTa" [init]="editorConfig">
-                  </editor>
 
+                <div class="col-lg-12 mt-2">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Mô tả chi tiết</label>
+                    <editor name="Text" id="exampleInputEmail1" formControlName="moTa" [init]="editorConfig">
+                    </editor>
+
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex justify-content-end mt-2">
-                <div mat-dialog-actions>
-                  <button mat-raised-button routerLink="/quanlytour" color="warn">Hủy thêm</button>
-                  <button mat-raised-button (click)="ThemTour()" [disabled]="ThemTourForm.invalid" color="primary">Thêm tour</button>
+                <div class="d-flex justify-content-end mt-2">
+                  <div mat-dialog-actions>
+                    <button mat-raised-button routerLink="/quanlytour" color="warn">Hủy thêm</button>
+                    <button mat-raised-button (click)="ThemTour()" [disabled]="ThemTourForm.invalid"
+                      color="primary">Thêm tour</button>
+                  </div>
                 </div>
-              </div>
 
-            </div>
+              </div>
 
 
 
