@@ -241,7 +241,7 @@
               <div class="d-flex justify-content-end mt-2">
                 <div mat-dialog-actions>
                   <button mat-raised-button routerLink="/quanlytour" color="warn">Hủy thêm</button>
-                  <button mat-raised-button (click)="ThemTour()" color="primary">Thêm tour</button>
+                  <button mat-raised-button (click)="ThemTour()" [disabled]="ThemTourForm.invalid" color="primary">Thêm tour</button>
                 </div>
               </div>
 

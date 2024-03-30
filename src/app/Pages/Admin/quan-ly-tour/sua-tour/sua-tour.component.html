@@ -208,9 +208,7 @@
                     @else if (dichVuDiKem?.errors?.['maxlength']) {
                     <mat-error>Vượt quá mức quy định</mat-error>
                     }
-                    @else if (dichVuDiKem?.errors?.['invalidChar']) {
-                    <mat-error>Dịch vụ đi kèm không chứa ký tự đặc biệt</mat-error>
-                    }
+      
                   </mat-form-field>
 
                   <mat-form-field>
@@ -278,7 +276,7 @@
               <button mat-raised-button color="basic" (click)="Fn_Display_Description()" style="margin-right: 5px;">Hiển
                 thị
                 previewing mô tả</button>
-              <button mat-raised-button color="primary" (click)="SuaTour()">Sửa tour</button>
+              <button mat-raised-button color="primary"[disabled]="suaTourForm.invalid" (click)="SuaTour()">Sửa tour</button>
               <button mat-raised-button color="warn" style="margin-right: 5px;" routerLink="/quanlytour">Quay
                 lại</button>
             </div>
