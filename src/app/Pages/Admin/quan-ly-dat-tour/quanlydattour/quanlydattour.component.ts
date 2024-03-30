@@ -16,6 +16,7 @@ import { DichVu } from '../../models/Dich-Vu.model';
 import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../models/dich-vu-chi-tiet.model';
 import { NguoiDungService } from '../../services/NguoiDung/nguoi-dung.service';
 import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
+import { MatTableDataSource } from '@angular/material/table';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -29,8 +30,12 @@ interface DichVuThemVaoDb {
   styleUrl: './quanlydattour.component.css'
 })
 export class QuanlydattourComponent implements OnInit {
+  //table thông tin tuor
+  dataSource = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
+
   themKhachHang: KhachHang;
-  TenKhachHang = new FormControl('');
+  TenKhachHang = new FormControl('KH0001');
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -44,14 +49,14 @@ export class QuanlydattourComponent implements OnInit {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
-      idKhachHang: '123123',
-      tenKhachHang: '',
-      soDienThoai: '',
-      diaChi: '',
-      cccd: '',
-      ngaySinh: '',
-      gioiTinh: 'Nam',
-      email: '',
+      idKhachHang: 'KH0001',
+      tenKhachHang: 'Nguyễn Thị C',
+      soDienThoai: '0987654321',
+      diaChi: '123 Đường A, Quận 1, TP. HCM',
+      cccd: '123456789012',
+      ngaySinh: '1990-01-01',
+      gioiTinh: 'Nữ',
+      email: 'ntc@example.com',
       tinhTrang: 'Đang hoạt động',
       matKhau: '123123',
       ngayDangKy: ngayGioHienTaiFormatted
@@ -95,6 +100,11 @@ export class QuanlydattourComponent implements OnInit {
       this.arrKhachHang = data;
     })
     this.GetDichVu();
+
+    //Get data tableThongTinTour
+    this.dataSource.data = [
+      { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
+    ];
   }
   //xử lý select khách hàng
   IdKhachHang !: string;
@@ -178,7 +188,7 @@ export class QuanlydattourComponent implements OnInit {
   //hàm đặt tour
   DatTour() {
     //nếu thêm khách hàng không có value
-    if (this.themKhachHang.tenKhachHang == '') {
+    if (this.themKhachHang.tenKhachHang == 'KH0001') {
       this.onDatTour(null);
     }
     //nếu thêm khách hàng có value
