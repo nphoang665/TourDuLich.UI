@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -11,13 +11,22 @@ import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ToastrService } from 'ngx-toastr';
 import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
-
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-sua-tour',
   templateUrl: './sua-tour.component.html',
   styleUrl: './sua-tour.component.css'
 })
 export class SuaTourComponent implements OnInit, OnDestroy {
+  matcher = new MyErrorStateMatcher();
   //form group 
   suaTourForm: FormGroup = new FormGroup({
     idTour: new FormControl(''),
@@ -38,7 +47,60 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     dichVuDiKem: new FormControl(''),
     tinhTrang: new FormControl('')
   });
-
+  get tenTour(){
+    return this.suaTourForm.get('tenTour');
+  }
+  get loaiTour(){
+    return this.suaTourForm.get('loaiTour');
+  }
+  get phuongTienDiChuyen(){
+    return this.suaTourForm.get('phuongTienDiChuyen');
+  }
+  get moTa(){
+    return this.suaTourForm.get('moTa');
+  }
+  get soLuongNguoiLon(){
+    return this.suaTourForm.get('soLuongNguoiLon');
+  }
+  get soLuongTreEm(){
+    return this.suaTourForm.get('soLuongTreEm');
+  }
+  get thoiGianBatDau(){
+    return this.suaTourForm.get('thoiGianBatDau');
+  }
+  get thoiGianKetThuc(){
+    return this.suaTourForm.get('thoiGianKetThuc');
+  }
+  get noiKhoiHanh(){
+    return this.suaTourForm.get('noiKhoiHanh');
+  }
+  get soChoConNhan(){
+    return this.suaTourForm.get('soChoConNhan');
+  }
+  get idDoiTac(){
+    return this.suaTourForm.get('idDoiTac');
+  }
+  get giaTreEm(){
+    return this.suaTourForm.get('giaTreEm');
+  }
+  get giaNguoiLon(){
+    return this.suaTourForm.get('giaNguoiLon');
+  }
+  get ngayThem(){
+    return this.suaTourForm.get('ngayThem');
+  }
+  get dichVuDiKem(){
+    return this.suaTourForm.get('dichVuDiKem');
+  }
+  get tinhTrang(){
+    return this.suaTourForm.get('tinhTrang');
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
   ///////
   id?: string | null = null;
   model?: TourDuLich;
@@ -132,22 +194,69 @@ export class SuaTourComponent implements OnInit, OnDestroy {
 
   initializeForm():void{
     this.suaTourForm = new FormGroup({
-      tenTour: new FormControl(this.model?.tenTour || ''),
-      loaiTour: new FormControl(this.model?.loaiTour || ''),
-      phuongTienDiChuyen: new FormControl(this.model?.phuongTienDiChuyen || ''),
-      moTa: new FormControl(this.model?.moTa || ''),
-      soLuongNguoiLon: new FormControl(this.model?.soLuongNguoiLon || 0),
-      soLuongTreEm: new FormControl(this.model?.soLuongTreEm || 0),
-      thoiGianBatDau: new FormControl(this.model?.thoiGianBatDau || ''),
-      thoiGianKetThuc: new FormControl(this.model?.thoiGianKetThuc || ''),
-      noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || ''),
-      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0),
-      idDoiTac: new FormControl(this.model?.idDoiTac || ''),
-      giaTreEm: new FormControl(this.model?.giaTreEm || 0),
-      giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0),
+      tenTour: new FormControl(this.model?.tenTour || '',[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        
+      ]),
+      loaiTour: new FormControl(this.model?.loaiTour || '',
+      Validators.required),
+      phuongTienDiChuyen: new FormControl(this.model?.phuongTienDiChuyen || '',
+      Validators.required),
+      moTa: new FormControl(this.model?.moTa || '',
+      Validators.required),
+      soLuongNguoiLon: new FormControl(this.model?.soLuongNguoiLon || 0,[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(50),
+        
+      ]),
+      soLuongTreEm: new FormControl(this.model?.soLuongTreEm || 0,[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(50),
+        
+      ]),
+      thoiGianBatDau: new FormControl(this.model?.thoiGianBatDau || '',
+      Validators.required),
+      thoiGianKetThuc: new FormControl(this.model?.thoiGianKetThuc || '',
+      Validators.required),
+      noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || '',[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        
+      ]),
+      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0,[
+        Validators.required,
+        Validators.min(2),
+        Validators.max(50),
+        
+      ]),
+      idDoiTac: new FormControl(this.model?.idDoiTac || '',
+      Validators.required),
+      giaTreEm: new FormControl(this.model?.giaTreEm || 0,[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(1000000),
+        
+      ]),
+      giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0,[
+        Validators.required,
+        Validators.min(0),
+        Validators.max(1000000),
+        
+      ]),
       ngayThem: new FormControl(this.model?.ngayThem || ''),
-      dichVuDiKem: new FormControl(this.model?.dichVuDiKem || ''),
-      tinhTrang: new FormControl(this.model?.tinhTrang || ''),
+      dichVuDiKem: new FormControl(this.model?.dichVuDiKem || '',[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        this.noSpecialCharValidator(),
+      ]),
+      tinhTrang: new FormControl(this.model?.tinhTrang || '',
+      Validators.required),
       anhTourDb: new FormControl(this.arrImgPreviewClientHandle || []),
       anhTourBrowse: new FormControl(this.fileImgPreviewFromBrowse || [])
     });    

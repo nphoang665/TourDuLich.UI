@@ -33,7 +33,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
-      this.noSpecialCharValidator(),
+      
     ]),
     loaiTour: new FormControl('',
      Validators.required),
@@ -45,13 +45,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.min(0),
       Validators.max(50),
-      this.noSpecialCharValidator(),
+      
     ]),
     soLuongTreEm: new FormControl(0,[
       Validators.required,
       Validators.min(0),
       Validators.max(50),
-      this.noSpecialCharValidator(),
+      
     ]),
     thoiGianBatDau: new FormControl('',
     Validators.required),
@@ -66,27 +66,27 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.min(2),
       Validators.max(50),
-      this.noSpecialCharValidator(),
+      
     ]),
     idDoiTac: new FormControl('',
     Validators.required),
     giaTreEm: new FormControl(0,[
       Validators.required,
       Validators.min(0),
-      Validators.max(250000),
-      this.noSpecialCharValidator(),
+      Validators.max(1000000),
+      
     ]),
     giaNguoiLon: new FormControl(0,[
       Validators.required,
       Validators.min(0),
-      Validators.max(650000),
-      this.noSpecialCharValidator(),
+      Validators.max(1000000),
+      
     ]),
     ngayThem: new FormControl(new Date()),
     dichVuDiKem: new FormControl('',[
       Validators.required,
-      Validators.min(0),
-      Validators.max(650000),
+      Validators.minLength(0),
+      Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
     tinhTrang: new FormControl('z')
