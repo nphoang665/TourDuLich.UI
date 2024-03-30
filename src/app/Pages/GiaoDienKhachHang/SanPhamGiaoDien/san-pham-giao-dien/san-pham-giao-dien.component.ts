@@ -71,7 +71,6 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
         this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
           element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
           element.SoLuongDanhGia = result.soLuongDanhGia;
-          console.log(element);
 
 
         });

@@ -11,14 +11,14 @@ import { User } from '../../../Auth/models/user.model';
 })
 export class HeaderComponent implements OnInit {
 
-  user?:User;
+  user?: User;
 
   constructor(
-    private router: Router, 
-    private renderer: Renderer2, 
-    private el: ElementRef, 
+    private router: Router,
+    private renderer: Renderer2,
+    private el: ElementRef,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private authService:AuthService) {
+    private authService: AuthService) {
   }
   clock = new Date().toISOString();
   ngOnInit(): void {
@@ -28,18 +28,26 @@ export class HeaderComponent implements OnInit {
     }
 
     this.authService.user()
-    .subscribe({
-      next:(response)=>{
-       this.user = response;
-        
-      }
-    });
+      .subscribe({
+        next: (response) => {
+          this.user = response;
+
+        }
+      });
     this.user = this.authService.getUser();
-    
+    console.log(this.user);
+
+
   }
 
-  onLogout():void{
+  onLogout(): void {
+
+
     this.authService.logout();
+
+    this.user = undefined;
+    console.log(this.user);
+
     this.router.navigateByUrl('/');
   }
 
