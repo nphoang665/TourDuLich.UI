@@ -1,18 +1,35 @@
-mat-card{
+mat-card {
   margin: 2%;
   text-align: left;
 }
 
-.mat-mdc-form-field{
+/* .mat-mdc-form-field {
   width: 30%;
   margin: 1%;
 }
 
-.mat-50{
+.mat-50 {
   width: 48%;
   margin: 1%;
-}
+} */
 
-button{
+button {
   margin: 2px;
+}
+.dv_img_previewing {
+  position: relative;
+}
+.btn_Delete_Img {
+  position: absolute;
+  right: 2px;
+  top: -2px;
+  border: 0;
+  background-color: #40679e;
+  color: white;
+}
+.dv_khung_img {
+  border: 1px solid gray;
+  overflow-x: auto;
+  display: flex;
+  flex-wrap: nowrap;
 }

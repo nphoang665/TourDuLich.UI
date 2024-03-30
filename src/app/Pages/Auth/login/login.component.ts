@@ -1,5 +1,5 @@
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -12,6 +12,15 @@ import { HttpClient } from '@angular/common/http';
 import { GoogleLoginDto } from '../models/login-google.model';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { tap } from 'rxjs';
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 const icon_User = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.7274 20.4471C19.2716 19.1713 18.2672 18.0439 16.8701 17.2399C15.4729 16.4358 13.7611 16 12 16C10.2389 16 8.52706 16.4358 7.12991 17.2399C5.73276 18.0439 4.72839 19.1713 4.27259 20.4471" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
@@ -49,12 +58,25 @@ const google_login = `
 export class LoginComponent implements OnInit {
   hide = true;
   name!: string;
-
+  matcher = new MyErrorStateMatcher();
   login: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ]),
+    password: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ]),
   })
-
+  get email(){
+    return this.login.get('email');
+  }
+  get password(){
+    return this.login.get('password');
+  }
   constructor(private authService: AuthService,
     private cookieService: CookieService,
     private router: Router,
