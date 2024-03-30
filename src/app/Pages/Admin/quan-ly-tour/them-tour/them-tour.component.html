@@ -32,9 +32,7 @@
         @else if (tenTour?.errors?.['maxlength']) {
             <mat-error>Tên tour quá dài</mat-error>
           }
-        @else if (tenTour?.errors?.['invalidChar']) {
-              <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
-          }   
+          
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -86,9 +84,7 @@
         @else if (soLuongNguoiLon?.errors?.['max']) {
             <mat-error>Số lượng người vượt quá mức cho phép</mat-error>
           }
-        @else if (soLuongNguoiLon?.errors?.['invalidChar']) {
-              <mat-error>Số lượng người không chứa ký tự đặc biệt</mat-error>
-          }  
+        
       </mat-form-field>
   
       <mat-form-field>
@@ -103,9 +99,7 @@
         @else if (soLuongTreEm?.errors?.['max']) {
             <mat-error>Số lượng trẻ em vượt quá mức cho phép</mat-error>
           }
-        @else if (soLuongTreEm?.errors?.['invalidChar']) {
-              <mat-error>Số lượng trẻ em không chứa ký tự đặc biệt</mat-error>
-          } 
+        
       </mat-form-field>
 
       <mat-form-field>
@@ -120,9 +114,7 @@
         @else if (giaNguoiLon?.errors?.['max']) {
             <mat-error>Giá vé vượt quá mức cho phép</mat-error>
           }
-        @else if (giaNguoiLon?.errors?.['invalidChar']) {
-              <mat-error>Giá vé không chứa ký tự đặc biệt</mat-error>
-          } 
+        
       </mat-form-field>
   
       <mat-form-field>
@@ -137,9 +129,7 @@
         @else if (giaTreEm?.errors?.['max']) {
             <mat-error>Giá vé vượt quá mức cho phép</mat-error>
           }
-        @else if (giaTreEm?.errors?.['invalidChar']) {
-              <mat-error>Giá vé không chứa ký tự đặc biệt</mat-error>
-          } 
+        
       </mat-form-field>
 
       <mat-form-field>
@@ -154,9 +144,7 @@
         @else if (soChoConNhan?.errors?.['max']) {
             <mat-error>Số chỗ quá nhiều</mat-error>
           }
-        @else if (soChoConNhan?.errors?.['invalidChar']) {
-              <mat-error>Số chỗ không chứa ký tự đặc biệt</mat-error>
-          } 
+        
       </mat-form-field>
 
       <div class="row">
@@ -190,9 +178,7 @@
         @else if (noiKhoiHanh?.errors?.['maxlength']) {
             <mat-error>Nơi khởi hành quá dài</mat-error>
           }
-        @else if (noiKhoiHanh?.errors?.['invalidChar']) {
-              <mat-error>Nơi khởi hành không chứa ký tự đặc biệt</mat-error>
-          } 
+        
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -250,7 +236,7 @@
     <div class="d-flex justify-content-end mt-2">
       <div mat-dialog-actions>
         <button mat-raised-button  routerLink="/quanlytour" color="warn">Hủy thêm</button>
-        <button mat-raised-button (click)="ThemTour()" color="primary">Thêm tour</button>
+        <button mat-raised-button (click)="ThemTour()"  color="primary">Thêm tour</button>
       </div>
     </div>
       
