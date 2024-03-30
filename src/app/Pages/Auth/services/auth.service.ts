@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { LoginResponse } from '../models/login-response.model';
 import { User } from '../models/user.model';
@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient,
     private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private nguoiDungServices: NguoiDungService) {
+  ) {
   }
 
   createAcount(data: Register): Observable<Register> {
@@ -38,13 +38,27 @@ export class AuthService {
     })
   }
 
-    // googleLogin(request: GoogleLoginDto): Observable<LoginResponse> {
+  // googleLogin(request: GoogleLoginDto): Observable<LoginResponse> {
   //   return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/google-login`, {
   //     idToken: request.idToken
   //   });
   // }
-  googleLogin(data: GoogleLoginDto): Observable<any> {
-    return this.http.post(`${environment.apiBaseUrl}/api/auth/google-login`, data);
+  googleLogin(data: GoogleLoginDto): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/google-login`, data).pipe(
+      tap(result => {
+        console.log(result);
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('user-email', result.email);
+          localStorage.setItem('user-roles', result.roles.join(','));
+          if (result.khachHang != null) {
+            localStorage.setItem('NguoiDung', JSON.stringify(result.khachHang));
+          }
+          else {
+            localStorage.setItem('NguoiDung', JSON.stringify(result.nhanVien));
+          }
+        }
+      })
+    );
   }
 
   // setUser(user: User): void {
