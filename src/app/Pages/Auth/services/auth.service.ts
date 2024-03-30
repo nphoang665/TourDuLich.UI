@@ -99,7 +99,8 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
-      this.cookieService.delete('Authorization', '/');
+      this.cookieService.deleteAll('Authorization', 'http://localhost:4200/');
+
       this.$user.next(undefined);
     }
   }
