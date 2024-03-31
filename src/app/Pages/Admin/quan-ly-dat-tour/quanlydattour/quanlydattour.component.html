@@ -23,20 +23,18 @@
                                 <mat-button-toggle value="Đang hoạt động" [className]="mauButton==1?'bg-success text-white':'bg-light'">Đang hoạt động</mat-button-toggle>
                                 <mat-button-toggle value="Tạm hoãn" [className]="mauButton==2?'bg-warning text-white':'bg-light'">Tạm hoãn</mat-button-toggle>
                             </mat-button-toggle-group>
-                          </p>
+                        </p>
                         <div class="mt-4">
                             <div class="total_card row d-flex justify-content-center">
                                 @for(item of filteredTours; track $index){
                                 <div class="card_tour col-lg-3">
                                     <div class="div_img">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
-                                            <span 
-                                                class="badge rounded-0" 
-                                                [class]="getTinhTrangClass(item.tinhTrang)">
+                                            <span class="badge rounded-0" [class]="getTinhTrangClass(item.tinhTrang)">
                                                 {{item.tinhTrang}}
                                             </span>
                                         </div>
-                                        
+
                                         <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
                                     </div>
                                     <div class="title_tour">
