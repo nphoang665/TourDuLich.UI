@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { DattourService } from '../../services/DatTour/dattour.service';
@@ -19,6 +19,15 @@ import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-t
 import { MatTableDataSource } from '@angular/material/table';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -45,21 +54,78 @@ export class QuanlydattourComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
-
+  matcher = new MyErrorStateMatcher();
 
 
   // themKhachHang: KhachHang;
   myForm: FormGroup = new FormGroup({
     idKhachHang: new FormControl('231233'),
-    tenKhachHang: new FormControl(''),
-    soDienThoai: new FormControl(''),
-    diaChi: new FormControl(''),
-    cccd: new FormControl(''),
-    ngaySinh: new FormControl(''),
-    gioiTinh: new FormControl(''),
-    email: new FormControl(''),
+    tenKhachHang: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+      this.noSpecialCharValidator(),
+    ]),
+    soDienThoai: new FormControl('',[
+      Validators.required,
+      Validators.minLength(0),
+      Validators.maxLength(10), 
+    
+    ]),
+    diaChi: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50), 
+      
+    ]),
+    cccd: new FormControl('',[
+      Validators.required,
+      Validators.minLength(0),
+      Validators.maxLength(16), 
+    
+    ]),
+    ngaySinh: new FormControl('',
+    Validators.required),
+    gioiTinh: new FormControl('',
+    Validators.required),
+    email: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50), 
+      
+    ]),
     tinhTrang: new FormControl('Đang hoạt động'),
   });
+  get tenKhachHang(){
+    return this.myForm.get('tenKhachHang');
+  }
+  get soDienThoai(){
+    return this.myForm.get('soDienThoai');
+  }
+  get cccd(){
+    return this.myForm.get('cccd');
+  }
+  get diaChi(){
+    return this.myForm.get('diaChi');
+  }
+  get ngaySinh(){
+    return this.myForm.get('ngaySinh');
+
+  }
+  get email(){
+    return this.myForm.get('email');
+
+  }
+  get tinhTrang(){
+    return this.myForm.get('tinhTrang');
+
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
 
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
