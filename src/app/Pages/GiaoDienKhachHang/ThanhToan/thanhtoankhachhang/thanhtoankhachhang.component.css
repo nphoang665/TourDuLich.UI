@@ -22,3 +22,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Màu của thanh cuộn khi rê chuột vào */
 }
+
+mat-card{
+  margin: 2%;
+  text-align: left;
+}
+
+.mat-mdc-form-field{
+  width: 100%;
+  margin: 1%;
+}
+
+.mat-50{
+  width: 48%;
+  margin: 1%;
+}
+
+button{
+  margin: 2px;
+}
+

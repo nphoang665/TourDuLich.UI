@@ -24,44 +24,85 @@
                 </div>
                 <form [formGroup]="ThanhToan">
                     <div class="inforKhachHang border p-2 bg-white " style="height: 100%;">
-                        <div class="form-group">
-                            <label for="inputName">Tên</label>
-                            <input type="text" formControlName="TenKhachHang" class="form-control" id="inputName"
-                                placeholder="Nhập tên của bạn">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPhone">Số điện thoại</label>
-                            <input type="tel" formControlName="SoDienThoai" class="form-control" id="inputPhone"
-                                placeholder="Nhập số điện thoại của bạn">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputCCCD">CCCD</label>
-                            <input type="text" formControlName="CCCD" class="form-control" id="inputCCCD"
-                                placeholder="Nhập CCCD của bạn">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail">Năm sinh</label>
-                            <input type="date" formControlName="NgaySinh" class="form-control" id="inputBirthday">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" formControlName="Email" class="form-control" id="inputEmail"
-                                placeholder="name@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Địa chỉ</label>
-                            <input type="text" formControlName="DiaChi" class="form-control" id="inputAddress"
-                                placeholder="Nhập địa chỉ của bạn">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputGender">Giới tính</label>
-                            <select formControlName="GioiTinh" class="form-control" id="inputGender">
-                                <option selected>Chọn...</option>
-                                <option>Nam</option>
-                                <option>Nữ</option>
 
-                            </select>
-                        </div>
+                        <mat-form-field>
+                            <mat-label for="inputName">Tên</mat-label>
+                            <input 
+                                matInput 
+                                type="text" 
+                                formControlName="TenKhachHang" 
+                                id="inputName" 
+                                placeholder="Nhập tên của bạn">
+                        </mat-form-field>
+                        
+
+                        <mat-form-field>
+                            <mat-label for="inputPhone">Số điện thoại</mat-label>
+                            <input 
+                                matInput 
+                                type="tel" 
+                                formControlName="SoDienThoai" 
+                                id="inputPhone" 
+                                placeholder="Nhập số điện thoại của bạn">
+                        </mat-form-field>
+
+                        <!-- CCCD -->
+                        <mat-form-field>
+                            <mat-label for="inputCCCD">CCCD</mat-label>
+                            <input 
+                                matInput 
+                                type="text" 
+                                formControlName="CCCD" 
+                                id="inputCCCD" 
+                                placeholder="Nhập CCCD của bạn">
+                        </mat-form-field>
+
+                        <!-- Năm sinh -->
+                        <mat-form-field>
+                            <mat-label for="inputBirthday">Năm sinh</mat-label>
+                            <input 
+                                matInput  
+                                [matDatepicker]="picker"
+                                formControlName="NgaySinh" 
+                                id="inputBirthday">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                       <!-- Email -->
+                        <mat-form-field class="form-group">
+                            <mat-label for="inputEmail">Email</mat-label>
+                            <input 
+                                matInput 
+                                type="email" 
+                                formControlName="Email" 
+                                id="inputEmail" 
+                                placeholder="name@example.com">
+                        </mat-form-field>
+
+                        <!-- Địa chỉ -->
+                        <mat-form-field class="form-group">
+                            <mat-label for="inputAddress">Địa chỉ</mat-label>
+                            <input 
+                                matInput 
+                                type="text" 
+                                formControlName="DiaChi" 
+                                id="inputAddress" 
+                                placeholder="Nhập địa chỉ của bạn">
+                        </mat-form-field>
+
+                        <!-- Giới tính -->
+                        <mat-form-field class="form-group">
+                            <mat-label for="inputGender">Giới tính</mat-label>
+                            <mat-select 
+                                formControlName="GioiTinh" 
+                                id="inputGender">
+                                <mat-option value="" disabled selected>Chọn...</mat-option>
+                                <mat-option value="Nam">Nam</mat-option>
+                                <mat-option value="Nữ">Nữ</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
 
                     </div>
                 </form>
