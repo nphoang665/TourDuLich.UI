@@ -30,4 +30,7 @@ export class DichVuChiTietService {
     return this.http.put<ThemDichVuChiTietRequestDto[]>(`${environment.apiBaseUrl}/api/DichVuChiTiet/${idDatTour}?addAuth=true`, data);
 
   }
+  GetAllDichVuChiTietByIdDatTour(idDatTour: string): Observable<DichVuChiTietDto[]> {
+    return this.http.get<DichVuChiTietDto[]>(`${environment.apiBaseUrl}/api/DichVuChiTiet/${idDatTour}`);
+  }
 }

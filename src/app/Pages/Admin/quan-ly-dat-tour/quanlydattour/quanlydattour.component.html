@@ -529,7 +529,7 @@
             <mat-dialog-actions align="end">
                 <button mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
                 <button mat-raised-button color="primary" (click)="ThongTinThanhToan()" data-bs-toggle="modal"
-                    data-bs-target="#thanhToanModal1">Tra cứu
+                    data-bs-target="#thanhToanModal1" [disabled]="!TenKhachHang_ThanhToan.value">Tra cứu
                     thông
                     tin</button>
             </mat-dialog-actions>
@@ -551,150 +551,190 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-4">
+                <div class="row d-flex align-items-stretch">
+                    <div class="col-lg-4  d-flex flex-column">
                         <h5>Thông tin khách hàng</h5>
 
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped flex-grow-1">
                             <tbody>
                                 <tr>
                                     <th>Mã khách hàng</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.idKhachHang}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.idKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Tên khách hàng</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.tenKhachHang}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.tenKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Số điện thoại</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.soDienThoai}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.soDienThoai}}</td>
                                 </tr>
                                 <tr>
                                     <th>Địa chỉ</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.diaChi}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.diaChi}}</td>
                                 </tr>
                                 <tr>
                                     <th>CCCD</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.cccd}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.cccd}}</td>
                                 </tr>
                                 <tr>
                                     <th>Ngày sinh</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.ngaySinh}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.ngaySinh | date:
+                                        "dd/MM/yyyy"}}</td>
                                 </tr>
                                 <tr>
                                     <th>Giới tính</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.gioiTinh}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.gioiTinh}}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td> {{TenKhachHang_ThanhToan.value.email}}</td>
+                                    <td class="text-center"> {{TenKhachHang_ThanhToan.value.email}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
                     @if(TourThanhToan_HienThi){
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 d-flex flex-column">
                         <h5>Thông tin đặt tour</h5>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped flex-grow-1">
                             <tbody>
                                 <tr>
                                     <th>Mã đặt tour</th>
-                                    <td>{{TourThanhToan_HienThi.idDatTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.idDatTour}}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Mã tour</th>
-                                    <td>{{TourThanhToan_HienThi.idTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.idTour}}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Tour du lịch</th>
-                                    <td>{{TourThanhToan_HienThi.tourDuLich}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.tourDuLich}}</td>
                                 </tr>
                                 <tr>
                                     <th>SL người lớn</th>
-                                    <td>{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
                                 </tr>
                                 <tr>
                                     <th>SL trẻ em</th>
-                                    <td>{{TourThanhToan_HienThi.soLuongTreEm}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongTreEm}}</td>
                                 </tr>
                                 <tr>
                                     <th>Ghi chú</th>
-                                    <td>{{TourThanhToan_HienThi.ghiChu}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.ghiChu}}</td>
                                 </tr>
                                 <tr>
                                     <th>Nhân viên</th>
-                                    <td>{{TourThanhToan_HienThi.idNhanVien}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.idNhanVien}}</td>
                                 </tr>
                                 <tr>
                                     <th>Thời gian đặt tour</th>
-                                    <td>{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 d-flex flex-column">
                         <h5>Thông tin thanh toán</h5>
-                        <table class="table table-bordered table-striped w-100">
+                        <table class="table table-bordered table-striped w-100 flex-grow-1">
                             <thead>
                                 <tr>
-                                    <th>Giá người lớn</th>
-                                    <th>Giá trẻ em</th>
+                                    <th class="text-center">Giá người lớn</th>
+                                    <th class="text-center">Giá trẻ em</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
-                                    <td> {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
+                                    <td class="text-center"> {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
+                                    <td class="text-center"> {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Thời gian tour</th>
-                                    <td class="">{{LayTourDangThanhToan.SoNgayDem}}</td>
+                                    <td class="text-center">{{LayTourDangThanhToan.SoNgayDem}}</td>
                                 </tr>
                                 <tr>
                                     <th>Sl người lớn</th>
-                                    <td class="">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
+                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
                                         {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Sl trẻ em</th>
-                                    <td class="">{{TourThanhToan_HienThi.soLuongTreEm}} x
+                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongTreEm}} x
                                         {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
+                                    <th>Tổng tiền dịch vụ</th>
+                                    <td class="text-center">{{TongTien_DichVu_ThanhToan| number:'':'en'}}</td>
+                                </tr>
+                                <tr>
                                     <th>Tổng cộng</th>
-                                    <td class="">{{TongTien_ThanhToan| number:'':'en'}}</td>
+                                    <td class="text-center">{{TongTien_ThanhToan| number:'':'en'}}</td>
                                 </tr>
 
                                 <tr>
                                     <th class="align-middle">Phương thức thanh toán</th>
-                                    <td class=" align-middle">
+                                    <td class="align-middle">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="traTruoc">
+                                            <input class="form-check-input" checked type="radio" name="paymentOption"
+                                                value="" id="traTruoc">
                                             <label class="form-check-label" for="traTruoc">
                                                 Trả trước
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="traSau">
+                                            <input class="form-check-input" type="radio" name="paymentOption" value=""
+                                                id="traSau">
                                             <label class="form-check-label" for="traSau">
                                                 Trả sau
                                             </label>
                                         </div>
                                     </td>
+
                                 </tr>
 
 
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-lg-12">
+
+                    </div>
+                    <h5>Các dịch vụ đã đặt</h5>
+                    <table class="table table-bordered table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Id dịch vụ</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Số lượng</th>
+                                <th>Giờ bắt đầu</th>
+                                <th>Giờ kết thúc</th>
+                                <th>Giá tiền</th>
+                                <th>Đơn vị tính</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (dv of ThongTinDichVuThanhToan; track $index) {
+                            <tr>
+                                <td>{{$index +1}}</td>
+                                <td>{{dv.idDichVu}}</td>
+                                <td>{{dv.dichVu.tenDichVu}}</td>
+                                <td>{{dv.soLuong}}</td>
+                                <td>{{dv.dichVu.gioBatDau}}</td>
+                                <td>{{dv.dichVu.gioKetThuc}}</td>
+                                <td>{{dv.dichVu.giaTien}}</td>
+                                <td>{{dv.dichVu.donViTinh}}</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
 
                     }
-
                 </div>
             </div>
             <div class="modal-footer">

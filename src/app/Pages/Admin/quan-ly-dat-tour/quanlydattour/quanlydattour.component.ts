@@ -19,6 +19,7 @@ import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-t
 import { MatTableDataSource } from '@angular/material/table';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DichVuChiTiet } from '../../models/dat-tour-khach-hang.model';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -362,6 +363,7 @@ export class QuanlydattourComponent implements OnInit {
   Tour_ThanhToan: any;
   optionsKhachHangThanhToan: KhachHang[] = []; // Danh sách các tùy chọn cho autocomplete
   filteredOptionsKhachHangThanhToan!: Observable<KhachHang[]>;
+  DichVuChiTiet: DichVuChiTietDto[] = [];
   LayThanhToanTourDuLich(idTour: string) {
     //reset tra cứu khách hàng trước đó
     //đoạn code lấy thanh toán
@@ -370,8 +372,6 @@ export class QuanlydattourComponent implements OnInit {
     this.idTour_ThanhToan = idTour;
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
       this.Tour_ThanhToan = data;
-      console.log(data);
-
       for (let index = 0; index < data.length; index++) {
         this.arrKhachHangThanhToan.push(data[index].khachHang);
       }
@@ -384,6 +384,7 @@ export class QuanlydattourComponent implements OnInit {
         );
       }
     })
+    //get dịch vụ chi tiết
 
   }
   displayFnKhachHang_ThanhToan(kh: KhachHang): string {
@@ -424,6 +425,7 @@ export class QuanlydattourComponent implements OnInit {
   // đối tượng hiển thị thông tin lên html
   TourThanhToan_HienThi: any;
   LayTourDangThanhToan: any = {};
+  ThongTinDichVuThanhToan: DichVuChiTietDto[] = [];
   ThongTinThanhToan() {
     for (let index = 0; index < this.Tour_ThanhToan.length; index++) {
       if (this.idTour_ThanhToan === this.Tour_ThanhToan[index].idTour) {
@@ -432,16 +434,25 @@ export class QuanlydattourComponent implements OnInit {
 
     }
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
-
       this.LayTourDangThanhToan = data;
+      this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi.idDatTour).subscribe((result: DichVuChiTietDto[]) => {
+        this.ThongTinDichVuThanhToan = result;
+        this.ThongTinDichVuThanhToan.forEach(element => {
+          this.TongTien_DichVu_ThanhToan += element.soLuong * element.dichVu.giaTien;
+          this.TinhTongTienThanhToan();
+        });
+      })
       this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);
-      this.TinhTongTienThanhToan();
     });
   }
   //tính tổng tiền thanh toán
+  TongTien_DichVu_ThanhToan: number = 0;
   TongTien_ThanhToan!: number;
   TinhTongTienThanhToan() {
-    this.TongTien_ThanhToan = (this.TourThanhToan_HienThi.soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi.soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm));
+    //tính tổng tiền dịch vụ
+
+    //
+    this.TongTien_ThanhToan = (this.TourThanhToan_HienThi.soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi.soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
   }
   //hàm thanh toán
   onThanhToan() {
@@ -467,18 +478,19 @@ export class QuanlydattourComponent implements OnInit {
     const tongTienTour = this.TongTien_ThanhToan;
 
     const thanhToanData = {
-      idThanhToan: '',
+      idThanhToan: 'Test',
       idDatTour: this.TourThanhToan_HienThi.idDatTour,
       idKhachHang: this.TenKhachHang_ThanhToan.value.idKhachHang,
       idNhanVien: this.TourThanhToan_HienThi.idNhanVien,
       tongTienTour: tongTienTour.toString(),
-      tongTienDichVu: '0',
+      tongTienDichVu: this.TongTien_DichVu_ThanhToan.toString(),
       tongTien: tongTienTour.toString(),
-      tinhTrang: '',
+      tinhTrang: 'Đã thanh toán',
       ngayThanhToan: ngayGioHienTaiFormatted,
       phuongThucThanhToan: phuongThucThanhToan,
 
     }
+    console.log(thanhToanData);
 
     this.thanhToanService.thanhToan(thanhToanData)
       .subscribe({
@@ -587,6 +599,5 @@ export class QuanlydattourComponent implements OnInit {
       this.TongTienDichVu += element.giaTien * element.soLuong;
     });
     this.TinhTongTien();
-
   }
 }
