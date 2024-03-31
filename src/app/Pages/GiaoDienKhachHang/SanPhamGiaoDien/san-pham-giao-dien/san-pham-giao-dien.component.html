@@ -14,7 +14,7 @@
                             <div class="card__ribbon" style="z-index: 1;">
                                 <div class="ribbon-content">tour hot1</div>
                             </div>
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                            <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
                         <div class="content">
                             <label class="category pt-0">{{tour.loaiTour}}</label>
@@ -58,11 +58,11 @@
 
                 <div class="col col-lg-3 col-md-auto  col-sm-12 col-12">
                     <span class="travel-card w-md-100" [routerLink]="'/chitiettour/'+tour.idTour">
-                        <div class="image" [style.backgroundImage]="'url(' + tour.HinhAnhDauTien + ')'">
+                        <div class="image">
                             <div class="card__ribbon" style="z-index: 1;">
                                 <div class="ribbon-content">tour hot1</div>
                             </div>
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                            <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
                         <div class="content">
                             <label class="category">{{tour.loaiTour}}</label>
