@@ -8,7 +8,6 @@ export interface KhachHang {
     gioiTinh: string,
     email: string,
     tinhTrang: string,
-    matKhau: string,
     ngayDangKy: string,
 }
 
@@ -22,7 +21,6 @@ export interface ThemKhachHang {
     gioiTinh: string,
     email: string,
     tinhTrang: string,
-    matKhau: string,
     ngayDangKy: string,
 }
 
@@ -35,6 +33,5 @@ export interface SuaKhachHang {
     gioiTinh: string,
     email: string,
     tinhTrang: string,
-    matKhau: string,
     ngayDangKy: string,
 }

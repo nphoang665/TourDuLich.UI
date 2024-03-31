@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { DattourService } from '../../services/DatTour/dattour.service';
@@ -49,6 +49,18 @@ export class QuanlydattourComponent implements OnInit {
 
 
   themKhachHang: KhachHang;
+  myForm:FormGroup = new FormGroup({
+    idKhachHang: new FormControl(''),
+    tenKhachHang: new FormControl(''),
+    soDienThoai: new FormControl(''),
+    diaChi: new FormControl(''),
+    cccd: new FormControl(''),
+    ngaySinh: new FormControl(''),
+    gioiTinh: new FormControl(''),
+    email: new FormControl(''),
+    tinhTrang: new FormControl('Đang hoạt động'),
+  });
+
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -74,7 +86,6 @@ export class QuanlydattourComponent implements OnInit {
       gioiTinh: 'Nữ',
       email: 'ntc@example.com',
       tinhTrang: 'Đang hoạt động',
-      matKhau: '123123',
       ngayDangKy: ngayGioHienTaiFormatted
     }
     iconRegistry.addSvgIconLiteral('icon_DauTru', sanitizer.bypassSecurityTrustHtml(icon_DauTru));

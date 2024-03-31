@@ -20,7 +20,6 @@ export class ThemKhachHangComponent implements OnInit{
     gioiTinh: new FormControl('Nam'),
     email: new FormControl(''),
     tinhTrang: new FormControl(''),
-    matKhau: new FormControl(''),
     ngayDangKy: new FormControl(new Date()),
   });
 
