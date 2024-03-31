@@ -6,7 +6,7 @@ import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { DattourService } from '../../services/DatTour/dattour.service';
 import { HttpClient } from '@angular/common/http';
 import { ThanhToanService } from '../../services/ThanhToan/thanh-toan.service';
-import { Observable } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { environment } from '../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,8 @@ import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../models/dich
 import { NguoiDungService } from '../../services/NguoiDung/nguoi-dung.service';
 import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -24,6 +26,12 @@ interface DichVuThemVaoDb {
   giaTien: number;
 
 }
+const icon_DauTru = `
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 12H15" stroke="#323232" stroke-width="1.224" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+`;
+const icon_DauCong = `
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" ></rect> <path d="M12 6V18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 12H18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+`
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
@@ -35,7 +43,6 @@ export class QuanlydattourComponent implements OnInit {
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
 
   themKhachHang: KhachHang;
-  TenKhachHang = new FormControl('KH0001');
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -45,7 +52,10 @@ export class QuanlydattourComponent implements OnInit {
     private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
     private dichVuChiTietServices: DichVuChiTietService,
-    private router: Router) {
+    private router: Router,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+  ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
@@ -61,25 +71,26 @@ export class QuanlydattourComponent implements OnInit {
       matKhau: '123123',
       ngayDangKy: ngayGioHienTaiFormatted
     }
-
+    iconRegistry.addSvgIconLiteral('icon_DauTru', sanitizer.bypassSecurityTrustHtml(icon_DauTru));
+    iconRegistry.addSvgIconLiteral('icon_DauCong', sanitizer.bypassSecurityTrustHtml(icon_DauCong));
 
   }
   //disable khách hàng ở thêm đặt tour khi có ở thêm khách hàng
-  checkValue() {
-    if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
+  // checkValue() {
+  //   if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
 
 
-      this.TenKhachHang.disable();
-    } else {
-      this.TenKhachHang.enable();
-    }
-  }
-  TypingKhachHang() {
-    this.checkValue();
-  }
+  //     this.TenKhachHang.disable();
+  //   } else {
+  //     this.TenKhachHang.enable();
+  //   }
+  // }
+  // TypingKhachHang() {
+  //   this.checkValue();
+  // }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
-  arrKhachHang: any[] = [];
+  // arrKhachHang: any[] = [];
   tourDuLich$?: Observable<TourDuLich[]>;
   //khai báo TourDuLich để html sử dụng hiển thị
   TourDuLich: any[] = [];
@@ -95,10 +106,19 @@ export class QuanlydattourComponent implements OnInit {
 
     });
     //lấy khách hàng từ db
-    this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
-    this.khachHang$.subscribe((data: KhachHang[]) => {
-      this.arrKhachHang = data;
-    })
+    // this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
+    // this.khachHang$.subscribe((data: KhachHang[]) => {
+    //   this.optionsKhachHang = data;
+    //   this.filteredOptionsKhachHang = this.TenKhachHang.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => typeof value === 'string' ? value : (value?.tenKhachHang ?? '')),
+    //     map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+    //   );
+    // });
+    this.LayKhachHang();
+
+
+
     this.GetDichVu();
 
     //Get data tableThongTinTour
@@ -108,16 +128,59 @@ export class QuanlydattourComponent implements OnInit {
   }
   //xử lý select khách hàng
   IdKhachHang !: string;
-  selectValueKhachHang(event: Event) {
-    // tắt form thêm khách hàng
-    this.TypingKhachHang();
-    const input = event.target as HTMLInputElement;
-    const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
-    if (khachhang) {
-      this.TenKhachHang.setValue(khachhang.tenKhachHang)
-      this.IdKhachHang = khachhang.idKhachHang;
-    }
+  KhachHang = new FormControl();
+  optionsKhachHang: KhachHang[] = []; // Danh sách các tùy chọn cho autocomplete
+  filteredOptionsKhachHang!: Observable<KhachHang[]>;
+  LayKhachHang() {
+    this.quanLyKhachHangServices.getAllTourKhachHang().subscribe(khachhangs => {
+      this.optionsKhachHang = khachhangs;
+      this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.tenKhachHang),
+        map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+      );
+
+    })
   }
+  displayFnKhachHang(kh: KhachHang): string {
+    return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
+  }
+  private _filter(value: string): KhachHang[] {
+    const filterValue = value.toLowerCase();
+
+    // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
+    let filteredOptions = this.optionsKhachHang.filter(option => {
+      // Kiểm tra xem người dùng đã nhập tên khách hàng, email, cccd hay soDienThoai
+      const isTenKhachHang = option.tenKhachHang.toLowerCase().includes(filterValue);
+      const isEmail = option.email.toLowerCase().includes(filterValue);
+      const isCccd = option.cccd.toLowerCase().includes(filterValue);
+      const isSoDienThoai = option.soDienThoai.toLowerCase().includes(filterValue);
+
+      switch (true) {
+        case isTenKhachHang && !isEmail && !isCccd && !isSoDienThoai:
+          return option.tenKhachHang.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && isEmail && !isCccd && !isSoDienThoai:
+          return option.email.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && !isEmail && isCccd && !isSoDienThoai:
+          return option.cccd.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && !isEmail && !isCccd && isSoDienThoai:
+          return option.soDienThoai.toLowerCase().includes(filterValue);
+        default:
+          return (option.tenKhachHang.toLowerCase() + ' ' + option.email.toLowerCase() + ' ' + option.cccd.toLowerCase() + ' ' + option.soDienThoai.toLowerCase()).includes(filterValue);
+      }
+    });
+
+    // Sắp xếp các tùy chọn dựa trên mức độ phù hợp với đoạn văn bản tìm kiếm
+    filteredOptions.sort((a, b) =>
+      (b.tenKhachHang.toLowerCase() + ' ' + b.email.toLowerCase() + ' ' + b.cccd.toLowerCase() + ' ' + b.soDienThoai.toLowerCase()).indexOf(filterValue) -
+      (a.tenKhachHang.toLowerCase() + ' ' + a.email.toLowerCase() + ' ' + a.cccd.toLowerCase() + ' ' + a.soDienThoai.toLowerCase()).indexOf(filterValue)
+    );
+    return filteredOptions;
+  }
+
+
+
+
   TourDuLichById: any;
   TenNhanVien: any;
   model?: TourDuLich;

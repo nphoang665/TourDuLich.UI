@@ -99,289 +99,314 @@
         <div class="modal-content">
             @if(model){
 
-                    <h2 mat-dialog-title>Đặt tour -  {{model.idTour}}</h2>
+            <h2 mat-dialog-title>Đặt tour - {{model.idTour}}</h2>
 
 
-                <mat-tab-group>
-                    <!-- Content for Nhập thông tin tour tab -->
-                    <mat-tab label="Nhập thông tin">
+            <mat-tab-group>
+                <!-- Content for Nhập thông tin tour tab -->
+                <mat-tab label="Nhập thông tin">
+                    <div class="row ps-4 mb-2 mt-2" style="max-width: 100%;">
+
+
                         <mat-form-field class="col-lg-6">
                             <mat-label>Tên tour</mat-label>
                             <input matInput [(ngModel)]="model.tenTour" readonly>
                         </mat-form-field>
 
-                            <mat-form-field class="col-lg-3">
-                                <mat-label>Tên khách hàng</mat-label>
-                                <input matInput spellcheck="false" [formControl]="TenKhachHang" (input)="selectValueKhachHang($event)" 
-                                       placeholder="Type to search..." [matAutocomplete]="auto">
-                        
-                                <mat-autocomplete #auto="matAutocomplete" style="z-index: 10000;">
-                                    <mat-option *ngFor="let item of arrKhachHang" [value]="item.soDienThoai + '-' + item.email">
-                                        {{item.tenKhachHang}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <!-- <mat-label>Tên khách hàng</mat-label>
+                            <input matInput spellcheck="false" [formControl]="TenKhachHang"
+                                (input)="selectValueKhachHang($event)" placeholder="Type to search..."
+                                [matAutocomplete]="auto">
 
-                            <mat-form-field class="col-lg-3">
-                                <mat-label>Ngày đặt</mat-label>
-                                <input matInput [(ngModel)]="NgayDatTour" type="datetime-local" readonly>
-                            </mat-form-field>
+                            <mat-autocomplete #auto="matAutocomplete" style="z-index: 10000;">
+                                <mat-option *ngFor="let item of arrKhachHang"
+                                    [value]="item.soDienThoai + '-' + item.email">
+                                    {{item.tenKhachHang}}
+                                </mat-option>
+                            </mat-autocomplete> -->
+                            <mat-label>Tên khách hàng</mat-label>
+                            <input type="text" matInput [matAutocomplete]="auto" [formControl]="KhachHang">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                                [displayWith]="displayFnKhachHang">
+                                <mat-option *ngFor="let option of filteredOptionsKhachHang | async" [value]="option">
+                                    {{option.tenKhachHang}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Ngày đặt</mat-label>
+                            <input matInput [(ngModel)]="NgayDatTour" type="datetime-local" readonly>
+                        </mat-form-field>
 
 
-                                <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
-                                    <mat-label>Số lượng người lớn({{model.soLuongNguoiLon}})</mat-label>
-                                    <div class="input-group">
-                                        <button mat-button matSuffix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Tru')">-</button>
-                                        <input matInput type="number" id="SoLuongTreEm" (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour"
-                                                >
-                                        <button mat-button matSuffix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Cong')">+</button>
-                                    </div>
-                                </mat-form-field>
+                        <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
+                            <mat-label>Số lượng người lớn({{model.soLuongNguoiLon}})</mat-label>
+                            <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Tru')"
+                                svgIcon="icon_DauTru"></mat-icon>
+                            <input matInput type="number" style="appearance: none;" id="SoLuongNguoiLon"
+                                (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour">
+                            <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Cong')"
+                                svgIcon="icon_DauCong"></mat-icon>
+                        </mat-form-field>
 
-                            
+                        <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
+                            <mat-label>Số lượng trẻ em({{model.soLuongTreEm}})</mat-label>
+                            <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('TreEm','Tru')"
+                                svgIcon="icon_DauTru"></mat-icon>
+                            <input matInput type="number" style="appearance: none;" id="SoLuongTreEm"
+                                (input)="TinhTongTien()" [(ngModel)]="SoLuongTreEm_DatTour">
+                            <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('TreEm','Cong')"
+                                svgIcon="icon_DauCong"></mat-icon>
+                        </mat-form-field>
 
-                                <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
-                                    <mat-label>Số lượng trẻ em({{model.soLuongTreEm}})</mat-label>
-                                    <div class="input-group">
-                                        <button mat-button matSuffix (click)="TinhSoLuongNguoiDuTour('TreEm','Tru')">-</button>
-                                        <input matInput type="number" [(ngModel)]="SoLuongTreEm_DatTour" (input)="TinhTongTien()"
-                                               id="SoLuongTreEm">
-                                        <button mat-button matSuffix (click)="TinhSoLuongNguoiDuTour('TreEm','Cong')">+</button>
-                                    </div>
-                                </mat-form-field>
 
- 
-                                <mat-form-field class="col-lg-3">
-                                        <mat-label>Giá trẻ em</mat-label>
-                                        <input matInput type="text" readonly [(ngModel)]="model.giaTreEm"  >
-                                </mat-form-field>
 
-                                <mat-form-field class="col-lg-3">
-                                    <mat-label>Giá người lớn</mat-label>
-                                    <input matInput type="text" readonly [(ngModel)]="model.giaNguoiLon"  >
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Giá trẻ em</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="model.giaTreEm">
+                        </mat-form-field>
 
-                                <mat-form-field class="col-lg-3">
-                                    <mat-label>Tên nhân viên</mat-label>
-                                    <input matInput type="text" readonly [(ngModel)]="TenNhanVien"  >
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Giá người lớn</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="model.giaNguoiLon">
+                        </mat-form-field>
 
-                                <mat-form-field class="col-lg-3">
-                                    <mat-label>Số chỗ còn nhận</mat-label>
-                                    <input matInput type="text" readonly [(ngModel)]="model.soChoConNhan"  >
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Tên nhân viên</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="TenNhanVien">
+                        </mat-form-field>
 
-                                <mat-form-field class="col-lg-3">
-                                    <mat-label>Nơi khởi hành</mat-label>
-                                    <input matInput type="text" readonly [(ngModel)]="model.noiKhoiHanh"  >
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Số chỗ còn nhận</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="model.soChoConNhan">
+                        </mat-form-field>
 
-                                <mat-form-field class="col-lg-3">
-                                    <mat-label>Dịch vụ đi kèm</mat-label>
-                                    <input matInput type="text" readonly [(ngModel)]="model.dichVuDiKem"  >
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Nơi khởi hành</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="model.noiKhoiHanh">
+                        </mat-form-field>
 
-                                <mat-form-field class="col-12col-sm-12 col-md-12 col-lg-12">
-                                    <mat-label>Ghi chú</mat-label>
-                                    <textarea matInput [(ngModel)]="GhiChu_DatTour" name="GhiChu" id="GhiChu" rows="3"></textarea>
-                                </mat-form-field>
+                        <mat-form-field class="col-lg-3">
+                            <mat-label>Dịch vụ đi kèm</mat-label>
+                            <input matInput type="text" readonly [(ngModel)]="model.dichVuDiKem">
+                        </mat-form-field>
 
-                                    <mat-card class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
-                                        <mat-card-title>Thông tin tour</mat-card-title>
-                                        <mat-table [dataSource]="dataSource">
-                                            <!-- Số chỗ người lớn -->
-                                            <ng-container matColumnDef="soChoNguoiLon">
-                                                <mat-header-cell *matHeaderCellDef>Số chỗ người lớn</mat-header-cell>
-                                                <mat-cell *matCellDef="let element">{{element.soChoNguoiLon}}</mat-cell>
-                                            </ng-container>
-                                
-                                            <!-- Số chỗ trẻ em -->
-                                            <ng-container matColumnDef="soChoTreEm">
-                                                <mat-header-cell *matHeaderCellDef>Số chỗ trẻ em</mat-header-cell>
-                                                <mat-cell *matCellDef="let element">{{element.soChoTreEm}}</mat-cell>
-                                            </ng-container>
-                                
-                                            <!-- Giá người lớn -->
-                                            <ng-container matColumnDef="giaNguoiLon">
-                                                <mat-header-cell *matHeaderCellDef>Giá người lớn</mat-header-cell>
-                                                <mat-cell *matCellDef="let element">{{element.giaNguoiLon}}</mat-cell>
-                                            </ng-container>
-                                
-                                            <!-- Giá trẻ em -->
-                                            <ng-container matColumnDef="giaTreEm">
-                                                <mat-header-cell *matHeaderCellDef>Giá trẻ em</mat-header-cell>
-                                                <mat-cell *matCellDef="let element">{{element.giaTreEm}}</mat-cell>
-                                            </ng-container>
-                                
-                                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                                        </mat-table>
-                                    </mat-card>
+                        <mat-form-field class="col-12col-sm-12 col-md-12 col-lg-12">
+                            <mat-label>Ghi chú</mat-label>
+                            <textarea matInput [(ngModel)]="GhiChu_DatTour" name="GhiChu" id="GhiChu"
+                                rows="3"></textarea>
+                        </mat-form-field>
 
-                                
-                                <div class="col-lg-1"></div>
-                                
+                        <mat-card class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
+                            <mat-card-title>Thông tin tour</mat-card-title>
+                            <mat-table [dataSource]="dataSource">
+                                <!-- Số chỗ người lớn -->
+                                <ng-container matColumnDef="soChoNguoiLon">
+                                    <mat-header-cell *matHeaderCellDef>Số chỗ người lớn</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.soChoNguoiLon}}</mat-cell>
+                                </ng-container>
 
-                                    <mat-card class="col-12 col-sm-12 col-md-12 col-lg-5 mt-3">
-                                        <mat-card-title>Chi tiết thanh toán</mat-card-title>
-                                        <mat-card-content>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Thời gian tour: </span><span><b>{{SoNgayDem}}</b></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Số lượng người lớn: </span><span><b>{{SoLuongNguoiLon_DatTour}} x {{model.giaNguoiLon}}đ</b></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Số lượng trẻ em: </span><span><b>{{SoLuongTreEm_DatTour}} x {{model.giaTreEm}}đ</b></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Tổng tiền: </span><span class="price_tour_text">{{TongTien_DatTour | number:'':'en'}}đ</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
+                                <!-- Số chỗ trẻ em -->
+                                <ng-container matColumnDef="soChoTreEm">
+                                    <mat-header-cell *matHeaderCellDef>Số chỗ trẻ em</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.soChoTreEm}}</mat-cell>
+                                </ng-container>
 
-                            
+                                <!-- Giá người lớn -->
+                                <ng-container matColumnDef="giaNguoiLon">
+                                    <mat-header-cell *matHeaderCellDef>Giá người lớn</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.giaNguoiLon}}</mat-cell>
+                                </ng-container>
 
-                        
-                    </mat-tab>
-                    <mat-tab label="Thông tin tour">
-                        <!-- Content for Thông tin tour tab -->
-                        
-                        <mat-list>
-                            <!-- Item 1 -->
-                            <mat-list-item>
-                                <div class="row">
-                                    <div class="col-12 col-lg-4 text-nowrap">
-                                        <strong>Tên tour:</strong> {{model.tenTour}}
-                                    </div>
-                                    <div class="col-12 col-lg-4 text-nowrap">
-                                        <strong>Loại tour:</strong> {{model.loaiTour}}
-                                    </div>
-                                    <div class="col-12 col-lg-4 text-nowrap">
-                                        <strong>Phương tiện di chuyển:</strong> {{model.phuongTienDiChuyen}}
-                                    </div>
+                                <!-- Giá trẻ em -->
+                                <ng-container matColumnDef="giaTreEm">
+                                    <mat-header-cell *matHeaderCellDef>Giá trẻ em</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.giaTreEm}}</mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </mat-card>
+
+
+
+                        <div class="col-lg-1"></div>
+
+                        <mat-card class="col-12 col-sm-12 col-md-12 col-lg-5 mt-3">
+                            <mat-card-title>Chi tiết thanh toán</mat-card-title>
+                            <mat-card-content>
+                                <div class="d-flex justify-content-between">
+                                    <span>Thời gian tour: </span><span><b>{{SoNgayDem}}</b></span>
                                 </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        
-                            <!-- Item 2 -->
-                            <mat-list-item>
-                                <div class="row">
-                                    <div class="col text-nowrap">
-                                        <strong>Tình trạng:</strong> {{model.tinhTrang}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Số lượng người lớn:</strong> {{model.soLuongNguoiLon}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Số lượng trẻ em:</strong> {{model.soLuongTreEm}}
-                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Số lượng người lớn: </span><span><b>{{SoLuongNguoiLon_DatTour}} x
+                                            {{model.giaNguoiLon}}đ</b></span>
                                 </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        
-                            <!-- Item 3 -->
-                            <mat-list-item>
-                                <div class="row">
-                                    <div class="col text-nowrap">
-                                        <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Nơi khởi hành:</strong> {{model.noiKhoiHanh}}
-                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Số lượng trẻ em: </span><span><b>{{SoLuongTreEm_DatTour}} x
+                                            {{model.giaTreEm}}đ</b></span>
                                 </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        
-                            <!-- Item 4 -->
-                            <mat-list-item>
-                                <div class="row">
-                                    <div class="col text-nowrap">
-                                        <strong>Số chỗ còn nhận:</strong> {{model.soChoConNhan}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Đối tác:</strong> {{model.idDoiTac}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Giá trẻ em:</strong> {{model.giaTreEm}}
-                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Tổng tiền: </span><span class="price_tour_text">{{TongTien_DatTour |
+                                        number:'':'en'}}đ</span>
                                 </div>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        
-                            <!-- Item 5 -->
-                            <mat-list-item>
-                                <div class="row">
-                                    <div class="col text-nowrap">
-                                        <strong>Giá người lớn:</strong> {{model.giaNguoiLon}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Ngày thêm:</strong> {{model.ngayThem}}
-                                    </div>
-                                    <div class="col text-nowrap">
-                                        <strong>Dịch vụ đi kèm:</strong> {{model.dichVuDiKem}}
-                                    </div>
-                                </div>
-                            </mat-list-item>
-                        </mat-list>
-                        
-                    </mat-tab>
+                            </mat-card-content>
+                        </mat-card>
 
-                    <mat-tab label="Dịch vụ">
-                        <!-- Content for Dịch vụ tab -->
-                        <ng-container *ngIf="TongDichVu.length !== 0">
-                            <span class=""><b>Đăng ký dịch vụ</b></span>
-                        </ng-container>
-                        
-                        <div style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
-                            <div *ngFor="let dv of TongDichVu; let i = index">
-                                <!-- Nội dung của bạn ở đây -->
-                                <mat-card class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1" style="box-sizing: border-box;">
-                                    <mat-card-content class="row flex-nowrap">
-                                        <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
-                                            <mat-select class="form-control border-0 shadow-none" [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon" (selectionChange)="ThayDoiDichVu(i)">
-                                                <mat-option value="">-Chọn dịch vụ-</mat-option>
-                                                <ng-container *ngFor="let dv of DichVu; let j = index">
-                                                    <mat-option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu, i)" [value]="dv.idDichVu">
-                                                        {{dv.tenDichVu}}
-                                                    </mat-option>
-                                                </ng-container>
-                                            </mat-select>
-                                        </div>
-                        
-                                        <div class="col-4 col-sm-4 col-md-5 col-lg-4 d-flex align-items-center justify-content-center">
-                                            <div class="input-group" style="box-sizing: border-box;">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text border-0 bg-transparent" (click)="ThayDoiSoLuongDichVu(i, 'Tru')"><strong>-</strong></span>
-                                                </div>
-                                                <input matInput type="text" class="form-control border-0 text-center" [(ngModel)]="_ngSoLuongDaChon[i]">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text border-0 bg-transparent" (click)="ThayDoiSoLuongDichVu(i, 'Cong')"><strong>+</strong></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                        
-                                        <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center" style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
-                                            <mat-icon class="bi bi-x-circle">clear</mat-icon>
-                                        </div>
-                                    </mat-card-content>
-                                </mat-card>
+                    </div>
+
+
+                </mat-tab>
+                <mat-tab label="Thông tin tour">
+                    <!-- Content for Thông tin tour tab -->
+
+                    <mat-list>
+                        <!-- Item 1 -->
+                        <mat-list-item>
+                            <div class="row">
+                                <div class="col-12 col-lg-4 text-nowrap">
+                                    <strong>Tên tour:</strong> {{model.tenTour}}
+                                </div>
+                                <div class="col-12 col-lg-4 text-nowrap">
+                                    <strong>Loại tour:</strong> {{model.loaiTour}}
+                                </div>
+                                <div class="col-12 col-lg-4 text-nowrap">
+                                    <strong>Phương tiện di chuyển:</strong> {{model.phuongTienDiChuyen}}
+                                </div>
                             </div>
-                        </div>
-                        
-                        <ng-container *ngIf="TongDichVu.length < DichVu.length">
-                            <span class="text-info p-1 mt-1" style="cursor: pointer;" (click)="ThemDichVu()">
-                                <mat-icon class="bi bi-plus-circle">add</mat-icon> Thêm dịch vụ
-                            </span>
-                        </ng-container>
-                        
-                    </mat-tab>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
 
-                    <mat-tab label="Khách hàng mới">
-                        <!-- <form (ngSubmit)="onSubmitThemKhachHang()">
+                        <!-- Item 2 -->
+                        <mat-list-item>
+                            <div class="row">
+                                <div class="col text-nowrap">
+                                    <strong>Tình trạng:</strong> {{model.tinhTrang}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Số lượng người lớn:</strong> {{model.soLuongNguoiLon}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Số lượng trẻ em:</strong> {{model.soLuongTreEm}}
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <!-- Item 3 -->
+                        <mat-list-item>
+                            <div class="row">
+                                <div class="col text-nowrap">
+                                    <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Nơi khởi hành:</strong> {{model.noiKhoiHanh}}
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <!-- Item 4 -->
+                        <mat-list-item>
+                            <div class="row">
+                                <div class="col text-nowrap">
+                                    <strong>Số chỗ còn nhận:</strong> {{model.soChoConNhan}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Đối tác:</strong> {{model.idDoiTac}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Giá trẻ em:</strong> {{model.giaTreEm}}
+                                </div>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <!-- Item 5 -->
+                        <mat-list-item>
+                            <div class="row">
+                                <div class="col text-nowrap">
+                                    <strong>Giá người lớn:</strong> {{model.giaNguoiLon}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Ngày thêm:</strong> {{model.ngayThem}}
+                                </div>
+                                <div class="col text-nowrap">
+                                    <strong>Dịch vụ đi kèm:</strong> {{model.dichVuDiKem}}
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+
+                </mat-tab>
+
+                <mat-tab label="Dịch vụ">
+                    <!-- Content for Dịch vụ tab -->
+                    <ng-container *ngIf="TongDichVu.length !== 0">
+                        <span class=""><b>Đăng ký dịch vụ</b></span>
+                    </ng-container>
+
+                    <div style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
+                        <div *ngFor="let dv of TongDichVu; let i = index">
+                            <!-- Nội dung của bạn ở đây -->
+                            <mat-card class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1"
+                                style="box-sizing: border-box;">
+                                <mat-card-content class="row flex-nowrap">
+                                    <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
+                                        <mat-select class="form-control border-0 shadow-none"
+                                            [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
+                                            (selectionChange)="ThayDoiDichVu(i)">
+                                            <mat-option value="">-Chọn dịch vụ-</mat-option>
+                                            <ng-container *ngFor="let dv of DichVu; let j = index">
+                                                <mat-option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu, i)"
+                                                    [value]="dv.idDichVu">
+                                                    {{dv.tenDichVu}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-select>
+                                    </div>
+
+                                    <div
+                                        class="col-4 col-sm-4 col-md-5 col-lg-4 d-flex align-items-center justify-content-center">
+                                        <div class="input-group" style="box-sizing: border-box;">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text border-0 bg-transparent"
+                                                    (click)="ThayDoiSoLuongDichVu(i, 'Tru')"><strong>-</strong></span>
+                                            </div>
+                                            <input matInput type="text" class="form-control border-0 text-center"
+                                                [(ngModel)]="_ngSoLuongDaChon[i]">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text border-0 bg-transparent"
+                                                    (click)="ThayDoiSoLuongDichVu(i, 'Cong')"><strong>+</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center"
+                                        style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
+                                        <mat-icon class="bi bi-x-circle">clear</mat-icon>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="TongDichVu.length < DichVu.length">
+                        <span class="text-info p-1 mt-1" style="cursor: pointer;" (click)="ThemDichVu()">
+                            <mat-icon class="bi bi-plus-circle">add</mat-icon> Thêm dịch vụ
+                        </span>
+                    </ng-container>
+
+                </mat-tab>
+
+                <mat-tab label="Khách hàng mới">
+                    <!-- <form (ngSubmit)="onSubmitThemKhachHang()">
                             <div mat-dialog-content>
 
                                     <mat-form-field class="col-lg-4">
@@ -445,18 +470,18 @@
                        
                             </div>
                         </form> -->
-                        
-                    </mat-tab>
-                </mat-tab-group>
 
-                <div mat-dialog-actions class="modal-footer">
-                    <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
-                    <button mat-raised-button type="button" color="primary" (click)="DatTour()">Đặt tour</button>
-                </div>
+                </mat-tab>
+            </mat-tab-group>
+
+            <div mat-dialog-actions class="modal-footer">
+                <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
+                <button mat-raised-button type="button" color="primary" (click)="DatTour()">Đặt tour</button>
+            </div>
             }
         </div>
 
-          
+
 
     </div>
 </div>
@@ -465,16 +490,18 @@
 
 
 <!-- Modal Thanh toán -->
-<div style="z-index:9999;" class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+<div style="z-index:9999;" class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-                <h2 mat-dialog-title>Tra cứu khách hàng - {{idTour_ThanhToan}}</h2>
+            <h2 mat-dialog-title>Tra cứu khách hàng - {{idTour_ThanhToan}}</h2>
             <mat-dialog-content>
                 <div class="row">
                     <mat-form-field class="col">
                         <mat-label>Tên khách hàng</mat-label>
-                        <input matInput spellcheck="false" [formControl]="TenKhachHang_ThanhToan" (input)="selectValueKhachHangThanhToan($event)"
-                            list="datalistOptions" id="exampleDataList" placeholder="Tra cứu khách hàng...">
+                        <input matInput spellcheck="false" [formControl]="TenKhachHang_ThanhToan"
+                            (input)="selectValueKhachHangThanhToan($event)" list="datalistOptions" id="exampleDataList"
+                            placeholder="Tra cứu khách hàng...">
                         <datalist id="datalistOptions">
                             <ng-container *ngFor="let item of arrKhachHangThanhToan; let i = index">
                                 <option [value]="item.soDienThoai + '-' + item.email">{{item.tenKhachHang}}</option>
@@ -483,178 +510,180 @@
                     </mat-form-field>
                 </div>
             </mat-dialog-content>
-            
+
             <mat-dialog-actions align="end">
                 <button mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
-                <button mat-raised-button color="primary" [disabled]="foundKhachHang==false" (click)="ThongTinThanhToan()" data-bs-toggle="modal" data-bs-target="#thanhToanModal1">Tra cứu thông tin</button>            
+                <button mat-raised-button color="primary" [disabled]="foundKhachHang==false"
+                    (click)="ThongTinThanhToan()" data-bs-toggle="modal" data-bs-target="#thanhToanModal1">Tra cứu thông
+                    tin</button>
             </mat-dialog-actions>
-            
+
 
         </div>
     </div>
 </div>
 
 @if(foundKhachHang){
-    <div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - {{idTour_ThanhToan}} -
-                        {{KhachHangBamTraCuu[0].idKhachHang}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <h5>Thông tin khách hàng</h5>
-    
-                            <table class="table table-bordered table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th>Mã khách hàng</th>
-                                        <td>{{KhachHangBamTraCuu[0].idKhachHang}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tên khách hàng</th>
-                                        <td>{{KhachHangBamTraCuu[0].tenKhachHang}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Số điện thoại</th>
-                                        <td>{{KhachHangBamTraCuu[0].soDienThoai}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Địa chỉ</th>
-                                        <td>{{KhachHangBamTraCuu[0].diaChi}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>CCCD</th>
-                                        <td>{{KhachHangBamTraCuu[0].cccd}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Ngày sinh</th>
-                                        <td>{{KhachHangBamTraCuu[0].ngaySinh}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Giới tính</th>
-                                        <td>{{KhachHangBamTraCuu[0].gioiTinh}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{{KhachHangBamTraCuu[0].email}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-    
-                        </div>
-                        @if(TourThanhToan_HienThi){
-                        <div class="col-lg-4">
-                            <h5>Thông tin đặt tour</h5>
-                            <table class="table table-bordered table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th>Mã đặt tour</th>
-                                        <td>{{TourThanhToan_HienThi.idDatTour}}</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <th>Mã tour</th>
-                                        <td>{{TourThanhToan_HienThi.idTour}}</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <th>Tour du lịch</th>
-                                        <td>{{TourThanhToan_HienThi.tourDuLich}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>SL người lớn</th>
-                                        <td>{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>SL trẻ em</th>
-                                        <td>{{TourThanhToan_HienThi.soLuongTreEm}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Ghi chú</th>
-                                        <td>{{TourThanhToan_HienThi.ghiChu}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nhân viên</th>
-                                        <td>{{TourThanhToan_HienThi.idNhanVien}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Thời gian đặt tour</th>
-                                        <td>{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-    
-    
-                        <div class="col-lg-4">
-                            <h5>Thông tin thanh toán</h5>
-                            <table class="table table-bordered table-striped w-100">
-                                <thead>
-                                    <tr>
-                                        <th>Giá người lớn</th>
-                                        <th>Giá trẻ em</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
-                                        <td> {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Thời gian tour</th>
-                                        <td class="">{{LayTourDangThanhToan.SoNgayDem}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sl người lớn</th>
-                                        <td class="">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
-                                            {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sl trẻ em</th>
-                                        <td class="">{{TourThanhToan_HienThi.soLuongTreEm}} x
-                                            {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tổng cộng</th>
-                                        <td class="">{{TongTien_ThanhToan| number:'':'en'}}</td>
-                                    </tr>
-    
-                                    <tr>
-                                        <th class="align-middle">Phương thức thanh toán</th>
-                                        <td class=" align-middle">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="traTruoc">
-                                                <label class="form-check-label" for="traTruoc">
-                                                    Trả trước
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="traSau">
-                                                <label class="form-check-label" for="traSau">
-                                                    Trả sau
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-    
-    
-                                </tbody>
-                            </table>
-                        </div>
-    
-                        }
-    
+<div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - {{idTour_ThanhToan}} -
+                    {{KhachHangBamTraCuu[0].idKhachHang}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h5>Thông tin khách hàng</h5>
+
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Mã khách hàng</th>
+                                    <td>{{KhachHangBamTraCuu[0].idKhachHang}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tên khách hàng</th>
+                                    <td>{{KhachHangBamTraCuu[0].tenKhachHang}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Số điện thoại</th>
+                                    <td>{{KhachHangBamTraCuu[0].soDienThoai}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Địa chỉ</th>
+                                    <td>{{KhachHangBamTraCuu[0].diaChi}}</td>
+                                </tr>
+                                <tr>
+                                    <th>CCCD</th>
+                                    <td>{{KhachHangBamTraCuu[0].cccd}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ngày sinh</th>
+                                    <td>{{KhachHangBamTraCuu[0].ngaySinh}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Giới tính</th>
+                                    <td>{{KhachHangBamTraCuu[0].gioiTinh}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{KhachHangBamTraCuu[0].email}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
+                    @if(TourThanhToan_HienThi){
+                    <div class="col-lg-4">
+                        <h5>Thông tin đặt tour</h5>
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Mã đặt tour</th>
+                                    <td>{{TourThanhToan_HienThi.idDatTour}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Mã tour</th>
+                                    <td>{{TourThanhToan_HienThi.idTour}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Tour du lịch</th>
+                                    <td>{{TourThanhToan_HienThi.tourDuLich}}</td>
+                                </tr>
+                                <tr>
+                                    <th>SL người lớn</th>
+                                    <td>{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
+                                </tr>
+                                <tr>
+                                    <th>SL trẻ em</th>
+                                    <td>{{TourThanhToan_HienThi.soLuongTreEm}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ghi chú</th>
+                                    <td>{{TourThanhToan_HienThi.ghiChu}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nhân viên</th>
+                                    <td>{{TourThanhToan_HienThi.idNhanVien}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Thời gian đặt tour</th>
+                                    <td>{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="col-lg-4">
+                        <h5>Thông tin thanh toán</h5>
+                        <table class="table table-bordered table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>Giá người lớn</th>
+                                    <th>Giá trẻ em</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
+                                    <td> {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Thời gian tour</th>
+                                    <td class="">{{LayTourDangThanhToan.SoNgayDem}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Sl người lớn</th>
+                                    <td class="">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
+                                        {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Sl trẻ em</th>
+                                    <td class="">{{TourThanhToan_HienThi.soLuongTreEm}} x
+                                        {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tổng cộng</th>
+                                    <td class="">{{TongTien_ThanhToan| number:'':'en'}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th class="align-middle">Phương thức thanh toán</th>
+                                    <td class=" align-middle">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="traTruoc">
+                                            <label class="form-check-label" for="traTruoc">
+                                                Trả trước
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="traSau">
+                                            <label class="form-check-label" for="traSau">
+                                                Trả sau
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    }
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" (click)="onThanhToan()">Thanh toán</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" (click)="onThanhToan()">Thanh toán</button>
             </div>
         </div>
     </div>
-    }
+</div>
+}
