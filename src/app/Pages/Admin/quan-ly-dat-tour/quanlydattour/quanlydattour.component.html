@@ -99,7 +99,7 @@
         <div class="modal-content">
             @if(model){
 
-            <h2 mat-dialog-title>Đặt tour - {{model.idTour}}</h2>
+            <h2 mat-dialog-title class="ps-4 pt-2">Đặt tour - {{model.idTour}}</h2>
 
 
             <mat-tab-group>
@@ -114,17 +114,6 @@
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
-                            <!-- <mat-label>Tên khách hàng</mat-label>
-                            <input matInput spellcheck="false" [formControl]="TenKhachHang"
-                                (input)="selectValueKhachHang($event)" placeholder="Type to search..."
-                                [matAutocomplete]="auto">
-
-                            <mat-autocomplete #auto="matAutocomplete" style="z-index: 10000;">
-                                <mat-option *ngFor="let item of arrKhachHang"
-                                    [value]="item.soDienThoai + '-' + item.email">
-                                    {{item.tenKhachHang}}
-                                </mat-option>
-                            </mat-autocomplete> -->
                             <mat-label>Tên khách hàng</mat-label>
                             <input type="text" matInput [matAutocomplete]="auto" [formControl]="KhachHang">
                             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
@@ -172,11 +161,13 @@
                             <mat-label>Giá người lớn</mat-label>
                             <input matInput type="text" readonly [(ngModel)]="model.giaNguoiLon">
                         </mat-form-field>
-
+                        @if(NguoiDung){
                         <mat-form-field class="col-lg-3">
                             <mat-label>Tên nhân viên</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="TenNhanVien">
+                            <input matInput type="text" readonly [(ngModel)]="NguoiDung.idNhanVien">
                         </mat-form-field>
+                        }
+
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Số chỗ còn nhận</mat-label>
@@ -348,60 +339,73 @@
 
                 <mat-tab label="Dịch vụ">
                     <!-- Content for Dịch vụ tab -->
-                    <ng-container *ngIf="TongDichVu.length !== 0">
-                        <span class=""><b>Đăng ký dịch vụ</b></span>
-                    </ng-container>
+                    <div class="p-3">
 
-                    <div style="max-height: 200px; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
-                        <div *ngFor="let dv of TongDichVu; let i = index">
-                            <!-- Nội dung của bạn ở đây -->
-                            <mat-card class="giaNguoiLon _inputGroup border shadow-sm p-0 mt-1 mb-1"
-                                style="box-sizing: border-box;">
-                                <mat-card-content class="row flex-nowrap">
-                                    <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
-                                        <mat-select class="form-control border-0 shadow-none"
-                                            [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
-                                            (selectionChange)="ThayDoiDichVu(i)">
-                                            <mat-option value="">-Chọn dịch vụ-</mat-option>
-                                            <ng-container *ngFor="let dv of DichVu; let j = index">
-                                                <mat-option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu, i)"
-                                                    [value]="dv.idDichVu">
-                                                    {{dv.tenDichVu}}
-                                                </mat-option>
-                                            </ng-container>
-                                        </mat-select>
-                                    </div>
 
-                                    <div
-                                        class="col-4 col-sm-4 col-md-5 col-lg-4 d-flex align-items-center justify-content-center">
-                                        <div class="input-group" style="box-sizing: border-box;">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text border-0 bg-transparent"
-                                                    (click)="ThayDoiSoLuongDichVu(i, 'Tru')"><strong>-</strong></span>
-                                            </div>
-                                            <input matInput type="text" class="form-control border-0 text-center"
-                                                [(ngModel)]="_ngSoLuongDaChon[i]">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text border-0 bg-transparent"
-                                                    (click)="ThayDoiSoLuongDichVu(i, 'Cong')"><strong>+</strong></span>
+                        <ng-container *ngIf="TongDichVu.length !== 0">
+                            <span class=""><b>Đăng ký dịch vụ</b></span>
+                        </ng-container>
+
+                        <div>
+                            <div *ngFor="let dv of TongDichVu; let i = index">
+
+                                <mat-card class="giaNguoiLon _inputGroup border shadow-sm p-2 mt-1 mb-1"
+                                    style="box-sizing: border-box">
+                                    <!-- <mat-card-content> -->
+                                    <div class="row">
+                                        <div class="col-8 col-sm-8 col-md-7 col-lg-6 d-flex align-items-center">
+                                            <mat-select class="form-control border-0 shadow-none"
+                                                [(ngModel)]="_ngDichVuDaChon[i]" name="DichVuDaChon"
+                                                (selectionChange)="ThayDoiDichVu(i)">
+                                                <mat-option value="">-Chọn dịch vụ-</mat-option>
+                                                <ng-container *ngFor="let dv of DichVu; let j = index">
+                                                    <mat-option *ngIf="!KiemTraDichVuDaChon(dv.idDichVu, i)"
+                                                        [value]="dv.idDichVu">
+                                                        {{dv.tenDichVu}}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
+                                        </div>
+
+                                        <div
+                                            class="col-4 col-sm-4 col-md-5 col-lg-3 d-flex align-items-center justify-content-center">
+                                            <div class="input-group" style="box-sizing: border-box;"
+                                                matTooltip="Chọn dịch vụ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text border-0 bg-transparent"
+                                                        matTooltip="Tăng số lượng"
+                                                        (click)="ThayDoiSoLuongDichVu(i, 'Tru')"><mat-icon
+                                                            svgIcon="icon_DauTru"></mat-icon></span>
+                                                </div>
+                                                <input matInput type="text" class="form-control border-0 text-center"
+                                                    [(ngModel)]="_ngSoLuongDaChon[i]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text border-0 bg-transparent"
+                                                        matTooltip="Giảm số lượng"
+                                                        (click)="ThayDoiSoLuongDichVu(i, 'Cong')"><mat-icon
+                                                            svgIcon="icon_DauCong"></mat-icon></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-2 text-danger d-flex align-items-center justify-content-center"
-                                        style="cursor: pointer;" (click)="XoaDichVuDaChon(i)">
-                                        <mat-icon class="bi bi-x-circle">clear</mat-icon>
+                                        <div class="col-lg-2 p-2 d-flex align-items-center justify-content-center"
+                                            style="cursor: pointer;" (click)="XoaDichVuDaChon(i)"
+                                            matTooltip="Xóa dịch vụ">
+                                            <mat-icon svgIcon="icon_Xoa" style="height: auto"></mat-icon>
+                                        </div>
                                     </div>
-                                </mat-card-content>
-                            </mat-card>
+                                    <!-- </mat-card-content> -->
+                                </mat-card>
+                            </div>
                         </div>
+
+                        <ng-container *ngIf=" TongDichVu.length < DichVu.length">
+                            <button mat-fab mat-tool matTooltip="Thêm dịch vụ" color="primary" (click)="ThemDichVu()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </ng-container>
                     </div>
 
-                    <ng-container *ngIf="TongDichVu.length < DichVu.length">
-                        <span class="text-info p-1 mt-1" style="cursor: pointer;" (click)="ThemDichVu()">
-                            <mat-icon class="bi bi-plus-circle">add</mat-icon> Thêm dịch vụ
-                        </span>
-                    </ng-container>
 
                 </mat-tab>
 
