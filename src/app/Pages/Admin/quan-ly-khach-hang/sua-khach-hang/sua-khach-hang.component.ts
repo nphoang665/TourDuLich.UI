@@ -20,7 +20,6 @@ export class SuaKhachHangComponent implements OnInit {
     gioiTinh: new FormControl(''),
     email: new FormControl(''),
     tinhTrang: new FormControl(''),
-    matKhau: new FormControl(''),
     ngayDangKy: new FormControl(new Date()),
   });
 
@@ -53,7 +52,6 @@ export class SuaKhachHangComponent implements OnInit {
       gioiTinh: new FormControl(this.model?.gioiTinh),
       email: new FormControl(this.model?.email),
       tinhTrang: new FormControl(this.model?.tinhTrang),
-      matKhau: new FormControl(this.model?.matKhau),
       ngayDangKy: new FormControl(this.model?.ngayDangKy),
     })
   }

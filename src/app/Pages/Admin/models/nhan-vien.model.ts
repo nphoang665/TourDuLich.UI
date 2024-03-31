@@ -12,7 +12,6 @@ export interface NhanVien{
     ngayVaoLam:string;
     anhNhanVien:string;
     tinhTrang:string;
-    matKhau:string;
 }
 
 export interface ThemNhanVien{
@@ -29,7 +28,6 @@ export interface ThemNhanVien{
     ngayVaoLam:string;
     anhNhanVien:string;
     tinhTrang:string;
-    matKhau:string;
 }
 
 export interface SuaNhanVien{
@@ -45,5 +43,4 @@ export interface SuaNhanVien{
     ngayVaoLam:string;
     anhNhanVien:string;
     tinhTrang:string;
-    matKhau:string;
 }

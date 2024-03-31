@@ -22,7 +22,6 @@ export class SuaNhanVienComponent implements OnInit{
     chucVu:new FormControl(''),
     ngayVaoLam:new FormControl(new Date()),
     anhNhanVien:new FormControl(''),
-    matKhau:new FormControl(''),
     tinhTrang:new FormControl('a'),
     ngayDangKy:new FormControl(new Date())
   });
@@ -58,7 +57,6 @@ export class SuaNhanVienComponent implements OnInit{
       chucVu: new FormControl(this.model?.chucVu),
       ngayVaoLam: new FormControl(this.model?.ngayVaoLam),
       anhNhanVien: new FormControl(this.model?.anhNhanVien),
-      matKhau: new FormControl(this.model?.matKhau),
       tinhTrang: new FormControl(this.model?.tinhTrang),
       ngayDangKy: new FormControl(this.model?.ngayDangKy)
     });

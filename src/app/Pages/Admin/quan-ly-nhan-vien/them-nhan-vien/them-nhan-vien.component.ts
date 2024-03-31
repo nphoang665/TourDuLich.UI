@@ -23,7 +23,6 @@ export class ThemNhanVienComponent implements OnInit{
     chucVu:new FormControl('Nhân viên'),
     ngayVaoLam:new FormControl(new Date()),
     anhNhanVien:new FormControl(''),
-    matKhau:new FormControl(''),
     tinhTrang:new FormControl('a'),
     ngayDangKy:new FormControl(new Date())
   })
