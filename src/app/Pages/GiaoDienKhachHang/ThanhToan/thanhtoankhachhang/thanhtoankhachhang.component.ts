@@ -281,8 +281,8 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.datTourChoKhachHangServices.DatTourChoKhachHang(this.datTourKhachHang).subscribe(
       (data: any) => {
         // 'data' chính là dữ liệu trả về từ server
-        console.log(data);     
-        
+
+        console.log(data);
       },
       (error: any) => {
         // 'error' chính là lỗi (nếu có) khi gọi API
