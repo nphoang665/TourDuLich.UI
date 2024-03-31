@@ -38,7 +38,7 @@ const icon_Xoa = `
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
-  styleUrl: './quanlydattour.component.css'
+  styleUrls: ['./quanlydattour.component.css']
 })
 export class QuanlydattourComponent implements OnInit {
   //table thông tin tuor

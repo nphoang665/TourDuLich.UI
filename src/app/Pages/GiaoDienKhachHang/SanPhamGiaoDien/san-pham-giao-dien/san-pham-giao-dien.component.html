@@ -2,46 +2,43 @@
     @if(i%2===0){
     <div class="container-fluid bg-white">
 
-        <div class="container">
-            <div class="total_card gx-3 gy-3 row d-flex justify-content-center">
-                <p class="text-center title_typeTour" style="font-size: 29px; font-weight: 600;">Du lịch Buôn Ma Thuột -
-                    {{tourType}}
-                </p>
-                <ng-container *ngFor="let tour of getToursByType(tourType)">
-                    <div class="card_tour col-lg-3" data-label="In Progress" [routerLink]="'/chitiettour/'+tour.idTour">
-                        <div class="card__ribbon">
-                            <div class="ribbon-content">tour hot1</div>
+        <div class="total_card gx-3 gy-3 row d-flex justify-content-center">
+            <p class="text-center title_typeTour" style="font-size: 29px; font-weight: 600;">Du lịch Buôn Ma Thuột -
+                {{tourType}}
+            </p>
+            <ng-container class="row p-0" *ngFor="let tour of getToursByType(tourType)">
+
+                <div class="col col-lg-3 col-md-auto  col-sm-12 col-12">
+                    <a class="travel-card w-md-100">
+                        <div class="image">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
                         </div>
-                        <div> <img class="img_tour img-fluid" [src]="tour.HinhAnhDauTien" alt=""></div>
-                        <div class="title_tour">
-                            <span>{{tour.tenTour}}</span>
-                        </div>
-                        <div class="card_tour_text">
-                            <div class="total_response text-wrap" style="width: 100%;">
-                                <span class="badge bg-success me-1 ">{{tour.TrungBinhDiemDanhGia}}</span><span
-                                    class="text-success me-1"><b>Tuyệt
-                                        vời</b></span> |
-                                <span class="ms-1">{{tour.SoLuongDanhGia}} Đánh giá</span>
+                        <div class="content">
+                            <label class="category">{{tour.loaiTour}}</label>
+                            <h1 class="topic">{{tour.tenTour}}</h1>
+                            <div class="recommendation">
+                                <div class="score">
+                                    <span>{{tour.TrungBinhDiemDanhGia}}</span>
+                                    <i class="material-icons">star</i>
+                                </div>
+                                <div class="comment">({{tour.SoLuongDanhGia}} Reviews)</div>
                             </div>
-                            <div class="total_time_tour">
-                                <i class="bi bi-clock"></i> {{tour.SoNgayDem}}
-                            </div>
-                            <div class="start_time_tour">
-                                <i class="bi bi-calendar-check"></i> {{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}
-                            </div>
-                            <div class="spot_remaining">
-                                <i class="bi bi-person"></i> Còn {{tour.soChoConNhan}} chỗ
-                            </div>
-                            <div class="price_tour d-flex justify-content-end">
-                                <span class="price_tour_text">{{tour.giaNguoiLon | number :'':'en'}} đ</span>
+                            <div class="price">
+                                <div class="discount-info">save upto 30% off</div>
+                                <div class="original-price">$213</div>
                             </div>
                         </div>
-                    </div>
-                </ng-container>
-                <div class="d-flex justify-content-center">
-                    <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
-                        tours</button>
+
+                        <button class="button-favorite">
+                            <i class="material-icons">favorite_border</i>
+                            <i class="material-icons">favorite</i>
+                        </button>
+                    </a>
                 </div>
+            </ng-container>
+            <div class="d-flex justify-content-center mb-3">
+                <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
+                    tours</button>
             </div>
         </div>
     </div>
@@ -50,45 +47,43 @@
     @if(i%2!==0){
     <div class="container-fluid" style="background-color: #F6F8FA;">
 
-        <div class="container">
-            <div class="total_card gx-3 gy-3 row d-flex justify-content-center">
-                <p class="text-center " style="font-size: 29px; font-weight: 600;">Du lịch Buôn Ma Thuột - {{tourType}}
-                </p>
-                <ng-container *ngFor="let tour of getToursByType(tourType)">
-                    <div class="card_tour col-lg-3" [routerLink]="'/chitiettour/'+tour.idTour">
-                        <div class="card__ribbon">
-                            <div class="ribbon-content">tour hot1</div>
+        <div class="total_card gx-3 gy-3 row d-flex justify-content-center">
+            <p class="text-center title_typeTour" style="font-size: 29px; font-weight: 600;">Du lịch Buôn Ma Thuột -
+                {{tourType}}
+            </p>
+            <ng-container class="row p-0" *ngFor="let tour of getToursByType(tourType)">
+
+                <div class="col col-lg-3 col-md-auto  col-sm-12 col-12">
+                    <a class="travel-card w-md-100">
+                        <div class="image">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
                         </div>
-                        <div> <img class="img_tour img-fluid" [src]="tour.HinhAnhDauTien" alt=""></div>
-                        <div class="title_tour">
-                            <span>{{tour.tenTour}}</span>
-                        </div>
-                        <div class="card_tour_text">
-                            <div class="total_response">
-                                <span class="badge bg-success me-1">{{tour.TrungBinhDiemDanhGia}}</span><span
-                                    class="text-success me-1"><b>Tuyệt
-                                        vời</b></span> |
-                                <span class="ms-1">{{tour.SoLuongDanhGia}} Đánh giá</span>
+                        <div class="content">
+                            <label class="category">{{tour.loaiTour}}</label>
+                            <h1 class="topic">{{tour.tenTour}}</h1>
+                            <div class="recommendation">
+                                <div class="score">
+                                    <span>{{tour.TrungBinhDiemDanhGia}}</span>
+                                    <i class="material-icons">star</i>
+                                </div>
+                                <div class="comment">({{tour.SoLuongDanhGia}} Reviews)</div>
                             </div>
-                            <div class="total_time_tour">
-                                <i class="bi bi-clock"></i> {{tour.SoNgayDem}}
-                            </div>
-                            <div class="start_time_tour">
-                                <i class="bi bi-calendar-check"></i> {{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}
-                            </div>
-                            <div class="spot_remaining">
-                                <i class="bi bi-person"></i> Còn {{tour.soChoConNhan}} chỗ
-                            </div>
-                            <div class="price_tour d-flex justify-content-end">
-                                <span class="price_tour_text">{{tour.giaNguoiLon | number :'':'en'}} đ</span>
+                            <div class="price">
+                                <div class="discount-info">save upto 30% off</div>
+                                <div class="original-price">$213</div>
                             </div>
                         </div>
-                    </div>
-                </ng-container>
-                <div class="d-flex justify-content-center">
-                    <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
-                        tours</button>
+
+                        <button class="button-favorite">
+                            <i class="material-icons">favorite_border</i>
+                            <i class="material-icons">favorite</i>
+                        </button>
+                    </a>
                 </div>
+            </ng-container>
+            <div class="d-flex justify-content-center mb-3">
+                <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
+                    tours</button>
             </div>
         </div>
     </div>

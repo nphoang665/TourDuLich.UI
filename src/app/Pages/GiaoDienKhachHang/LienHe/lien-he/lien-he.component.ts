@@ -6,7 +6,7 @@ import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service'
 @Component({
   selector: 'app-lien-he',
   templateUrl: './lien-he.component.html',
-  styleUrl: './lien-he.component.css'
+  styleUrls: ['./lien-he.component.css', './style.scss']
 })
 export class LienHeComponent {
   constructor() {
