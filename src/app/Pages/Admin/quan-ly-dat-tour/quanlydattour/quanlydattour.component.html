@@ -409,13 +409,13 @@
                 </mat-tab>
 
                 <mat-tab label="Khách hàng mới">
-                    <form (ngSubmit)="onSubmitThemKhachHang()">
+                    <form [formGroup]="myForm" (ngSubmit)="onSubmitThemKhachHang()">
                             <div mat-dialog-content>
 
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>Tên khách hàng</mat-label>
-                                        <input matInput id="tenKhachHang" name="tenKhachHang" placeholder="Nhập tên khách hàng..."
-                                            [(ngModel)]="themKhachHang.tenKhachHang">
+                                        <input matInput id="tenKhachHang" name="tenKhachHang" placeholder="Nhập tên khách hàng..." formControlName="tenKhachHang"
+                                           >
                                     </mat-form-field>
 
                                 
@@ -425,7 +425,7 @@
                                         <mat-form-field class="col-lg-4">
                                           <mat-label>Số điện thoại</mat-label>
                                           <span matTextPrefix>+84 &nbsp;</span>
-                                          <input type="tel" matInput placeholder="033-233-1231" [(ngModel)]="themKhachHang.soDienThoai">
+                                          <input type="tel" matInput placeholder="033-233-1231" formControlName="soDienThoai">
 
                                         </mat-form-field>
 
@@ -434,21 +434,21 @@
        
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>Địa chỉ</mat-label>
-                                        <input matInput id="diaChi" name="diaChi" placeholder="Nhập địa chỉ..." [(ngModel)]="themKhachHang.diaChi">
+                                        <input matInput id="diaChi" name="diaChi" placeholder="Nhập địa chỉ..." formControlName="diaChi">
                                     </mat-form-field>
 
                         
 
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>CCCD</mat-label>
-                                        <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..." [(ngModel)]="themKhachHang.cccd">
+                                        <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..." formControlName="cccd">
                                     </mat-form-field>
   
                         
 
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>Ngày sinh</mat-label>
-                                        <input matInput [matDatepicker]="picker" name="ngaySinh" id="ngaySinh" [(ngModel)]="themKhachHang.ngaySinh">
+                                        <input matInput [matDatepicker]="picker" name="ngaySinh" id="ngaySinh" formControlName="ngaySinh">
                                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                     </mat-form-field>
@@ -456,7 +456,7 @@
 
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>Giới tính</mat-label>
-                                        <mat-select id="gioiTinh" name="gioiTinh" [(ngModel)]="themKhachHang.gioiTinh">
+                                        <mat-select id="gioiTinh" name="gioiTinh" formControlName="gioiTinh">
                                             <mat-option value="Nam">Nam</mat-option>
                                             <mat-option value="Nữ">Nữ</mat-option>
                                         </mat-select>
@@ -466,12 +466,13 @@
  
                                     <mat-form-field class="col-lg-4">
                                         <mat-label>Email</mat-label>
-                                        <input matInput type="email" id="email" name="email" placeholder="Nhập email..." [(ngModel)]="themKhachHang.email">
+                                        <input matInput type="email" id="email" name="email" placeholder="Nhập email..." formControlName="email">
                                     </mat-form-field>
 
                         
                        
                             </div>
+                            <button type="submit">TestKH</button>
                         </form>
 
                 </mat-tab>

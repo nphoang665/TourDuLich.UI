@@ -48,7 +48,7 @@ export class QuanlydattourComponent implements OnInit {
 
 
 
-  themKhachHang: KhachHang;
+  // themKhachHang: KhachHang;
   myForm:FormGroup = new FormGroup({
     idKhachHang: new FormControl(''),
     tenKhachHang: new FormControl(''),
@@ -76,18 +76,7 @@ export class QuanlydattourComponent implements OnInit {
   ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
-    this.themKhachHang = {
-      idKhachHang: 'KH0001',
-      tenKhachHang: 'Nguyễn Thị C',
-      soDienThoai: '0987654321',
-      diaChi: '123 Đường A, Quận 1, TP. HCM',
-      cccd: '123456789012',
-      ngaySinh: '1990-01-01',
-      gioiTinh: 'Nữ',
-      email: 'ntc@example.com',
-      tinhTrang: 'Đang hoạt động',
-      ngayDangKy: ngayGioHienTaiFormatted
-    }
+
     iconRegistry.addSvgIconLiteral('icon_DauTru', sanitizer.bypassSecurityTrustHtml(icon_DauTru));
     iconRegistry.addSvgIconLiteral('icon_DauCong', sanitizer.bypassSecurityTrustHtml(icon_DauCong));
     iconRegistry.addSvgIconLiteral('icon_Xoa', sanitizer.bypassSecurityTrustHtml(icon_Xoa));
@@ -268,7 +257,7 @@ export class QuanlydattourComponent implements OnInit {
   //hàm đặt tour
   DatTour() {
     //nếu thêm khách hàng không có value
-    if (this.themKhachHang.tenKhachHang == 'KH0001') {
+    if (this.myForm.value.tenKhachHang == 'KH0001') {
       this.onDatTour(null);
     }
     //nếu thêm khách hàng có value
@@ -279,7 +268,9 @@ export class QuanlydattourComponent implements OnInit {
   //hàm thêm khách hàng
   //biến chứa khách hàng reponse 
   onSubmitThemKhachHang() {
-    this.quanLyKhachHangServices.themKhachHang(this.themKhachHang)
+    console.log(this.myForm.value);
+    
+    this.quanLyKhachHangServices.themKhachHang(this.myForm.value)
       .subscribe({
         next: (response) => {
           console.log(response);
