@@ -18,15 +18,15 @@
                     <div class="container-fluid">
                         <h2>Quản lý đặt Tour</h2>
                         <p align="center">                         
-                            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
-                                <mat-button-toggle value="" >Tất cả</mat-button-toggle>
-                              <mat-button-toggle value="Đang hoạt động" >Đang hoạt động</mat-button-toggle>
-                              <mat-button-toggle value="Tạm hoãn" >Tạm hoãn</mat-button-toggle>
+                            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style" [(ngModel)]="selectedStatus" (change)="filterTours()">
+                                <mat-button-toggle value="" [className]="mauButton==0?'bg-primary text-white':'bg-light'">Tất cả</mat-button-toggle>
+                                <mat-button-toggle value="Đang hoạt động" [className]="mauButton==1?'bg-success text-white':'bg-light'">Đang hoạt động</mat-button-toggle>
+                                <mat-button-toggle value="Tạm hoãn" [className]="mauButton==2?'bg-warning text-white':'bg-light'">Tạm hoãn</mat-button-toggle>
                             </mat-button-toggle-group>
                           </p>
                         <div class="mt-4">
                             <div class="total_card row d-flex justify-content-center">
-                                @for(item of TourDuLich; track $index){
+                                @for(item of filteredTours; track $index){
                                 <div class="card_tour col-lg-3">
                                     <div class="div_img">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">

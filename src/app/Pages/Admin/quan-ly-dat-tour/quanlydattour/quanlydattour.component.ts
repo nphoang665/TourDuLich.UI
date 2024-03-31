@@ -47,6 +47,23 @@ export class QuanlydattourComponent implements OnInit {
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
 
+   mauButton = 0;
+
+  selectedStatus: string = ''; 
+    filteredTours: any[] = [];
+    filterTours() {
+      if (this.selectedStatus === '') {
+          this.filteredTours = this.TourDuLich;
+          this.mauButton = 0;
+      } else if(this.selectedStatus === 'Đang hoạt động'){
+          this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
+          this.mauButton = 1;
+      }
+      else if(this.selectedStatus === 'Tạm hoãn'){
+        this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
+        this.mauButton = 2;
+    }
+  }
 
 
   // themKhachHang: KhachHang;
@@ -124,6 +141,7 @@ export class QuanlydattourComponent implements OnInit {
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
       this.TourDuLich = data;
+      this.filterTours();
       this.TourDuLich.forEach(element => {
         var urlFirstImgTour = environment.apiBaseUrl + '/uploads/' + element.anhTour[0].imgTour;
         element.AnhTourDauTien = urlFirstImgTour;
@@ -133,6 +151,7 @@ export class QuanlydattourComponent implements OnInit {
     });
     this.LayKhachHang();
     this.GetDichVu();
+
     //Get data tableThongTinTour
     this.dataSource.data = [
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
