@@ -95,6 +95,18 @@ export class QuanlydattourComponent implements OnInit {
       this.KhachHang.disable();
     }
   }
+  getTinhTrangClass(tinhTrang: string): string {
+    switch (tinhTrang) {
+        case 'Đang hoạt động':
+            return 'bg-success';
+        case 'Ngưng hoạt động':
+            return 'bg-danger';
+        case 'Tạm hoãn':
+            return 'bg-warning';
+        default:
+            return '';
+    }
+}
 
 
   TypingKhachHang() {
