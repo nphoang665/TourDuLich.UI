@@ -13,7 +13,7 @@
     font-weight: 300;
     background-color: white;
     box-shadow: 0px 0px 100px -10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
+    border-radius: 5px;
     // width: 350px;
     width: 100%;
     
@@ -35,7 +35,7 @@
       & > img {
         width: 100%;
         height: 100%;
-        background-image: url('https://cache-graphicslib.viator.com/graphicslib/page-images/742x525/467829_Viator_Unsplash_170410.jpg');
+        // background-image: url('https://cache-graphicslib.viator.com/graphicslib/page-images/742x525/467829_Viator_Unsplash_170410.jpg');
         background-position: center;
         background-size: cover;
         border-top-left-radius: inherit;
@@ -46,10 +46,10 @@
     
     & > .content {
       color: #545454;
-      padding: 1em 1.5em;
+      padding: 0.5em 1.5em;
       
       & > :nth-child(1n+2) {
-        margin-top: 1em;
+        margin-top: 0.5em;
       }
       
       & > .category {
@@ -58,6 +58,7 @@
       }
       
       & > .topic {
+        margin-top: 0;
         font-size: 1.3em;
         line-height: calc(1rem * 2.8);
         word-break: break-all;
@@ -75,8 +76,9 @@
           display: inline-flex;
           justify-content: center;
           align-items: center;
-          background: rgb(254,207,139);
-          background: linear-gradient(130deg, rgba(254,207,139,1) 0%, rgba(255,198,115,1) 75%, rgba(255,187,88,1) 100%);
+          background: rgb(0,123,255);
+          background: linear-gradient(130deg, rgba(0,123,255,1) 0%, rgba(0,103,219,1) 75%, rgba(0,87,187,1) 100%);
+          
           color: white;
           padding: 5px 8px;
           border-radius: 30px;
@@ -109,7 +111,8 @@
         }
         
         & > .original-price {
-          font-size: 2em;
+          color: #1B3C73;
+            font-weight: 600;
         }
       }
     }
@@ -159,3 +162,21 @@
     }
   }
   
+  /* For large devices (lg) and above */
+@media (min-width: 992px) {
+  .original-price {
+      font-size: 1.5vw;
+  }
+}
+
+/* For medium devices (md) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .original-price {
+      font-size: 3vw;
+  }
+}
+@media (max-width:767px){
+  .original-price {
+    font-size: 5vw;
+}
+}
