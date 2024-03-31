@@ -33,7 +33,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
-      
+      this.noSpecialCharValidator(),
     ]),
     loaiTour: new FormControl('',
      Validators.required),
@@ -43,13 +43,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     Validators.required),
     soLuongNguoiLon: new FormControl(0,[
       Validators.required,
-      Validators.min(0),
+      Validators.min(1),
       Validators.max(50),
       
     ]),
     soLuongTreEm: new FormControl(0,[
       Validators.required,
-      Validators.min(0),
+      Validators.min(2),
       Validators.max(50),
       
     ]),
@@ -87,7 +87,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(0),
       Validators.maxLength(50),
-      this.noSpecialCharValidator(),
+      
     ]),
     tinhTrang: new FormControl('z')
   });

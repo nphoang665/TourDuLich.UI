@@ -34,6 +34,9 @@
                     @else if (tenTour?.errors?.['maxlength']) {
                     <mat-error>Tên tour quá dài</mat-error>
                     }
+                    @else if (tenTour?.errors?.['invalidChar']) {
+                      <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
+                    }
                   </mat-form-field>
 
 
@@ -194,6 +197,9 @@
                         {{ item.tenDoiTac }}
                       </mat-option>
                     </mat-select>
+                    @if (idDoiTac?.errors?.['required']) {
+                      <mat-error>Vui lòng chọn đối tác</mat-error>
+                      }
                   </mat-form-field>
 
                   <mat-form-field>
@@ -206,7 +212,7 @@
                     <mat-error>Độ dài quá ngắn</mat-error>
                     }
                     @else if (dichVuDiKem?.errors?.['maxlength']) {
-                    <mat-error>Vượt quá mức quy định</mat-error>
+                    <mat-error>Độ dài vượt quá mức quy định</mat-error>
                     }
       
                   </mat-form-field>

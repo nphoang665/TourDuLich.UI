@@ -199,7 +199,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-
+        this.noSpecialCharValidator(),
       ]),
       loaiTour: new FormControl(this.model?.loaiTour || '',
         Validators.required),
