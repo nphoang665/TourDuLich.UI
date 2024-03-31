@@ -136,14 +136,21 @@
   font-size: 1.2em;
   font-weight: 600;
   padding: 8px;
-  border: 1px solid #26bed6;
-  color: #26bed6;
+  border: 1px solid rgba(0, 87, 187, 1);
+  color: rgba(0, 87, 187, 1);
   background-color: transparent;
   padding-left: 20px;
   padding-right: 20px;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 .btn_XemThemTour:hover {
-  background-color: #26bed6;
+  /* background-color: #26bed6; */
+  background: linear-gradient(
+    130deg,
+    rgba(0, 123, 255, 1) 0%,
+    rgba(0, 103, 219, 1) 75%,
+    rgba(0, 87, 187, 1) 100%
+  );
+
   color: white;
 }

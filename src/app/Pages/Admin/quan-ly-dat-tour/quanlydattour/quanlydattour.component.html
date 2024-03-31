@@ -241,6 +241,10 @@
                                             {{model.giaTreEm}}đ</b></span>
                                 </div>
                                 <div class="d-flex justify-content-between">
+                                    <span>Tổng tiền dịch vụ: </span><span><b>{{TongTienDichVu}}
+                                            đ</b></span>
+                                </div>
+                                <div class="d-flex justify-content-between">
                                     <span>Tổng tiền: </span><span class="price_tour_text">{{TongTien_DatTour |
                                         number:'':'en'}}đ</span>
                                 </div>
@@ -408,78 +412,85 @@
 
                 </mat-tab>
 
-                <mat-tab label="Khách hàng mới">
+                <mat-tab label="Khách hàng mới" *ngIf="!KhachHang.value">
+                    <ng-template mat-tab-label>
+                        Khách hàng mới
+                        <!-- <i *ngIf="myForm.getRawValue().tenKhachHang" class="bi bi-person-plus"></i> -->
+                        <mat-icon style="color:  inherit; font-size:  inherit;"><i
+                                class="bi bi-person-fill-add"></i></mat-icon>
+                    </ng-template>
+                    <!-- {{KhachHang.value}} -->
                     <form [formGroup]="myForm" (ngSubmit)="onSubmitThemKhachHang()">
-                            <div mat-dialog-content>
+                        <div mat-dialog-content>
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Tên khách hàng</mat-label>
+                                <input matInput id="tenKhachHang" name="tenKhachHang"
+                                    placeholder="Nhập tên khách hàng..." formControlName="tenKhachHang"
+                                    (input)="TypingKhachHang()">
+                            </mat-form-field>
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Số điện thoại</mat-label>
+                                <span matTextPrefix>+84 &nbsp;</span>
+                                <input type="tel" matInput placeholder="033-233-1231" (input)="TypingKhachHang()"
+                                    formControlName="soDienThoai">
 
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>Tên khách hàng</mat-label>
-                                        <input matInput id="tenKhachHang" name="tenKhachHang" placeholder="Nhập tên khách hàng..." formControlName="tenKhachHang"
-                                           >
-                                    </mat-form-field>
+                            </mat-form-field>
 
-                                
 
-      
 
-                                        <mat-form-field class="col-lg-4">
-                                          <mat-label>Số điện thoại</mat-label>
-                                          <span matTextPrefix>+84 &nbsp;</span>
-                                          <input type="tel" matInput placeholder="033-233-1231" formControlName="soDienThoai">
 
-                                        </mat-form-field>
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Địa chỉ</mat-label>
+                                <input matInput id="diaChi" name="diaChi" placeholder="Nhập địa chỉ..."
+                                    (input)="TypingKhachHang()" formControlName="diaChi">
+                            </mat-form-field>
 
- 
-                        
-       
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>Địa chỉ</mat-label>
-                                        <input matInput id="diaChi" name="diaChi" placeholder="Nhập địa chỉ..." formControlName="diaChi">
-                                    </mat-form-field>
 
-                        
 
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>CCCD</mat-label>
-                                        <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..." formControlName="cccd">
-                                    </mat-form-field>
-  
-                        
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>CCCD</mat-label>
+                                <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..."
+                                    (input)="TypingKhachHang()" formControlName="cccd">
+                            </mat-form-field>
 
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>Ngày sinh</mat-label>
-                                        <input matInput [matDatepicker]="picker" name="ngaySinh" id="ngaySinh" formControlName="ngaySinh">
-                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                    
 
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>Giới tính</mat-label>
-                                        <mat-select id="gioiTinh" name="gioiTinh" formControlName="gioiTinh">
-                                            <mat-option value="Nam">Nam</mat-option>
-                                            <mat-option value="Nữ">Nữ</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-   
-                        
- 
-                                    <mat-form-field class="col-lg-4">
-                                        <mat-label>Email</mat-label>
-                                        <input matInput type="email" id="email" name="email" placeholder="Nhập email..." formControlName="email">
-                                    </mat-form-field>
 
-                        
-                       
-                            </div>
-                            <button type="submit">TestKH</button>
-                        </form>
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Ngày sinh</mat-label>
+                                <input matInput [matDatepicker]="picker" name="ngaySinh" (input)="TypingKhachHang()"
+                                    id="ngaySinh" formControlName="ngaySinh">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Giới tính</mat-label>
+                                <mat-select id="gioiTinh" name="gioiTinh" (input)="TypingKhachHang()"
+                                    formControlName="gioiTinh">
+                                    <mat-option value="Nam">Nam</mat-option>
+                                    <mat-option value="Nữ">Nữ</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+
+
+                            <mat-form-field class="col-lg-4">
+                                <mat-label>Email</mat-label>
+                                <input matInput type="email" id="email" (input)="TypingKhachHang()" name="email"
+                                    placeholder="Nhập email..." formControlName="email">
+                            </mat-form-field>
+
+
+
+                        </div>
+                    </form>
 
                 </mat-tab>
             </mat-tab-group>
 
             <div mat-dialog-actions class="modal-footer">
-                <button data-bs-dismiss="modal"  type="button" mat-raised-button color="warn">Đóng</button>
+                <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
                 <button mat-raised-button type="button" color="primary" (click)="DatTour()">Đặt tour</button>
             </div>
             }

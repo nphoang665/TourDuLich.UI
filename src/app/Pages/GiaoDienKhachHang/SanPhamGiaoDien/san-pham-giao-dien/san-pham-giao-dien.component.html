@@ -9,13 +9,16 @@
             <ng-container class="row p-0" *ngFor="let tour of getToursByType(tourType)">
 
                 <div class="col col-lg-3 col-md-auto  col-sm-12 col-12">
-                    <a class="travel-card w-md-100">
-                        <div class="image">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                    <span class="travel-card w-md-100" [routerLink]="'/chitiettour/'+tour.idTour">
+                        <div class="image" [style.backgroundImage]="'url(' + tour.HinhAnhDauTien + ')'">
+                            <div class="card__ribbon" style="z-index: 1;">
+                                <div class="ribbon-content">tour hot1</div>
+                            </div>
+                            <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
                         <div class="content">
-                            <label class="category">{{tour.loaiTour}}</label>
-                            <h1 class="topic">{{tour.tenTour}}</h1>
+                            <label class="category pt-0">{{tour.loaiTour}}</label>
+                            <h1 class="topic pt-0">{{tour.tenTour}}</h1>
                             <div class="recommendation">
                                 <div class="score">
                                     <span>{{tour.TrungBinhDiemDanhGia}}</span>
@@ -24,8 +27,8 @@
                                 <div class="comment">({{tour.SoLuongDanhGia}} Reviews)</div>
                             </div>
                             <div class="price">
-                                <div class="discount-info">save upto 30% off</div>
-                                <div class="original-price">$213</div>
+                                <div class="discount-info">{{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}</div>
+                                <div class="original-price">{{tour.giaNguoiLon | number :'':'en'}} đ</div>
                             </div>
                         </div>
 
@@ -33,7 +36,7 @@
                             <i class="material-icons">favorite_border</i>
                             <i class="material-icons">favorite</i>
                         </button>
-                    </a>
+                    </span>
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">
@@ -54,9 +57,12 @@
             <ng-container class="row p-0" *ngFor="let tour of getToursByType(tourType)">
 
                 <div class="col col-lg-3 col-md-auto  col-sm-12 col-12">
-                    <a class="travel-card w-md-100">
+                    <span class="travel-card w-md-100" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="image">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                            <div class="card__ribbon" style="z-index: 1;">
+                                <div class="ribbon-content">tour hot1</div>
+                            </div>
+                            <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
                         <div class="content">
                             <label class="category">{{tour.loaiTour}}</label>
@@ -70,7 +76,7 @@
                             </div>
                             <div class="price">
                                 <div class="discount-info">save upto 30% off</div>
-                                <div class="original-price">$213</div>
+                                <div class="original-price">{{tour.giaNguoiLon | number :'':'en'}} đ</div>
                             </div>
                         </div>
 
@@ -78,7 +84,7 @@
                             <i class="material-icons">favorite_border</i>
                             <i class="material-icons">favorite</i>
                         </button>
-                    </a>
+                    </span>
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">

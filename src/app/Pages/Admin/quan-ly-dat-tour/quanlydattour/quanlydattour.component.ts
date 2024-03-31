@@ -49,8 +49,8 @@ export class QuanlydattourComponent implements OnInit {
 
 
   // themKhachHang: KhachHang;
-  myForm:FormGroup = new FormGroup({
-    idKhachHang: new FormControl(''),
+  myForm: FormGroup = new FormGroup({
+    idKhachHang: new FormControl('231233'),
     tenKhachHang: new FormControl(''),
     soDienThoai: new FormControl(''),
     diaChi: new FormControl(''),
@@ -83,18 +83,23 @@ export class QuanlydattourComponent implements OnInit {
 
   }
   //disable khách hàng ở thêm đặt tour khi có ở thêm khách hàng
-  // checkValue() {
-  //   if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
+  checkValue() {
+    let formValues = { ...this.myForm.getRawValue() };
+    delete formValues.tinhTrang; // loại bỏ trường 'tinhTrang'
+
+    const allFieldsEmpty = Object.values(formValues).every(x => (x == null || x == ''));
+
+    if (allFieldsEmpty) {
+      this.KhachHang.enable();
+    } else {
+      this.KhachHang.disable();
+    }
+  }
 
 
-  //     this.TenKhachHang.disable();
-  //   } else {
-  //     this.TenKhachHang.enable();
-  //   }
-  // }
-  // TypingKhachHang() {
-  //   this.checkValue();
-  // }
+  TypingKhachHang() {
+    this.checkValue();
+  }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
   // arrKhachHang: any[] = [];
@@ -113,22 +118,8 @@ export class QuanlydattourComponent implements OnInit {
       });
 
     });
-    //lấy khách hàng từ db
-    // this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
-    // this.khachHang$.subscribe((data: KhachHang[]) => {
-    //   this.optionsKhachHang = data;
-    //   this.filteredOptionsKhachHang = this.TenKhachHang.valueChanges.pipe(
-    //     startWith(''),
-    //     map(value => typeof value === 'string' ? value : (value?.tenKhachHang ?? '')),
-    //     map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
-    //   );
-    // });
     this.LayKhachHang();
-
-
-
     this.GetDichVu();
-
     //Get data tableThongTinTour
     this.dataSource.data = [
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
@@ -142,11 +133,15 @@ export class QuanlydattourComponent implements OnInit {
   LayKhachHang() {
     this.quanLyKhachHangServices.getAllTourKhachHang().subscribe(khachhangs => {
       this.optionsKhachHang = khachhangs;
-      this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.tenKhachHang),
-        map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
-      );
+      if (this.KhachHang) {
+        this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
+          startWith(''),
+          map(value => value && typeof value === 'string' ? value : value?.tenKhachHang),
+          map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+        );
+
+
+      }
 
     })
   }
@@ -256,20 +251,33 @@ export class QuanlydattourComponent implements OnInit {
   GhiChu_DatTour!: string;
   //hàm đặt tour
   DatTour() {
-    //nếu thêm khách hàng không có value
-    if (this.myForm.value.tenKhachHang == 'KH0001') {
+    let formValues = { ...this.myForm.getRawValue() };
+    delete formValues.tinhTrang; // loại bỏ trường 'tinhTrang'
+
+    const allFieldsEmpty = Object.values(formValues).every(x => (x == null || x == ''));
+    //nếu khách hàng cũ có value
+    if (this.KhachHang.value) {
       this.onDatTour(null);
     }
-    //nếu thêm khách hàng có value
-    else {
+    else if (!allFieldsEmpty) {
       this.onSubmitThemKhachHang();
     }
+    //nếu thêm khách hàng có value
+    else if (!this.KhachHang.value) {
+
+      alert('Không có thông tin khách hàng cũ');
+    }
+    else {
+      alert('Không có thông tin khách hàng mới');
+
+    }
+
+    // this.onSubmitThemKhachHang();
   }
   //hàm thêm khách hàng
   //biến chứa khách hàng reponse 
   onSubmitThemKhachHang() {
-    console.log(this.myForm.value);
-    
+
     this.quanLyKhachHangServices.themKhachHang(this.myForm.value)
       .subscribe({
         next: (response) => {
@@ -287,44 +295,42 @@ export class QuanlydattourComponent implements OnInit {
   }
 
   onDatTour(khachHangRes: any) {
-    if (this.KhachHang.getRawValue()) {
-      if (this.NguoiDung) {
+    if (this.NguoiDung) {
+      // console.log(this.KhachHang.value, khachHangRes);
+
+      let dataToSave = {
+        idDatTour: '123',
+        idTour: this.model?.idTour,
+        idKhachHang: this.KhachHang && this.KhachHang.value ? this.KhachHang.value.idKhachHang : khachHangRes.idKhachHang,
+        thoiGianDatTour: this.NgayDatTour,
+        soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
+        soLuongTreEm: this.SoLuongTreEm_DatTour,
+        ghiChu: this.GhiChu_DatTour,
+        tinhTrang: 'Đã đặt tour',
+        idNhanVien: this.NguoiDung.idNhanVien
+      };
 
 
-        let dataToSave = {
-          idDatTour: '123',
-          idTour: this.model?.idTour,
-          idKhachHang: this.IdKhachHang ? this.IdKhachHang : khachHangRes.idKhachHang,
-          thoiGianDatTour: this.NgayDatTour,
-          soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
-          soLuongTreEm: this.SoLuongTreEm_DatTour,
-          ghiChu: this.GhiChu_DatTour,
-          tinhTrang: 'Đã đặt tour',
-          idNhanVien: this.NguoiDung.idNhanVien
-        };
-        console.log(dataToSave);
+      console.log(dataToSave);
 
-        this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
-          .subscribe(response => {
-            // console.log(response);
-            this.onThemDichVuChiTiet(response);
-            this.toastr.success('Đặt tour thành công', 'Thông báo', {
-              timeOut: 1000,
-            });
 
+      this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
+        .subscribe(response => {
+          // console.log(response);
+          this.onThemDichVuChiTiet(response);
+          this.toastr.success('Đặt tour thành công', 'Thông báo', {
+            timeOut: 1000,
           });
-      } else {
-        this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
-          timeOut: 1000,
-        });
 
-      }
-    }
-    else {
-      this.toastr.warning('Chưa có thông tin khách hàng', 'Thông báo', {
+        });
+    } else {
+      this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
         timeOut: 1000,
       });
+
     }
+
+
 
   }
   //hàm thêm dịch vụ chi tiết vào db
