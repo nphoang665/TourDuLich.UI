@@ -46,6 +46,8 @@ export class QuanlydattourComponent implements OnInit {
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
 
+
+
   themKhachHang: KhachHang;
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
@@ -302,16 +304,24 @@ export class QuanlydattourComponent implements OnInit {
 
         this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
           .subscribe(response => {
-            console.log(response);
+            // console.log(response);
             this.onThemDichVuChiTiet(response);
+            this.toastr.success('Đặt tour thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
+
           });
       } else {
-        alert('Chưa có thông tin người dùng');
+        this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
+          timeOut: 1000,
+        });
 
       }
     }
     else {
-      alert('Chưa có thông tin khách hàng');
+      this.toastr.warning('Chưa có thông tin khách hàng', 'Thông báo', {
+        timeOut: 1000,
+      });
     }
 
   }
