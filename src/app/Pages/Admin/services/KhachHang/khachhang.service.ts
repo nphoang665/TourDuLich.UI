@@ -14,16 +14,16 @@ export class KhachhangService {
   }
 
   themKhachHang(data:ThemKhachHang):Observable<ThemKhachHang>{
-    return this.http.post<ThemKhachHang>(`${environment.apiBaseUrl}/api/KhachHang?addAuth=true`,data);
+    return this.http.post<ThemKhachHang>(`${environment.apiBaseUrl}/api/KhachHang`,data);
   }
   suaKhachHang(id:string,suaKhachHang:SuaKhachHang):Observable<KhachHang>{
-    return this.http.put<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`,suaKhachHang);
+    return this.http.put<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`,suaKhachHang);
   }
 
   getKhachHangById(id:string):Observable<KhachHang>{
     return this.http.get<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`);
   }
   xoaKhachHang(id:string):Observable<KhachHang>{
-    return this.http.delete<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`);
+    return this.http.delete<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`);
   }
 }

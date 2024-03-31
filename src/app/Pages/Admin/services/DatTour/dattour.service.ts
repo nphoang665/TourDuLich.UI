@@ -15,7 +15,7 @@ export class DattourService {
   constructor(private http: HttpClient) { }
 
   themDatTour(data: ThemDatTour): Observable<ThemDatTour> {
-    return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, data);
+    return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour`, data);
   }
   getDatTourById(id: string): Observable<DatTour> {
 
@@ -29,7 +29,7 @@ export class DattourService {
     return this.http.get<DatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`);
   }
   DatTourChoKhachHang(data: DatTourChoKhachHang): any {
-    return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang?addAuth=true`, data);
+    return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang`, data);
   }
   
   getAllDatTour(): Observable<DatTour[]> {

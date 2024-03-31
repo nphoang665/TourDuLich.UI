@@ -9,12 +9,8 @@ import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service'
   styleUrl: './lien-he.component.css'
 })
 export class LienHeComponent {
-  constructor(private tourServices: QuanLyTourService) {
+  constructor() {
 
   }
-  TestDl() {
-    this.tourServices.getUniqueTypeOfTour().subscribe((result: any) => {
-      console.log(result);
-    });
-  }
+
 }

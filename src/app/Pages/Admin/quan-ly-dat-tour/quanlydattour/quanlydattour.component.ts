@@ -6,7 +6,7 @@ import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { DattourService } from '../../services/DatTour/dattour.service';
 import { HttpClient } from '@angular/common/http';
 import { ThanhToanService } from '../../services/ThanhToan/thanh-toan.service';
-import { Observable } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { environment } from '../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,9 @@ import { DichVu } from '../../models/Dich-Vu.model';
 import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../models/dich-vu-chi-tiet.model';
 import { NguoiDungService } from '../../services/NguoiDung/nguoi-dung.service';
 import { DichVuChiTietService } from '../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -23,14 +26,29 @@ interface DichVuThemVaoDb {
   giaTien: number;
 
 }
+const icon_DauTru = `
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 12H15" stroke="#323232" stroke-width="1.224" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+`;
+const icon_DauCong = `
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" ></rect> <path d="M12 6V18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 12H18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+`
+const icon_Xoa = `
+<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style> .cls-1 { fill: #9f4c4c; fill-rule: evenodd; } </style></defs><path class="cls-1" d="M940,510a30,30,0,1,1,30-30A30,30,0,0,1,940,510Zm15-20.047A3.408,3.408,0,0,1,955,494.77l-0.221.22a3.42,3.42,0,0,1-4.833,0l-8.764-8.755a1.71,1.71,0,0,0-2.417,0l-8.741,8.747a3.419,3.419,0,0,1-4.836,0l-0.194-.193a3.408,3.408,0,0,1,.017-4.842l8.834-8.735a1.7,1.7,0,0,0,0-2.43l-8.831-8.725a3.409,3.409,0,0,1-.018-4.844l0.193-.193a3.413,3.413,0,0,1,2.418-1c0.944,0,3.255,1.835,3.872,2.455l7.286,7.287a1.708,1.708,0,0,0,2.417,0l8.764-8.748a3.419,3.419,0,0,1,4.832,0L955,465.243a3.408,3.408,0,0,1,0,4.818l-8.727,8.737a1.7,1.7,0,0,0,0,2.407Z" id="uncheck" transform="translate(-910 -450)"></path></g></svg>
+`;
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
   styleUrl: './quanlydattour.component.css'
 })
 export class QuanlydattourComponent implements OnInit {
+  //table thông tin tuor
+  dataSource = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
+  NguoiDung: any;
+
+
+
   themKhachHang: KhachHang;
-  TenKhachHang = new FormControl('');
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -40,45 +58,51 @@ export class QuanlydattourComponent implements OnInit {
     private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
     private dichVuChiTietServices: DichVuChiTietService,
-    private router: Router) {
+    private router: Router,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+  ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     this.themKhachHang = {
-      idKhachHang: '123123',
-      tenKhachHang: '',
-      soDienThoai: '',
-      diaChi: '',
-      cccd: '',
-      ngaySinh: '',
-      gioiTinh: 'Nam',
-      email: '',
+      idKhachHang: 'KH0001',
+      tenKhachHang: 'Nguyễn Thị C',
+      soDienThoai: '0987654321',
+      diaChi: '123 Đường A, Quận 1, TP. HCM',
+      cccd: '123456789012',
+      ngaySinh: '1990-01-01',
+      gioiTinh: 'Nữ',
+      email: 'ntc@example.com',
       tinhTrang: 'Đang hoạt động',
       matKhau: '123123',
       ngayDangKy: ngayGioHienTaiFormatted
     }
-
+    iconRegistry.addSvgIconLiteral('icon_DauTru', sanitizer.bypassSecurityTrustHtml(icon_DauTru));
+    iconRegistry.addSvgIconLiteral('icon_DauCong', sanitizer.bypassSecurityTrustHtml(icon_DauCong));
+    iconRegistry.addSvgIconLiteral('icon_Xoa', sanitizer.bypassSecurityTrustHtml(icon_Xoa));
 
   }
   //disable khách hàng ở thêm đặt tour khi có ở thêm khách hàng
-  checkValue() {
-    if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
+  // checkValue() {
+  //   if (this.themKhachHang.tenKhachHang != '' || this.themKhachHang.soDienThoai != '') {
 
 
-      this.TenKhachHang.disable();
-    } else {
-      this.TenKhachHang.enable();
-    }
-  }
-  TypingKhachHang() {
-    this.checkValue();
-  }
+  //     this.TenKhachHang.disable();
+  //   } else {
+  //     this.TenKhachHang.enable();
+  //   }
+  // }
+  // TypingKhachHang() {
+  //   this.checkValue();
+  // }
   // Tạo mới arr Khách hàng
   khachHang$?: Observable<KhachHang[]>;
-  arrKhachHang: any[] = [];
+  // arrKhachHang: any[] = [];
   tourDuLich$?: Observable<TourDuLich[]>;
   //khai báo TourDuLich để html sử dụng hiển thị
   TourDuLich: any[] = [];
   ngOnInit(): void {
+    this.NguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
       this.TourDuLich = data;
@@ -90,26 +114,84 @@ export class QuanlydattourComponent implements OnInit {
 
     });
     //lấy khách hàng từ db
-    this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
-    this.khachHang$.subscribe((data: KhachHang[]) => {
-      this.arrKhachHang = data;
-    })
+    // this.khachHang$ = this.quanLyKhachHangServices.getAllTourKhachHang();
+    // this.khachHang$.subscribe((data: KhachHang[]) => {
+    //   this.optionsKhachHang = data;
+    //   this.filteredOptionsKhachHang = this.TenKhachHang.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => typeof value === 'string' ? value : (value?.tenKhachHang ?? '')),
+    //     map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+    //   );
+    // });
+    this.LayKhachHang();
+
+
+
     this.GetDichVu();
+
+    //Get data tableThongTinTour
+    this.dataSource.data = [
+      { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
+    ];
   }
   //xử lý select khách hàng
-  IdKhachHang !: string;
-  selectValueKhachHang(event: Event) {
-    // tắt form thêm khách hàng
-    this.TypingKhachHang();
-    const input = event.target as HTMLInputElement;
-    const khachhang = this.arrKhachHang.find(p => p.soDienThoai === input.value.split('-')[0] || p.email === input.value.split('-')[2]);
-    if (khachhang) {
-      this.TenKhachHang.setValue(khachhang.tenKhachHang)
-      this.IdKhachHang = khachhang.idKhachHang;
-    }
+  IdKhachHang!: string;
+  KhachHang = new FormControl();
+  optionsKhachHang: KhachHang[] = []; // Danh sách các tùy chọn cho autocomplete
+  filteredOptionsKhachHang!: Observable<KhachHang[]>;
+  LayKhachHang() {
+    this.quanLyKhachHangServices.getAllTourKhachHang().subscribe(khachhangs => {
+      this.optionsKhachHang = khachhangs;
+      this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.tenKhachHang),
+        map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+      );
+
+    })
   }
+  displayFnKhachHang(kh: KhachHang): string {
+    return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
+  }
+  private _filter(value: string): KhachHang[] {
+    const filterValue = value.toLowerCase();
+
+    // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
+    let filteredOptions = this.optionsKhachHang.filter(option => {
+      // Kiểm tra xem người dùng đã nhập tên khách hàng, email, cccd hay soDienThoai
+      const isTenKhachHang = option.tenKhachHang.toLowerCase().includes(filterValue);
+      const isEmail = option.email.toLowerCase().includes(filterValue);
+      const isCccd = option.cccd.toLowerCase().includes(filterValue);
+      const isSoDienThoai = option.soDienThoai.toLowerCase().includes(filterValue);
+
+      switch (true) {
+        case isTenKhachHang && !isEmail && !isCccd && !isSoDienThoai:
+          return option.tenKhachHang.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && isEmail && !isCccd && !isSoDienThoai:
+          return option.email.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && !isEmail && isCccd && !isSoDienThoai:
+          return option.cccd.toLowerCase().includes(filterValue);
+        case !isTenKhachHang && !isEmail && !isCccd && isSoDienThoai:
+          return option.soDienThoai.toLowerCase().includes(filterValue);
+        default:
+          return (option.tenKhachHang.toLowerCase() + ' ' + option.email.toLowerCase() + ' ' + option.cccd.toLowerCase() + ' ' + option.soDienThoai.toLowerCase()).includes(filterValue);
+      }
+    });
+
+    // Sắp xếp các tùy chọn dựa trên mức độ phù hợp với đoạn văn bản tìm kiếm
+    filteredOptions.sort((a, b) =>
+      (b.tenKhachHang.toLowerCase() + ' ' + b.email.toLowerCase() + ' ' + b.cccd.toLowerCase() + ' ' + b.soDienThoai.toLowerCase()).indexOf(filterValue) -
+      (a.tenKhachHang.toLowerCase() + ' ' + a.email.toLowerCase() + ' ' + a.cccd.toLowerCase() + ' ' + a.soDienThoai.toLowerCase()).indexOf(filterValue)
+    );
+
+
+    return filteredOptions;
+  }
+
+
+
+
   TourDuLichById: any;
-  TenNhanVien: any;
   model?: TourDuLich;
   NgayDatTour!: string;
   SoLuongNguoiLon_DatTour: number = 1;
@@ -119,7 +201,6 @@ export class QuanlydattourComponent implements OnInit {
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
-      this.TenNhanVien = 'NV0001';
       this.model = data;
       //convert giá
       this.model.giaNguoiLon = this.model.giaNguoiLon.toLocaleString();
@@ -161,9 +242,7 @@ export class QuanlydattourComponent implements OnInit {
     else if (loaiNguoi === "NguoiLon" && kieuNutBam === "Tru") {
       this.SoLuongNguoiLon_DatTour--;
     }
-
     //nếu là loaiNguoi = trẻ em
-
     //nếu kiểu nút bấm là  + 
     else if (loaiNguoi === "TreEm" && kieuNutBam === "Cong") {
       this.SoLuongTreEm_DatTour++;
@@ -178,28 +257,21 @@ export class QuanlydattourComponent implements OnInit {
   //hàm đặt tour
   DatTour() {
     //nếu thêm khách hàng không có value
-    if (this.themKhachHang.tenKhachHang == '') {
+    if (this.themKhachHang.tenKhachHang == 'KH0001') {
       this.onDatTour(null);
     }
     //nếu thêm khách hàng có value
     else {
       this.onSubmitThemKhachHang();
-
     }
-
-
-
   }
   //hàm thêm khách hàng
   //biến chứa khách hàng reponse 
   onSubmitThemKhachHang() {
-
-
     this.quanLyKhachHangServices.themKhachHang(this.themKhachHang)
       .subscribe({
         next: (response) => {
           console.log(response);
-
           this.onDatTour(response);
         },
         error: (error) => {
@@ -211,26 +283,47 @@ export class QuanlydattourComponent implements OnInit {
         }
       })
   }
-  onDatTour(khachHangRes: any) {
-    console.log(this.IdKhachHang);
-    let dataToSave = {
-      idDatTour: '123',
-      idTour: this.model?.idTour,
-      idKhachHang: this.IdKhachHang ? this.IdKhachHang : khachHangRes.idKhachHang,
-      thoiGianDatTour: this.NgayDatTour,
-      soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
-      soLuongTreEm: this.SoLuongTreEm_DatTour,
-      ghiChu: this.GhiChu_DatTour,
-      tinhTrang: 'Đã đặt tour',
-      idNhanVien: this.TenNhanVien
-    };
-    console.log(dataToSave);
 
-    this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
-      .subscribe(response => {
-        console.log(response);
-        this.onThemDichVuChiTiet(response);
+  onDatTour(khachHangRes: any) {
+    if (this.KhachHang.getRawValue()) {
+      if (this.NguoiDung) {
+
+
+        let dataToSave = {
+          idDatTour: '123',
+          idTour: this.model?.idTour,
+          idKhachHang: this.IdKhachHang ? this.IdKhachHang : khachHangRes.idKhachHang,
+          thoiGianDatTour: this.NgayDatTour,
+          soLuongNguoiLon: this.SoLuongNguoiLon_DatTour,
+          soLuongTreEm: this.SoLuongTreEm_DatTour,
+          ghiChu: this.GhiChu_DatTour,
+          tinhTrang: 'Đã đặt tour',
+          idNhanVien: this.NguoiDung.idNhanVien
+        };
+        console.log(dataToSave);
+
+        this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
+          .subscribe(response => {
+            // console.log(response);
+            this.onThemDichVuChiTiet(response);
+            this.toastr.success('Đặt tour thành công', 'Thông báo', {
+              timeOut: 1000,
+            });
+
+          });
+      } else {
+        this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
+          timeOut: 1000,
+        });
+
+      }
+    }
+    else {
+      this.toastr.warning('Chưa có thông tin khách hàng', 'Thông báo', {
+        timeOut: 1000,
       });
+    }
+
   }
   //hàm thêm dịch vụ chi tiết vào db
   onThemDichVuChiTiet(datTour: any) {

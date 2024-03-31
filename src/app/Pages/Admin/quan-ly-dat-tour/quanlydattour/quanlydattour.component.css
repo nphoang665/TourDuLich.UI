@@ -1,126 +1,136 @@
 .wrapper {
-    display: flex;
-    position: relative;
-  }
-  
-  .main {
-    min-height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    transition: all 0.35s ease-in-out;
-    background-color: #fafbfe;
-  }
-  .sticky-container {
-    position: relative;
-    overflow: visible;
-    border-radius: 5px;
-  }
-  
-  .sticky-item {
-    position: sticky !important;
-    top: 0;
-  }
-  
-  .container {
-    max-width: 85%;
-    padding: 10px;
-    font-family: "Roboto", sans-serif;
-  }
-  .container p {
-    font-size: 1.3em;
-    color: #124076;
-  }
-  .card_tour {
-    /* border: 1px solid gray; */
-    padding: 0;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .card_tour {
-    width: 270px;
-  }
-  .img_tour {
-    width: 100%;
-  }
-  .total_card {
-    padding: 10px;
-  }
-  .title_tour {
-    background-color: #e5e5e5;
-    font-size: 15px;
-    padding: 5px;
-    font-weight: 500;
-  }
-  .card_tour .card_tour_text {
-    padding: 10px;
-    /* border: 1px 0px 0px 1px solid grey; */
-    border-right: 1px solid rgb(214, 210, 210);
-    border-left: 1px solid rgb(214, 210, 210);
-    border-bottom: 1px solid rgb(214, 210, 210);
-  }
-  .price_tour_text {
-    font-size: 19px;
-    font-weight: 700;
-    color: #124076;
-  }
-  
-  /* hover */
-  /* .card_tour:hover .card_tour_text {
+  display: flex;
+  position: relative;
+}
+
+.main {
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.35s ease-in-out;
+  background-color: #fafbfe;
+}
+.sticky-container {
+  position: relative;
+  overflow: visible;
+  border-radius: 5px;
+}
+
+.sticky-item {
+  position: sticky !important;
+  top: 0;
+}
+
+.container {
+  max-width: 85%;
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+}
+.container p {
+  font-size: 1.3em;
+  color: #124076;
+}
+.card_tour {
+  /* border: 1px solid gray; */
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.card_tour {
+  width: 270px;
+}
+.img_tour {
+  width: 100%;
+}
+.total_card {
+  padding: 10px;
+}
+.title_tour {
+  background-color: #e5e5e5;
+  font-size: 15px;
+  padding: 5px;
+  font-weight: 500;
+}
+.card_tour .card_tour_text {
+  padding: 10px;
+  /* border: 1px 0px 0px 1px solid grey; */
+  border-right: 1px solid rgb(214, 210, 210);
+  border-left: 1px solid rgb(214, 210, 210);
+  border-bottom: 1px solid rgb(214, 210, 210);
+}
+.price_tour_text {
+  font-size: 19px;
+  font-weight: 700;
+  color: #124076;
+}
+
+/* hover */
+/* .card_tour:hover .card_tour_text {
     outline: 1px 0px 1px 1px solid black;
   }
   
   .card_tour:hover .title_tour {
     outline: 1px solid black;
   } */
-  .card_tour:hover {
-    outline: 1px solid rgb(128, 127, 127);
-  }
-  .btn_DatTour {
-    height: 40px;
-  
-    border: 1px solid #0e2238;
-    background-color: #e5f3ff;
-    color: #0e2238;
-  }
-  
-  .btn_ThanhToan {
-    height: 40px;
-  
-    border: 2px solid #0e2238;
-    background-color: #0e2238;
-    color: white;
-  }
-  
-  .div_img {
-    position: relative;
-  }
-  .tinhTrang {
-    position: absolute;
-    left: 10px;
-    top: 5px;
-  }
-  /* button */
-  /* .btn_sl {
+.card_tour:hover {
+  outline: 1px solid rgb(128, 127, 127);
+}
+.btn_DatTour {
+  height: 40px;
+
+  border: 1px solid #0e2238;
+  background-color: #e5f3ff;
+  color: #0e2238;
+}
+
+.btn_ThanhToan {
+  height: 40px;
+
+  border: 2px solid #0e2238;
+  background-color: #0e2238;
+  color: white;
+}
+
+.div_img {
+  position: relative;
+}
+.tinhTrang {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+/* button */
+/* .btn_sl {
     max-width: 50px;
   } */
-  .btn_sl {
-    border-radius: 0 !important;
-    border: 1px solid #dee2e6;
+.btn_sl {
+  border-radius: 0 !important;
+  border: 1px solid #dee2e6;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    max-width: 100%;
   }
-  
-  @media screen and (max-width: 800px) {
-    .container {
-      max-width: 100%;
-    }
-    .card_tour {
-      width: 250px;
-    }
+  .card_tour {
+    width: 250px;
   }
-  @media screen and (max-width: 560px) {
-    .card_tour {
-      width: 100%;
-    }
+}
+@media screen and (max-width: 560px) {
+  .card_tour {
+    width: 100%;
   }
-  
+}
+::ng-deep .cdk-overlay-container {
+  z-index: 9999;
+}
+button {
+  margin: 2px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

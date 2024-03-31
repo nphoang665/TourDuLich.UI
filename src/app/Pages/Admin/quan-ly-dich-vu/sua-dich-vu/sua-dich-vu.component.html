@@ -73,9 +73,9 @@
       <input matInput formControlName="ngayThem" readonly="" />
     </mat-form-field>
   </div>
-  <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [disabled]="myForm.invalid">Lưu</button>
+  <div mat-dialog-actions align="end">
     <button (click)="ClosePopup()" mat-dialog-close mat-raised-button color="warn">Đóng</button>
+    <button mat-raised-button color="primary" [disabled]="myForm.invalid">Lưu</button>
     <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
   </div>
 </form>
