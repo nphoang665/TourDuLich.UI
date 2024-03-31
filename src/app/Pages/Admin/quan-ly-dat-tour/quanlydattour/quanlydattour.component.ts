@@ -515,7 +515,7 @@ export class QuanlydattourComponent implements OnInit {
   _ngSoLuongDaChon: number[] = [];
   GetDichVu() {
     this.dichVuServices.LayDichVuMau().subscribe((data: DichVu[]) => {
-      this.DichVu = data;
+      this.DichVu = data.filter(dv => dv.tinhTrang === 'Đang hoạt động');
 
 
     });
