@@ -508,28 +508,29 @@
 <div style="z-index:9999;" class="modal fade" id="thanhToanModal" tabindex="-1" aria-labelledby="thanhToanModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <h2 mat-dialog-title>Tra cứu khách hàng - {{idTour_ThanhToan}}</h2>
+        <div class="modal-content p-2">
+            <h3 mat-dialog-title>Tra cứu khách hàng - {{idTour_ThanhToan}}</h3>
             <mat-dialog-content>
                 <div class="row">
-                    <mat-form-field class="col">
+                    <mat-form-field>
                         <mat-label>Tên khách hàng</mat-label>
-                        <input matInput spellcheck="false" [formControl]="TenKhachHang_ThanhToan"
-                            (input)="selectValueKhachHangThanhToan($event)" list="datalistOptions" id="exampleDataList"
-                            placeholder="Tra cứu khách hàng...">
-                        <datalist id="datalistOptions">
-                            <ng-container *ngFor="let item of arrKhachHangThanhToan; let i = index">
-                                <option [value]="item.soDienThoai + '-' + item.email">{{item.tenKhachHang}}</option>
-                            </ng-container>
-                        </datalist>
+                        <input type="text" matInput [matAutocomplete]="auto" [formControl]="TenKhachHang_ThanhToan">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                            [displayWith]="displayFnKhachHang_ThanhToan">
+                            <mat-option *ngFor="let option of filteredOptionsKhachHangThanhToan | async"
+                                [value]="option">
+                                {{option.tenKhachHang}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
             </mat-dialog-content>
 
             <mat-dialog-actions align="end">
                 <button mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
-                <button mat-raised-button color="primary" [disabled]="foundKhachHang==false"
-                    (click)="ThongTinThanhToan()" data-bs-toggle="modal" data-bs-target="#thanhToanModal1">Tra cứu thông
+                <button mat-raised-button color="primary" (click)="ThongTinThanhToan()" data-bs-toggle="modal"
+                    data-bs-target="#thanhToanModal1">Tra cứu
+                    thông
                     tin</button>
             </mat-dialog-actions>
 
@@ -537,14 +538,16 @@
         </div>
     </div>
 </div>
+@if(TenKhachHang_ThanhToan.value){
 
-@if(foundKhachHang){
+
 <div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="thanhToanModalLabel">Thanh toán - {{idTour_ThanhToan}} -
-                    {{KhachHangBamTraCuu[0].idKhachHang}}</h5>
+                    {{TenKhachHang_ThanhToan.value.idKhachHang}}
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -556,35 +559,35 @@
                             <tbody>
                                 <tr>
                                     <th>Mã khách hàng</th>
-                                    <td>{{KhachHangBamTraCuu[0].idKhachHang}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.idKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Tên khách hàng</th>
-                                    <td>{{KhachHangBamTraCuu[0].tenKhachHang}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.tenKhachHang}}</td>
                                 </tr>
                                 <tr>
                                     <th>Số điện thoại</th>
-                                    <td>{{KhachHangBamTraCuu[0].soDienThoai}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.soDienThoai}}</td>
                                 </tr>
                                 <tr>
                                     <th>Địa chỉ</th>
-                                    <td>{{KhachHangBamTraCuu[0].diaChi}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.diaChi}}</td>
                                 </tr>
                                 <tr>
                                     <th>CCCD</th>
-                                    <td>{{KhachHangBamTraCuu[0].cccd}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.cccd}}</td>
                                 </tr>
                                 <tr>
                                     <th>Ngày sinh</th>
-                                    <td>{{KhachHangBamTraCuu[0].ngaySinh}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.ngaySinh}}</td>
                                 </tr>
                                 <tr>
                                     <th>Giới tính</th>
-                                    <td>{{KhachHangBamTraCuu[0].gioiTinh}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.gioiTinh}}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>{{KhachHangBamTraCuu[0].email}}</td>
+                                    <td> {{TenKhachHang_ThanhToan.value.email}}</td>
                                 </tr>
                             </tbody>
                         </table>
