@@ -1,126 +1,96 @@
-<div class="container-fluid">
-    <div class="row">
-      <!-- Main Sidebar -->
-      <app-main-sidebar class="p-0"></app-main-sidebar>
-      <!-- End Main Sidebar -->
-      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <div class="main-navbar sticky-top bg-white">
-          <!-- Main Navbar -->
-          <app-main-navbar></app-main-navbar>
-        </div>
-        <!-- / .main-navbar -->
+<form [formGroup]="suaNhanVienForm" (ngSubmit)="SuaNhanVien($event)">
+  <h1 mat-dialog-title>Sửa nhân viên - {{ model?.idNhanVien }}</h1>
 
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Tên nhân viên</mat-label>
+      <input matInput formControlName="tenNhanVien" />
+    </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Số điện thoại</mat-label>
+      <input
+        type="text"
+        maxlength="10"
+        matInput
+        formControlName="soDienThoai"
+      />
+    </mat-form-field>
 
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
-              <div class="container">
-                <h2>Sửa nhân viên</h2>
-                <form [formGroup]="suaNhanVienForm">
-                
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="">Tên nhân viên</label>
-                                <input type="text" class="form-control"formControlName="tenNhanVien" placeholder="Nhập tên nhân viên">
-                            </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>CCCD</mat-label>
+      <input type="text" maxlength="12" matInput formControlName="cccd" />
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">Số điện thoại</label>
-                            <input type="number" class="form-control" formControlName="soDienThoai">
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Ngày sinh</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        name="ngaySinh"
+        id="ngaySinh"
+        formControlName="ngaySinh"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">CCCD</label>
-                            <input type="number" class="form-control" formControlName="cccd">
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Giới tính</mat-label>
+      <mat-select name="gioiTinh" formControlName="gioiTinh">
+        <mat-option value="Nam">Nam</mat-option>
+        <mat-option value="Nữ">Nữ</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">Ngày sinh</label>
-                            <input type="date" class="form-control" formControlName="ngaySinh">
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Chức vụ</mat-label>
+      <mat-select formControlName="chucVu">
+        <mat-option value="Nhân viên">Nhân viên</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                              <label for="">Giới tính</label>
-                              <select class="form-select" formControlName="gioiTinh">
-                                  <option value="Nam">Nam</option>
-                                  <option value="Nữ">Nữ</option>
-                              </select>
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                              <label for="">Chức vụ</label>
-                              <select class="form-select" formControlName="chucVu">
-                                  <option value="Nhân viên">Nhân viên</option>
-                              </select>
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Địa chỉ</mat-label>
+      <input matInput id="diaChi" name="diaChi" formControlName="diaChi" />
+    </mat-form-field>
 
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">Địa chỉ</label>
-                            <input type="text" class="form-control" formControlName="diaChi">
-                          </div>
-                        </div>
+    <mat-form-field>
+      <mat-label>Tình trạng</mat-label>
+      <mat-select formControlName="tinhTrang">
+        <mat-option value="Đang hoạt động">Đang hoạt động</mat-option>
+        <mat-option value="Đã nghỉ việc">Đã nghỉ việc</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">Ngày vào làm</label>
-                            <input type="date" class="form-control" formControlName="ngayVaoLam" readonly>
-                          </div>
-                        </div>
-
-                        <!-- <div class="col-lg-3">
-                          <div class="form-group">
-                            <label for="">Ảnh nhân viên</label>
-                            <input type="file" class="form-control" formControlName="anhNhanVien">
-                          </div>
-                        </div> -->
-
-                        <div class="col-lg-3">
-                          <div class="form-group">
-                              <label for="">Tình trạng</label>
-                              <select class="form-select" formControlName="tinhTrang">
-                                  <option value="Đang hoạt động">Đang hoạt động</option>
-                                  <option value="Đã nghỉ việc">Đã nghỉ việc</option>
-                              </select>
-                          </div>
-                      </div>
-                        
-                        <div class="d-flex justify-content-end mt-2">
-                          <button class="btn btn-secondary " routerLink="/quanLyNhanVien">Hủy sửa</button>
-          
-                     
-                          <button class="btn btn-success mx-2" (click)="suaNhanVien()">Sửa nhân viên </button>
-                      </div>
-                        
-                    </div>
-
-                </form>
-              </div>
-            
-
-            </div>
-        </div>
-        <!-- End dịch vụ -->
-
-
-
-
-
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
-    </div>
+    <mat-form-field>
+      <mat-label>Ngày vào làm</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="ngayVaoLam"
+        readonly=""
+      />
+    </mat-form-field>
   </div>
+  <div mat-dialog-actions align="end">
+    <button
+      (click)="ClosePopup()"
+      mat-dialog-close
+      mat-raised-button
+      color="warn"
+    >
+      Đóng
+    </button>
+    <button mat-raised-button color="primary">Lưu</button>
+    <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
+  </div>
+</form>
