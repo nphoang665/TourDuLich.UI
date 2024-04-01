@@ -289,19 +289,15 @@ export class ThanhtoankhachhangComponent implements OnInit {
   }
   get NgaySinh(){
     return this.ThanhToan.get('NgaySinh');
-
   }
   get Email(){
     return this.ThanhToan.get('Email');
-
   }
   get GioiTinh(){
     return this.ThanhToan.get('GioiTinh');
-
   }
   get TinhTrangKhachHang(){
     return this.ThanhToan.get('TinhTrangKhachHang');
-
   }
   noSpecialCharValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {

@@ -102,8 +102,8 @@
 
   </div>
   <div mat-dialog-actions align="end">
-    <button (click)="ClosePopup()" [disabled]="themKhachHang.invalid" mat-dialog-close mat-raised-button color="warn">Đóng</button>
-    <button mat-raised-button color="primary" >Lưu</button>
+    <button (click)="ClosePopup()"  mat-dialog-close mat-raised-button color="warn">Đóng</button>
+    <button [disabled]="themKhachHang.invalid" mat-raised-button color="primary" >Lưu</button>
     <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
   </div>
 </form>
