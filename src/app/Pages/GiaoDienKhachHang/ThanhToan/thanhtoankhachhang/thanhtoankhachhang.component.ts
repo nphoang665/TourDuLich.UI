@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
 import { DatTourChoKhachHang } from '../../../Admin/models/dat-tour-khach-hang.model';
@@ -14,7 +14,15 @@ import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.s
 import { DichVuChiTietService } from '../../../Admin/services/DichVuChiTiet/dich-vu-chi-tiet.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -29,9 +37,9 @@ interface DichVuThemVaoDb {
   styleUrl: './thanhtoankhachhang.component.css'
 })
 export class ThanhtoankhachhangComponent implements OnInit {
-
+  matcher = new MyErrorStateMatcher();
   constructor(private dichVuServices: DichvuService,
-
+    
     @Inject(PLATFORM_ID) private _platform_id: Object,
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
@@ -40,7 +48,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     private toastr: ToastrService,
 
   ) {
-
+    
   }
   private nguoiDungLogin = this.nguoiDung.LayNguoiDungTuLocalStorage();
 
@@ -231,15 +239,76 @@ export class ThanhtoankhachhangComponent implements OnInit {
   private ngaySinh = this.nguoiDungLogin ? new Date(this.nguoiDungLogin.ngaySinh).toISOString().split('T')[0] : '';
   ThanhToan = new FormGroup({
     IdKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.idKhachHang : ''),
-    TenKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.tenKhachHang : ''),
-    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : ''),
-    DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : ''),
-    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : ''),
-    NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : ''),
-    GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : ''),
-    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : ''),
+    TenKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.tenKhachHang : '',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50),
+      this.noSpecialCharValidator(),
+    ]),
+    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : '',[
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10), 
+    
+    ]),
+    DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : '',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50), 
+      
+    ]),
+    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '',[
+      Validators.required,
+      Validators.minLength(0),
+      Validators.maxLength(16), 
+    
+    ]),
+    NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',
+    Validators.required),
+    GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : '',
+    Validators.required),
+    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(50), 
+      
+    ]),
     TinhTrangKhachHang: new FormControl('Đang hoạt động'),
   });
+  get TenKhachHang(){
+    return this.ThanhToan.get('TenKhachHang');
+  }
+  get SoDienThoai(){
+    return this.ThanhToan.get('SoDienThoai');
+  }
+  get CCCD(){
+    return this.ThanhToan.get('CCCD');
+  }
+  get DiaChi(){
+    return this.ThanhToan.get('DiaChi');
+  }
+  get NgaySinh(){
+    return this.ThanhToan.get('NgaySinh');
+
+  }
+  get Email(){
+    return this.ThanhToan.get('Email');
+
+  }
+  get GioiTinh(){
+    return this.ThanhToan.get('GioiTinh');
+
+  }
+  get TinhTrangKhachHang(){
+    return this.ThanhToan.get('TinhTrangKhachHang');
+
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
 
 
   XacNhanDatTour() {
