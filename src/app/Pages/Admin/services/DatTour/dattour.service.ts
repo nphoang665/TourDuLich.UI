@@ -15,17 +15,13 @@ export class DattourService {
   constructor(private http: HttpClient) { }
 
   themDatTour(data: ThemDatTour): Observable<ThemDatTour> {
-    return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour`, data);
+    return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, data);
   }
   getDatTourById(id: string): Observable<DatTour> {
-
-    
     return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}`);
   }
 
   getDatTourByIdDatTour(id: string): Observable<DatTour> {
-
-    
     return this.http.get<DatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`);
   }
   DatTourChoKhachHang(data: DatTourChoKhachHang): any {
@@ -35,7 +31,8 @@ export class DattourService {
   getAllDatTour(): Observable<DatTour[]> {
     return this.http.get<DatTour[]>(`${environment.apiBaseUrl}/api/datTour`);
   }
+
   putDatTour(data :SuaDatTour,id:string): Observable<SuaDatTour> {
-    return this.http.put<SuaDatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`,data);
+    return this.http.put<SuaDatTour>(`${environment.apiBaseUrl}/api/datTour/${id}?addAuth=true`,data);
   }
 }

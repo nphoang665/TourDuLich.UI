@@ -232,7 +232,7 @@ export class LoginComponent implements OnInit {
         if (response.roles.includes('Khách hàng')) {
           this.router.navigateByUrl('/trangchu');
         } else if (response.roles.includes('Admin') || response.roles.includes('Nhân viên')) {
-          this.router.navigateByUrl('/trangChuAdmin');
+          this.router.navigateByUrl('/quanLyDatTour');
         }
 
         this.toastr.success('Đăng nhập thành công', 'Thông báo', {
