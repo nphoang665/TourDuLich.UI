@@ -16,7 +16,7 @@ export class NhanVienService {
   }
 
   getAllNhanVien(): Observable<NhanVien[]> {
-    return this.http.get<NhanVien[]>(`${environment.apiBaseUrl}/api/NhanVien`);
+    return this.http.get<NhanVien[]>(`${environment.apiBaseUrl}/api/NhanVien?addAuth=true`);
   }
 
   suaNhanVien(id: string, suaNhanVien: SuaNhanVien): Observable<NhanVien> {
@@ -27,7 +27,7 @@ export class NhanVienService {
     return this.http.get<NhanVien>(`${environment.apiBaseUrl}/api/NhanVien/${id}`);
   }
 
-  xoaNhanVien(id:string):Observable<NhanVien>{
+  xoaNhanVien(id: string): Observable<NhanVien> {
     return this.http.delete<NhanVien>(`${environment.apiBaseUrl}/api/NhanVien/${id}?addAuth=true`);
   }
 }

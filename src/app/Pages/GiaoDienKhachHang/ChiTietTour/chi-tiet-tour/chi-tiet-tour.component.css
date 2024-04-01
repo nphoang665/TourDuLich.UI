@@ -136,8 +136,8 @@
 }
 .btn_LienHe {
   width: 100%;
-  color: #f79321;
-  border: 1px solid #f79321;
+  color: #40679e;
+  border: 1px solid #40679e;
   background-color: transparent;
   border-radius: 4px;
   height: 45px;
@@ -147,8 +147,8 @@
 .btn_DatTour {
   width: 100%;
   color: white;
-  border: 1px solid #f79321;
-  background-color: #f79321;
+  border: 1px solid #40679e;
+  background-color: #40679e;
   border-radius: 4px;
   height: 45px;
   font-size: 1.2em;
@@ -164,7 +164,9 @@
     font-size: 0.8em;
   }
 }
-
+.txt_TongGiaTour {
+  color: #40679e;
+}
 /* custom scroll */
 /* Định nghĩa cho toàn bộ thanh cuộn */
 ::-webkit-scrollbar {

@@ -17,11 +17,18 @@
                 <div class="page-header row no-gutters py-4">
                     <div class="container-fluid">
                         <h2>Quản lý đặt Tour</h2>
-                        <p align="center">                         
-                            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style" [(ngModel)]="selectedStatus" (change)="filterTours()">
-                                <mat-button-toggle value="" [className]="mauButton==0?'bg-primary text-white':'bg-light'">Tất cả</mat-button-toggle>
-                                <mat-button-toggle value="Đang hoạt động" [className]="mauButton==1?'bg-success text-white':'bg-light'">Đang hoạt động</mat-button-toggle>
-                                <mat-button-toggle value="Tạm hoãn" [className]="mauButton==2?'bg-warning text-white':'bg-light'">Tạm hoãn</mat-button-toggle>
+                        <p align="center">
+                            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style"
+                                [(ngModel)]="selectedStatus" (change)="filterTours()">
+                                <mat-button-toggle value=""
+                                    [className]="mauButton==0?'bg-primary text-white':'bg-light'">Tất
+                                    cả</mat-button-toggle>
+                                <mat-button-toggle value="Đang hoạt động"
+                                    [className]="mauButton==1?'bg-success text-white':'bg-light'">Đang hoạt
+                                    động</mat-button-toggle>
+                                <mat-button-toggle value="Tạm hoãn"
+                                    [className]="mauButton==2?'bg-warning text-white':'bg-light'">Tạm
+                                    hoãn</mat-button-toggle>
                             </mat-button-toggle-group>
                         </p>
                         <div class="mt-4">
@@ -437,33 +444,33 @@
                                 <input matInput id="tenKhachHang" name="tenKhachHang"
                                     placeholder="Nhập tên khách hàng..." formControlName="tenKhachHang"
                                     (input)="TypingKhachHang()" [errorStateMatcher]="matcher">
-                                    @if (tenKhachHang?.errors?.['required']) {
-                                        <mat-error>Vui lòng nhập tên khách hàng</mat-error>
-                                        } 
-                                      @else if (tenKhachHang?.errors?.['minlength']) {
-                                        <mat-error>Tên khách hàng quá ngắn</mat-error>
-                                        }
-                                      @else if (tenKhachHang?.errors?.['maxlength']) {
-                                          <mat-error>Tên khách hàng quá dài</mat-error>
-                                        }
-                                      @else if (tenKhachHang?.errors?.['invalidChar']) {
-                                            <mat-error>Tên khách hàng không chứa ký tự đặc biệt & số</mat-error>
-                                        }    
+                                @if (tenKhachHang?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập tên khách hàng</mat-error>
+                                }
+                                @else if (tenKhachHang?.errors?.['minlength']) {
+                                <mat-error>Tên khách hàng quá ngắn</mat-error>
+                                }
+                                @else if (tenKhachHang?.errors?.['maxlength']) {
+                                <mat-error>Tên khách hàng quá dài</mat-error>
+                                }
+                                @else if (tenKhachHang?.errors?.['invalidChar']) {
+                                <mat-error>Tên khách hàng không chứa ký tự đặc biệt & số</mat-error>
+                                }
                             </mat-form-field>
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Số điện thoại</mat-label>
                                 <span matTextPrefix>+84 &nbsp;</span>
                                 <input type="tel" matInput placeholder="033-233-1231" (input)="TypingKhachHang()"
                                     formControlName="soDienThoai" [errorStateMatcher]="matcher">
-                                    @if (soDienThoai?.errors?.['required']) {
-                                        <mat-error>Vui lòng nhập số điện thoại</mat-error>
-                                        } 
-                                      @else if (soDienThoai?.errors?.['minlength']) {
-                                        <mat-error>Số điện thoại quá ngắn</mat-error>
-                                        }
-                                      @else if (soDienThoai?.errors?.['maxlength']) {
-                                          <mat-error>Số điện thoại không đúng định dạng</mat-error>
-                                        }
+                                @if (soDienThoai?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập số điện thoại</mat-error>
+                                }
+                                @else if (soDienThoai?.errors?.['minlength']) {
+                                <mat-error>Số điện thoại quá ngắn</mat-error>
+                                }
+                                @else if (soDienThoai?.errors?.['maxlength']) {
+                                <mat-error>Số điện thoại không đúng định dạng</mat-error>
+                                }
                             </mat-form-field>
 
 
@@ -473,15 +480,15 @@
                                 <mat-label>Địa chỉ</mat-label>
                                 <input matInput id="diaChi" name="diaChi" placeholder="Nhập địa chỉ..."
                                     (input)="TypingKhachHang()" formControlName="diaChi" [errorStateMatcher]="matcher">
-                                    @if (diaChi?.errors?.['required']) {
-                                        <mat-error>Vui lòng nhập địa chỉ</mat-error>
-                                        } 
-                                      @else if (diaChi?.errors?.['minlength']) {
-                                        <mat-error>Địa chỉ quá ngắn</mat-error>
-                                        }
-                                      @else if (diaChi?.errors?.['maxlength']) {
-                                          <mat-error>Địa chỉ quá dài</mat-error>
-                                        }
+                                @if (diaChi?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập địa chỉ</mat-error>
+                                }
+                                @else if (diaChi?.errors?.['minlength']) {
+                                <mat-error>Địa chỉ quá ngắn</mat-error>
+                                }
+                                @else if (diaChi?.errors?.['maxlength']) {
+                                <mat-error>Địa chỉ quá dài</mat-error>
+                                }
                             </mat-form-field>
 
 
@@ -490,15 +497,15 @@
                                 <mat-label>CCCD</mat-label>
                                 <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..."
                                     (input)="TypingKhachHang()" formControlName="cccd" [errorStateMatcher]="matcher">
-                                    @if (cccd?.errors?.['required']) {
-                                        <mat-error>Vui lòng nhập CCCD</mat-error>
-                                        } 
-                                      @else if (cccd?.errors?.['minlength']) {
-                                        <mat-error>CCCD quá ngắn</mat-error>
-                                        }
-                                      @else if (cccd?.errors?.['maxlength']) {
-                                          <mat-error>CCCD quá dài</mat-error>
-                                        }
+                                @if (cccd?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập CCCD</mat-error>
+                                }
+                                @else if (cccd?.errors?.['minlength']) {
+                                <mat-error>CCCD quá ngắn</mat-error>
+                                }
+                                @else if (cccd?.errors?.['maxlength']) {
+                                <mat-error>CCCD quá dài</mat-error>
+                                }
                             </mat-form-field>
 
 
@@ -509,16 +516,16 @@
                                     id="ngaySinh" formControlName="ngaySinh" [errorStateMatcher]="matcher">
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 @if (ngaySinh?.errors?.['required']) {
-                                    <mat-error>Vui lòng nhập ngày sinh</mat-error>
-                                    } 
+                                <mat-error>Vui lòng nhập ngày sinh</mat-error>
+                                }
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
 
 
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Giới tính</mat-label>
-                                <mat-select id="gioiTinh" name="gioiTinh" (input)="TypingKhachHang()"[errorStateMatcher]="matcher"
-                                    formControlName="gioiTinh">
+                                <mat-select id="gioiTinh" name="gioiTinh" (input)="TypingKhachHang()"
+                                    [errorStateMatcher]="matcher" formControlName="gioiTinh">
                                     <mat-option value="Nam">Nam</mat-option>
                                     <mat-option value="Nữ">Nữ</mat-option>
                                 </mat-select>
@@ -528,17 +535,17 @@
 
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Email</mat-label>
-                                <input matInput type="email" id="email" (input)="TypingKhachHang()" name="email"[errorStateMatcher]="matcher"
-                                    placeholder="Nhập email..." formControlName="email">
-                                    @if (email?.errors?.['required']) {
-                                        <mat-error>Vui lòng nhập email</mat-error>
-                                        } 
-                                      @else if (email?.errors?.['minlength']) {
-                                        <mat-error>Email quá ngắn</mat-error>
-                                        }
-                                      @else if (email?.errors?.['maxlength']) {
-                                          <mat-error>Email quá dài</mat-error>
-                                        }
+                                <input matInput type="email" id="email" (input)="TypingKhachHang()" name="email"
+                                    [errorStateMatcher]="matcher" placeholder="Nhập email..." formControlName="email">
+                                @if (email?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập email</mat-error>
+                                }
+                                @else if (email?.errors?.['minlength']) {
+                                <mat-error>Email quá ngắn</mat-error>
+                                }
+                                @else if (email?.errors?.['maxlength']) {
+                                <mat-error>Email quá dài</mat-error>
+                                }
                             </mat-form-field>
 
 
@@ -687,7 +694,8 @@
                                 </tr>
                                 <tr>
                                     <th>Nhân viên</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.idNhanVien}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi.idNhanVien }} -
+                                        {{TourThanhToan_HienThi.tenNhanVien}}</td>
                                 </tr>
                                 <tr>
                                     <th>Thời gian đặt tour</th>

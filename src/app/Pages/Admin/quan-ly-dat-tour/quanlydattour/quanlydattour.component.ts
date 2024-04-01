@@ -21,8 +21,10 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DichVuChiTiet } from '../../models/dat-tour-khach-hang.model';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
-import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
+import { NhanVien } from '../../models/nhan-vien.model';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -56,21 +58,21 @@ export class QuanlydattourComponent implements OnInit {
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
 
-   mauButton = 0;
+  mauButton = 0;
 
-  selectedStatus: string = ''; 
-    filteredTours: any[] = [];
-    filterTours() {
-      if (this.selectedStatus === '') {
-          this.filteredTours = this.TourDuLich;
-          this.mauButton = 0;
-      } else if(this.selectedStatus === 'Đang hoạt động'){
-          this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
-          this.mauButton = 1;
-      }
-      else if(this.selectedStatus === 'Tạm hoãn'){
-        this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
-        this.mauButton = 2;
+  selectedStatus: string = '';
+  filteredTours: any[] = [];
+  filterTours() {
+    if (this.selectedStatus === '') {
+      this.filteredTours = this.TourDuLich;
+      this.mauButton = 0;
+    } else if (this.selectedStatus === 'Đang hoạt động') {
+      this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
+      this.mauButton = 1;
+    }
+    else if (this.selectedStatus === 'Tạm hoãn') {
+      this.filteredTours = this.TourDuLich.filter(tour => tour.tinhTrang === this.selectedStatus);
+      this.mauButton = 2;
     }
   }
   matcher = new MyErrorStateMatcher();
@@ -79,63 +81,63 @@ export class QuanlydattourComponent implements OnInit {
   // themKhachHang: KhachHang;
   myForm: FormGroup = new FormGroup({
     idKhachHang: new FormControl('231233'),
-    tenKhachHang: new FormControl('',[
+    tenKhachHang: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
-    soDienThoai: new FormControl('',[
+    soDienThoai: new FormControl('', [
       Validators.required,
       Validators.minLength(0),
-      Validators.maxLength(10), 
-    
+      Validators.maxLength(10),
+
     ]),
-    diaChi: new FormControl('',[
+    diaChi: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50), 
-      
+      Validators.maxLength(50),
+
     ]),
-    cccd: new FormControl('',[
+    cccd: new FormControl('', [
       Validators.required,
       Validators.minLength(0),
-      Validators.maxLength(16), 
-    
+      Validators.maxLength(16),
+
     ]),
     ngaySinh: new FormControl('',
-    Validators.required),
+      Validators.required),
     gioiTinh: new FormControl('',
-    Validators.required),
-    email: new FormControl('',[
+      Validators.required),
+    email: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50), 
-      
+      Validators.maxLength(50),
+
     ]),
     tinhTrang: new FormControl('Đang hoạt động'),
   });
-  get tenKhachHang(){
+  get tenKhachHang() {
     return this.myForm.get('tenKhachHang');
   }
-  get soDienThoai(){
+  get soDienThoai() {
     return this.myForm.get('soDienThoai');
   }
-  get cccd(){
+  get cccd() {
     return this.myForm.get('cccd');
   }
-  get diaChi(){
+  get diaChi() {
     return this.myForm.get('diaChi');
   }
-  get ngaySinh(){
+  get ngaySinh() {
     return this.myForm.get('ngaySinh');
 
   }
-  get email(){
+  get email() {
     return this.myForm.get('email');
 
   }
-  get tinhTrang(){
+  get tinhTrang() {
     return this.myForm.get('tinhTrang');
 
   }
@@ -158,6 +160,7 @@ export class QuanlydattourComponent implements OnInit {
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
+    private nhanvienServices: NhanVienService
   ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
@@ -414,7 +417,7 @@ export class QuanlydattourComponent implements OnInit {
       console.log(dataToSave);
 
 
-      this.http.post<any>(`${environment.apiBaseUrl}/api/datTour`, dataToSave)
+      this.http.post<any>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, dataToSave)
         .subscribe(response => {
           // console.log(response);
           this.onThemDichVuChiTiet(response);
@@ -533,12 +536,18 @@ export class QuanlydattourComponent implements OnInit {
   ThongTinThanhToan() {
     for (let index = 0; index < this.Tour_ThanhToan.length; index++) {
       if (this.idTour_ThanhToan === this.Tour_ThanhToan[index].idTour) {
-        this.TourThanhToan_HienThi = this.Tour_ThanhToan[index]
-      }
+        this.TourThanhToan_HienThi = this.Tour_ThanhToan[index];
+        this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi.idNhanVien).subscribe((resultNhanVien: NhanVien) => {
+          this.TourThanhToan_HienThi.tenNhanVien = resultNhanVien.tenNhanVien;
+          console.log(this.TourThanhToan_HienThi.tenNhanVien);
 
+        });
+
+      }
     }
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
       this.LayTourDangThanhToan = data;
+      this.TongTien_DichVu_ThanhToan = 0;
       this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi.idDatTour).subscribe((result: DichVuChiTietDto[]) => {
         this.ThongTinDichVuThanhToan = result;
         console.log(this.ThongTinDichVuThanhToan);

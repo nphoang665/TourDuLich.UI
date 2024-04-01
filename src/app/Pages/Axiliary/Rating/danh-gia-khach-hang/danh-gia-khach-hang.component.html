@@ -9,7 +9,8 @@
             <!-- <div class="col"> -->
             <div class="col-auto col-sm-auto pe-1 ps-0">
 
-                <span class="_score_rating ">
+                <span class="_score_rating " style="background: linear-gradient(130deg, rgba(0,123,255,1) 0%, rgba(0,103,219,1) 75%, rgba(0,87,187,1) 100%);
+                ">
                     {{TrungBinhDiemDanhGia}}
                 </span>
             </div>
@@ -17,7 +18,7 @@
             <!-- <div class="col"> -->
             <div class="col-auto col-sm-auto ">
 
-                <span class="txt_rating">{{DanhGia.length}} Đánh giá</span>
+                <span class="txt_rating ">{{DanhGia.length}} Đánh giá</span>
                 <span class="d-block"> Đánh giá tour của website</span>
             </div>
             <!-- </div> -->
@@ -93,18 +94,20 @@
                     <div class="dv_tag">
                         <div class="row" #buttonDanhGiaSort (click)="DanhGiaItem($event)">
                             <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active text-nowrap">Relevant</button>
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 btn_Active text-nowrap">Tất
+                                    cả</button>
                             </div>
                             <div class="col-6 mt col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Friends
-                                    Ratings</button>
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Đánh giá
+                                    hay</button>
                             </div>
                             <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3"><button
-                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Latest</button>
+                                    class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Cuối
+                                    cùng</button>
                             </div>
                             <div class="col-6 mt-2 mt-sm-0 col-lg-auto col-md-auto col-sm-auto gx-3">
-                                <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">High to
-                                    low</button>
+                                <button class="btn_User_Review w-100 border pt-1 ps-3 pe-3 pb-1 text-nowrap">Thấp đến
+                                    cao</button>
                             </div>
                         </div>
                     </div>
