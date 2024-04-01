@@ -260,7 +260,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '',[
       Validators.required,
       Validators.minLength(0),
-      Validators.maxLength(16), 
+      Validators.maxLength(12), 
     
     ]),
     NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',
