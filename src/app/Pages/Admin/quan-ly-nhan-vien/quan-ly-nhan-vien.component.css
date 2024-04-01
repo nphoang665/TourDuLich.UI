@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: auto;
+  }
+  
+  .button-search-container {
+    display: flex;
+    align-items: center; /* Canh giữa theo chiều dọc */
+    justify-content: space-around; 
+    /* margin-left: 60%;  */
+  }

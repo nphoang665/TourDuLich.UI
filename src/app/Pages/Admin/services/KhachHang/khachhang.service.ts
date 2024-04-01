@@ -9,21 +9,21 @@ import { environment } from '../../../../../environments/environment';
 })
 export class KhachhangService {
   constructor(private http: HttpClient) { }
-  getAllTourKhachHang(): Observable<KhachHang[]> {
+  getAllKhachHang(): Observable<KhachHang[]> {
     return this.http.get<KhachHang[]>(`${environment.apiBaseUrl}/api/KhachHang`);
   }
 
   themKhachHang(data:ThemKhachHang):Observable<ThemKhachHang>{
-    return this.http.post<ThemKhachHang>(`${environment.apiBaseUrl}/api/KhachHang`,data);
+    return this.http.post<ThemKhachHang>(`${environment.apiBaseUrl}/api/KhachHang?addAuth=true`,data);
   }
   suaKhachHang(id:string,suaKhachHang:SuaKhachHang):Observable<KhachHang>{
-    return this.http.put<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`,suaKhachHang);
+    return this.http.put<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`,suaKhachHang);
   }
 
   getKhachHangById(id:string):Observable<KhachHang>{
     return this.http.get<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`);
   }
   xoaKhachHang(id:string):Observable<KhachHang>{
-    return this.http.delete<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}`);
+    return this.http.delete<KhachHang>(`${environment.apiBaseUrl}/api/KhachHang/${id}?addAuth=true`);
   }
 }

@@ -165,7 +165,7 @@ export class ThemDichVuComponent implements OnInit {
           error: (error) => {
             console.error('Lỗi khi thêm dịch vụ:', error);
             this.toastr.error('Đã có lỗi xảy ra', 'Thông báo', {
-              timeOut: 2000,
+              timeOut: 1000,
             });
           },
         });

@@ -16,15 +16,15 @@ export class QuanLyDichVuService {
     return this.http.get<DichVu[]>(`${environment.apiBaseUrl}/api/DichVu`)
   }
   getDichVuById(id:string):Observable<DichVu>{
-    return this.http.get<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}`)
+    return this.http.get<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}?addAuth=true`)
   }
   createDichVu(data:DichVu):Observable<DichVu>{
-    return this.http.post<DichVu>(`${environment.apiBaseUrl}/api/DichVu`,data)
+    return this.http.post<DichVu>(`${environment.apiBaseUrl}/api/DichVu?addAuth=true`,data)
   }
   updateDichVu(id:string,data:SuaDichVu):Observable<DichVu>{
-    return this.http.put<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}`,data)
+    return this.http.put<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}?addAuth=true`,data)
   }
   deleteDichVu(id:string):Observable<DichVu>{
-    return this.http.delete<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}`)
+    return this.http.delete<DichVu>(`${environment.apiBaseUrl}/api/DichVu/${id}?addAuth=true`)
   }
 }

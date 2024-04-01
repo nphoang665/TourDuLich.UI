@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-them-nhan-vien',
@@ -17,7 +18,7 @@ export class ThemNhanVienComponent implements OnInit{
     soDienThoai:new FormControl(''),
     diaChi:new FormControl(''),
     cccd:new FormControl(''),
-    ngaySinh:new FormControl(new Date()),
+    ngaySinh:new FormControl(''),
     email:new FormControl(''),
     gioiTinh:new FormControl('Nam'),
     chucVu:new FormControl('Nhân viên'),
@@ -30,9 +31,14 @@ export class ThemNhanVienComponent implements OnInit{
   constructor (
     private quanLyNhanVienService:NhanVienService,
     private router:Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<ThemNhanVienComponent>,
     ){
 
+  }
+  ClosePopup() {
+    this.ref.close();
   }
 
   ngOnInit(): void {
@@ -44,13 +50,19 @@ export class ThemNhanVienComponent implements OnInit{
     this.quanLyNhanVienService.themNhanVien(this.themNhanVien.value)
     .subscribe({
       next:(response)=>{
-        this.router.navigateByUrl('/quanLyNhanVien');
+        this.ClosePopup();
         this.toastr.success('Thêm nhân viên thành công', 'Thông báo', {
           timeOut: 1000,
         });
-      }
+      },
+      error: (error) => {
+        console.error('Lỗi khi thêm nhân viên:', error);
+        this.toastr.error('Đã có lỗi xảy ra', 'Thông báo', {
+          timeOut: 1000,
+        });
+      },
     })
-  } 
+  }
   
   
 
