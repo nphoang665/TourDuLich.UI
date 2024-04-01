@@ -1,25 +1,56 @@
 <form [formGroup]="suaNhanVienForm" (ngSubmit)="SuaNhanVien($event)">
-  <h1 mat-dialog-title>Sửa nhân viên - {{ model?.idNhanVien }}</h1>
+  <h1 mat-dialog-title>Sửa nhân viên  {{ model?.idNhanVien }}</h1>
 
   <div mat-dialog-content>
     <mat-form-field>
       <mat-label>Tên nhân viên</mat-label>
-      <input matInput formControlName="tenNhanVien" />
+      <input matInput formControlName="tenNhanVien" [errorStateMatcher]="matcher" />
+      @if (tenNhanVien?.errors?.['required']) {
+        <mat-error>Vui lòng nhập họ và tên nhân viên</mat-error>
+        } 
+      @else if (tenNhanVien?.errors?.['minlength']) {
+        <mat-error>Họ và tên nhân viên quá ngắn</mat-error>
+        }
+      @else if (tenNhanVien?.errors?.['maxlength']) {
+        <mat-error>Họ và tên nhân viên quá ngắn quá dài</mat-error>
+        }
+      @else if (tenNhanVien?.errors?.['invalidChar']) {
+        <mat-error>Họ và tên nhân viên quá ngắn không chứa ký tự đặc biệt & số</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Số điện thoại</mat-label>
       <input
+        [errorStateMatcher]="matcher"
         type="text"
         maxlength="10"
         matInput
         formControlName="soDienThoai"
       />
+      @if (soDienThoai?.errors?.['required']) {
+        <mat-error>Vui lòng nhập số điện thoại</mat-error>
+        } 
+      @else if (soDienThoai?.errors?.['minlength']) {
+        <mat-error>Số điện thoại quá ngắn</mat-error>
+        }
+      @else if (soDienThoai?.errors?.['maxlength']) {
+          <mat-error>Số điện thoại không đúng định dạng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>CCCD</mat-label>
-      <input type="text" maxlength="12" matInput formControlName="cccd" />
+      <input type="text" maxlength="12" matInput formControlName="cccd" [errorStateMatcher]="matcher" />
+      @if (cccd?.errors?.['required']) {
+        <mat-error>Vui lòng nhập CCCD</mat-error>
+        } 
+      @else if (cccd?.errors?.['minlength']) {
+        <mat-error>CCCD quá ngắn</mat-error>
+        }
+      @else if (cccd?.errors?.['maxlength']) {
+          <mat-error>CCCD quá dài</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -30,7 +61,11 @@
         name="ngaySinh"
         id="ngaySinh"
         formControlName="ngaySinh"
+        [errorStateMatcher]="matcher"
       />
+      @if (ngaySinh?.errors?.['required']) {
+        <mat-error>Vui lòng nhập ngày/tháng/năm sinh</mat-error>
+        }
       <mat-datepicker-toggle
         matIconSuffix
         [for]="picker"
@@ -40,10 +75,13 @@
 
     <mat-form-field>
       <mat-label>Giới tính</mat-label>
-      <mat-select name="gioiTinh" formControlName="gioiTinh">
+      <mat-select name="gioiTinh" formControlName="gioiTinh" [errorStateMatcher]="matcher">
         <mat-option value="Nam">Nam</mat-option>
         <mat-option value="Nữ">Nữ</mat-option>
       </mat-select>
+      @if (gioiTinh?.errors?.['required']) {
+        <mat-error>Vui lòng chọn giới tính</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -55,30 +93,53 @@
 
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email" />
+      <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher"/>
+      @if (email?.errors?.['required']) {
+        <mat-error>Vui lòng nhập email</mat-error>
+        } 
+      @else if (email?.errors?.['minlength']) {
+        <mat-error>Email quá ngắn</mat-error>
+        }
+      @else if (email?.errors?.['maxlength']) {
+          <mat-error>Email quá dài</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Địa chỉ</mat-label>
-      <input matInput id="diaChi" name="diaChi" formControlName="diaChi" />
+      <input matInput id="diaChi" name="diaChi" formControlName="diaChi" [errorStateMatcher]="matcher"/>
+      @if (diaChi?.errors?.['required']) {
+        <mat-error>Vui lòng nhập địa chỉ</mat-error>
+        } 
+      @else if (diaChi?.errors?.['minlength']) {
+        <mat-error>Địa chỉ quá ngắn</mat-error>
+        }
+      @else if (diaChi?.errors?.['maxlength']) {
+          <mat-error>Địa chỉ quá dài</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Tình trạng</mat-label>
-      <mat-select formControlName="tinhTrang">
+      <mat-select formControlName="tinhTrang" [errorStateMatcher]="matcher">
         <mat-option value="Đang hoạt động">Đang hoạt động</mat-option>
         <mat-option value="Đã nghỉ việc">Đã nghỉ việc</mat-option>
       </mat-select>
+      @if (tinhTrang?.errors?.['required']) {
+        <mat-error>Vui lòng chọn tình trạng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Ngày vào làm</mat-label>
       <input
+        [errorStateMatcher]="matcher"
         matInput
         [matDatepicker]="picker"
         formControlName="ngayVaoLam"
         readonly=""
       />
+      
     </mat-form-field>
   </div>
   <div mat-dialog-actions align="end">
@@ -90,7 +151,7 @@
     >
       Đóng
     </button>
-    <button mat-raised-button color="primary">Lưu</button>
+    <button mat-raised-button color="primary" [disabled]="suaNhanVienForm.invalid">Lưu</button>
     <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Hủy</button> -->
   </div>
 </form>
