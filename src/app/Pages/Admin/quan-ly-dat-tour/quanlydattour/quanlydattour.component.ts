@@ -182,16 +182,16 @@ export class QuanlydattourComponent implements OnInit {
   }
   getTinhTrangClass(tinhTrang: string): string {
     switch (tinhTrang) {
-        case 'Đang hoạt động':
-            return 'bg-success';
-        case 'Ngưng hoạt động':
-            return 'bg-danger';
-        case 'Tạm hoãn':
-            return 'bg-warning';
-        default:
-            return '';
+      case 'Đang hoạt động':
+        return 'bg-success';
+      case 'Ngưng hoạt động':
+        return 'bg-danger';
+      case 'Tạm hoãn':
+        return 'bg-warning';
+      default:
+        return '';
     }
-}
+  }
 
 
   TypingKhachHang() {
@@ -321,7 +321,9 @@ export class QuanlydattourComponent implements OnInit {
   }
   //hàm xử lý tính toán tổng tiền
   TinhTongTien() {
-    this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon.replace(/,/g, ''))) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm.replace(/,/g, '')) + this.TongTienDichVu);
+    this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon.replace(/,/g, ''))) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm.replace(/,/g, '')) + (this.TongTienDichVu || 0));
+    console.log(this.TongTien_DatTour);
+
   }
   //hàm tính toán số lượng người dự tour
   TinhSoLuongNguoiDuTour(loaiNguoi: string, kieuNutBam: string) {
@@ -471,7 +473,11 @@ export class QuanlydattourComponent implements OnInit {
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
       this.Tour_ThanhToan = data;
       for (let index = 0; index < data.length; index++) {
-        this.arrKhachHangThanhToan.push(data[index].khachHang);
+        if (data[index].tinhTrang != "Đang đợi duyệt" && data[index].tinhTrang != "Đã thanh toán") {
+          console.log(data);
+
+          this.arrKhachHangThanhToan.push(data[index].khachHang);
+        }
       }
       if (this.arrKhachHangThanhToan != null) {
         this.optionsKhachHangThanhToan = this.arrKhachHangThanhToan;
@@ -535,12 +541,16 @@ export class QuanlydattourComponent implements OnInit {
       this.LayTourDangThanhToan = data;
       this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi.idDatTour).subscribe((result: DichVuChiTietDto[]) => {
         this.ThongTinDichVuThanhToan = result;
+        console.log(this.ThongTinDichVuThanhToan);
+
         this.ThongTinDichVuThanhToan.forEach(element => {
           this.TongTien_DichVu_ThanhToan += element.soLuong * element.dichVu.giaTien;
-          this.TinhTongTienThanhToan();
         });
+
       })
       this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);
+      this.TinhTongTienThanhToan();
+
     });
   }
   //tính tổng tiền thanh toán
