@@ -67,10 +67,15 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
         thoiGianDanhGia: new Date(),
       }
       this.danhGiaServices.themDanhGia(data_nhanxet).subscribe((data: any) => {
-        setTimeout(() => {
+        console.log(data);
+        if (data) {
           this.LayTatCaDanhGia();
           this.changeDetector.detectChanges();
-        }, 1000);
+        }
+        else {
+          alert('Lỗi thêm đánh giá');
+        }
+
       })
     } else {
       alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để được đánh giá');
@@ -80,6 +85,7 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.LayTatCaDanhGia();
     if (this.textarea) {
       setTimeout(() => {
         this.adjustHeight(this.textarea.nativeElement);
@@ -99,10 +105,8 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   }
   DanhGia: DanhGia[] = [];
   TrungBinhDiemDanhGia: number = 0;
-  async LayTatCaDanhGia() {
-    await this.danhGiaServices.layTatCaDanhGia().subscribe((data: DanhGia[]) => {
-      console.log(data);
-
+  LayTatCaDanhGia() {
+    this.danhGiaServices.layTatCaDanhGia().subscribe((data: DanhGia[]) => {
       if (this.router.snapshot.paramMap.get('id') === null) {
         this.DanhGia = data.filter(data => data.idTour === null);
         this.kiemTraNguoiDungDaDanhGia(this.DanhGia);

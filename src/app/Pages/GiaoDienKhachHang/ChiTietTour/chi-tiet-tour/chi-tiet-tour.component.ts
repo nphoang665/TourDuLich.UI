@@ -38,27 +38,22 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //gọi hàm get tour và truyền biến id tour vào
     this.GetTour(this.LayIdRoute());
-
     //gọi hàm lấy dịch vụ mẫu
-
-
-
-
   }
   //các phần khai báo cho slide tour chi tiết
   @ViewChild('carousel') carousel !: ElementRef;
   ngAfterViewInit(): void {
-    //lấy index slide tour chi tiết
     const carouselEl = this.carousel.nativeElement;
-
-    // set index = 0;
     this.indexHienTai = 0;
     carouselEl.addEventListener('slid.bs.carousel', (event: any) => {
-      this.indexHienTai = event.to;
-      this.cdRef.detectChanges();
-
+      setTimeout(() => {
+        this.indexHienTai = event.to;
+        this.cdRef.markForCheck();
+      });
     })
+
   }
+
   //hàm lấy tour từ services
   GetTour(idTour: string): void {
     //gọi services lấy tour
