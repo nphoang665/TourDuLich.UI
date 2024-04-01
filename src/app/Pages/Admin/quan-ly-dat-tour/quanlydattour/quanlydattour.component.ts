@@ -230,7 +230,7 @@ export class QuanlydattourComponent implements OnInit {
   optionsKhachHang: KhachHang[] = []; // Danh sách các tùy chọn cho autocomplete
   filteredOptionsKhachHang!: Observable<KhachHang[]>;
   LayKhachHang() {
-    this.quanLyKhachHangServices.getAllTourKhachHang().subscribe(khachhangs => {
+    this.quanLyKhachHangServices.getAllKhachHang().subscribe(khachhangs => {
       this.optionsKhachHang = khachhangs;
       if (this.KhachHang) {
         this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(

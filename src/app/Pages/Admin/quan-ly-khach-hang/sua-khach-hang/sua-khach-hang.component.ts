@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KhachHang, SuaKhachHang } from '../../models/khach-hang.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sua-khach-hang',
@@ -26,23 +27,29 @@ export class SuaKhachHangComponent implements OnInit {
   model?:KhachHang;
 
   id?:string | null = null;
+  inputdata: any;
 
-  constructor(private route:ActivatedRoute,private quanLyKhachHangSerice:KhachhangService,private router:Router, private toastr: ToastrService){}
+  constructor(
+    private quanLyKhachHangSerice:KhachhangService,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<SuaKhachHangComponent>,
+    ){}
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id'); // Lấy ID từ URL
-
-  if (this.id) {
-    this.quanLyKhachHangSerice.getKhachHangById(this.id).subscribe((data: KhachHang) => {
-      if (data) {
-        this.model = data; // Gán thông tin nhân viên vào model
-        this.initializeForm(); // Khởi tạo form khi có dữ liệu nhân viên
-      } else {
-        console.error('Không tìm thấy nhân viên có ID: ', this.id);
-      }
-    });
+    this.inputdata = this.data;
+    this.id = this.data.idKhachHang;
+    if (this.id) {
+      this.quanLyKhachHangSerice.getKhachHangById(this.id).subscribe((data: KhachHang) => {
+        if (data) {
+          this.model = data;
+          this.initalizeForm();
+        } else {
+          console.error('không tìm thấy dịch vụ', this.id);
+        }
+      });
+    }
   }
-  }
-  initializeForm():void{
+  initalizeForm():void{
     this.suaKhachHangForm = new FormGroup({
       tenKhachHang: new FormControl(this.model?.tenKhachHang),
       soDienThoai: new FormControl(this.model?.soDienThoai),
@@ -55,17 +62,21 @@ export class SuaKhachHangComponent implements OnInit {
       ngayDangKy: new FormControl(this.model?.ngayDangKy),
     })
   }
+  ClosePopup() {
+    this.ref.close();
+  }
 
-  SuaKhachHang(){
-    if(this.model && this.id){
-      const suaKhachHang:SuaKhachHang = {...this.suaKhachHangForm.value};
+  SuaKhachHang(event: Event) {
 
-      this.quanLyKhachHangSerice.suaKhachHang(this.id,suaKhachHang).subscribe((response)=>{
-        this.router.navigateByUrl('/quanLyKhachHang')
+    if (this.model && this.id) {
+      const suaKhachHang: SuaKhachHang = { ...this.suaKhachHangForm.value };
+      this.quanLyKhachHangSerice.suaKhachHang(this.id, suaKhachHang).subscribe((response) => {
+        console.log(response);
         this.toastr.success('Sửa khách hàng thành công', 'Thông báo', {
           timeOut: 1000,
         });
       })
+      this.ref.close();
     }
   }
 }

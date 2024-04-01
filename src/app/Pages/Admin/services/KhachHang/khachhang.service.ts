@@ -9,7 +9,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class KhachhangService {
   constructor(private http: HttpClient) { }
-  getAllTourKhachHang(): Observable<KhachHang[]> {
+  getAllKhachHang(): Observable<KhachHang[]> {
     return this.http.get<KhachHang[]>(`${environment.apiBaseUrl}/api/KhachHang`);
   }
 
