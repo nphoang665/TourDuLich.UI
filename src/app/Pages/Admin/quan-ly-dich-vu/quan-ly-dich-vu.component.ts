@@ -86,7 +86,7 @@ export class QuanLyDichVuComponent implements AfterViewInit, OnInit {
   getDichVuData() {
     this.quanLyDichVuService.getAllDichVu().subscribe(
       (data: DichVu[]) => {
-        this.dataSource.data = data;
+        this.dataSource.data = data.filter(dichvu => dichvu.tinhTrang === 'Đang hoạt động');
       },
       (error) => {
         console.error('Error fetching DichVu data: ', error);

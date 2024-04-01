@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 import { DanhGia } from '../../../Admin/models/danh-gia.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +18,8 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   scrollPosition = 0;
   constructor(private danhGiaServices: DanhgiaService,
     private router: ActivatedRoute,
-    private nguoiDung: NguoiDungService
+    private nguoiDung: NguoiDungService,
+    private changeDetector: ChangeDetectorRef
   ) { }
   DanhGiaItem(event: Event) {
     const clickedElement = event.target as HTMLElement;
@@ -66,8 +67,10 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
         thoiGianDanhGia: new Date(),
       }
       this.danhGiaServices.themDanhGia(data_nhanxet).subscribe((data: any) => {
-
-        this.LayTatCaDanhGia();
+        setTimeout(() => {
+          this.LayTatCaDanhGia();
+          this.changeDetector.detectChanges();
+        }, 1000);
       })
     } else {
       alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để được đánh giá');
@@ -96,13 +99,14 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   }
   DanhGia: DanhGia[] = [];
   TrungBinhDiemDanhGia: number = 0;
-  LayTatCaDanhGia() {
-    this.danhGiaServices.layTatCaDanhGia().subscribe((data: DanhGia[]) => {
-
+  async LayTatCaDanhGia() {
+    await this.danhGiaServices.layTatCaDanhGia().subscribe((data: DanhGia[]) => {
+      console.log(data);
 
       if (this.router.snapshot.paramMap.get('id') === null) {
         this.DanhGia = data.filter(data => data.idTour === null);
         this.kiemTraNguoiDungDaDanhGia(this.DanhGia);
+
       }
       else {
 
@@ -111,18 +115,12 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
       }
       if (this.DanhGia.length === 0) {
         this.TrungBinhDiemDanhGia = 0;
-
       } else {
         let totalScore = this.DanhGia.reduce((sum, danhGia) => sum + danhGia.diemDanhGia, 0);
         let averageScore = totalScore / this.DanhGia.length;
         this.TrungBinhDiemDanhGia = Number(averageScore.toFixed(1));
       }
-
-
-
-
     });
-
   }
   KiemTraNguoiDungDaDanhGiaChua: boolean = false;
   kiemTraNguoiDungDaDanhGia(danhGia: any) {

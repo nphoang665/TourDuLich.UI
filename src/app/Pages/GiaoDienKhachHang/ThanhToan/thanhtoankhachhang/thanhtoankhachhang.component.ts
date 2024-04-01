@@ -12,6 +12,8 @@ import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { DichVu } from '../../../Admin/models/Dich-Vu.model';
 import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
 import { DichVuChiTietService } from '../../../Admin/services/DichVuChiTiet/dich-vu-chi-tiet.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
@@ -34,6 +36,8 @@ export class ThanhtoankhachhangComponent implements OnInit {
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
     private nguoiDung: NguoiDungService,
+    private router: Router,
+    private toastr: ToastrService,
 
   ) {
 
@@ -111,7 +115,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
 
   GetDichVu() {
     this.dichVuServices.LayDichVuMau().subscribe((data: DichVu[]) => {
-      this.DichVu = data;
+      this.DichVu = data.filter(dv => dv.tinhTrang === 'Đang hoạt động');
 
 
     });
@@ -241,6 +245,10 @@ export class ThanhtoankhachhangComponent implements OnInit {
   XacNhanDatTour() {
     // this.isfalse = !this.isfalse;
     this.DatTourChoKhachHang();
+    this.toastr.success('Đặt tour thành công', 'Thông báo', {
+      timeOut: 1000,
+    });
+    this.router.navigateByUrl('/trangchu');
 
   }
   DatTourChoKhachHang() {
@@ -273,6 +281,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.datTourChoKhachHangServices.DatTourChoKhachHang(this.datTourKhachHang).subscribe(
       (data: any) => {
         // 'data' chính là dữ liệu trả về từ server
+
         console.log(data);
       },
       (error: any) => {
