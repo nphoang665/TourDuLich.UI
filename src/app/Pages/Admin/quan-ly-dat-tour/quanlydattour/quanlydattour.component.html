@@ -128,7 +128,7 @@
 
                         <mat-form-field class="col-lg-6">
                             <mat-label>Tên tour</mat-label>
-                            <input matInput [(ngModel)]="model.tenTour" readonly>
+                            <input matInput [(ngModel)]="model.tenTour" disabled>
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
@@ -144,7 +144,7 @@
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Ngày đặt</mat-label>
-                            <input matInput [(ngModel)]="NgayDatTour" type="datetime-local" readonly>
+                            <input matInput [(ngModel)]="NgayDatTour" type="datetime-local" disabled>
                         </mat-form-field>
 
 
@@ -153,7 +153,8 @@
                             <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Tru')"
                                 svgIcon="icon_DauTru"></mat-icon>
                             <input matInput type="number" style="appearance: none;" id="SoLuongNguoiLon"
-                                (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour">
+                                (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour" [min]="1"
+                                [max]="model.soLuongNguoiLon">
                             <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Cong')"
                                 svgIcon="icon_DauCong"></mat-icon>
                         </mat-form-field>
@@ -163,7 +164,8 @@
                             <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('TreEm','Tru')"
                                 svgIcon="icon_DauTru"></mat-icon>
                             <input matInput type="number" style="appearance: none;" id="SoLuongTreEm"
-                                (input)="TinhTongTien()" [(ngModel)]="SoLuongTreEm_DatTour">
+                                (input)="TinhTongTien()" [(ngModel)]="SoLuongTreEm_DatTour" [min]="0"
+                                [max]="model.soLuongTreEm">
                             <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('TreEm','Cong')"
                                 svgIcon="icon_DauCong"></mat-icon>
                         </mat-form-field>
@@ -172,34 +174,34 @@
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Giá trẻ em</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="model.giaTreEm">
+                            <input matInput type="text" disabled [(ngModel)]="model.giaTreEm">
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Giá người lớn</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="model.giaNguoiLon">
+                            <input matInput type="text" disabled [(ngModel)]="model.giaNguoiLon">
                         </mat-form-field>
                         @if(NguoiDung){
                         <mat-form-field class="col-lg-3">
                             <mat-label>Tên nhân viên</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="NguoiDung.idNhanVien">
+                            <input matInput type="text" disabled [(ngModel)]="NguoiDung.idNhanVien">
                         </mat-form-field>
                         }
 
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Số chỗ còn nhận</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="model.soChoConNhan">
+                            <input matInput type="text" disabled [(ngModel)]="model.soChoConNhan">
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Nơi khởi hành</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="model.noiKhoiHanh">
+                            <input matInput type="text" disabled [(ngModel)]="model.noiKhoiHanh">
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Dịch vụ đi kèm</mat-label>
-                            <input matInput type="text" readonly [(ngModel)]="model.dichVuDiKem">
+                            <input matInput type="text" disabled [(ngModel)]="model.dichVuDiKem">
                         </mat-form-field>
 
                         <mat-form-field class="col-12col-sm-12 col-md-12 col-lg-12">

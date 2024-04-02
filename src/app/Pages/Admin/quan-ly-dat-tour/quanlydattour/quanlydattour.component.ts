@@ -223,7 +223,7 @@ export class QuanlydattourComponent implements OnInit {
     });
     this.LayKhachHang();
     this.GetDichVu();
-
+    this.KiemTraChonKhachHangThanhToan();
     //Get data tableThongTinTour
     this.dataSource.data = [
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
@@ -301,6 +301,20 @@ export class QuanlydattourComponent implements OnInit {
   LayTourDuLich(idTour: string) {
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       this.model = data;
+      //gọi services xử lý số lượng người dùng
+      this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe({
+        next: (responseTinhSoLuongNguoiConNhan: any) => {
+          if (this.model) {
+            this.model.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
+            this.model.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
+            this.model.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
+
+          }
+        },
+        error: (err: any) => {
+          console.error(err);
+        }
+      })
       //convert giá
       this.model.giaNguoiLon = this.model.giaNguoiLon.toLocaleString();
       this.model.giaTreEm = this.model.giaTreEm.toLocaleString();
@@ -620,7 +634,7 @@ export class QuanlydattourComponent implements OnInit {
             // nếu sửa thành công
             if (responseSuaTour.tinhTrang == 'Đã thanh toán') {
               console.log(thanhToanData);
-              
+
               this.thanhToanService.thanhToan(thanhToanData)
                 .subscribe({
                   next: (response) => {
@@ -752,4 +766,7 @@ export class QuanlydattourComponent implements OnInit {
     });
     this.TinhTongTien();
   }
+
+  //test services
+
 }

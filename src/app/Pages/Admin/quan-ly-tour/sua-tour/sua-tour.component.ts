@@ -139,6 +139,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.id = this.route.snapshot.paramMap.get('id')
 
     if (this.id) {
@@ -147,7 +148,15 @@ export class SuaTourComponent implements OnInit, OnDestroy {
           this.model = data;
           this.HienThiAnhPreview();
           this.initializeForm();
+          this.suaTourForm.get('soChoConNhan')?.disable();
 
+          this.suaTourForm.get('soLuongTreEm')?.valueChanges.subscribe(() => {
+            this.updateSoChoConNhan();
+          });
+
+          this.suaTourForm.get('soLuongNguoiLon')?.valueChanges.subscribe(() => {
+            this.updateSoChoConNhan();
+          });
         } else {
           console.error('Không tìm thấy tour có ID: ', this.id);
         }
@@ -180,6 +189,11 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       }
     });
     datetimepicker2.appendTo('#element2');
+  }
+  updateSoChoConNhan(): void {
+    const soLuongTreEm = this.suaTourForm.get('soLuongTreEm')?.value || 0;
+    const soLuongNguoiLon = this.suaTourForm.get('soLuongNguoiLon')?.value || 0;
+    this.suaTourForm.get('soChoConNhan')?.setValue(soLuongTreEm + soLuongNguoiLon);
   }
 
   formatDate(date: Date): string {
@@ -254,7 +268,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-        
+
       ]),
       tinhTrang: new FormControl(this.model?.tinhTrang || '',
         Validators.required),

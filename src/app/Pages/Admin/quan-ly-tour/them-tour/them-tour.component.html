@@ -36,8 +36,8 @@
                   <mat-error>Tên tour quá dài</mat-error>
                   }
                   @else if (tenTour?.errors?.['invalidChar']) {
-                    <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
-                  }  
+                  <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
+                  }
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="col-lg-3">
@@ -190,13 +190,13 @@
                 <mat-form-field appearance="fill" class="col-lg-3">
                   <mat-label>Đối tác</mat-label>
                   <mat-select formControlName="idDoiTac" id="idDoiTac" [errorStateMatcher]="matcher">
-                    <mat-option *ngFor="let item of DoiTac; let i = index" [value]="item.idDoiTac" >
+                    <mat-option *ngFor="let item of DoiTac; let i = index" [value]="item.idDoiTac">
                       {{ item.tenDoiTac }}
                     </mat-option>
                   </mat-select>
                   @if (idDoiTac?.errors?.['required']) {
-                    <mat-error>Vui lòng chọn đối tác</mat-error>
-                    }
+                  <mat-error>Vui lòng chọn đối tác</mat-error>
+                  }
                 </mat-form-field>
 
                 <mat-form-field class="col-lg-3">
@@ -211,7 +211,7 @@
                   @else if (dichVuDiKem?.errors?.['maxlength']) {
                   <mat-error>Độ dài vượt quá mức quy định</mat-error>
                   }
-                  
+
                 </mat-form-field>
 
                 <div class="col-lg-12">
@@ -249,7 +249,7 @@
                 <div class="col-lg-12 mt-2">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Mô tả chi tiết</label>
-                    <editor name="Text" id="exampleInputEmail1" formControlName="moTa" [init]="editorConfig"> 
+                    <editor name="Text" id="exampleInputEmail1" formControlName="moTa" [init]="editorConfig">
                     </editor>
 
                   </div>
