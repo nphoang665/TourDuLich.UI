@@ -463,8 +463,9 @@
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Số điện thoại</mat-label>
                                 <span matTextPrefix>+84 &nbsp;</span>
-                                <input type="tel" matInput placeholder="033-233-1231" (input)="TypingKhachHang()"
-                                    formControlName="soDienThoai" [errorStateMatcher]="matcher">
+                                <input type="tel" maxlength="10" minlength="10" matInput placeholder="033-233-1231"
+                                    (input)="TypingKhachHang()" formControlName="soDienThoai"
+                                    [errorStateMatcher]="matcher">
                                 @if (soDienThoai?.errors?.['required']) {
                                 <mat-error>Vui lòng nhập số điện thoại</mat-error>
                                 }
@@ -499,7 +500,18 @@
                             <mat-form-field class="col-lg-4">
                                 <mat-label>CCCD</mat-label>
                                 <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..."
-                                    (input)="TypingKhachHang()" formControlName="cccd" [errorStateMatcher]="matcher">
+                                    (input)="TypingKhachHang()" type="number" maxlength="12" formControlName="cccd"
+                                    [errorStateMatcher]="matcher">
+                                @if (cccd?.errors?.['required']) {
+                                <mat-error>Vui lòng nhập CCCD</mat-error>
+                                }
+                                @else if (cccd?.errors?.['minlength']) {
+                                <mat-error>CCCD quá ngắn</mat-error>
+                                }
+                                @else if (cccd?.errors?.['maxlength']) {
+                                <mat-error>CCCD quá dài</mat-error>
+                                }
+                                (input)="TypingKhachHang()" formControlName="cccd" [errorStateMatcher]="matcher">
                                 @if (cccd?.errors?.['required']) {
                                 <mat-error>Vui lòng nhập CCCD</mat-error>
                                 }
@@ -532,6 +544,9 @@
                                     <mat-option value="Nam">Nam</mat-option>
                                     <mat-option value="Nữ">Nữ</mat-option>
                                 </mat-select>
+                                @if (gioiTinh?.errors?.['required']) {
+                                <mat-error>Vui lòng chọn giới tính</mat-error>
+                                }
                             </mat-form-field>
 
 
@@ -561,7 +576,8 @@
 
             <div mat-dialog-actions class="modal-footer">
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
-                <button mat-raised-button type="button" color="primary" (click)="DatTour()">Đặt tour</button>
+                <button mat-raised-button type="button" color="primary" [disabled]="myForm.invalid"
+                    (click)="DatTour()">Đặt tour</button>
             </div>
             }
         </div>

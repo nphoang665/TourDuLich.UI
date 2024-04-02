@@ -91,7 +91,7 @@ export class QuanlydattourComponent implements OnInit {
     ]),
     soDienThoai: new FormControl('', [
       Validators.required,
-      Validators.minLength(0),
+      Validators.minLength(10),
       Validators.maxLength(10),
 
     ]),
@@ -137,6 +137,10 @@ export class QuanlydattourComponent implements OnInit {
   }
   get email() {
     return this.myForm.get('email');
+
+  }
+  get gioiTinh() {
+    return this.myForm.get('gioiTinh');
 
   }
   get tinhTrang() {

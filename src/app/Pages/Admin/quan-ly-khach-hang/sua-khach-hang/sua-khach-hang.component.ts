@@ -1,20 +1,29 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { KhachHang, SuaKhachHang } from '../../models/khach-hang.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { FormsModule, ValidatorFn, } from '@angular/forms';
+import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-sua-khach-hang',
   templateUrl: './sua-khach-hang.component.html',
   styleUrl: './sua-khach-hang.component.css'
 })
 export class SuaKhachHangComponent implements OnInit {
+  matcher = new MyErrorStateMatcher();
   suaKhachHangForm:FormGroup = new FormGroup({
     tenKhachHang: new FormControl(''),
-    soDienThoai: new FormControl(''),
+    soDienThoai: new FormControl('',),
     diaChi: new FormControl(''),
     cccd: new FormControl(''),
     ngaySinh: new FormControl(new Date()),
@@ -23,7 +32,40 @@ export class SuaKhachHangComponent implements OnInit {
     tinhTrang: new FormControl(''),
     ngayDangKy: new FormControl(new Date()),
   });
+  get tenKhachHang(){
+    return this.suaKhachHangForm.get('tenKhachHang');
+  }
+  get soDienThoai(){
+    return this.suaKhachHangForm.get('soDienThoai');
+  }
+  get cccd(){
+    return this.suaKhachHangForm.get('cccd');
+  }
+  get diaChi(){
+    return this.suaKhachHangForm.get('diaChi');
+  }
+  get ngaySinh(){
+    return this.suaKhachHangForm.get('ngaySinh');
 
+  }
+  get email(){
+    return this.suaKhachHangForm.get('email');
+
+  }
+  get gioiTinh(){
+    return this.suaKhachHangForm.get('gioiTinh');
+
+  }
+  get tinhTrang(){
+    return this.suaKhachHangForm.get('tinhTrang');
+
+  }
+  noSpecialCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
+      return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
   model?:KhachHang;
 
   id?:string | null = null;
@@ -51,13 +93,36 @@ export class SuaKhachHangComponent implements OnInit {
   }
   initalizeForm():void{
     this.suaKhachHangForm = new FormGroup({
-      tenKhachHang: new FormControl(this.model?.tenKhachHang),
-      soDienThoai: new FormControl(this.model?.soDienThoai),
-      diaChi: new FormControl(this.model?.diaChi),
-      cccd: new FormControl(this.model?.cccd),
-      ngaySinh: new FormControl(this.model?.ngaySinh),
-      gioiTinh: new FormControl(this.model?.gioiTinh),
-      email: new FormControl(this.model?.email),
+      tenKhachHang: new FormControl(this.model?.tenKhachHang,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        this.noSpecialCharValidator(),
+      ]),
+      soDienThoai: new FormControl(this.model?.soDienThoai,[
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10), 
+      ]),
+      diaChi: new FormControl(this.model?.diaChi,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50), 
+      ]),
+      cccd: new FormControl(this.model?.cccd,[
+        Validators.required,
+        Validators.minLength(0),
+        Validators.maxLength(12), 
+      ]),
+      ngaySinh: new FormControl(this.model?.ngaySinh,
+        Validators.required),
+      gioiTinh: new FormControl(this.model?.gioiTinh,
+        Validators.required),
+      email: new FormControl(this.model?.email,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50), 
+      ]),
       tinhTrang: new FormControl(this.model?.tinhTrang),
       ngayDangKy: new FormControl(this.model?.ngayDangKy),
     })
