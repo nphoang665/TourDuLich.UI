@@ -35,14 +35,15 @@
                             <div class="total_card row d-flex justify-content-center">
                                 @for(item of filteredTours; track $index){
                                 <div class="card_tour col-lg-3">
-                                    <div class="div_img">
+                                    <div class="div_img" style="height: 150px;">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
                                             <span class="badge rounded-0" [class]="getTinhTrangClass(item.tinhTrang)">
                                                 {{item.tinhTrang}}
                                             </span>
                                         </div>
 
-                                        <div> <img class="img_tour" [src]="item.AnhTourDauTien" alt=""></div>
+                                        <div> <img class="img_tour" style="object-fit: cover; height: 150px;"
+                                                [src]="item.AnhTourDauTien" alt=""></div>
                                     </div>
                                     <div class="title_tour">
                                         <span>{{item.tenTour}} </span>
@@ -581,7 +582,8 @@
                 <div class="row">
                     <mat-form-field>
                         <mat-label>Tên khách hàng</mat-label>
-                        <input type="text" matInput [matAutocomplete]="auto" [formControl]="TenKhachHang_ThanhToan">
+                        <input type="text" matInput [matAutocomplete]="auto" (input)="KiemTraChonKhachHangThanhToan()"
+                            [formControl]="TenKhachHang_ThanhToan">
                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
                             [displayWith]="displayFnKhachHang_ThanhToan">
                             <mat-option *ngFor="let option of filteredOptionsKhachHangThanhToan | async"
@@ -596,7 +598,8 @@
             <mat-dialog-actions align="end">
                 <button mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
                 <button mat-raised-button color="primary" (click)="ThongTinThanhToan()" data-bs-toggle="modal"
-                    data-bs-target="#thanhToanModal1" [disabled]="!TenKhachHang_ThanhToan.value">Tra cứu
+                    data-bs-target="#thanhToanModal1"
+                    [disabled]="!TenKhachHang_ThanhToan.value || TenKhachHang_ThanhToan.errors?.['invalid']">Tra cứu
                     thông
                     tin</button>
             </mat-dialog-actions>
@@ -668,38 +671,38 @@
                             <tbody>
                                 <tr>
                                     <th>Mã đặt tour</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.idDatTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].idDatTour}}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Mã tour</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.idTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].idTour}}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Tour du lịch</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.tourDuLich}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].tourDuLich}}</td>
                                 </tr>
                                 <tr>
                                     <th>SL người lớn</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongNguoiLon}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].soLuongNguoiLon}}</td>
                                 </tr>
                                 <tr>
                                     <th>SL trẻ em</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongTreEm}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].soLuongTreEm}}</td>
                                 </tr>
                                 <tr>
                                     <th>Ghi chú</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.ghiChu}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].ghiChu}}</td>
                                 </tr>
                                 <tr>
                                     <th>Nhân viên</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.idNhanVien }} -
-                                        {{TourThanhToan_HienThi.tenNhanVien}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].idNhanVien}} -
+                                        {{this.TourThanhToan_HienThi[0].tenNhanVien}}</td>
                                 </tr>
                                 <tr>
                                     <th>Thời gian đặt tour</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.thoiGianDatTour}}</td>
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].thoiGianDatTour}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -726,12 +729,12 @@
                                 </tr>
                                 <tr>
                                     <th>Sl người lớn</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongNguoiLon}} x
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].soLuongNguoiLon}} x
                                         {{LayTourDangThanhToan.giaNguoiLon| number:'':'en'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Sl trẻ em</th>
-                                    <td class="text-center">{{TourThanhToan_HienThi.soLuongTreEm}} x
+                                    <td class="text-center">{{TourThanhToan_HienThi[0].soLuongTreEm}} x
                                         {{LayTourDangThanhToan.giaTreEm| number:'':'en'}}</td>
                                 </tr>
                                 <tr>

@@ -25,6 +25,8 @@ import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms'
 import { ErrorStateMatcher } from '@angular/material/core';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { NhanVien } from '../../models/nhan-vien.model';
+import { DatTour } from '../../models/dat-tour.model';
+import { log } from 'console';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -325,7 +327,7 @@ export class QuanlydattourComponent implements OnInit {
   //hàm xử lý tính toán tổng tiền
   TinhTongTien() {
     this.TongTien_DatTour = (this.SoLuongNguoiLon_DatTour * Number(this.model?.giaNguoiLon.replace(/,/g, ''))) + (this.SoLuongTreEm_DatTour * Number(this.model?.giaTreEm.replace(/,/g, '')) + (this.TongTienDichVu || 0));
-    console.log(this.TongTien_DatTour);
+    // console.log(this.TongTien_DatTour);
 
   }
   //hàm tính toán số lượng người dự tour
@@ -414,7 +416,7 @@ export class QuanlydattourComponent implements OnInit {
       };
 
 
-      console.log(dataToSave);
+      // console.log(dataToSave);
 
 
       this.http.post<any>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, dataToSave)
@@ -477,11 +479,13 @@ export class QuanlydattourComponent implements OnInit {
       this.Tour_ThanhToan = data;
       for (let index = 0; index < data.length; index++) {
         if (data[index].tinhTrang != "Đang đợi duyệt" && data[index].tinhTrang != "Đã thanh toán") {
-          console.log(data);
+          // console.log(data);
 
           this.arrKhachHangThanhToan.push(data[index].khachHang);
         }
       }
+      console.log(this.arrKhachHangThanhToan);
+
       if (this.arrKhachHangThanhToan != null) {
         this.optionsKhachHangThanhToan = this.arrKhachHangThanhToan;
         this.filteredOptionsKhachHangThanhToan = this.TenKhachHang_ThanhToan.valueChanges.pipe(
@@ -500,7 +504,7 @@ export class QuanlydattourComponent implements OnInit {
   private _filterKhachHangThanhToan(value: string): KhachHang[] {
     const filterValue = value.toLowerCase();
     // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
-    let filteredOptions = this.optionsKhachHang.filter(option => {
+    let filteredOptionsThanhToan = this.optionsKhachHangThanhToan.filter(option => {
       // Kiểm tra xem người dùng đã nhập tên khách hàng, email, cccd hay soDienThoai
       const isTenKhachHang = option.tenKhachHang.toLowerCase().includes(filterValue);
       const isEmail = option.email.toLowerCase().includes(filterValue);
@@ -521,12 +525,12 @@ export class QuanlydattourComponent implements OnInit {
       }
     });
     // Sắp xếp các tùy chọn dựa trên mức độ phù hợp với đoạn văn bản tìm kiếm
-    filteredOptions.sort((a, b) =>
+    filteredOptionsThanhToan.sort((a, b) =>
       (b.tenKhachHang.toLowerCase() + ' ' + b.email.toLowerCase() + ' ' + b.cccd.toLowerCase() + ' ' + b.soDienThoai.toLowerCase()).indexOf(filterValue) -
       (a.tenKhachHang.toLowerCase() + ' ' + a.email.toLowerCase() + ' ' + a.cccd.toLowerCase() + ' ' + a.soDienThoai.toLowerCase()).indexOf(filterValue)
     );
 
-    return filteredOptions;
+    return filteredOptionsThanhToan;
   }
   //hiển thị toàn bộ thông tin thanh toán
   // đối tượng hiển thị thông tin lên html
@@ -534,32 +538,31 @@ export class QuanlydattourComponent implements OnInit {
   LayTourDangThanhToan: any = {};
   ThongTinDichVuThanhToan: DichVuChiTietDto[] = [];
   ThongTinThanhToan() {
-    for (let index = 0; index < this.Tour_ThanhToan.length; index++) {
-      if (this.idTour_ThanhToan === this.Tour_ThanhToan[index].idTour) {
-        this.TourThanhToan_HienThi = this.Tour_ThanhToan[index];
-        this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi.idNhanVien).subscribe((resultNhanVien: NhanVien) => {
-          this.TourThanhToan_HienThi.tenNhanVien = resultNhanVien.tenNhanVien;
-          console.log(this.TourThanhToan_HienThi.tenNhanVien);
 
-        });
-
-      }
-    }
+    this.TourThanhToan_HienThi = [];
+    this.TourThanhToan_HienThi = this.Tour_ThanhToan.filter((s: any) => s.idTour == this.idTour_ThanhToan && s.idKhachHang === this.TenKhachHang_ThanhToan.value.idKhachHang);
+    this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi[0].idNhanVien).subscribe((resultNhanVien: NhanVien) => {
+      this.TourThanhToan_HienThi[0].tenNhanVien = resultNhanVien.tenNhanVien;
+      console.log(this.TourThanhToan_HienThi);
+    });
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
       this.LayTourDangThanhToan = data;
       this.TongTien_DichVu_ThanhToan = 0;
-      this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi.idDatTour).subscribe((result: DichVuChiTietDto[]) => {
+      this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi[0].idDatTour).subscribe((result: DichVuChiTietDto[]) => {
         this.ThongTinDichVuThanhToan = result;
-        console.log(this.ThongTinDichVuThanhToan);
-
         this.ThongTinDichVuThanhToan.forEach(element => {
           this.TongTien_DichVu_ThanhToan += element.soLuong * element.dichVu.giaTien;
         });
-
       })
       this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);
       this.TinhTongTienThanhToan();
-
+    });
+  }
+  KiemTraChonKhachHangThanhToan() {
+    this.TenKhachHang_ThanhToan.valueChanges.subscribe(value => {
+      if (this.optionsKhachHangThanhToan.indexOf(value) === -1) {
+        this.TenKhachHang_ThanhToan.setErrors({ 'invalid': true });
+      }
     });
   }
   //tính tổng tiền thanh toán
@@ -567,59 +570,91 @@ export class QuanlydattourComponent implements OnInit {
   TongTien_ThanhToan!: number;
   TinhTongTienThanhToan() {
     //tính tổng tiền dịch vụ
-
     //
-    this.TongTien_ThanhToan = (this.TourThanhToan_HienThi.soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi.soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
+    this.TongTien_ThanhToan = (this.TourThanhToan_HienThi[0].soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi[0].soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
   }
   //hàm thanh toán
+  PhuongThucThanhToan!: string;
   onThanhToan() {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
-
     // Kiểm tra xem checkbox "Trả trước" đã được chọn hay không
     const traTruocCheckbox = document.getElementById('traTruoc') as HTMLInputElement;
     const traTruocChecked = traTruocCheckbox.checked;
-
     // Kiểm tra xem checkbox "Trả sau" đã được chọn hay không
     const traSauCheckbox = document.getElementById('traSau') as HTMLInputElement;
     const traSauChecked = traSauCheckbox.checked;
-
     // Tạo biến phương thức thanh toán và gán giá trị tương ứng
-    let phuongThucThanhToan = '';
+    // let phuongThucThanhToan = '';
     if (traTruocChecked && !traSauChecked) {
-      phuongThucThanhToan = 'Trả trước';
+      this.PhuongThucThanhToan = 'Trả trước';
     } else if (!traTruocChecked && traSauChecked) {
-      phuongThucThanhToan = 'Trả sau';
+      this.PhuongThucThanhToan = 'Trả sau';
     }
-
     const tongTienTour = this.TongTien_ThanhToan;
-
     const thanhToanData = {
       idThanhToan: 'Test',
-      idDatTour: this.TourThanhToan_HienThi.idDatTour,
+      idDatTour: this.TourThanhToan_HienThi[0].idDatTour,
       idKhachHang: this.TenKhachHang_ThanhToan.value.idKhachHang,
-      idNhanVien: this.TourThanhToan_HienThi.idNhanVien,
+      idNhanVien: this.TourThanhToan_HienThi[0].idNhanVien,
       tongTienTour: tongTienTour.toString(),
       tongTienDichVu: this.TongTien_DichVu_ThanhToan.toString(),
       tongTien: tongTienTour.toString(),
+      // tinhTrang: 'Đã thanh toán',
       tinhTrang: 'Đã thanh toán',
       ngayThanhToan: ngayGioHienTaiFormatted,
-      phuongThucThanhToan: phuongThucThanhToan,
-
+      phuongThucThanhToan: this.PhuongThucThanhToan,
     }
-    console.log(thanhToanData);
-
-    this.thanhToanService.thanhToan(thanhToanData)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.router.navigateByUrl('/quanLyDatTour'),
-
-            this.toastr.success('Thanh toán thành công', 'Thông báo', {
+    // biến id đặt tour thanh toán
+    let idDatTour = this.TourThanhToan_HienThi[0].idDatTour
+    //nếu phương thức thanh toán == trả sau thì thay đổi tình trạng đặt tour thành đợi thanh toán
+    // nếu phương thức thanh toán == trả trước thì thay đổi tình trạng đặt tour thành đã thanh toán và lưu vào thanh toán
+    // //gọi hàm lấy đặt tour tại đây
+    this.datTourService.getDatTourByIdDatTour(idDatTour).subscribe({
+      next: (resultDatTour: DatTour) => {
+        resultDatTour.TinhTrang = this.PhuongThucThanhToan === 'Trả trước' ? 'Đã thanh toán' : 'Đợi thanh toán';
+        console.log(resultDatTour);
+        this.datTourService.putDatTour(resultDatTour, idDatTour).subscribe({
+          next: (responseSuaTour: any) => {
+            console.log(responseSuaTour);
+            // nếu sửa thành công
+            if (responseSuaTour.tinhTrang == 'Đã thanh toán') {
+              console.log(thanhToanData);
+              
+              this.thanhToanService.thanhToan(thanhToanData)
+                .subscribe({
+                  next: (response) => {
+                    this.router.navigateByUrl('/quanLyDatTour'),
+                      this.toastr.success('Thanh toán thành công', 'Thông báo', {
+                        timeOut: 1000,
+                      });
+                  },
+                  error: (err) => {
+                    console.log(err);
+                    this.toastr.error('Thanh toán thất bại', 'Thông báo', {
+                      timeOut: 1000,
+                    });
+                  }
+                })
+            }
+            this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
               timeOut: 1000,
             });
-        }
-      })
+          },
+          error: (err) => {
+            this.toastr.error('Sửa đặt tour thất bại', 'Thông báo', {
+              timeOut: 1000,
+            });
+          }
+        })
+      },
+      error: (err) => {
+        this.toastr.error('Lấy đặt tour theo id thất bại', 'Thông báo', {
+          timeOut: 1000,
+        });
+      }
+    });
+
   }
   // hàm xử lý dịch vụ
   n: number = 0;
