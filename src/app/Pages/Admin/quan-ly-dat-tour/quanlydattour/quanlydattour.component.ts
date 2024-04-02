@@ -223,7 +223,6 @@ export class QuanlydattourComponent implements OnInit {
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
       });
-
     });
     this.LayKhachHang();
     this.GetDichVu();
@@ -233,6 +232,7 @@ export class QuanlydattourComponent implements OnInit {
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
     ];
   }
+
   //xử lý select khách hàng
   IdKhachHang!: string;
   KhachHang = new FormControl();
@@ -451,11 +451,7 @@ export class QuanlydattourComponent implements OnInit {
       this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
         timeOut: 1000,
       });
-
     }
-
-
-
   }
   //hàm thêm dịch vụ chi tiết vào db
   onThemDichVuChiTiet(datTour: any) {
@@ -478,8 +474,6 @@ export class QuanlydattourComponent implements OnInit {
       alert(result);
     })
   }
-
-
   //các phần khai báo cho thanh toán
   idTour_ThanhToan !: string;
   arrKhachHangThanhToan: any[] = [];
@@ -503,7 +497,6 @@ export class QuanlydattourComponent implements OnInit {
           this.arrKhachHangThanhToan.push(data[index].khachHang);
         }
       }
-      console.log(this.arrKhachHangThanhToan);
 
       if (this.arrKhachHangThanhToan != null) {
         this.optionsKhachHangThanhToan = this.arrKhachHangThanhToan;
