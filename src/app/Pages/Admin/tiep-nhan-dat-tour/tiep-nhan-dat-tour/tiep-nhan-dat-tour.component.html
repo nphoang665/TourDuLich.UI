@@ -1,65 +1,134 @@
 <div class="container-fluid">
-    <div class="row">
-      <!-- Main Sidebar -->
-      <app-main-sidebar class="p-0"></app-main-sidebar>
-      <!-- End Main Sidebar -->
-      <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-        <div class="main-navbar sticky-top bg-white">
-          <!-- Main Navbar -->
-          <app-main-navbar></app-main-navbar>
-        </div>
-        <!-- / .main-navbar -->
+  <div class="row">
+    <!-- Main Sidebar -->
+    <app-main-sidebar class="p-0" style="z-index: 1;"></app-main-sidebar>
+    <!-- End Main Sidebar -->
+    <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+      <div class="main-navbar sticky-top bg-white" style="z-index: 1;">
+        <!-- Main Navbar -->
+        <app-main-navbar></app-main-navbar>
+      </div>
+      <!-- / .main-navbar -->
 
 
 
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
+      <!-- Start dịch vụ -->
+      <div class="main-content-container container-fluid px-4">
+          <div class="page-header row no-gutters py-4">
+            <div class="QuanLuTour_container">
+            <mat-form-field>
+                <mat-label>Tìm kiếm</mat-label>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="Nhập từ khóa tìm kiếm"
+                  #input
+                />
+              </mat-form-field>
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="idDatTour">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Mã đặt tour
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{ row.idDatTour }}</td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="idKhachHang">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Khách hàng
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{ row.idKhachHang }}</td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="idTour">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     Mã tour
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{ row.idTour }}</td>
+                  </ng-container>
+  
+                  <!-- GiaTien Column -->
+                 
 
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Id đặt tour</th>
-                            <th>Khách hàng</th>
-                            <th>Id tour</th>
-                            <th>Số lượng người lớn</th>
-                            <th>Số lượng trẻ em</th>
-                            <th>Thời gian đặt tour</th>
-                            <th>Nhân viên</th>
-                            <th>Tình trạng</th>
-                            <th>Tùy chọn</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (item of datTour; track $index) {
-                        <tr>
-                            <td>{{item.idDatTour}}</td>
-                            <td>{{item.idKhachHang}}</td>
-                            <td>{{item.idTour}}</td>
-                            <td>{{item.soLuongNguoiLon}}</td>
-                            <td>{{item.soLuongTreEm}}</td>
-                            <td>{{item.thoiGianDatTour}}</td>
-                            <td>{{item.idNhanVien}}</td>
-                            <td>{{item.tinhTrang}}</td>
-                            <td>
-                                <button class="btn btn-success mx-2"><i class="bi bi-check" (click)="chapNhanDatTour(item.idDatTour)"></i></button>
-                                <button class="btn btn-primary mx-2"  [routerLink]="'/suaTiepNhanDatTour/'+item.idDatTour"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-danger mx-2" (click)="huyDatTour(item.idDatTour)"><i class="bi bi-trash3"></i></button>                       
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                  </table>
+                  <ng-container matColumnDef="thoiGianDatTour">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Thời gian đặt tour
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.thoiGianDatTour | date : "dd/MM/yyyy hh:mm" }}
+                    </td>
+                  </ng-container>
 
+                  <ng-container matColumnDef="nhanVien">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     Nhân viên
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.idNhanVien}}-{{ row.nhanVien }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="tinhTrang">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                     Tình trạng
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{ row.tinhTrang }}</td>
+                  </ng-container>
+  
+  
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Hành động</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-raised-button style="background-color: #009628; color: white;" class="m-1" (click)="chapNhanDatTour(element.idDatTour)">
+                        <i class="fa-regular fa-circle-check"></i>
+                        
+                      </button>
+                      <button mat-raised-button color="primary"
+                        class="m-1"
+                        [routerLink]="'/suaTiepNhanDatTour/'+element.idDatTour"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </button>
+                      <button mat-raised-button color="warn" class="m-1" (click)="huyDatTour(element.idDatTour)">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+
+                      
+                    </td>
+                  </ng-container>
+  
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+  
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="7">
+                      Không có dữ liệu phù hợp với từ khóa "{{ input.value }}"
+                    </td>
+                  </tr>
+                </table>
+  
+                <mat-paginator
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  aria-label="Select page of users"
+                ></mat-paginator>
+              </div>
+  
+             
             </div>
-        </div>
-        <!-- End dịch vụ -->
+              
+
+          </div>
+      </div>
+      <!-- End dịch vụ -->
 
 
 
 
 
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
-    </div>
+      <app-footer-main-admin></app-footer-main-admin>
+    </main>
   </div>
+</div>
