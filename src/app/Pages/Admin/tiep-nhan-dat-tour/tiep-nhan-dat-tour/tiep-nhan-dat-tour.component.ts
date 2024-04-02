@@ -15,8 +15,8 @@ import { SuaTiepNhanDatTourComponent } from '../suaTiepNhanDatTour/sua-tiep-nhan
   templateUrl: './tiep-nhan-dat-tour.component.html',
   styleUrl: './tiep-nhan-dat-tour.component.css'
 })
-export class TiepNhanDatTourComponent implements AfterViewInit,OnInit {
-  displayedColumns: string[] = ['idDatTour', 'idKhachHang', 'idTour', 'thoiGianDatTour','nhanVien', 'tinhTrang', 'action'];
+export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['idDatTour', 'idKhachHang', 'idTour', 'thoiGianDatTour', 'nhanVien', 'tinhTrang', 'action'];
   dataSource: MatTableDataSource<DatTour>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -25,8 +25,8 @@ export class TiepNhanDatTourComponent implements AfterViewInit,OnInit {
     private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
     private dialog: MatDialog,) {
-      this.dataSource = new MatTableDataSource<DatTour>([])
-      this.getDatTourData();
+    this.dataSource = new MatTableDataSource<DatTour>([])
+    this.getDatTourData();
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -46,10 +46,11 @@ export class TiepNhanDatTourComponent implements AfterViewInit,OnInit {
 
   }
 
-  getDatTourData(){
+  getDatTourData() {
     this.datToursServices.getAllDatTour().subscribe(
-      (data:DatTour[])=>{
+      (data: DatTour[]) => {
         this.dataSource.data = data;
+        this.datTour = data;
       },
       (error) => {
         console.error('Error fetching Đặt tour data: ', error);

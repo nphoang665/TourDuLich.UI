@@ -1,19 +1,24 @@
 table {
-    width: 100%;
-  }
-  
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  td, th {
-    width: auto;
-  }
-  
-  .button-search-container {
-    display: flex;
-    align-items: center; /* Canh giữa theo chiều dọc */
-    justify-content: space-around; 
-    /* margin-left: 60%;  */
-  }
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: auto;
+}
+
+.button-search-container {
+  display: flex;
+  align-items: center; /* Canh giữa theo chiều dọc */
+  justify-content: space-around;
+  /* margin-left: 60%;  */
+}
+button[disabled] {
+  background-color: #c2bfbf !important; /* Màu xám */
+  color: white !important;
+}

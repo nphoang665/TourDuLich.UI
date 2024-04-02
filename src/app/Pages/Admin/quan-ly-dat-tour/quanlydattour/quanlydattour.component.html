@@ -567,7 +567,8 @@
 
             <div mat-dialog-actions class="modal-footer">
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
-                <button mat-raised-button type="button" color="primary" [disabled]="myForm.invalid"
+                <button mat-raised-button type="button" color="primary"
+                    [disabled]="myForm.invalid && !KhachHang.value || KhachHang.errors?.['invalid']"
                     (click)="DatTour()">Đặt tour</button>
             </div>
             }
@@ -600,6 +601,9 @@
                                 {{option.tenKhachHang}}
                             </mat-option>
                         </mat-autocomplete>
+                        @if(KhachHang.errors?.['invalid']){
+                        <mat-error>Khách hàng không hợp lệ</mat-error>
+                        }
                     </mat-form-field>
                 </div>
             </mat-dialog-content>
