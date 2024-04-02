@@ -400,8 +400,9 @@ export class QuanlydattourComponent implements OnInit {
   //hàm thêm khách hàng
   //biến chứa khách hàng reponse 
   onSubmitThemKhachHang() {
-
-    this.quanLyKhachHangServices.themKhachHang(this.myForm.value)
+    let formValue = { ...this.myForm.value };
+    formValue.cccd = String(formValue.cccd);
+    this.quanLyKhachHangServices.themKhachHang(formValue)
       .subscribe({
         next: (response) => {
           console.log(response);
