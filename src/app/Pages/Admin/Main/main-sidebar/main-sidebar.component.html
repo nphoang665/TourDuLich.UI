@@ -26,7 +26,7 @@
       <ul class="nav flex-column">
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
           <li class="nav-item">
-            <a class="nav-link active" routerLink="/trangChuAdmin">
+            <a class="nav-link" [routerLinkActive]="['active']" routerLink="/trangChuAdmin">
               <i class="material-icons">edit</i>
               <span>Trang chủ</span>
             </a>
@@ -34,7 +34,7 @@
         </ng-container>
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
           <li class="nav-item">
-                <a class="nav-link " routerLink="/quanlytour">
+                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanlytour">
                   <i class="material-icons">vertical_split</i>
                   <span>Quản lý tour</span>
                 </a>
@@ -43,19 +43,19 @@
 
        
         <li class="nav-item">
-          <a class="nav-link " routerLink="/quanLyDatTour">
+          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/quanLyDatTour">
             <i class="material-icons">vertical_split</i>
             <span>Quản lý đặt tour</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/quanLyKhachHang">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyKhachHang">
             <i class="fa-solid fa-users"></i>
             <span>Khách hàng</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/tiepNhanDatTour">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/tiepNhanDatTour">
             <i class="fa-solid fa-bell-concierge"></i>
             <span>Tiếp nhận đặt tour</span>
           </a>
@@ -63,13 +63,13 @@
 
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
           <li class="nav-item">
-                <a class="nav-link " routerLink="/quanLyNhanVien">
+                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyNhanVien">
                   <i class="fa-solid fa-user-tie"></i>
                   <span>Nhân viên</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " routerLink="/quanLyDichVu">
+                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyDichVu">
                   <i class="fa-solid fa-bell-concierge"></i>
                   <span>Dịch vụ</span>
                 </a>
