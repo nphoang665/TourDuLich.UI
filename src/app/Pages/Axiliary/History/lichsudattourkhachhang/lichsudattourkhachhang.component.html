@@ -35,20 +35,31 @@
                         @if(item.tinhTrang ==='Đã thanh toán'){
                         <td class="d-flex align-items-center justify-content-between">
                             <span class="badge bg-success">{{item.tinhTrang}}</span>
-                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
+                                <mat-icon svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
+                            </div>
+
                         </td>
                         }
                         @else if(item.tinhTrang ==='Đang đợi duyệt'){
                         <td class="d-flex align-items-center justify-content-between">
                             <span class="badge bg-warning">{{item.tinhTrang}}</span>
-                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
+                                <mat-icon svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
+                            </div>
                         </td>
                         }
 
                         @else{
                         <td class="d-flex align-items-center justify-content-between">
                             <span class="badge bg-info">{{item.tinhTrang}}</span>
-                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
+                                <mat-icon style="height: 100%;" svgIcon="icon_close" class=""></mat-icon>
+                            </div>
+
                         </td>
                         }
 

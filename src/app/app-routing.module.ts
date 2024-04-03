@@ -28,7 +28,7 @@ import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsu
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
-  { path: 'lichsudattour/:id', component: LichsudattourkhachhangComponent },
+  { path: 'lichsudattour', component: LichsudattourkhachhangComponent },
   { path: 'dattour/:id', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
