@@ -24,9 +24,11 @@ import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/su
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
+import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
+  { path: 'lichsudattour/:id', component: LichsudattourkhachhangComponent },
   { path: 'dattour/:id', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },

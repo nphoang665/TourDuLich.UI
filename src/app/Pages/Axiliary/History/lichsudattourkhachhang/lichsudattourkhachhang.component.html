@@ -1,0 +1,66 @@
+<app-second-header></app-second-header>
+<div style="margin-top: 100px" class="container-fluid">
+    <!-- <h3 class="pt-3 ps-2 pe-2 ">Lịch sử đặt tour của bạn</h3> -->
+    <div class="ps-2 pe-2 gx-0 container pt-5">
+
+        <h5>LỊCH SỬ ĐẶT TOUR CỦA BẠN</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-1">STT</th>
+                        <th class="col-2">Mã đặt tour</th>
+                        <th class="col-5">Tour du dịch</th>
+                        <th class="col-2">Ngày đặt</th>
+                        <th class="col-2">Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if(DatTour.length ===0){
+                    <tr>
+                        <td colspan="5" class="text-center">Không tìm thấy lịch sử đặt tour của bạn</td>
+                    </tr>
+                    }
+                    @else {
+                    @for( item of DatTour; track $index ){
+                    <tr class="align-items-center">
+                        <td class="align-items-center"><b>{{$index +1}}</b></td>
+                        <td class="align-items-center">{{item.idDatTour}}</td>
+                        @if(item.TourDuLich){
+                        <td class="align-items-center">{{item.TourDuLich.tenTour}}</td>
+                        }
+                        <td class="align-items-center">{{item.thoiGianDatTour | date: "dd/MM/yyyy-hh:mm:ss"}}</td>
+
+                        @if(item.tinhTrang ==='Đã thanh toán'){
+                        <td class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-success">{{item.tinhTrang}}</span>
+                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                        </td>
+                        }
+                        @else if(item.tinhTrang ==='Đang đợi duyệt'){
+                        <td class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-warning">{{item.tinhTrang}}</span>
+                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                        </td>
+                        }
+
+                        @else{
+                        <td class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-info">{{item.tinhTrang}}</span>
+                            <mat-icon svgIcon="icon_eye" class="mb-1 me-3"></mat-icon>
+                        </td>
+                        }
+
+
+
+                    </tr>
+                    }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

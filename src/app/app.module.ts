@@ -62,6 +62,7 @@ import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dic
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
+import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,7 +104,8 @@ import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tou
     QuanLyDichVuComponent,
     ThemDichVuComponent,
     SuaDichVuComponent,
-    ThemTourComponent
+    ThemTourComponent,
+    LichsudattourkhachhangComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,7 @@ import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tou
     ToastrModule.forRoot(),
     GoogleSigninButtonModule,
     ToastrModule.forRoot(),
- 
+
 
 
 
@@ -147,10 +149,10 @@ import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tou
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '101863175272-n460ifjdvtb6gevl0sa64md26bt0r22v.apps.googleusercontent.com',{
-                oneTapEnabled:false,
-                prompt:'consent'
-              }
+              '101863175272-n460ifjdvtb6gevl0sa64md26bt0r22v.apps.googleusercontent.com', {
+              oneTapEnabled: false,
+              prompt: 'consent'
+            }
             )
           },
           // {

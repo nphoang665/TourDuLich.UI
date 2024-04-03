@@ -75,20 +75,21 @@
         <div class="right_medium_second_header ">
 
             <ul class="desktop_hide">
-                <li class="mobile_block">
+                <li class="mobile_block" hidden>
                     <div class="box align-items-center d-flex">
                         <input type="text" placeholder="Tìm kiếm...">
                         <span class="align-items-center">
-                            <!-- <i class="bi bi-search" style="color: #40679E;
-                            font-size: 18px;"></i> -->
+
                             <mat-icon svgIcon="icon_Search"> </mat-icon>
                         </span>
                     </div>
                 </li>
                 <li routerLink="/trangchu"><a class="item_medium_second_header">Trang chủ</a></li>
-                <li routerLink="/lienhe"><a class="item_medium_second_header">Liên hệ</a></li>
+                <li routerLink="/lienhe" hidden><a class="item_medium_second_header">Liên hệ</a></li>
                 <li routerLink="/dattour/tatca"><a class="item_medium_second_header">Đặt tour</a></li>
                 <li routerLink="/diemden"><a class="item_medium_second_header">Điểm đến</a></li>
+                <li routerLink="/lichsudattour/KH0001"><a class="item_medium_second_header">Lịch sử</a></li>
+
             </ul>
             <ul class="mobile_hide">
                 <!-- phần này để mở off canvas -->
