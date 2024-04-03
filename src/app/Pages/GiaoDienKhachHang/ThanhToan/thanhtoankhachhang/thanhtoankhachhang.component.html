@@ -16,16 +16,16 @@
 
     <div class="container-fluid p-0 pb-5" style="margin-top: 20px;">
         <h4><b>THANH TOÁN TOUR DU LỊCH</b></h4>
-        <div class="row gx-3 ">
+        <div class="row gx-3">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
                         class="bi bi-1-circle-fill me-1"></i>Thông
                     tin liên hệ
                 </div>
                 <form [formGroup]="ThanhToan">
-                    <div class="inforKhachHang border p-2 bg-white " style="height: 100%;">
+                    <div class="inforKhachHang border bg-white p-2 w-100" style="height: 100%;">
 
-                        <mat-form-field>
+                        <mat-form-field class="m-0">
                             <mat-label for="inputName">Tên</mat-label>
                             <input matInput type="text" [errorStateMatcher]="matcher" formControlName="TenKhachHang"
                                 id="inputName" placeholder="Nhập tên của bạn">
@@ -44,7 +44,7 @@
                         </mat-form-field>
 
 
-                        <mat-form-field>
+                        <mat-form-field class="m-0">
                             <mat-label for="inputPhone">Số điện thoại</mat-label>
                             <input matInput type="tel" [errorStateMatcher]="matcher" formControlName="SoDienThoai"
                                 id="inputPhone" placeholder="Nhập số điện thoại của bạn">
@@ -60,7 +60,7 @@
                         </mat-form-field>
 
                         <!-- CCCD -->
-                        <mat-form-field>
+                        <mat-form-field class="m-0">
                             <mat-label for="inputCCCD">CCCD</mat-label>
                             <input matInput type="number" [errorStateMatcher]="matcher" formControlName="CCCD"
                                 id="inputCCCD" placeholder="Nhập CCCD của bạn">
@@ -76,7 +76,7 @@
                         </mat-form-field>
 
                         <!-- Năm sinh -->
-                        <mat-form-field>
+                        <mat-form-field class="m-0">
                             <mat-label for="inputBirthday">Năm sinh</mat-label>
                             <input matInput [matDatepicker]="picker" [errorStateMatcher]="matcher"
                                 formControlName="NgaySinh" id="inputBirthday">
@@ -88,7 +88,7 @@
                         </mat-form-field>
 
                         <!-- Email -->
-                        <mat-form-field class="form-group">
+                        <mat-form-field class="form-group m-0">
                             <mat-label for="inputEmail">Email</mat-label>
                             <input matInput type="email" [errorStateMatcher]="matcher" formControlName="Email"
                                 id="inputEmail" placeholder="name@example.com">
@@ -104,7 +104,7 @@
                         </mat-form-field>
 
                         <!-- Địa chỉ -->
-                        <mat-form-field class="form-group">
+                        <mat-form-field class="form-group m-0">
                             <mat-label for="inputAddress">Địa chỉ</mat-label>
                             <input matInput type="text" [errorStateMatcher]="matcher" formControlName="DiaChi"
                                 id="inputAddress" placeholder="Nhập địa chỉ của bạn">
@@ -120,7 +120,7 @@
                         </mat-form-field>
 
                         <!-- Giới tính -->
-                        <mat-form-field class="form-group">
+                        <mat-form-field class="form-group m-0">
                             <mat-label for="inputGender">Giới tính</mat-label>
                             <mat-select formControlName="GioiTinh" [errorStateMatcher]="matcher" id="inputGender">
                                 <mat-option value="" disabled selected>Chọn...</mat-option>
