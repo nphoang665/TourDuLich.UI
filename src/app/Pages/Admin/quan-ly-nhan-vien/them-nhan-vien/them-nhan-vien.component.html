@@ -50,7 +50,7 @@
       <mat-label>Ngày sinh</mat-label>
       <input matInput [matDatepicker]="picker" name="ngaySinh" [errorStateMatcher]="matcher"
           id="ngaySinh" formControlName="ngaySinh" >
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (ngaySinh?.errors?.['required']) {
         <mat-error>Vui lòng nhập ngày/tháng/năm sinh</mat-error>
@@ -105,6 +105,17 @@
       formControlName="chucVu">
       <mat-option value="Nhân viên">Nhân viên</mat-option>
   </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Ngày vào làm</mat-label>
+  <input matInput [matDatepicker]="picker1"  [errorStateMatcher]="matcher"
+     formControlName="ngayVaoLam" >
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+  @if (ngayVaoLam?.errors?.['required']) {
+    <mat-error>Vui lòng nhập ngày/tháng/năm vào làm</mat-error>
+    }
 </mat-form-field>
 
   </div>

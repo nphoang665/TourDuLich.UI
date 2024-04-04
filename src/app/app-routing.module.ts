@@ -24,6 +24,7 @@ import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/su
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { authGuard } from './Pages/Auth/guards/auth.guard';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
+import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'themTour', component: ThemTourComponent, canActivate: [authGuard] },
   { path: 'suaTour/:id', component: SuaTourComponent, canActivate: [authGuard] },
+  { path: 'thanhToan', component: ThanhToanComponent },
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },

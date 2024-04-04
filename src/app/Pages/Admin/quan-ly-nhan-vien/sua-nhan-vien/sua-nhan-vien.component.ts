@@ -7,17 +7,39 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-sua-nhan-vien',
   templateUrl: './sua-nhan-vien.component.html',
-  styleUrl: './sua-nhan-vien.component.css'
+  styleUrl: './sua-nhan-vien.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class SuaNhanVienComponent implements OnInit{
   matcher = new MyErrorStateMatcher();
@@ -43,7 +65,7 @@ export class SuaNhanVienComponent implements OnInit{
       Validators.minLength(0),
       Validators.maxLength(12), 
     ]),
-    ngaySinh:new FormControl(new Date(),
+    ngaySinh:new FormControl(moment(),
     Validators.required),
     email:new FormControl('',[
       Validators.required,
@@ -54,7 +76,7 @@ export class SuaNhanVienComponent implements OnInit{
     Validators.required),
     chucVu:new FormControl('',
     Validators.required),
-    ngayVaoLam:new FormControl(new Date()),
+    ngayVaoLam:new FormControl(''),
     anhNhanVien:new FormControl(''),
     tinhTrang:new FormControl('',
     Validators.required),
@@ -143,9 +165,9 @@ export class SuaNhanVienComponent implements OnInit{
   SuaNhanVien(event: Event) {
 
     if (this.model && this.id) {
-      const suaNhanVien: SuaNhanVien = { ...this.suaNhanVienForm.value };
+      let ngaySinhValue = moment(this.suaNhanVienForm.value.ngaySinh).format('YYYY-MM-DD');
+      const suaNhanVien: SuaNhanVien = { ...this.suaNhanVienForm.value,ngaySinh:ngaySinhValue };
       this.quanLyNhanVien.suaNhanVien(this.id, suaNhanVien).subscribe((response) => {
-        console.log(response);
         this.toastr.success('Sửa nhân viên thành công', 'Thông báo', {
           timeOut: 1000,
         });

@@ -6,17 +6,38 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-them-nhan-vien',
   templateUrl: './them-nhan-vien.component.html',
-  styleUrl: './them-nhan-vien.component.css'
+  styleUrl: './them-nhan-vien.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemNhanVienComponent implements OnInit{
   matcher = new MyErrorStateMatcher();
@@ -43,7 +64,7 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.minLength(0),
       Validators.maxLength(12), 
     ]),
-    ngaySinh:new FormControl('',
+    ngaySinh:new FormControl(moment(new Date('01/01/2000')),
     Validators.required),
     email:new FormControl('',[
       Validators.required,
@@ -53,7 +74,7 @@ export class ThemNhanVienComponent implements OnInit{
     gioiTinh:new FormControl('',
     Validators.required),
     chucVu:new FormControl('Nhân viên'),
-    ngayVaoLam:new FormControl(new Date()),
+    ngayVaoLam:new FormControl(moment(), Validators.required),
     anhNhanVien:new FormControl(''),
     tinhTrang:new FormControl('a'),
     ngayDangKy:new FormControl(new Date())
@@ -72,6 +93,9 @@ export class ThemNhanVienComponent implements OnInit{
   }
   get ngaySinh(){
     return this.themNhanVien.get('ngaySinh');
+  }
+  get ngayVaoLam(){
+    return this.themNhanVien.get('ngayVaoLam');
   }
   get email(){
     return this.themNhanVien.get('email');
@@ -102,9 +126,15 @@ export class ThemNhanVienComponent implements OnInit{
   }
 
   ThemNhanVien(){
-    console.log(this.themNhanVien.value);
+    let ngaySinhValue = moment(this.themNhanVien.value.ngaySinh).format('YYYY-MM-DD');
+    let ngayVaoLamValue = moment(this.themNhanVien.value.ngayVaoLam).format('YYYY-MM-DD');
+    const themNhanVienData = {
+      ...this.themNhanVien.value,
+      ngaySinh:ngaySinhValue,
+      ngayVaoLam:ngayVaoLamValue
+    }
     
-    this.quanLyNhanVienService.themNhanVien(this.themNhanVien.value)
+    this.quanLyNhanVienService.themNhanVien(themNhanVienData)
     .subscribe({
       next:(response)=>{
         this.ClosePopup();

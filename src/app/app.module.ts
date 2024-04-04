@@ -62,6 +62,8 @@ import { QuanLyDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/quan-ly-dic
 import { ThemDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/them-dich-vu/them-dich-vu.component';
 import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/sua-dich-vu.component';
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
+import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
+import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/xem-thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 @NgModule({
   declarations: [
@@ -104,6 +106,9 @@ import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsu
     QuanLyDichVuComponent,
     ThemDichVuComponent,
     SuaDichVuComponent,
+    ThemTourComponent,
+    ThanhToanComponent,
+    XemThanhToanComponent
     ThemTourComponent,
     LichsudattourkhachhangComponent
   ],

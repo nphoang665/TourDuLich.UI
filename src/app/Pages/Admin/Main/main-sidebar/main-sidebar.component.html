@@ -60,6 +60,12 @@
             <span>Tiếp nhận đặt tour</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/thanhToan">
+            <i class="fa-solid fa-receipt"></i>
+            <span>Hóa đơn</span>
+          </a>
+        </li>
 
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
           <li class="nav-item">

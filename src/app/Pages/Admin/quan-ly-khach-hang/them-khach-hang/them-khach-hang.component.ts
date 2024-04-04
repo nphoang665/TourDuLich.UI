@@ -6,20 +6,47 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {  ValidationErrors } from '@angular/forms';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
+
+
+
 @Component({
   selector: 'app-them-khach-hang',
   templateUrl: './them-khach-hang.component.html',
-  styleUrl: './them-khach-hang.component.css'
+  styleUrl: './them-khach-hang.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemKhachHangComponent implements OnInit{
   matcher = new MyErrorStateMatcher();
+  
   themKhachHang:FormGroup = new FormGroup({
     idKhachHang: new FormControl('123'),
     tenKhachHang: new FormControl('',[
@@ -32,7 +59,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-    
+      // this.duplicatePhoneNumberValidator(),
     ]),
     diaChi: new FormControl('',[
       Validators.required,
@@ -46,7 +73,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.maxLength(12), 
     
     ]),
-    ngaySinh: new FormControl('',
+    ngaySinh: new FormControl(moment(new Date('01/01/2000')),
     Validators.required),
     gioiTinh: new FormControl('',
     Validators.required),
@@ -54,7 +81,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
-      
+      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
     ]),
     tinhTrang: new FormControl(''),
     ngayDangKy: new FormControl(new Date()),
@@ -93,6 +120,23 @@ export class ThemKhachHangComponent implements OnInit{
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+
+  duplicatePhoneNumberValidator(existingPhoneNumbers: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const soDienThoai = control.value;
+  
+      if (!soDienThoai) {
+        return null; // Không có giá trị, không có lỗi
+      }
+  
+      // Kiểm tra xem số điện thoại đã tồn tại trong danh sách số điện thoại khác hay chưa
+      if (existingPhoneNumbers.includes(soDienThoai)) {
+        return { duplicatePhoneNumber: true }; // Số điện thoại đã tồn tại
+      }
+  
+      return null; // Số điện thoại hợp lệ
+    };
+  }
   constructor(
     private quanlyKhachHangService:KhachhangService, 
     private route:Router, 
@@ -110,10 +154,12 @@ export class ThemKhachHangComponent implements OnInit{
   }
 
   ThemKhachHang(){
-    console.log(this.themKhachHang.value);
-
-
-    this.quanlyKhachHangService.themKhachHang(this.themKhachHang.value)
+    let ngaySinhValue = moment(this.themKhachHang.value.ngaySinh).format('YYYY-MM-DD');
+    const themKhachHangData = {
+      ...this.themKhachHang.value,
+      ngaySinh: ngaySinhValue
+    };
+    this.quanlyKhachHangService.themKhachHang(themKhachHangData)
     .subscribe({
       next:(response)=>{
         this.ClosePopup();
