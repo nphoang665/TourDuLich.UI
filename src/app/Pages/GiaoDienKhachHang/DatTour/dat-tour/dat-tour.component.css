@@ -50,14 +50,15 @@
   text-decoration: line-through;
 }
 .GiaDaGiam_text {
-  color: #40679e;
+  color: #4ED1ED;
   font-weight: 600;
 }
 .GiaDaGiam_text ._GiaDaGiam_text {
   font-size: 26px;
 }
 ._card_title_tour {
-  font-size: 20px;
+  color: #003C71;
+  font-size: 1.5em;
 }
 .price_tour {
   line-height: 25px;

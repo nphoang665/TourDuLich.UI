@@ -1,20 +1,11 @@
 <div style="background-color: #ecf0f5;">
     <app-second-header></app-second-header>
     <div class="container " style="padding: 10px">
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-            aria-label="breadcrumb" class="mt-3">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a>Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-        </nav>
         <div class="row total_item_tourplanpt-0">
             <div class=" col-lg-3 order-lg-1 order-2 mt-4 " style="user-select: none;">
                 <div class="border bg-white p-2" #sortClientForTour (click)="SortClientForTour($event)">
 
+                    
                     <div>
                         <span style="font-size: 1.1em ;color: rgb(112, 112, 112);" class="text-secondary">Ngân sách du
                             lịch</span>
@@ -200,6 +191,11 @@
                                 *ngFor="let item of TourDuLich">
                                 <div class="row">
                                     <div class="col-md-3 col-lg-3">
+                                        <div class="tinhTrang" style="font-size: 1.2rem;">
+                                            <span class="badge rounded-0 bg-danger">
+                                                {{item.tinhTrang}}
+                                            </span>
+                                        </div>
                                         <div class="img_tour">
                                             <img [src]="item.HinhAnhDauTien" alt=""
                                                 style="width: 100%; min-height: 150px; object-fit: cover;  ">
@@ -210,13 +206,13 @@
                                             <div class="col-lg-8">
                                                 <div class="text_tour">
                                                     <div class="_card_title_tour">
-                                                        {{item.tenTour}}
+                                                        <strong>{{item.tenTour}}</strong>
 
                                                     </div>
                                                     <div>
-                                                        <span class="badge" style="background: linear-gradient(130deg, rgba(0,123,255,1) 0%, rgba(0,103,219,1) 75%, rgba(0,87,187,1) 100%);
+                                                        <span class="badge" style="background: #9FC43A;
                                                         ">{{item.TrungBinhDiemDanhGia}}
-                                                        </span><span> {{item.SoLuongDanhGia}}
+                                                        </span> | <span> {{item.SoLuongDanhGia}}
                                                             đánh
                                                             giá</span>
                                                     </div>
@@ -227,11 +223,11 @@
                                                         </span>
 
                                                     </div>
-                                                    <div>
+                                                    <!-- <div>
                                                         <span>
                                                             Phương tiện: {{item.phuongTienDiChuyen}}
                                                         </span>
-                                                    </div>
+                                                    </div> -->
                                                     <div>
                                                         <span>
                                                             <i class="bi bi-person me-1"></i>
