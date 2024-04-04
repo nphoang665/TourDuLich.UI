@@ -37,7 +37,7 @@
 
     <mat-form-field>
       <mat-label>Giá tiền</mat-label>
-      <input matInput formControlName="giaTien" [errorStateMatcher]="matcher" />
+      <input matInput formControlName="giaTien" type="number" [errorStateMatcher]="matcher" />
       @if (giaTien?.errors?.['required']) {
         <mat-error>Vui lòng nhập giá tiền</mat-error>
         } 
@@ -49,10 +49,16 @@
     <br>
     <mat-label>Giờ bắt đầu</mat-label>
     <input matInput id='element' formControlName="gioBatDau" />
+    @if (gioBatDau?.errors?.['required']) {
+      <mat-error>Vui lòng chọn giờ bắt đầu</mat-error>
+      }
     <!-- </mat-form-field> -->
     <!-- <mat-form-field> -->
     <mat-label>Giờ kết thúc</mat-label>
     <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+    @if (gioKetThuc?.errors?.['required']) {
+      <mat-error>Vui lòng chọn giờ kết thúc</mat-error>
+      }
     <!-- </mat-form-field> -->
 
   </div>

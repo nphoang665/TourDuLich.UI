@@ -49,7 +49,7 @@
     <mat-form-field>
       <mat-label>Ngày sinh</mat-label>
       <input matInput [matDatepicker]="picker" name="ngaySinh" 
-          id="ngaySinh" formControlName="ngaySinh" [errorStateMatcher]="matcher">
+          id="ngaySinh"  formControlName="ngaySinh" [errorStateMatcher]="matcher">
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (ngaySinh?.errors?.['required']) {
@@ -73,7 +73,7 @@
 
   <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput type="email" 
+      <input matInput type="email"
          formControlName="email" [errorStateMatcher]="matcher">
          @if (email?.errors?.['required']) {
           <mat-error>Vui lòng nhập email</mat-error>
@@ -84,6 +84,9 @@
         @else if (email?.errors?.['maxlength']) {
             <mat-error>Email quá dài</mat-error>
           }
+        @else if (email?.errors?.['pattern']) {
+          <mat-error>Không tồn tại Email này</mat-error>
+        }
   </mat-form-field>
 
   <mat-form-field>

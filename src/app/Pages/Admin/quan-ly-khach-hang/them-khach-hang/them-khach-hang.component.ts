@@ -7,12 +7,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {  ValidationErrors } from '@angular/forms';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+
 @Component({
   selector: 'app-them-khach-hang',
   templateUrl: './them-khach-hang.component.html',
@@ -32,7 +35,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-    
+      // this.duplicatePhoneNumberValidator(),
     ]),
     diaChi: new FormControl('',[
       Validators.required,
@@ -54,7 +57,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
-      
+      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
     ]),
     tinhTrang: new FormControl(''),
     ngayDangKy: new FormControl(new Date()),
@@ -91,6 +94,23 @@ export class ThemKhachHangComponent implements OnInit{
     return (control: AbstractControl): { [key: string]: any } | null => {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
+    };
+  }
+
+  duplicatePhoneNumberValidator(existingPhoneNumbers: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const soDienThoai = control.value;
+  
+      if (!soDienThoai) {
+        return null; // Không có giá trị, không có lỗi
+      }
+  
+      // Kiểm tra xem số điện thoại đã tồn tại trong danh sách số điện thoại khác hay chưa
+      if (existingPhoneNumbers.includes(soDienThoai)) {
+        return { duplicatePhoneNumber: true }; // Số điện thoại đã tồn tại
+      }
+  
+      return null; // Số điện thoại hợp lệ
     };
   }
   constructor(
