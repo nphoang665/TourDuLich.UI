@@ -6,7 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {  ValidationErrors } from '@angular/forms';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -14,15 +17,36 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
+
 
 
 @Component({
   selector: 'app-them-khach-hang',
   templateUrl: './them-khach-hang.component.html',
-  styleUrl: './them-khach-hang.component.css'
+  styleUrl: './them-khach-hang.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemKhachHangComponent implements OnInit{
   matcher = new MyErrorStateMatcher();
+  
   themKhachHang:FormGroup = new FormGroup({
     idKhachHang: new FormControl('123'),
     tenKhachHang: new FormControl('',[
@@ -49,7 +73,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.maxLength(12), 
     
     ]),
-    ngaySinh: new FormControl('',
+    ngaySinh: new FormControl(moment(new Date('01/01/2000')),
     Validators.required),
     gioiTinh: new FormControl('',
     Validators.required),
@@ -130,10 +154,12 @@ export class ThemKhachHangComponent implements OnInit{
   }
 
   ThemKhachHang(){
-    console.log(this.themKhachHang.value);
-
-
-    this.quanlyKhachHangService.themKhachHang(this.themKhachHang.value)
+    let ngaySinhValue = moment(this.themKhachHang.value.ngaySinh).format('YYYY-MM-DD');
+    const themKhachHangData = {
+      ...this.themKhachHang.value,
+      ngaySinh: ngaySinhValue
+    };
+    this.quanlyKhachHangService.themKhachHang(themKhachHangData)
     .subscribe({
       next:(response)=>{
         this.ClosePopup();

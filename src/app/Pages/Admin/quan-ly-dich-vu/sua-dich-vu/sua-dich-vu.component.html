@@ -60,16 +60,34 @@
     </mat-form-field>
     <!-- <mat-form-field> -->
     <br>
-    <mat-label>Giờ bắt đầu</mat-label>
-    <input matInput id='element' formControlName="gioBatDau" />
+    <div class="row">
+      <div style="margin: 1%; width: 48%;">
+        <mat-label>Giờ bắt đầu</mat-label>
+          <input matInput id='element' formControlName="gioBatDau" />
+      </div>
+      <div style="margin: 1%; width: 48%;">
+        <mat-label>Giờ kết thúc</mat-label>
+        <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+      </div>
+    </div>
+    
+    
     <!-- </mat-form-field> -->
     <!-- <mat-form-field> -->
-    <mat-label>Giờ kết thúc</mat-label>
-    <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+    
     <!-- </mat-form-field> -->
-    <mat-form-field style="width: 98%;">
+    <!-- <mat-form-field style="width: 98%;">
       <mat-label>Ngày thêm</mat-label>
       <input matInput formControlName="ngayThem" readonly="" />
+    </mat-form-field> -->
+
+    <mat-form-field style="width: 98%;">
+      <mat-label>Ngày thêm</mat-label>
+      <input matInput [matDatepicker]="picker" name="ngayThem"  readonly
+          id="ngayThem" formControlName="ngayThem" [errorStateMatcher]="matcher">
+      <!-- <mat-datepicker-toggle matSuffix matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
+      <mat-datepicker #picker></mat-datepicker>
+
     </mat-form-field>
   </div>
   <div mat-dialog-actions align="end">

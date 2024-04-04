@@ -172,11 +172,9 @@ export class QuanlydattourComponent implements OnInit {
   ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
-
     iconRegistry.addSvgIconLiteral('icon_DauTru', sanitizer.bypassSecurityTrustHtml(icon_DauTru));
     iconRegistry.addSvgIconLiteral('icon_DauCong', sanitizer.bypassSecurityTrustHtml(icon_DauCong));
     iconRegistry.addSvgIconLiteral('icon_Xoa', sanitizer.bypassSecurityTrustHtml(icon_Xoa));
-
   }
   //disable khách hàng ở thêm đặt tour khi có ở thêm khách hàng
   checkValue() {
@@ -203,8 +201,6 @@ export class QuanlydattourComponent implements OnInit {
         return '';
     }
   }
-
-
   TypingKhachHang() {
     this.checkValue();
   }
@@ -225,9 +221,7 @@ export class QuanlydattourComponent implements OnInit {
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
       });
-
     });
-    this.LayKhachHang();
     this.GetDichVu();
     this.KiemTraChonKhachHangThanhToan();
     //Get data tableThongTinTour
@@ -240,18 +234,36 @@ export class QuanlydattourComponent implements OnInit {
   KhachHang = new FormControl();
   optionsKhachHang: KhachHang[] = []; // Danh sách các tùy chọn cho autocomplete
   filteredOptionsKhachHang!: Observable<KhachHang[]>;
-  LayKhachHang() {
+  LayKhachHang(idTour: string) {
     this.quanLyKhachHangServices.getAllKhachHang().subscribe(khachhangs => {
-      this.optionsKhachHang = khachhangs;
-      if (this.KhachHang) {
-        this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
-          startWith(''),
-          map(value => value && typeof value === 'string' ? value : value?.tenKhachHang),
-          map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
-        );
-
-
-      }
+      //lọc những khách hàng đã đặt cùng idtour và id khách hàng trừ tình trạng đã từ chối 
+      //  data need to test [khachhangs ]
+      //đầu tiên lấy những khách hàng nào đã đăt tour và đã đặt tour đó có tình trạng từ chối
+      this.datTourService.getAllDatTour().subscribe((resDatTour: any) => {
+        let arrKhachHangCopy = [...khachhangs];
+        arrKhachHangCopy.forEach(element => {
+          let existsKhachHang = resDatTour.find((datTour: any) => datTour.idTour == idTour && datTour.idKhachHang == element.idKhachHang);
+          if (existsKhachHang) {
+            if (existsKhachHang.tinhTrang != 'Đã từ chối' && existsKhachHang.tinhTrang != 'Đã thanh toán') {
+              for (let index = 0; index < arrKhachHangCopy.length; index++) {
+                if (arrKhachHangCopy[index].idKhachHang === existsKhachHang.idKhachHang) {
+                  arrKhachHangCopy.splice(index, 1);
+                }
+              }
+            }
+          }
+        });
+        khachhangs = arrKhachHangCopy;
+        console.log(arrKhachHangCopy);
+        this.optionsKhachHang = khachhangs;
+        if (this.KhachHang) {
+          this.filteredOptionsKhachHang = this.KhachHang.valueChanges.pipe(
+            startWith(''),
+            map(value => value && typeof value === 'string' ? value : value?.tenKhachHang),
+            map(name => name ? this._filter(name) : this.optionsKhachHang.slice())
+          );
+        }
+      })
 
     })
   }
@@ -260,7 +272,6 @@ export class QuanlydattourComponent implements OnInit {
   }
   private _filter(value: string): KhachHang[] {
     const filterValue = value.toLowerCase();
-
     // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
     let filteredOptions = this.optionsKhachHang.filter(option => {
       // Kiểm tra xem người dùng đã nhập tên khách hàng, email, cccd hay soDienThoai
@@ -268,7 +279,6 @@ export class QuanlydattourComponent implements OnInit {
       const isEmail = option.email.toLowerCase().includes(filterValue);
       const isCccd = option.cccd.toLowerCase().includes(filterValue);
       const isSoDienThoai = option.soDienThoai.toLowerCase().includes(filterValue);
-
       switch (true) {
         case isTenKhachHang && !isEmail && !isCccd && !isSoDienThoai:
           return option.tenKhachHang.toLowerCase().includes(filterValue);
@@ -282,14 +292,11 @@ export class QuanlydattourComponent implements OnInit {
           return (option.tenKhachHang.toLowerCase() + ' ' + option.email.toLowerCase() + ' ' + option.cccd.toLowerCase() + ' ' + option.soDienThoai.toLowerCase()).includes(filterValue);
       }
     });
-
     // Sắp xếp các tùy chọn dựa trên mức độ phù hợp với đoạn văn bản tìm kiếm
     filteredOptions.sort((a, b) =>
       (b.tenKhachHang.toLowerCase() + ' ' + b.email.toLowerCase() + ' ' + b.cccd.toLowerCase() + ' ' + b.soDienThoai.toLowerCase()).indexOf(filterValue) -
       (a.tenKhachHang.toLowerCase() + ' ' + a.email.toLowerCase() + ' ' + a.cccd.toLowerCase() + ' ' + a.soDienThoai.toLowerCase()).indexOf(filterValue)
     );
-
-
     return filteredOptions;
   }
 
@@ -305,8 +312,12 @@ export class QuanlydattourComponent implements OnInit {
   TongTien_DatTour!: number;
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
+
+
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       this.model = data;
+      this.LayKhachHang(idTour);
+
       //gọi services xử lý số lượng người dùng
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe({
         next: (responseTinhSoLuongNguoiConNhan: any) => {
@@ -314,7 +325,6 @@ export class QuanlydattourComponent implements OnInit {
             this.model.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
             this.model.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
             this.model.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
-
           }
         },
         error: (err: any) => {
@@ -336,6 +346,8 @@ export class QuanlydattourComponent implements OnInit {
       this.TinhTongTien();
     })
   }
+
+
   //hàm tính toán ngày đêm
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
     let startDate = thoiGianBatDau instanceof Date ? thoiGianBatDau : new Date(thoiGianBatDau);
@@ -383,9 +395,11 @@ export class QuanlydattourComponent implements OnInit {
     //nếu khách hàng cũ có value
     if (this.KhachHang.value) {
       this.onDatTour(null);
+      return;
     }
     else if (!allFieldsEmpty) {
       this.onSubmitThemKhachHang();
+      return;
     }
     //nếu thêm khách hàng có value
     else if (!this.KhachHang.value) {
@@ -435,29 +449,24 @@ export class QuanlydattourComponent implements OnInit {
         tinhTrang: 'Đã đặt tour',
         idNhanVien: this.NguoiDung.idNhanVien
       };
-
-
       // console.log(dataToSave);
-
-
       this.http.post<any>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, dataToSave)
         .subscribe(response => {
           // console.log(response);
-          this.onThemDichVuChiTiet(response);
+          if (this.TongDichVu_Db.length > 0) {
+            this.onThemDichVuChiTiet(response);
+          }
+
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,
           });
-
+          return;
         });
     } else {
       this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
         timeOut: 1000,
       });
-
     }
-
-
-
   }
   //hàm thêm dịch vụ chi tiết vào db
   onThemDichVuChiTiet(datTour: any) {
@@ -480,8 +489,6 @@ export class QuanlydattourComponent implements OnInit {
       alert(result);
     })
   }
-
-
   //các phần khai báo cho thanh toán
   idTour_ThanhToan !: string;
   arrKhachHangThanhToan: any[] = [];
@@ -505,7 +512,6 @@ export class QuanlydattourComponent implements OnInit {
           this.arrKhachHangThanhToan.push(data[index].khachHang);
         }
       }
-      console.log(this.arrKhachHangThanhToan);
 
       if (this.arrKhachHangThanhToan != null) {
         this.optionsKhachHangThanhToan = this.arrKhachHangThanhToan;
@@ -585,6 +591,13 @@ export class QuanlydattourComponent implements OnInit {
         this.TenKhachHang_ThanhToan.setErrors({ 'invalid': true });
       }
     });
+
+    this.KhachHang.valueChanges.subscribe(value => {
+      if (this.optionsKhachHang.indexOf(value) === -1) {
+        this.KhachHang.setErrors({ 'invalid': true });
+      }
+    });
+
   }
   //tính tổng tiền thanh toán
   TongTien_DichVu_ThanhToan: number = 0;

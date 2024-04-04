@@ -7,17 +7,40 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 @Component({
   selector: 'app-sua-khach-hang',
   templateUrl: './sua-khach-hang.component.html',
-  styleUrl: './sua-khach-hang.component.css'
+  styleUrl: './sua-khach-hang.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class SuaKhachHangComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
@@ -26,7 +49,7 @@ export class SuaKhachHangComponent implements OnInit {
     soDienThoai: new FormControl('',),
     diaChi: new FormControl(''),
     cccd: new FormControl(''),
-    ngaySinh: new FormControl(new Date()),
+    ngaySinh: new FormControl(moment()),
     gioiTinh: new FormControl(''),
     email: new FormControl(''),
     tinhTrang: new FormControl(''),
@@ -134,9 +157,9 @@ export class SuaKhachHangComponent implements OnInit {
   SuaKhachHang(event: Event) {
 
     if (this.model && this.id) {
-      const suaKhachHang: SuaKhachHang = { ...this.suaKhachHangForm.value };
+      let ngaySinhValue = moment(this.suaKhachHangForm.value.ngaySinh).format('YYYY-MM-DD');
+      const suaKhachHang: SuaKhachHang = { ...this.suaKhachHangForm.value, ngaySinh: ngaySinhValue };
       this.quanLyKhachHangSerice.suaKhachHang(this.id, suaKhachHang).subscribe((response) => {
-        console.log(response);
         this.toastr.success('Sửa khách hàng thành công', 'Thông báo', {
           timeOut: 1000,
         });

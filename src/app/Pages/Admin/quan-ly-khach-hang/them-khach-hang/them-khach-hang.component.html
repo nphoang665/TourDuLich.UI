@@ -49,8 +49,8 @@
     <mat-form-field>
       <mat-label>Ngày sinh</mat-label>
       <input matInput [matDatepicker]="picker" name="ngaySinh" 
-          id="ngaySinh"  formControlName="ngaySinh" [errorStateMatcher]="matcher">
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          id="ngaySinh" formControlName="ngaySinh" [errorStateMatcher]="matcher">
+      <mat-datepicker-toggle matSuffix matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (ngaySinh?.errors?.['required']) {
         <mat-error>Vui lòng nhập ngày/tháng/năm sinh</mat-error>

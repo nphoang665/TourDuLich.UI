@@ -149,14 +149,13 @@ export class SuaTourComponent implements OnInit, OnDestroy {
           this.HienThiAnhPreview();
           this.initializeForm();
           this.suaTourForm.get('soChoConNhan')?.disable();
-
           this.suaTourForm.get('soLuongTreEm')?.valueChanges.subscribe(() => {
             this.updateSoChoConNhan();
           });
-
           this.suaTourForm.get('soLuongNguoiLon')?.valueChanges.subscribe(() => {
             this.updateSoChoConNhan();
           });
+          this.updateSoChoConNhan();
         } else {
           console.error('Không tìm thấy tour có ID: ', this.id);
         }
@@ -193,6 +192,8 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   updateSoChoConNhan(): void {
     const soLuongTreEm = this.suaTourForm.get('soLuongTreEm')?.value || 0;
     const soLuongNguoiLon = this.suaTourForm.get('soLuongNguoiLon')?.value || 0;
+    console.log(soLuongTreEm, soLuongNguoiLon);
+
     this.suaTourForm.get('soChoConNhan')?.setValue(soLuongTreEm + soLuongNguoiLon);
   }
 

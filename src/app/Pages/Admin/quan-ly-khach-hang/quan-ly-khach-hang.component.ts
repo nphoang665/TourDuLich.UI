@@ -51,7 +51,7 @@ export class QuanLyKhachHangComponent implements AfterViewInit,OnInit{
         this.dataSource.data = data.filter(khachHang => khachHang.tinhTrang === 'Đang hoạt động');
       },
       (error) => {
-        console.error('Error fetching DichVu data: ', error);
+        console.error('Error fetching khách hàng data: ', error);
       }
     );
   }
