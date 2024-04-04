@@ -64,6 +64,7 @@ import { SuaDichVuComponent } from './Pages/Admin/quan-ly-dich-vu/sua-dich-vu/su
 import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tour.component';
 import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/xem-thanh-toan.component';
+import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,7 +108,8 @@ import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/x
     SuaDichVuComponent,
     ThemTourComponent,
     ThanhToanComponent,
-    XemThanhToanComponent
+    XemThanhToanComponent,
+    LichsudattourkhachhangComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +131,7 @@ import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/x
     ToastrModule.forRoot(),
     GoogleSigninButtonModule,
     ToastrModule.forRoot(),
- 
+
 
 
 
@@ -151,10 +153,10 @@ import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/x
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '101863175272-n460ifjdvtb6gevl0sa64md26bt0r22v.apps.googleusercontent.com',{
-                oneTapEnabled:false,
-                prompt:'consent'
-              }
+              '101863175272-n460ifjdvtb6gevl0sa64md26bt0r22v.apps.googleusercontent.com', {
+              oneTapEnabled: false,
+              prompt: 'consent'
+            }
             )
           },
           // {

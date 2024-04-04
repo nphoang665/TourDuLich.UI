@@ -110,7 +110,7 @@ export class QuanlydattourComponent implements OnInit {
     ]),
     ngaySinh: new FormControl('',
       Validators.required,
-      ),
+    ),
     gioiTinh: new FormControl('',
       Validators.required),
     email: new FormControl('', [
@@ -155,7 +155,7 @@ export class QuanlydattourComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  
+
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -217,6 +217,18 @@ export class QuanlydattourComponent implements OnInit {
       this.TourDuLich = data;
       this.filterTours();
       this.TourDuLich.forEach(element => {
+        this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe({
+          next: (responseTinhSoLuongNguoiConNhan: any) => {
+            if (element) {
+              element.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
+              element.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
+              element.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
+            }
+          },
+          error: (err: any) => {
+            console.error(err);
+          }
+        })
         var urlFirstImgTour = environment.apiBaseUrl + '/uploads/' + element.anhTour[0].imgTour;
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
@@ -229,6 +241,7 @@ export class QuanlydattourComponent implements OnInit {
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
     ];
   }
+
   //xử lý select khách hàng
   IdKhachHang!: string;
   KhachHang = new FormControl();
@@ -604,7 +617,6 @@ export class QuanlydattourComponent implements OnInit {
   TongTien_ThanhToan!: number;
   TinhTongTienThanhToan() {
     //tính tổng tiền dịch vụ
-    //
     this.TongTien_ThanhToan = (this.TourThanhToan_HienThi[0].soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi[0].soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
   }
   //hàm thanh toán
@@ -783,7 +795,10 @@ export class QuanlydattourComponent implements OnInit {
     this.TongTienDichVu = 0;
     this.TongDichVu_Db.forEach(element => {
       this.TongTienDichVu += element.giaTien * element.soLuong;
+
     });
+
+
     this.TinhTongTien();
   }
 

@@ -148,7 +148,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
           this.model = data;
           this.HienThiAnhPreview();
           this.initializeForm();
-          this.suaTourForm.get('soChoConNhan')?.disable();
+          // this.suaTourForm.get('soChoConNhan')?.disable();
           this.suaTourForm.get('soLuongTreEm')?.valueChanges.subscribe(() => {
             this.updateSoChoConNhan();
           });
@@ -354,6 +354,12 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   }
   //sửa tour
   SuaTour() {
+    if (this.fileImgPreviewFromDb.length === 0 && this.fileImgPreviewFromBrowse.length === 0) {
+      this.toastr.warning('Một tour phải có ít nhất 1 ảnh', 'Thông báo', {
+        timeOut: 1000,
+      });
+      return;
+    }
 
     if (this.model && this.id) {
       const suaTour: SuaTour = { ...this.suaTourForm.value };
