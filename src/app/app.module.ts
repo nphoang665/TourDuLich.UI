@@ -108,8 +108,7 @@ import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsu
     SuaDichVuComponent,
     ThemTourComponent,
     ThanhToanComponent,
-    XemThanhToanComponent
-    ThemTourComponent,
+    XemThanhToanComponent,
     LichsudattourkhachhangComponent
   ],
   imports: [
