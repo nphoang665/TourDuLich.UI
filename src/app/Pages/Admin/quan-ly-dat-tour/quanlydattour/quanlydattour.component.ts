@@ -241,6 +241,7 @@ export class QuanlydattourComponent implements OnInit {
       { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
     ];
   }
+
   //xử lý select khách hàng
   IdKhachHang!: string;
   KhachHang = new FormControl();

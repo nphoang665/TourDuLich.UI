@@ -568,9 +568,12 @@
 
             <div mat-dialog-actions class="modal-footer">
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
+
                 <button mat-raised-button type="button" color="primary"
-                    [disabled]="myForm.invalid && !KhachHang.value || KhachHang.errors?.['invalid']"
+                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0)"
                     (click)="DatTour()">Đặt tour</button>
+
+
             </div>
             }
         </div>
