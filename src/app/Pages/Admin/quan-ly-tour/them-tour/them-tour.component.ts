@@ -165,7 +165,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     private quanLyTourService: QuanLyTourService,
     private router: Router,
     private toastr: ToastrService,
-    private doiTacServices: DoiTacService
+    private doiTacServices: DoiTacService,
+
   ) {
 
   }
@@ -179,7 +180,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   }
   DoiTac: any[] = [];
   ngOnInit(): void {
-    this.ThemTourForm.get('soChoConNhan')?.disable();
+    // this.ThemTourForm.get('soChoConNhan')?.disable();
 
     this.ThemTourForm.get('soLuongTreEm')?.valueChanges.subscribe(() => {
       this.updateSoChoConNhan();
@@ -224,7 +225,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     const soLuongNguoiLon = this.ThemTourForm.get('soLuongNguoiLon')?.value || 0;
     this.ThemTourForm.get('soChoConNhan')?.setValue(soLuongTreEm + soLuongNguoiLon);
   }
-
   formatDate(date: Date): string {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
@@ -235,23 +235,29 @@ export class ThemTourComponent implements OnInit, OnDestroy {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-
-
   get sanitizedText() {
     const moTaControl = this.ThemTourForm.get('moTa');
     return this.domSanitizer.bypassSecurityTrustHtml(moTaControl?.value || '');
   }
-
-
   get f(): { [key: string]: any } {
     return this.ThemTourForm.controls;
   }
-
   //thêm tour
-  ThemTour() {
-    console.log(this.ThemTourForm.value);
+  ThemTour() {    // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
+    if (this.previewingFileImg.length === 0) {
+      this.toastr.warning('Bạn chưa chọn ảnh', 'Thông báo', {
+        timeOut: 1000,
+      });
+      return;
+    }
+    // Lấy giá trị của soLuongNguoiLon và soLuongTreEm
+    // const soLuongNguoiLon = this.ThemTourForm.get('soLuongNguoiLon')?.value || 0;
+    // const soLuongTreEm = this.ThemTourForm.get('soLuongTreEm')?.value || 0;
 
-    // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
+    // Gán soChoConNhan bằng tổng số lượng người lớn và trẻ em
+    // this.ThemTourForm.get('soChoConNhan')?.setValue(soLuongNguoiLon + soLuongTreEm);
+
+
     this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.ThemTourForm.value)
       .subscribe({
         next: (response) => {
@@ -267,9 +273,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   }
 
 
-  onFormSubmit() {
-
-  }
 
 
   selectedFile: any[] = [];
@@ -279,7 +282,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     if (files) {
       for (let index = 0; index < files.length; index++) {
         const file = files[index];
-
         const reader = new FileReader();
         reader.onload = (e) => {
           // Khởi tạo hoặc lấy FormArray 'imgSelected'
@@ -288,17 +290,14 @@ export class ThemTourComponent implements OnInit, OnDestroy {
             imgSelectedControl = new FormArray<any>([]);
             this.ThemTourForm.addControl('imgSelected', imgSelectedControl);
           }
-
           // Thêm new FormControl vào FormArray và ép kiểu
           imgSelectedControl.push(new FormControl(e.target?.result as string));
-
           // Thêm chuỗi Base64 vào mảng previewingFileImg
           this.previewingFileImg.push(e.target?.result as string);
         };
         reader.readAsDataURL(file);
       }
     }
-    console.log(this.previewingFileImg);
   }
 
   XoaImgPreviewing(index: number) {
@@ -311,53 +310,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     // Xóa khỏi mảng previewingFileImg
     this.previewingFileImg.splice(index, 1);
   }
-
-
-  themTour() {
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

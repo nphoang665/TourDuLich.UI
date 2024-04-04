@@ -617,7 +617,6 @@ export class QuanlydattourComponent implements OnInit {
   TongTien_ThanhToan!: number;
   TinhTongTienThanhToan() {
     //tính tổng tiền dịch vụ
-    //
     this.TongTien_ThanhToan = (this.TourThanhToan_HienThi[0].soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi[0].soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
   }
   //hàm thanh toán
@@ -796,7 +795,10 @@ export class QuanlydattourComponent implements OnInit {
     this.TongTienDichVu = 0;
     this.TongDichVu_Db.forEach(element => {
       this.TongTienDichVu += element.giaTien * element.soLuong;
+
     });
+
+
     this.TinhTongTien();
   }
 
