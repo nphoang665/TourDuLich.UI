@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { DichvuService } from '../../../GiaoDienAdmin/services/DichVu/dichvu.service';
 
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
 import { DatTourChoKhachHang } from '../../../Admin/models/dat-tour-khach-hang.model';
@@ -17,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { KhachHang } from '../../../Admin/models/khach-hang.model';
+import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -46,7 +48,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
     private nguoiDung: NguoiDungService,
     private router: Router,
     private toastr: ToastrService,
-
+    private KhachhangService: KhachhangService,
   ) {
     
   }
@@ -245,34 +247,46 @@ export class ThanhtoankhachhangComponent implements OnInit {
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
-    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : '',[
+    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : '',{
+      validators:[
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-    
-    ]),
+      Validators.pattern(/^(0[0-9]{9})$/)
+    ],
+    asyncValidators: [this.checkSDT()],
+    updateOn:'change'
+  }),
     DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : '',[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
       
     ]),
-    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '',[
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(12), 
-    
-    ]),
+    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '',{
+      validators: [
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.minLength(12),
+        Validators.pattern(/^(0|[1-9][0-9]*)$/),
+      ],
+      asyncValidators: [this.checkCCCD()],
+      updateOn: 'change'
+    }),
     NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',
     Validators.required),
     GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : '',
     Validators.required),
-    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '',[
+    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '',{
+      validators:[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
-      
-    ]),
+      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+    ],
+    asyncValidators: [this.checkEmail()],
+    updateOn: 'change'
+  }),
     TinhTrangKhachHang: new FormControl('Đang hoạt động'),
   });
   get TenKhachHang(){
@@ -305,8 +319,48 @@ export class ThanhtoankhachhangComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-
-
+  checkCCCD(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 12) {
+            return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+                return data ? { 'invalidCCCD': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+}
+checkSDT(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length === 10) {
+          return this.KhachhangService.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidSDT': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
+checkEmail(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >=16) {
+          return this.KhachhangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
   XacNhanDatTour() {
     // this.isfalse = !this.isfalse;
     this.DatTourChoKhachHang();

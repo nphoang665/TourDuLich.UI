@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ThanhToan } from '../../models/thanh-toan.model';
 import { environment } from '../../../../../environments/environment';
 
@@ -21,4 +21,5 @@ export class ThanhToanService {
   getThanhToanById(id:string):Observable<ThanhToan>{
     return this.http.get<ThanhToan>(`${environment.apiBaseUrl}/api/ThanhToan/${id}`);
   }
+  
 }

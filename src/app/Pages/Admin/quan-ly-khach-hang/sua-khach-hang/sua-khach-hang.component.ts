@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { KhachHang, SuaKhachHang } from '../../models/khach-hang.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
@@ -89,6 +89,48 @@ export class SuaKhachHangComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  checkCCCD(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 12) {
+            return this.quanLyKhachHangSerice.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+                return data ? { 'invalidCCCD': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+}
+checkSDT(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length === 10) {
+          return this.quanLyKhachHangSerice.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidSDT': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
+checkEmail(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >=16) {
+          return this.quanLyKhachHangSerice.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
   model?:KhachHang;
 
   id?:string | null = null;
@@ -96,6 +138,7 @@ export class SuaKhachHangComponent implements OnInit {
 
   constructor(
     private quanLyKhachHangSerice:KhachhangService,
+    
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ref: MatDialogRef<SuaKhachHangComponent>,
@@ -122,30 +165,45 @@ export class SuaKhachHangComponent implements OnInit {
         Validators.maxLength(50),
         this.noSpecialCharValidator(),
       ]),
-      soDienThoai: new FormControl(this.model?.soDienThoai,[
+      soDienThoai: new FormControl(this.model?.soDienThoai, {
+        validators:[
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10), 
-      ]),
+        Validators.pattern(/^(0[0-9]{9})$/)
+      ],
+      asyncValidators: [this.checkSDT()],
+      updateOn:'change'
+    }),
       diaChi: new FormControl(this.model?.diaChi,[
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50), 
       ]),
-      cccd: new FormControl(this.model?.cccd,[
-        Validators.required,
-        Validators.minLength(0),
-        Validators.maxLength(12), 
-      ]),
+      cccd: new FormControl(this.model?.cccd,{
+        validators: [
+          Validators.required,
+          Validators.maxLength(12),
+          Validators.minLength(12),
+          Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        ],
+        asyncValidators: [this.checkCCCD()],
+        updateOn: 'change'
+      }),
       ngaySinh: new FormControl(this.model?.ngaySinh,
         Validators.required),
       gioiTinh: new FormControl(this.model?.gioiTinh,
         Validators.required),
-      email: new FormControl(this.model?.email,[
+      email: new FormControl(this.model?.email,{
+        validators:[
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50), 
-      ]),
+        Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ],
+      asyncValidators: [this.checkEmail()],
+      updateOn: 'change'
+    }),
       tinhTrang: new FormControl(this.model?.tinhTrang),
       ngayDangKy: new FormControl(this.model?.ngayDangKy),
     })

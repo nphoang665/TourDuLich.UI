@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { NhanVien, SuaNhanVien } from '../../models/nhan-vien.model';
@@ -44,42 +44,17 @@ export const MY_FORMATS = {
 export class SuaNhanVienComponent implements OnInit{
   matcher = new MyErrorStateMatcher();
   suaNhanVienForm: FormGroup = new FormGroup({
-    tenNhanVien:new FormControl('',[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50),
-      this.noSpecialCharValidator(),
-    ]),
-    soDienThoai:new FormControl('',[
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10), 
-    ]),
-    diaChi:new FormControl('',[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50), 
-    ]),
-    cccd:new FormControl('',[
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(12), 
-    ]),
-    ngaySinh:new FormControl(moment(),
-    Validators.required),
-    email:new FormControl('',[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50), 
-    ]),
-    gioiTinh:new FormControl('',
-    Validators.required),
-    chucVu:new FormControl('',
-    Validators.required),
+    tenNhanVien:new FormControl(''),
+    soDienThoai:new FormControl(''),
+    diaChi:new FormControl(''),
+    cccd:new FormControl(''),
+    ngaySinh:new FormControl(moment()),
+    email:new FormControl(''),
+    gioiTinh:new FormControl(''),
+    chucVu:new FormControl(''),
     ngayVaoLam:new FormControl(''),
     anhNhanVien:new FormControl(''),
-    tinhTrang:new FormControl('',
-    Validators.required),
+    tinhTrang:new FormControl(''),
     ngayDangKy:new FormControl(new Date())
   });
   get tenNhanVien(){
@@ -115,6 +90,48 @@ export class SuaNhanVienComponent implements OnInit{
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  checkCCCD(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 12) {
+            return this.quanLyNhanVien.checkCCCDCuaNhanVien(control.value).toPromise().then(data => {
+                return data ? { 'invalidCCCD': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+}
+checkSDT(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length === 10) {
+          return this.quanLyNhanVien.checkSDTCuaNhanVien(control.value).toPromise().then(data => {
+              return data ? { 'invalidSDT': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
+checkEmail(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >=16) {
+          return this.quanLyNhanVien.checkEmailCuaNhanVien(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
   model?:NhanVien;
 
   id?:string | null = null;
@@ -144,17 +161,57 @@ export class SuaNhanVienComponent implements OnInit{
   }
   initalizeForm(): void {
     this.suaNhanVienForm = new FormGroup({
-      tenNhanVien: new FormControl(this.model?.tenNhanVien),
-      soDienThoai: new FormControl(this.model?.soDienThoai),
-      diaChi: new FormControl(this.model?.diaChi),
-      cccd: new FormControl(this.model?.cccd),
-      ngaySinh: new FormControl(this.model?.ngaySinh),
-      email: new FormControl(this.model?.email),
-      gioiTinh: new FormControl(this.model?.gioiTinh),
-      chucVu: new FormControl(this.model?.chucVu),
+      tenNhanVien: new FormControl(this.model?.tenNhanVien,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        this.noSpecialCharValidator(),
+      ]),
+      soDienThoai: new FormControl(this.model?.soDienThoai,{
+        validators:[
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10), 
+        Validators.pattern(/^(0[0-9]{9})$/)
+      ],
+      asyncValidators: [this.checkSDT()],
+      updateOn:'change'
+    }),
+      diaChi: new FormControl(this.model?.diaChi,[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50), 
+      ]),
+      cccd: new FormControl(this.model?.cccd,{
+        validators: [
+          Validators.required,
+          Validators.maxLength(12),
+          Validators.minLength(12),
+          Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        ],
+        asyncValidators: [this.checkCCCD()],
+        updateOn: 'change'
+      }),
+      ngaySinh: new FormControl(this.model?.ngaySinh,
+        Validators.required),
+      email: new FormControl(this.model?.email,{
+        validators:[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50), 
+        Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ],
+      asyncValidators: [this.checkEmail()],
+      updateOn: 'change'
+    }),
+      gioiTinh: new FormControl(this.model?.gioiTinh,
+        Validators.required),
+      chucVu: new FormControl(this.model?.chucVu,
+        Validators.required),
       ngayVaoLam: new FormControl(this.model?.ngayVaoLam),
       anhNhanVien: new FormControl(this.model?.anhNhanVien),
-      tinhTrang: new FormControl(this.model?.tinhTrang),
+      tinhTrang: new FormControl(this.model?.tinhTrang,
+        Validators.required),
       ngayDangKy: new FormControl(this.model?.ngayDangKy)
     });
   }

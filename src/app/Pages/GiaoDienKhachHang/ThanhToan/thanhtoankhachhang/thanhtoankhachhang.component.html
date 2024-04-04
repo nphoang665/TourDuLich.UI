@@ -52,10 +52,16 @@
                             <mat-error>Vui lòng nhập số điện thoại</mat-error>
                             }
                             @else if (SoDienThoai?.errors?.['minlength']) {
-                            <mat-error>Số điện thoại quá ngắn</mat-error>
+                            <mat-error>Số điện thoại không đúng</mat-error>
                             }
                             @else if (SoDienThoai?.errors?.['maxlength']) {
-                            <mat-error>Số điện thoại không đúng định dạng</mat-error>
+                            <mat-error>Số điện thoại không đúng</mat-error>
+                            }
+                            @else if (SoDienThoai?.errors?.['pattern']) {
+                            <mat-error>Số điện thoại phải bắt đầu bằng số 0</mat-error>
+                            }
+                            @else if (SoDienThoai?.errors?.['invalidSDT']) {
+                            <mat-error>Số điện thoại đã tồn tại</mat-error>
                             }
                         </mat-form-field>
 
@@ -68,10 +74,13 @@
                             <mat-error>Vui lòng nhập CCCD</mat-error>
                             }
                             @else if (CCCD?.errors?.['minlength']) {
-                            <mat-error>CCCD quá ngắn</mat-error>
+                            <mat-error>CCCD không đúng</mat-error>
                             }
                             @else if (CCCD?.errors?.['maxlength']) {
-                            <mat-error>CCCD quá dài</mat-error>
+                            <mat-error>CCCD không đúng</mat-error>
+                            }
+                            @else if(CCCD?.errors?.['invalidCCCD']){
+                            <mat-error>Căn cước công dân đã tồn tại</mat-error>
                             }
                         </mat-form-field>
 
@@ -96,11 +105,17 @@
                             <mat-error>Vui lòng nhập email</mat-error>
                             }
                             @else if (Email?.errors?.['minlength']) {
-                            <mat-error>Email quá ngắn</mat-error>
+                            <mat-error>Email không đúng</mat-error>
                             }
                             @else if (Email?.errors?.['maxlength']) {
-                            <mat-error>Email quá dài</mat-error>
+                            <mat-error>Email không đúng</mat-error>
                             }
+                            @else if (Email?.errors?.['pattern']) {
+                                <mat-error>Email không hợp lệ</mat-error>
+                              }
+                              @else if (Email?.errors?.['invalidEmail']) {
+                                <mat-error>Email đã tồn tại</mat-error>
+                              }
                         </mat-form-field>
 
                         <!-- Địa chỉ -->
@@ -359,7 +374,7 @@
                             <li>
                                 <span>Asap Tour sẽ liên hệ với quý khách(qua email hoặc điện thoại) trong vòng <span
                                         class="text-success">30 phút</span>
-                                    (T2-CN: 06:00 - 23:00) để xác nhậ tour và thời hạn thanh toán.</span>
+                                    (T2-CN: 06:00 - 23:00) để xác nhận tour và thời hạn thanh toán.</span>
 
                             </li>
 

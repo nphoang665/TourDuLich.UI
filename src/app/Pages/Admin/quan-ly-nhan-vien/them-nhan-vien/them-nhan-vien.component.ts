@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -49,28 +49,43 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
-    soDienThoai:new FormControl('',[
+    soDienThoai:new FormControl('', {
+      validators:[
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-    ]),
+      Validators.pattern(/^(0[0-9]{9})$/)
+    ],
+    asyncValidators: [this.checkSDT()],
+    updateOn:'change'
+  }),
     diaChi:new FormControl('',[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
     ]),
-    cccd:new FormControl('',[
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(12), 
-    ]),
+    cccd:new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.minLength(12),
+        Validators.pattern(/^(0|[1-9][0-9]*)$/),
+      ],
+      asyncValidators: [this.checkCCCD()],
+      updateOn: 'change'
+    }),
     ngaySinh:new FormControl(moment(new Date('01/01/2000')),
     Validators.required),
-    email:new FormControl('',[
+    email:new FormControl('',{
+      validators:[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
-    ]),
+      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+    ],
+    asyncValidators: [this.checkEmail()],
+    updateOn: 'change'
+  }),
     gioiTinh:new FormControl('',
     Validators.required),
     chucVu:new FormControl('Nhân viên'),
@@ -109,6 +124,48 @@ export class ThemNhanVienComponent implements OnInit{
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  checkCCCD(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 12) {
+            return this.quanLyNhanVienService.checkCCCDCuaNhanVien(control.value).toPromise().then(data => {
+                return data ? { 'invalidCCCD': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+}
+checkSDT(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length === 10) {
+          return this.quanLyNhanVienService.checkSDTCuaNhanVien(control.value).toPromise().then(data => {
+              return data ? { 'invalidSDT': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
+checkEmail(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >=16) {
+          return this.quanLyNhanVienService.checkEmailCuaNhanVien(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
   constructor (
     private quanLyNhanVienService:NhanVienService,
     private router:Router,

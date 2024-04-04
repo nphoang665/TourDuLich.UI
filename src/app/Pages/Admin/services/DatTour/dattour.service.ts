@@ -9,6 +9,7 @@ import { SuaDatTour } from '../../models/suaDatTour.model';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { QuanLyTourService } from '../quan-ly-tour.service';
+import { KhachHang } from '../../models/khach-hang.model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,8 @@ export class DattourService {
       })
     );
   }
-
+  
+  
 
 
 }

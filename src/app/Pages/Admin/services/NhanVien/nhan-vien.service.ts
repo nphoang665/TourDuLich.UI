@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NhanVien, SuaNhanVien, ThemNhanVien } from '../../models/nhan-vien.model';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 
 @Injectable({
@@ -29,5 +29,32 @@ export class NhanVienService {
 
   xoaNhanVien(id: string): Observable<NhanVien> {
     return this.http.delete<NhanVien>(`${environment.apiBaseUrl}/api/NhanVien/${id}?addAuth=true`);
+  }
+  checkCCCDCuaNhanVien(cccd:string): Observable<boolean> {
+    return this.getAllNhanVien().pipe(
+        map((data: NhanVien[]) => {
+            let existsCCCD = data.filter(s => s.cccd == cccd);
+            console.log(existsCCCD);
+            return existsCCCD.length > 0;
+        })
+    );
+  }
+  checkSDTCuaNhanVien(soDienThoai:string): Observable<boolean> {
+  return this.getAllNhanVien().pipe(
+      map((data: NhanVien[]) => {
+          let existssoDienThoai = data.filter(s => s.soDienThoai == soDienThoai);
+          console.log(existssoDienThoai);
+          return existssoDienThoai.length > 0;
+      })
+  );
+  }
+  checkEmailCuaNhanVien(email:string): Observable<boolean> {
+  return this.getAllNhanVien().pipe(
+      map((data: NhanVien[]) => {
+          let existsemail = data.filter(s => s.email == email);
+          console.log(existsemail);
+          return existsemail.length > 0;
+      })
+  );
   }
 }
