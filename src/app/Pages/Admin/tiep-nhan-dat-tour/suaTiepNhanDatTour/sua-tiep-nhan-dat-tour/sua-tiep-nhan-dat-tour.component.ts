@@ -11,6 +11,7 @@ import { DichvuService } from '../../../../GiaoDienAdmin/services/DichVu/dichvu.
 import { DichVuChiTietService } from '../../../services/DichVuChiTiet/dich-vu-chi-tiet.service';
 import { DichVuChiTietDto, ThemDichVuChiTietRequestDto } from '../../../models/dich-vu-chi-tiet.model';
 import { NguoiDungService } from '../../../services/NguoiDung/nguoi-dung.service';
+import { ToastrService } from 'ngx-toastr';
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -28,7 +29,9 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     private datTourService: DattourService,
     private dichVuServices: DichvuService,
     private dichVuChiTiet: DichVuChiTietService,
-    private nguoiDungServices: NguoiDungService
+    private nguoiDungServices: NguoiDungService,
+    private toastr: ToastrService,
+    private router:Router
 
   ) {
 
@@ -104,7 +107,10 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
 
     this.datTourService.putDatTour(DatTour, this.id).subscribe((data: any) => {
       console.log(data);
-
+      this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
+        timeOut: 1000,
+      });
+      this.router.navigateByUrl('/tiepNhanDatTour');
     });
     this.LuuDichVuChiTietVaoDb(DatTour);
 

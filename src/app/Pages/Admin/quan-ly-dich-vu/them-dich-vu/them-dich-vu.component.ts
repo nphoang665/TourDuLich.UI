@@ -36,7 +36,7 @@ export class ThemDichVuComponent implements OnInit {
     ]),
     donViTinh: new FormControl('',[
       Validators.required,
-      Validators.minLength(4),
+      Validators.minLength(2),
       Validators.maxLength(50), 
       this.noSpecialCharValidator(),
     ]),

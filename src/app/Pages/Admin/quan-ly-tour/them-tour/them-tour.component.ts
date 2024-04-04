@@ -43,13 +43,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required),
     soLuongNguoiLon: new FormControl(0, [
       Validators.required,
-      Validators.min(1),
+      Validators.min(0),
       Validators.max(50),
 
     ]),
     soLuongTreEm: new FormControl(0, [
       Validators.required,
-      Validators.min(2),
+      Validators.min(0),
       Validators.max(50),
 
     ]),

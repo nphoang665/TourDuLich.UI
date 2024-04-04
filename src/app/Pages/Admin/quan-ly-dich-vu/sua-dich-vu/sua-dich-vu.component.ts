@@ -9,17 +9,38 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-sua-dich-vu',
   templateUrl: './sua-dich-vu.component.html',
-  styleUrl: './sua-dich-vu.component.css'
+  styleUrl: './sua-dich-vu.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class SuaDichVuComponent implements OnInit {
   isEditing: boolean = false;
@@ -33,7 +54,7 @@ export class SuaDichVuComponent implements OnInit {
     tinhTrang: new FormControl(''),
     gioBatDau: new FormControl(''),
     gioKetThuc: new FormControl(''),
-    ngayThem: new FormControl(new Date()),
+    ngayThem: new FormControl(moment(new Date())),
     
   })
   get tenDichVu(){
@@ -158,10 +179,23 @@ export class SuaDichVuComponent implements OnInit {
   }
 
   suaDichVu(event: Event) {
+     // Chuyển đổi định dạng giờ từ "5:00 PM" hoặc "20:00 AM" sang "HH:mm"
+     const gioBatDauValue = this.convertTimeStringToHHMM(this.myForm.get('gioBatDau')?.value);
+     this.myForm.get('gioBatDau')?.setValue(gioBatDauValue);
+
+     const gioKetThucValue = this.convertTimeStringToHHMM(this.myForm.get('gioKetThuc')?.value);
+     this.myForm.get('gioKetThuc')?.setValue(gioKetThucValue);
+
+     // Gửi yêu cầu đến backend
+     const formData = {
+       ...this.myForm.value,
+       gioBatDau: this.convertStringToTimeOnly(gioBatDauValue),
+       gioKetThuc: this.convertStringToTimeOnly(gioKetThucValue)
+     };
 
     if (this.model && this.id) {
       const suaDichVU: SuaDichVu = { ...this.myForm.value };
-      this.dichVuService.updateDichVu(this.id, suaDichVU).subscribe((response) => {
+      this.dichVuService.updateDichVu(this.id, formData).subscribe((response) => {
         console.log(response);
         this.toastr.success('Sửa dịch vụ thành công', 'Thông báo', {
           timeOut: 1000,
@@ -169,6 +203,23 @@ export class SuaDichVuComponent implements OnInit {
       })
       this.ref.close();
     }
+  }
+  convertTimeStringToHHMM(timeString: string): string {
+    const [hourMinute, period] = timeString.split(' ');
+    let [hour, minute] = hourMinute.split(':').map(Number);
+
+    if (period === 'PM' && hour < 12) {
+      hour += 12;
+    }
+
+    const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+    return formattedTime;
+  }
+
+  convertStringToTimeOnly(timeString: string): string {
+    const [hourStr, minuteStr] = timeString.split(':').map(Number);
+    const formattedTime = `${hourStr.toString().padStart(2, '0')}:${minuteStr.toString().padStart(2, '0')}:00`;
+    return formattedTime;
   }
 
 }

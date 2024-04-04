@@ -1,0 +1,77 @@
+<mat-list>
+  <h1>Hóa đơn - {{ id }}</h1>
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Tên tour:</strong> {{ model?.idDatTour }}
+      </div>
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Khách hàng:</strong> {{ model?.idKhachHang }}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Nhân viên:</strong> {{ model?.idNhanVien }}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Tiền tour:</strong> {{ model?.tongTienTour }}
+      </div>
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Tổng tiền dịch vụ:</strong> {{ model?.tongTienDichVu }}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Tổng:</strong> {{ model?.tongTien }}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Phương thức thanh toán:</strong>
+        {{ model?.phuongThucThanhToan }}
+      </div>
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Tình trạng:</strong> {{ model?.tinhTrang }}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+
+  <mat-list-item>
+    <div class="row">
+      <div class="col-12 col-lg-6 text-nowrap">
+        <strong>Ngày thanh toán:</strong> {{ model?.ngayThanhToan |date: 'dd/MM/yyyy'}}
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <div align="end">
+
+    <button mat-raised-button color="warn" mat-dialog-close class="m-1">Đóng</button>
+    <button
+    mat-raised-button
+    style="background-color: #009628; color: white"
+    class="m-1"
+  >
+    Xuất
+  </button>
+  </div>
+</mat-list>
