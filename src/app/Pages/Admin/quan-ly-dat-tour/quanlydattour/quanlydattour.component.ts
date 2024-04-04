@@ -110,7 +110,7 @@ export class QuanlydattourComponent implements OnInit {
     ]),
     ngaySinh: new FormControl('',
       Validators.required,
-      ),
+    ),
     gioiTinh: new FormControl('',
       Validators.required),
     email: new FormControl('', [
@@ -155,7 +155,7 @@ export class QuanlydattourComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  
+
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -217,6 +217,18 @@ export class QuanlydattourComponent implements OnInit {
       this.TourDuLich = data;
       this.filterTours();
       this.TourDuLich.forEach(element => {
+        this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe({
+          next: (responseTinhSoLuongNguoiConNhan: any) => {
+            if (element) {
+              element.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
+              element.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
+              element.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
+            }
+          },
+          error: (err: any) => {
+            console.error(err);
+          }
+        })
         var urlFirstImgTour = environment.apiBaseUrl + '/uploads/' + element.anhTour[0].imgTour;
         element.AnhTourDauTien = urlFirstImgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);

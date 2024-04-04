@@ -54,7 +54,8 @@
                                             <i class="bi bi-clock"></i> {{item.SoNgayDem}}
                                         </div>
                                         <div class="start_time_tour">
-                                            <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau}}
+                                            <i class="bi bi-calendar-check"></i> {{item.thoiGianBatDau | date:
+                                            "dd/MM/yyyy-hh:mm:ss"}}
                                         </div>
 
                                         <div class="spot_remaining">
