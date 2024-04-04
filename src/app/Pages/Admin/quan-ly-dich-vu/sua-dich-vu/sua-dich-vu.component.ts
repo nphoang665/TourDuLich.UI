@@ -179,10 +179,23 @@ export class SuaDichVuComponent implements OnInit {
   }
 
   suaDichVu(event: Event) {
+     // Chuyển đổi định dạng giờ từ "5:00 PM" hoặc "20:00 AM" sang "HH:mm"
+     const gioBatDauValue = this.convertTimeStringToHHMM(this.myForm.get('gioBatDau')?.value);
+     this.myForm.get('gioBatDau')?.setValue(gioBatDauValue);
+
+     const gioKetThucValue = this.convertTimeStringToHHMM(this.myForm.get('gioKetThuc')?.value);
+     this.myForm.get('gioKetThuc')?.setValue(gioKetThucValue);
+
+     // Gửi yêu cầu đến backend
+     const formData = {
+       ...this.myForm.value,
+       gioBatDau: this.convertStringToTimeOnly(gioBatDauValue),
+       gioKetThuc: this.convertStringToTimeOnly(gioKetThucValue)
+     };
 
     if (this.model && this.id) {
       const suaDichVU: SuaDichVu = { ...this.myForm.value };
-      this.dichVuService.updateDichVu(this.id, suaDichVU).subscribe((response) => {
+      this.dichVuService.updateDichVu(this.id, formData).subscribe((response) => {
         console.log(response);
         this.toastr.success('Sửa dịch vụ thành công', 'Thông báo', {
           timeOut: 1000,
@@ -190,6 +203,23 @@ export class SuaDichVuComponent implements OnInit {
       })
       this.ref.close();
     }
+  }
+  convertTimeStringToHHMM(timeString: string): string {
+    const [hourMinute, period] = timeString.split(' ');
+    let [hour, minute] = hourMinute.split(':').map(Number);
+
+    if (period === 'PM' && hour < 12) {
+      hour += 12;
+    }
+
+    const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+    return formattedTime;
+  }
+
+  convertStringToTimeOnly(timeString: string): string {
+    const [hourStr, minuteStr] = timeString.split(':').map(Number);
+    const formattedTime = `${hourStr.toString().padStart(2, '0')}:${minuteStr.toString().padStart(2, '0')}:00`;
+    return formattedTime;
   }
 
 }
