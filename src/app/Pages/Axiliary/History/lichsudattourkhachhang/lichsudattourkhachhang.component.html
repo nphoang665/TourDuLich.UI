@@ -4,7 +4,7 @@
     <div class="ps-2 pe-2 gx-0 container pt-5">
         <h5>LỊCH SỬ ĐẶT TOUR CỦA BẠN</h5>
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table">
                 <thead>
                     <tr>
                         <th class="col-1">STT</th>
@@ -22,7 +22,8 @@
                     }
                     @else {
                     @for( item of DatTour; track $index ){
-                    <tr class="align-items-center">
+                    <tr
+                        class="align-items-center {{item.tinhTrang === 'table-success' ? 'status-paid' : item.tinhTrang === 'Đang đợi duyệt' ? 'table-warning' : item.tinhTrang === 'Khách hàng hủy' ? 'table-danger' : 'table-success'}}">
                         <td class="align-items-center"><b>{{$index +1}}</b></td>
                         <td class="align-items-center">{{item.idDatTour}}</td>
                         @if(item.TourDuLich){
@@ -30,41 +31,40 @@
                         }
                         <td class="align-items-center">{{item.thoiGianDatTour | date: "dd/MM/yyyy-hh:mm:ss"}}</td>
                         @if(item.tinhTrang ==='Đã thanh toán'){
-                        <td class="d-flex align-items-center justify-content-between">
+                        <td class="d-flex align-items-center">
                             <span class="badge bg-success">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
                                 <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
                                 <mat-icon hidden svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
                             </div>
                         </td>
                         }
                         @else if(item.tinhTrang ==='Đang đợi duyệt'){
-                        <td class="d-flex align-items-center justify-content-between">
+                        <td class="d-flex align-items-center">
                             <span class="badge bg-warning">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
                                 <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
                                 <mat-icon svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
                             </div>
                         </td>
                         }
                         @else if(item.tinhTrang ==='Khách hàng hủy'){
-                        <td class="d-flex align-items-center justify-content-between">
+                        <td class="d-flex align-items-center">
                             <span class="badge bg-danger">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
                                 <mat-icon svgIcon="icon_eye" class="me-2 ms-1"></mat-icon>
                                 <mat-icon hidden svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
                             </div>
                         </td>
                         }
                         @else{
-                        <td class="d-flex align-items-center justify-content-between">
+                        <td class="d-flex align-items-center">
                             <span class="badge bg-info">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
                                 <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
                                 <mat-icon style="height: 100%;" svgIcon="icon_close" class=""
                                     (click)="huyDatTour(item.idDatTour)"></mat-icon>
                             </div>
-
                         </td>
                         }
                     </tr>

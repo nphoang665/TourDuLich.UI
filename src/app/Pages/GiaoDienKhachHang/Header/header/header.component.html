@@ -36,6 +36,8 @@
                             <mat-menu #menu="matMenu" style="z-index: 10000;">
                                 <button mat-menu-item><mat-icon svgIcon="icon_User"></mat-icon> Thông tin cá
                                     nhân</button>
+                                <button mat-menu-item routerLink="/lichsudattour"><mat-icon
+                                        svgIcon="icon_History"></mat-icon> Lịch sử đặt tour</button>
                                 <button mat-menu-item (click)="onLogout()"> <mat-icon svgIcon="icon_Logout"></mat-icon>
                                     Đăng xuất</button>
                             </mat-menu>
@@ -75,7 +77,7 @@
         <div class="right_medium_second_header ">
 
             <ul class="desktop_hide">
-                <li class="mobile_block" hidden>
+                <li class="mobile_block">
                     <div class="box align-items-center d-flex">
                         <input type="text" placeholder="Tìm kiếm...">
                         <span class="align-items-center">
@@ -85,10 +87,10 @@
                     </div>
                 </li>
                 <li routerLink="/trangchu"><a class="item_medium_second_header">Trang chủ</a></li>
-                <li routerLink="/lienhe" hidden><a class="item_medium_second_header">Liên hệ</a></li>
+                <li routerLink="/lienhe"><a class="item_medium_second_header">Liên hệ</a></li>
                 <li routerLink="/dattour/tatca"><a class="item_medium_second_header">Đặt tour</a></li>
                 <li routerLink="/diemden"><a class="item_medium_second_header">Điểm đến</a></li>
-                <li routerLink="/lichsudattour"><a class="item_medium_second_header">Lịch sử</a></li>
+                <!-- <li routerLink="/lichsudattour"><a class="item_medium_second_header">Lịch sử</a></li> -->
 
             </ul>
             <ul class="mobile_hide">
