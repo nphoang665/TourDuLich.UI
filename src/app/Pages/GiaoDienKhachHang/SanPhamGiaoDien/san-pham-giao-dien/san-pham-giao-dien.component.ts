@@ -10,6 +10,7 @@ import { EventEmitter } from '@angular/core';
 import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 import { Observable } from 'rxjs';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
+import { now } from 'moment';
 
 
 // Định nghĩa metadata cho component
@@ -56,14 +57,16 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
   async LayTour() {
     // Gọi hàm getAllTourDuLich từ dịch vụ QuanLyTourService để lấy danh sách tất cả tour du lịch
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+    let now = new Date();
     if (data) {
       // Gán dữ liệu nhận được từ server cho mảng TourDuLich
-      this.TourDuLich = data;
+      this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
       // Khởi tạo object tourCounts để lưu trữ số lượng tour của mỗi loại
       let tourCounts: { [key: string]: number } = {};
 
       // Duyệt qua mỗi phần tử trong mảng TourDuLich
       this.TourDuLich.forEach(element => {
+
         // Gọi hàm getTourDuLichById từ dịch vụ QuanLyTourService để lấy thông tin chi tiết của tour
         this.quanLyTourServices.getTourDuLichById(element.idTour).subscribe((data: TourDuLich) => {
           // Gán đường dẫn hình ảnh đầu tiên cho tour
