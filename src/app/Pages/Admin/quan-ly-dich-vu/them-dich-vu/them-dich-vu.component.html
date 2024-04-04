@@ -47,13 +47,16 @@
     </mat-form-field>
     <!-- <mat-form-field> -->
     <br>
-    <mat-label>Giờ bắt đầu</mat-label>
-    <input matInput id='element' formControlName="gioBatDau" />
-    <!-- </mat-form-field> -->
-    <!-- <mat-form-field> -->
-    <mat-label>Giờ kết thúc</mat-label>
-    <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
-    <!-- </mat-form-field> -->
+    <div class="row">
+      <div style="margin: 1%; width: 48%;">
+        <mat-label>Giờ bắt đầu</mat-label>
+          <input matInput id='element' formControlName="gioBatDau" />
+      </div>
+      <div style="margin: 1%; width: 48%;">
+        <mat-label>Giờ kết thúc</mat-label>
+        <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+      </div>
+    </div>
 
   </div>
   <div mat-dialog-actions align="end">

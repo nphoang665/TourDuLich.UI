@@ -9,17 +9,38 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-sua-dich-vu',
   templateUrl: './sua-dich-vu.component.html',
-  styleUrl: './sua-dich-vu.component.css'
+  styleUrl: './sua-dich-vu.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class SuaDichVuComponent implements OnInit {
   isEditing: boolean = false;
@@ -33,7 +54,7 @@ export class SuaDichVuComponent implements OnInit {
     tinhTrang: new FormControl(''),
     gioBatDau: new FormControl(''),
     gioKetThuc: new FormControl(''),
-    ngayThem: new FormControl(new Date()),
+    ngayThem: new FormControl(moment(new Date())),
     
   })
   get tenDichVu(){
