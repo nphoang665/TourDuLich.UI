@@ -130,7 +130,7 @@ export class QuanlydattourComponent implements OnInit {
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-        Validators.pattern('^[0-12]*$')
+       
         //Validators.pattern(/^(0|[1-9][0-9]*)$/),
       ],
       asyncValidators: [this.checkCCCD()],

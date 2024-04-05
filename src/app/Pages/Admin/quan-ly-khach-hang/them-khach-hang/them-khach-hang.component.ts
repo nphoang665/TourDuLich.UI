@@ -81,8 +81,9 @@ export class ThemKhachHangComponent implements OnInit{
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
     }),
-    ngaySinh: new FormControl(moment(new Date('01/01/2000')),
-    Validators.required),
+    ngaySinh: new FormControl(moment(new Date('01/01/2000')),[
+    Validators.required,
+    this.kiemLoiTuoiPhaiLonHon18()]),
     gioiTinh: new FormControl('',
     Validators.required),
     email: new FormControl('',{
@@ -174,9 +175,15 @@ checkEmail(): AsyncValidatorFn {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  
-
-
+  kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const ngayChonTuInput = new Date(control.value);
+      const ngayHienTai = new Date();
+      ngayHienTai.setHours(0, 0, 0, 0);
+      const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+      return tuoi < 18 ? { 'ageInvalid': true } : null;
+    };
+  }
   constructor(
     private quanlyKhachHangService:KhachhangService, 
     private route:Router, 

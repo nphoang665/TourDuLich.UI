@@ -74,8 +74,9 @@ export class ThemNhanVienComponent implements OnInit{
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
     }),
-    ngaySinh:new FormControl(moment(new Date('01/01/2000')),
-    Validators.required),
+    ngaySinh:new FormControl(moment(new Date('01/01/2000')),[
+    Validators.required,
+    this.kiemLoiTuoiPhaiLonHon18()]),
     email:new FormControl('',{
       validators:[
       Validators.required,
@@ -138,7 +139,7 @@ export class ThemNhanVienComponent implements OnInit{
         }
     };
 }
-checkSDT(): AsyncValidatorFn {
+  checkSDT(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
       if (control.value.length === 10) {
           return this.quanLyNhanVienService.checkSDTCuaNhanVien(control.value).toPromise().then(data => {
@@ -152,7 +153,7 @@ checkSDT(): AsyncValidatorFn {
       }
   };
 }
-checkEmail(): AsyncValidatorFn {
+  checkEmail(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
       if (control.value.length >=16) {
           return this.quanLyNhanVienService.checkEmailCuaNhanVien(control.value).toPromise().then(data => {
@@ -164,6 +165,15 @@ checkEmail(): AsyncValidatorFn {
       } else {
           return Promise.resolve(null);
       }
+  };
+}
+kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const ngayChonTuInput = new Date(control.value);
+    const ngayHienTai = new Date();
+    ngayHienTai.setHours(0, 0, 0, 0);
+    const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+    return tuoi < 18 ? { 'ageInvalid': true } : null;
   };
 }
   constructor (

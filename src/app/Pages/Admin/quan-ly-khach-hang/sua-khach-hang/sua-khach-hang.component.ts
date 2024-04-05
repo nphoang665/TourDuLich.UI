@@ -155,6 +155,15 @@ checkEmail(): AsyncValidatorFn {
       }
   };
 }
+kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const ngayChonTuInput = new Date(control.value);
+    const ngayHienTai = new Date();
+    ngayHienTai.setHours(0, 0, 0, 0);
+    const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+    return tuoi < 18 ? { 'ageInvalid': true } : null;
+  };
+}
   model?:KhachHang;
 
   id?:string | null = null;
@@ -214,8 +223,9 @@ checkEmail(): AsyncValidatorFn {
         asyncValidators: [this.checkCCCD()],
         updateOn: 'change'
       }),
-      ngaySinh: new FormControl(this.model?.ngaySinh,
-        Validators.required),
+      ngaySinh: new FormControl(this.model?.ngaySinh,[
+        Validators.required,
+        this.kiemLoiTuoiPhaiLonHon18()]),
       gioiTinh: new FormControl(this.model?.gioiTinh,
         Validators.required),
       email: new FormControl(this.model?.email,{

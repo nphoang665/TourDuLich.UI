@@ -64,13 +64,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     soLuongNguoiLon: new FormControl(1, [
       Validators.required,
       Validators.min(0),
-      Validators.max(50),
+      Validators.max(100),
 
     ]),
     soLuongTreEm: new FormControl(1, [
       Validators.required,
       Validators.min(0),
-      Validators.max(50),
+      Validators.max(100),
 
     ]),
     thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
@@ -89,7 +89,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.maxLength(50),
       
     ]),
-    soChoConNhan: new FormControl(2),
+    soChoConNhan: new FormControl(''),
     idDoiTac: new FormControl('',
       Validators.required),
     giaTreEm: new FormControl('', [
@@ -182,7 +182,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       return {'ngayKetThucInvalid': true};
     }
   }
-
+  
 
   private addTourSubscribtion?: Subscription;
 

@@ -5,13 +5,13 @@
       <mat-label>Tên nhân viên</mat-label>
       <input matInput formControlName="tenNhanVien" [errorStateMatcher]="matcher"/>
       @if (tenNhanVien?.errors?.['required']) {
-        <mat-error>Vui lòng nhập họ và tên nhân viên</mat-error>
+        <mat-error>Họ và tên không được để trống</mat-error>
         } 
       @else if (tenNhanVien?.errors?.['minlength']) {
         <mat-error>Họ và tên nhân viên quá ngắn</mat-error>
         }
       @else if (tenNhanVien?.errors?.['maxlength']) {
-        <mat-error>Họ và tên nhân viên quá ngắn quá dài</mat-error>
+        <mat-error>Họ và tên nhân viên quá dài</mat-error>
         }
       @else if (tenNhanVien?.errors?.['invalidChar']) {
         <mat-error>Họ và tên nhân viên quá ngắn không chứa ký tự đặc biệt & số</mat-error>
@@ -22,13 +22,13 @@
       <mat-label>Số điện thoại</mat-label>
       <input type="text" maxlength="10" matInput formControlName="soDienThoai" [errorStateMatcher]="matcher"/>
       @if (soDienThoai?.errors?.['required']) {
-        <mat-error>Vui lòng nhập số điện thoại</mat-error>
+        <mat-error>Số điện thoại không được để trống</mat-error>
         } 
       @else if (soDienThoai?.errors?.['minlength']) {
-        <mat-error>Số điện thoại không đúng</mat-error>
+        <mat-error>Số điện thoại không hợp lệ</mat-error>
         }
       @else if (soDienThoai?.errors?.['maxlength']) {
-          <mat-error>Số điện thoại không đúng</mat-error>
+          <mat-error>Số điện thoại không hợp lệ</mat-error>
         }
       @else if (soDienThoai?.errors?.['invalidSDT']) {
           <mat-error>Số điện thoại đã tồn tại</mat-error>
@@ -42,13 +42,13 @@
       <mat-label>CCCD</mat-label>
       <input type="text" maxlength="12" matInput formControlName="cccd" [errorStateMatcher]="matcher"/>
       @if (cccd?.errors?.['required']) {
-        <mat-error>Vui lòng nhập CCCD</mat-error>
+        <mat-error>CCCD không được để trống</mat-error>
         } 
       @else if (cccd?.errors?.['minlength']) {
-        <mat-error>CCCD quá ngắn</mat-error>
+        <mat-error>CCCD không hợp lệ</mat-error>
         }
       @else if (cccd?.errors?.['maxlength']) {
-          <mat-error>CCCD quá dài</mat-error>
+          <mat-error>CCCD không hợp lệ</mat-error>
         }
       @else if(cccd?.errors?.['invalidCCCD']){
           <mat-error>Căn cước công dân đã tồn tại</mat-error>
@@ -62,7 +62,10 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (ngaySinh?.errors?.['required']) {
-        <mat-error>Vui lòng nhập ngày/tháng/năm sinh</mat-error>
+        <mat-error>Ngày sinh không được để trống</mat-error>
+        }
+      @else if (ngaySinh?.errors?.['ageInvalid']) {
+        <mat-error>Nhân viên phải lớn hơn 18 tuổi</mat-error>
         }
     </mat-form-field>
 
@@ -74,7 +77,7 @@
           <mat-option value="Nữ">Nữ</mat-option>
       </mat-select>
       @if (gioiTinh?.errors?.['required']) {
-        <mat-error>Vui lòng chọn giới tính</mat-error>
+        <mat-error>Giới tính không được để trống</mat-error>
         }
   </mat-form-field>
 
@@ -85,13 +88,13 @@
       <input matInput type="email" [errorStateMatcher]="matcher"
          formControlName="email">
          @if (email?.errors?.['required']) {
-          <mat-error>Vui lòng nhập email</mat-error>
+          <mat-error>Email không được để trống</mat-error>
           } 
         @else if (email?.errors?.['minlength']) {
-          <mat-error>Email không đúng</mat-error>
+          <mat-error>Email không hợp lệ</mat-error>
           }
         @else if (email?.errors?.['maxlength']) {
-            <mat-error>Email không đúng</mat-error>
+            <mat-error>Email không hợp lệ</mat-error>
           }
         @else if (email?.errors?.['pattern']) {
             <mat-error>Email không hợp lệ</mat-error>
@@ -105,13 +108,13 @@
     <mat-label>Địa chỉ</mat-label>
     <input matInput id="diaChi" name="diaChi" formControlName="diaChi" [errorStateMatcher]="matcher"/>
     @if (diaChi?.errors?.['required']) {
-      <mat-error>Vui lòng nhập địa chỉ</mat-error>
+      <mat-error>Địa chỉ không được để trống</mat-error>
       } 
     @else if (diaChi?.errors?.['minlength']) {
-      <mat-error>Địa chỉ quá ngắn</mat-error>
+      <mat-error>Địa chỉ không hợp lệ</mat-error>
       }
     @else if (diaChi?.errors?.['maxlength']) {
-        <mat-error>Địa chỉ quá dài</mat-error>
+      <mat-error>Địa chỉ không hợp lệ</mat-error>
       }
 </mat-form-field>
 <mat-form-field>

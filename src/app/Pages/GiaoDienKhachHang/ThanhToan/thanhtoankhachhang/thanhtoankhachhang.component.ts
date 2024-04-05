@@ -290,7 +290,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-        Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
@@ -342,35 +342,41 @@ export class ThanhtoankhachhangComponent implements OnInit {
     };
   }
   checkCCCD(): AsyncValidatorFn {
+    
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 12) {
-          var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
-        if(NguoiDung && NguoiDung.idKhachHang !=''){
-        if(control.value != NguoiDung?.soDienThoai){
-            return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidCCCD': true } : null;
-            }).catch(err => {
-                console.error(err);
-                return null;
-            });
-          }
-        }
-        if(!NguoiDung){
+  console.log('cccd');
+  
+    
+      if (control.value.length === 12) {
+      var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
+      if(NguoiDung && NguoiDung.idKhachHang !=''){
+        if(control.value != NguoiDung?.cccd){
           return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
-            return data ? { 'invalidCCCD': true } : null;
-        }).catch(err => {
-            console.error(err);
-            return null;
-        });
-        }
+              return data ? { 'invalidCCCD': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+         }
+      }
+      if(!NguoiDung){
+        return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidCCCD': true } : null;
+      }).catch(err => {
+          console.error(err);
+          return null;
+      });
+      }
+        return Promise.resolve(null);
+      } else {
           return Promise.resolve(null);
-        } else {
-            return Promise.resolve(null);
-        }
-    };
+      }
+  };
 }
 checkSDT(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
+  
+    
       if (control.value.length === 10) {
       var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
       if(NguoiDung && NguoiDung.idKhachHang !=''){
@@ -402,7 +408,7 @@ checkEmail(): AsyncValidatorFn {
       if (control.value.length >=10) {
         var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
       if(NguoiDung && NguoiDung.idKhachHang !=''){
-        if(control.value != NguoiDung?.soDienThoai){
+        if(control.value != NguoiDung?.email){
         
           return this.KhachhangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
               return data ? { 'invalidEmail': true } : null;
