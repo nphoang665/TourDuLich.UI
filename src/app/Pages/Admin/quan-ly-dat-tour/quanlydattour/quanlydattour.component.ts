@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
 import { KhachhangService } from '../../services/KhachHang/khachhang.service';
 import { DattourService } from '../../services/DatTour/dattour.service';
@@ -109,35 +109,48 @@ export class QuanlydattourComponent implements OnInit {
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
-    soDienThoai: new FormControl('', [
+    soDienThoai: new FormControl('', {
+      validators:[
       Validators.required,
       Validators.minLength(10),
-      Validators.maxLength(10),
-
-    ]),
+      Validators.maxLength(10), 
+      Validators.pattern(/^(0[0-9]{9})$/)
+    ],
+    asyncValidators: [this.checkSDT()],
+    updateOn:'change'
+  }),
     diaChi: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
 
     ]),
-    cccd: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(16),
-
-    ]),
-    ngaySinh: new FormControl(moment(),
+    cccd: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.minLength(12),
+        Validators.pattern('^[0-12]*$')
+        //Validators.pattern(/^(0|[1-9][0-9]*)$/),
+      ],
+      asyncValidators: [this.checkCCCD()],
+      updateOn: 'change'
+    }),
+    ngaySinh: new FormControl('',
       Validators.required,
     ),
     gioiTinh: new FormControl('',
       Validators.required),
-    email: new FormControl('', [
+    email: new FormControl('',{
+      validators:[
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50),
-
-    ]),
+      Validators.maxLength(50), 
+      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+    ],
+    asyncValidators: [this.checkEmail()],
+    updateOn: 'change'
+  }),
     tinhTrang: new FormControl('Đang hoạt động'),
   });
   get tenKhachHang() {
@@ -174,7 +187,48 @@ export class QuanlydattourComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-
+  checkSDT(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 10) {
+            return this.quanLyKhachHangServices.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+                return data ? { 'invalidSDT': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+  }
+  checkCCCD(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+        if (control.value.length === 12) {
+            return this.quanLyKhachHangServices.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+                return data ? { 'invalidCCCD': true } : null;
+            }).catch(err => {
+                console.error(err);
+                return null;
+            });
+        } else {
+            return Promise.resolve(null);
+        }
+    };
+}
+checkEmail(): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >=10) {
+          return this.quanLyKhachHangServices.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+          }).catch(err => {
+              console.error(err);
+              return null;
+          });
+      } else {
+          return Promise.resolve(null);
+      }
+  };
+}
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,

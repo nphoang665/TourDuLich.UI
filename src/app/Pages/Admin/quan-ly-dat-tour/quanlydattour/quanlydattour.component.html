@@ -460,11 +460,17 @@
                                 <mat-error>Vui lòng nhập số điện thoại</mat-error>
                                 }
                                 @else if (soDienThoai?.errors?.['minlength']) {
-                                <mat-error>Số điện thoại quá ngắn</mat-error>
+                                <mat-error>Số điện thoại không đúng</mat-error>
                                 }
                                 @else if (soDienThoai?.errors?.['maxlength']) {
                                 <mat-error>Số điện thoại không đúng định dạng</mat-error>
                                 }
+                                @else if (soDienThoai?.errors?.['invalidSDT']) {
+                                <mat-error>Số điện thoại đã tồn tại</mat-error>
+                                } 
+                                @else if (soDienThoai?.errors?.['pattern']) {
+                                <mat-error>Số điện thoại phải bắt đầu bằng số 0</mat-error>
+                                } 
                             </mat-form-field>
 
 
@@ -478,10 +484,10 @@
                                 <mat-error>Vui lòng nhập địa chỉ</mat-error>
                                 }
                                 @else if (diaChi?.errors?.['minlength']) {
-                                <mat-error>Địa chỉ quá ngắn</mat-error>
+                                <mat-error>Địa chỉ không đúng</mat-error>
                                 }
                                 @else if (diaChi?.errors?.['maxlength']) {
-                                <mat-error>Địa chỉ quá dài</mat-error>
+                                <mat-error>Địa chỉ không đúng</mat-error>
                                 }
                             </mat-form-field>
 
@@ -490,16 +496,19 @@
                             <mat-form-field class="col-lg-4">
                                 <mat-label>CCCD</mat-label>
                                 <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..."
-                                    (input)="TypingKhachHang()" type="number" formControlName="cccd"
+                                    (input)="TypingKhachHang()" type="text" maxlength="12" formControlName="cccd"
                                     [errorStateMatcher]="matcher">
                                 @if (cccd?.errors?.['required']) {
                                 <mat-error>Vui lòng nhập CCCD</mat-error>
                                 }
                                 @else if (cccd?.errors?.['minlength']) {
-                                <mat-error>CCCD quá ngắn</mat-error>
+                                <mat-error>CCCD không đúng</mat-error>
                                 }
                                 @else if (cccd?.errors?.['maxlength']) {
-                                <mat-error>CCCD quá dài</mat-error>
+                                <mat-error>CCCD không đúng</mat-error>
+                                }
+                                @else if(cccd?.errors?.['invalidCCCD']){
+                                <mat-error>Căn cước công dân đã tồn tại</mat-error>
                                 }
                             </mat-form-field>
 
@@ -540,10 +549,16 @@
                                 <mat-error>Vui lòng nhập email</mat-error>
                                 }
                                 @else if (email?.errors?.['minlength']) {
-                                <mat-error>Email quá ngắn</mat-error>
+                                <mat-error>Email không đúng</mat-error>
                                 }
                                 @else if (email?.errors?.['maxlength']) {
-                                <mat-error>Email quá dài</mat-error>
+                                <mat-error>Email không đúng</mat-error>
+                                }
+                                @else if (email?.errors?.['pattern']) {
+                                <mat-error>Email không hợp lệ</mat-error>
+                                }
+                                @else if (email?.errors?.['invalidEmail']) {
+                                <mat-error>Email đã tồn tại</mat-error>
                                 }
                             </mat-form-field>
 
