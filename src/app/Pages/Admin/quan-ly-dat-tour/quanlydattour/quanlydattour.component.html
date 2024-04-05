@@ -65,14 +65,14 @@
                                             <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}} đ</span>
                                         </div>
                                         <div class="btn_bothBuy row gx-2">
-                                            <div class="col-sm-6 mt-1">
+                                            <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
                                                 <button type="button" class="btn_DatTour equal w-100"
                                                     data-bs-toggle="modal" data-bs-target="#datTourModal"
                                                     (click)="LayTourDuLich(item.idTour)">
                                                     Đặt tour
                                                 </button>
                                             </div>
-                                            <div class="col-sm-6 mt-1">
+                                            <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
                                                 <button type="button" class="btn_ThanhToan equal w-100"
                                                     data-bs-toggle="modal" data-bs-target="#thanhToanModal"
                                                     (click)="LayThanhToanTourDuLich(item.idTour)">
@@ -80,6 +80,14 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="btn_bothBuy row gx-2 justify-content-center"> 
+                                            <div *ngIf="item.tinhTrang === 'Tạm hoãn'" class="col-sm-12 mt-2 d-flex justify-content-center">
+                                                <button type="button" class="btn_DatTour equal" style="margin: 0 auto;" disabled>
+                                                    Tour này đang tạm hoãn
+                                                </button>
+                                            </div>                                           
+                                        </div>
+                                        
                                     </div>
 
                                 </div>

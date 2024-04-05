@@ -74,9 +74,6 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   get noiKhoiHanh() {
     return this.suaTourForm.get('noiKhoiHanh');
   }
-  get soChoConNhan() {
-    return this.suaTourForm.get('soChoConNhan');
-  }
   get idDoiTac() {
     return this.suaTourForm.get('idDoiTac');
   }
@@ -262,12 +259,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         Validators.maxLength(50),
 
       ]),
-      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0, [
-        Validators.required,
-        Validators.min(2),
-        Validators.max(50),
-
-      ]),
+      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0),
       idDoiTac: new FormControl(this.model?.idDoiTac || '',
         Validators.required),
       giaTreEm: new FormControl(this.model?.giaTreEm || 0, [
