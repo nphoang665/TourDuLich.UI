@@ -189,7 +189,6 @@ export class QuanlydattourComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private nhanvienServices: NhanVienService,
-    public dialog: MatDialog
     // public dialogRef: MatDialogRef<QuanlydattourComponent>,
   ) {
     var ngayGioHienTai = new Date();
