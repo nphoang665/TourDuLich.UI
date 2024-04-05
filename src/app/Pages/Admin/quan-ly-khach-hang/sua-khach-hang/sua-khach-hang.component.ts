@@ -92,26 +92,46 @@ export class SuaKhachHangComponent implements OnInit {
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
         if (control.value.length === 12) {
+          //nếu id khách hàng có cccd hiện tại khác nhau
+
+          //
+            if(control.value !=this.model?.cccd){
+//
+           
             return this.quanLyKhachHangSerice.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
                 return data ? { 'invalidCCCD': true } : null;
             }).catch(err => {
                 console.error(err);
                 return null;
             });
+          //
+          }
+            return Promise.resolve(null);
+            //
         } else {
             return Promise.resolve(null);
         }
     };
 }
+
+//check số điện thoại cho phép trùng với id khách hàng đó
 checkSDT(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
       if (control.value.length === 10) {
+        //lấy được id khách hàng
+          if(control.value != this.model?.soDienThoai){
+         
+          
+        
           return this.quanLyKhachHangSerice.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
               return data ? { 'invalidSDT': true } : null;
           }).catch(err => {
               console.error(err);
               return null;
           });
+        }
+        return Promise.resolve(null);
+
       } else {
           return Promise.resolve(null);
       }
@@ -119,13 +139,17 @@ checkSDT(): AsyncValidatorFn {
 }
 checkEmail(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=16) {
+      if (control.value.length >=10) {
+        if(control.value !=this.model?.email){
+
           return this.quanLyKhachHangSerice.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
               return data ? { 'invalidEmail': true } : null;
           }).catch(err => {
               console.error(err);
               return null;
           });
+        }
+        return Promise.resolve(null);
       } else {
           return Promise.resolve(null);
       }
