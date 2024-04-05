@@ -68,7 +68,7 @@
                         <!-- CCCD -->
                         <mat-form-field class="m-0">
                             <mat-label for="inputCCCD">CCCD</mat-label>
-                            <input matInput type="number" [errorStateMatcher]="matcher" formControlName="CCCD"
+                            <input matInput type="text" [errorStateMatcher]="matcher" formControlName="CCCD"
                                 id="inputCCCD" placeholder="Nhập CCCD của bạn">
                             @if (CCCD?.errors?.['required']) {
                             <mat-error>Vui lòng nhập CCCD</mat-error>
@@ -111,11 +111,11 @@
                             <mat-error>Email không đúng</mat-error>
                             }
                             @else if (Email?.errors?.['pattern']) {
-                                <mat-error>Email không hợp lệ</mat-error>
-                              }
-                              @else if (Email?.errors?.['invalidEmail']) {
-                                <mat-error>Email đã tồn tại</mat-error>
-                              }
+                            <mat-error>Email không hợp lệ</mat-error>
+                            }
+                            @else if (Email?.errors?.['invalidEmail']) {
+                            <mat-error>Email đã tồn tại</mat-error>
+                            }
                         </mat-form-field>
 
                         <!-- Địa chỉ -->
