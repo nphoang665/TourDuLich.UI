@@ -1,4 +1,4 @@
-import { Component, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
@@ -80,7 +80,8 @@ export class QuanlydattourComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
-
+  @ViewChild('myModal') myModal?: ElementRef;
+  @ViewChild('myModal1') myModal1?: ElementRef;
   mauButton = 0;
 
   selectedStatus: string = '';
@@ -491,7 +492,16 @@ export class QuanlydattourComponent implements OnInit {
           if (this.TongDichVu_Db.length > 0) {
             this.onThemDichVuChiTiet(response);
           }
-
+          const closeButton = this.myModal1?.nativeElement.querySelector('.closee');
+          if (closeButton) {
+            closeButton.click();
+          }
+          this.myForm.reset();
+          this.KhachHang.reset();
+          this.GhiChu_DatTour='';
+          this.TongDichVu=[];
+          this.SoLuongNguoiLon_DatTour=0,
+          this.SoLuongTreEm_DatTour=0;
 
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,
@@ -694,7 +704,10 @@ export class QuanlydattourComponent implements OnInit {
               this.thanhToanService.thanhToan(thanhToanData)
                 .subscribe({
                   next: (response) => {
-                    this.router.navigateByUrl('/quanLyDatTour'),
+                    const closeButton = this.myModal?.nativeElement.querySelector('.btn-secondary');
+                    if (closeButton) {
+                      closeButton.click();
+                    }
                       this.toastr.success('Thanh toán thành công', 'Thông báo', {
                         timeOut: 1000,
                       });
@@ -706,10 +719,7 @@ export class QuanlydattourComponent implements OnInit {
                     });
                   }
                 })
-            }
-            this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
-              timeOut: 1000,
-            });
+            }        
           },
           error: (err) => {
             this.toastr.error('Sửa đặt tour thất bại', 'Thông báo', {
