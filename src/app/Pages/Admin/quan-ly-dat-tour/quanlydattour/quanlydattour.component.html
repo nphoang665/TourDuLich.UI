@@ -78,7 +78,7 @@
                                                     Đặt tour
                                                 </button>
                                             </div>
-                                            <div class="col-sm-6 mt-1">
+                                            <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
                                                 <button type="button" class="btn_ThanhToan equal w-100"
                                                     data-bs-toggle="modal" data-bs-target="#thanhToanModal"
                                                     (click)="LayThanhToanTourDuLich(item.idTour)">
@@ -86,6 +86,16 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="btn_bothBuy row gx-2 justify-content-center">
+                                            <div *ngIf="item.tinhTrang === 'Tạm hoãn'"
+                                                class="col-sm-12 mt-2 d-flex justify-content-center">
+                                                <button type="button" class="btn_DatTour equal" style="margin: 0 auto;"
+                                                    disabled>
+                                                    Tour này đang tạm hoãn
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -322,10 +332,12 @@
                         <mat-list-item>
                             <div class="row">
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau}}
+                                    <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau | date:'dd/MM/yyyy
+                                    hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc}}
+                                    <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc | date:'dd/MM/yyyy
+                                    hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Nơi khởi hành:</strong> {{model.noiKhoiHanh}}
@@ -357,7 +369,7 @@
                                     <strong>Giá người lớn:</strong> {{model.giaNguoiLon}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Ngày thêm:</strong> {{model.ngayThem}}
+                                    <strong>Ngày thêm:</strong> {{model.ngayThem | date:'dd/MM/yyyy'}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Dịch vụ đi kèm:</strong> {{model.dichVuDiKem}}
@@ -469,7 +481,6 @@
                             </mat-form-field>
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Số điện thoại</mat-label>
-                                <span matTextPrefix>+84 &nbsp;</span>
                                 <input type="tel" maxlength="10" minlength="10" matInput placeholder="033-233-1231"
                                     (input)="TypingKhachHang()" formControlName="soDienThoai"
                                     [errorStateMatcher]="matcher">

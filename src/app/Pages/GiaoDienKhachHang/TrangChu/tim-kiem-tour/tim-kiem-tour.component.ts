@@ -4,14 +4,36 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { Observable, map, startWith } from 'rxjs';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-tim-kiem-tour',
   templateUrl: './tim-kiem-tour.component.html',
-  styleUrl: './tim-kiem-tour.component.css'
+  styleUrl: './tim-kiem-tour.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class TimKiemTourComponent implements OnInit {
   NoiDen = new FormControl();
+  ngayDi = new FormControl(moment())
   options: TourDuLich[] = []; // Danh sách các tùy chọn cho autocomplete
   filteredOptions!: Observable<TourDuLich[]>;
 

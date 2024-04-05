@@ -93,12 +93,15 @@ export class SuaNhanVienComponent implements OnInit{
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
         if (control.value.length === 12) {
+          if(control.value !=this.model?.cccd){
             return this.quanLyNhanVien.checkCCCDCuaNhanVien(control.value).toPromise().then(data => {
                 return data ? { 'invalidCCCD': true } : null;
             }).catch(err => {
                 console.error(err);
                 return null;
             });
+          }
+          return Promise.resolve(null);
         } else {
             return Promise.resolve(null);
         }
@@ -107,12 +110,15 @@ export class SuaNhanVienComponent implements OnInit{
 checkSDT(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
       if (control.value.length === 10) {
+        if(control.value != this.model?.soDienThoai){
           return this.quanLyNhanVien.checkSDTCuaNhanVien(control.value).toPromise().then(data => {
               return data ? { 'invalidSDT': true } : null;
           }).catch(err => {
               console.error(err);
               return null;
           });
+        }
+        return Promise.resolve(null);
       } else {
           return Promise.resolve(null);
       }
@@ -120,13 +126,16 @@ checkSDT(): AsyncValidatorFn {
 }
 checkEmail(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=16) {
+      if (control.value.length >=10) {
+        if(control.value !=this.model?.email){
           return this.quanLyNhanVien.checkEmailCuaNhanVien(control.value).toPromise().then(data => {
               return data ? { 'invalidEmail': true } : null;
           }).catch(err => {
               console.error(err);
               return null;
           });
+        }
+        return Promise.resolve(null);
       } else {
           return Promise.resolve(null);
       }

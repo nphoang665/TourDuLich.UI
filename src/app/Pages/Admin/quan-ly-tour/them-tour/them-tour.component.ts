@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { themTour } from '../../models/them-tour.model';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -11,17 +11,37 @@ import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-them-tour',
   templateUrl: './them-tour.component.html',
-  styleUrl: './them-tour.component.css'
+  styleUrl: './them-tour.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemTourComponent implements OnInit, OnDestroy {
   submitted = false;
@@ -41,45 +61,47 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required),
     moTa: new FormControl('',
       Validators.required),
-    soLuongNguoiLon: new FormControl(0, [
+    soLuongNguoiLon: new FormControl(1, [
       Validators.required,
       Validators.min(0),
       Validators.max(50),
 
     ]),
-    soLuongTreEm: new FormControl(0, [
+    soLuongTreEm: new FormControl(1, [
       Validators.required,
       Validators.min(0),
       Validators.max(50),
 
     ]),
-    thoiGianBatDau: new FormControl('',
-      Validators.required),
-    thoiGianKetThuc: new FormControl('',
-      Validators.required),
+    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
+        Validators.required,
+       this.kiemLoiNgayNhoHonHienTai(),
+       this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
+    ]
+   ),
+    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
+      Validators.required,
+      this.kiemLoiNgayNhoHonHienTai(),
+      this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
     noiKhoiHanh: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(50)
+      Validators.maxLength(50),
+      
     ]),
-    soChoConNhan: new FormControl(0, [
-      Validators.required,
-      Validators.min(2),
-      Validators.max(50),
-
-    ]),
+    soChoConNhan: new FormControl(2),
     idDoiTac: new FormControl('',
       Validators.required),
-    giaTreEm: new FormControl(0, [
+    giaTreEm: new FormControl('', [
       Validators.required,
       Validators.min(0),
-      Validators.max(1000000),
+      Validators.max(10000000),
 
     ]),
-    giaNguoiLon: new FormControl(0, [
+    giaNguoiLon: new FormControl('', [
       Validators.required,
       Validators.min(0),
-      Validators.max(1000000),
+      Validators.max(10000000),
 
     ]),
     ngayThem: new FormControl(new Date()),
@@ -118,9 +140,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   get noiKhoiHanh() {
     return this.ThemTourForm.get('noiKhoiHanh');
   }
-  get soChoConNhan() {
-    return this.ThemTourForm.get('soChoConNhan');
-  }
   get idDoiTac() {
     return this.ThemTourForm.get('idDoiTac');
   }
@@ -144,6 +163,24 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  kiemLoiNgayNhoHonHienTai(): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayChonTuInput = new Date(control.value);
+      const ngayHienTai = new Date();
+      ngayHienTai.setHours(0,0,0,0);
+      return ngayChonTuInput < ngayHienTai ? {'dateInvalid': true} : null;
+    }
+  }
+  kiemLoiNgayBatDauNhoHonNgayKetThuc():ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayBatDau = new Date(control.parent?.get('thoiGianBatDau')?.value);
+      const ngayKetThuc = new Date(control.parent?.get('thoiGianKetThuc')?.value);
+      // console.log(ngayBatDau, ngayKetThuc);
+      
+      return ngayBatDau > ngayKetThuc ? {'ngayKetThucInvalid': true} : null;
+      return {'ngayKetThucInvalid': true};
+    }
   }
 
 

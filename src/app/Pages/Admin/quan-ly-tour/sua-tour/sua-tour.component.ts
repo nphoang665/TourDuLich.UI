@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -74,9 +74,6 @@ export class SuaTourComponent implements OnInit, OnDestroy {
   get noiKhoiHanh() {
     return this.suaTourForm.get('noiKhoiHanh');
   }
-  get soChoConNhan() {
-    return this.suaTourForm.get('soChoConNhan');
-  }
   get idDoiTac() {
     return this.suaTourForm.get('idDoiTac');
   }
@@ -100,6 +97,24 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  kiemLoiNgayNhoHonHienTai(): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayChonTuInput = new Date(control.value);
+      const ngayHienTai = new Date();
+      ngayHienTai.setHours(0,0,0,0);
+      return ngayChonTuInput < ngayHienTai ? {'dateInvalid': true} : null;
+    }
+  }
+  kiemLoiNgayBatDauNhoHonNgayKetThuc():ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayBatDau = new Date(control.parent?.get('thoiGianBatDau')?.value);
+      const ngayKetThuc = new Date(control.parent?.get('thoiGianKetThuc')?.value);
+      // console.log(ngayBatDau, ngayKetThuc);
+      
+      return ngayBatDau > ngayKetThuc ? {'ngayKetThucInvalid': true} : null;
+      return {'ngayKetThucInvalid': true};
+    }
   }
   ///////
   id?: string | null = null;
@@ -244,24 +259,19 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         Validators.maxLength(50),
 
       ]),
-      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0, [
-        Validators.required,
-        Validators.min(2),
-        Validators.max(50),
-
-      ]),
+      soChoConNhan: new FormControl(this.model?.soChoConNhan || 0),
       idDoiTac: new FormControl(this.model?.idDoiTac || '',
         Validators.required),
       giaTreEm: new FormControl(this.model?.giaTreEm || 0, [
         Validators.required,
         Validators.min(0),
-        Validators.max(1000000),
+        Validators.max(10000000),
 
       ]),
       giaNguoiLon: new FormControl(this.model?.giaNguoiLon || 0, [
         Validators.required,
         Validators.min(0),
-        Validators.max(1000000),
+        Validators.max(10000000),
 
       ]),
       ngayThem: new FormControl(this.model?.ngayThem || ''),
