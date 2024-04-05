@@ -225,37 +225,9 @@
                                 rows="3"></textarea>
                         </mat-form-field>
 
-                        <mat-card class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
-                            <mat-card-title>Thông tin tour</mat-card-title>
-                            <mat-table [dataSource]="dataSource">
-                                <!-- Số chỗ người lớn -->
-                                <ng-container matColumnDef="soChoNguoiLon">
-                                    <mat-header-cell *matHeaderCellDef>Số chỗ người lớn</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.soChoNguoiLon}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Số chỗ trẻ em -->
-                                <ng-container matColumnDef="soChoTreEm">
-                                    <mat-header-cell *matHeaderCellDef>Số chỗ trẻ em</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.soChoTreEm}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Giá người lớn -->
-                                <ng-container matColumnDef="giaNguoiLon">
-                                    <mat-header-cell *matHeaderCellDef>Giá người lớn</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.giaNguoiLon}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Giá trẻ em -->
-                                <ng-container matColumnDef="giaTreEm">
-                                    <mat-header-cell *matHeaderCellDef>Giá trẻ em</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.giaTreEm}}</mat-cell>
-                                </ng-container>
-
-                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                            </mat-table>
-                        </mat-card>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
+                           
+                        </div>
 
 
 

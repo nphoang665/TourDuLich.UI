@@ -77,8 +77,6 @@ const MIN_DATE = new Date(2024, 3, 1); // Set your minimum date here
 })
 export class QuanlydattourComponent implements OnInit {
   //table thông tin tuor
-  dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
   @ViewChild('myModal') myModal?: ElementRef;
   @ViewChild('myModal1') myModal1?: ElementRef;
@@ -261,10 +259,7 @@ export class QuanlydattourComponent implements OnInit {
     });
     this.GetDichVu();
     this.KiemTraChonKhachHangThanhToan();
-    //Get data tableThongTinTour
-    this.dataSource.data = [
-      { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
-    ];
+  
   }
 
   //xử lý select khách hàng
