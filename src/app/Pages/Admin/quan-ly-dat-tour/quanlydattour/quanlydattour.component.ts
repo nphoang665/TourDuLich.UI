@@ -522,7 +522,7 @@ export class QuanlydattourComponent implements OnInit {
       arr_TongDichVuRequest.push(objDichVu);
     });
     this.dichVuChiTietServices.LuuDichVuChiTietVaoDb(datTour.idDatTour, arr_TongDichVuRequest).subscribe((result: any) => {
-      alert(result);
+      // alert(result);
     })
   }
   //các phần khai báo cho thanh toán
@@ -606,7 +606,7 @@ export class QuanlydattourComponent implements OnInit {
     this.TourThanhToan_HienThi = this.Tour_ThanhToan.filter((s: any) => s.idTour == this.idTour_ThanhToan && s.idKhachHang === this.TenKhachHang_ThanhToan.value.idKhachHang);
     this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi[0].idNhanVien).subscribe((resultNhanVien: NhanVien) => {
       this.TourThanhToan_HienThi[0].tenNhanVien = resultNhanVien.tenNhanVien;
-      console.log(this.TourThanhToan_HienThi);
+
     });
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
       this.LayTourDangThanhToan = data;
@@ -615,6 +615,7 @@ export class QuanlydattourComponent implements OnInit {
         this.ThongTinDichVuThanhToan = result;
         this.ThongTinDichVuThanhToan.forEach(element => {
           this.TongTien_DichVu_ThanhToan += element.soLuong * element.dichVu.giaTien;
+          this.TinhTongTienThanhToan();
         });
       })
       this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);

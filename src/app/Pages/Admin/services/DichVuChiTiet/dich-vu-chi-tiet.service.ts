@@ -33,4 +33,6 @@ export class DichVuChiTietService {
   GetAllDichVuChiTietByIdDatTour(idDatTour: string): Observable<DichVuChiTietDto[]> {
     return this.http.get<DichVuChiTietDto[]>(`${environment.apiBaseUrl}/api/DichVuChiTiet/${idDatTour}`);
   }
+
+
 }
