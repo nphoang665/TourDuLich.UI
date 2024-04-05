@@ -50,11 +50,17 @@
     <div class="row">
       <div style="margin: 1%; width: 48%;">
         <mat-label>Giờ bắt đầu</mat-label>
-          <input matInput id='element' formControlName="gioBatDau" />
+          <input matInput id='element' formControlName="gioBatDau" [errorStateMatcher]="matcher" />
+          @if (gioBatDau?.errors?.['required']) {
+            <mat-error>Vui lòng nhập giờ bắt đầu</mat-error>
+            } 
       </div>
       <div style="margin: 1%; width: 48%;">
         <mat-label>Giờ kết thúc</mat-label>
-        <input matInput id='element2' color="primary" formControlName="gioKetThuc" />
+        <input matInput id='element2' color="primary" formControlName="gioKetThuc" [errorStateMatcher]="matcher" />
+        @if (gioKetThuc?.errors?.['required']) {
+          <mat-error>Vui lòng nhập giờ kết thúc</mat-error>
+          } 
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -90,6 +90,7 @@ export class RegisterComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  
   constructor(private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,

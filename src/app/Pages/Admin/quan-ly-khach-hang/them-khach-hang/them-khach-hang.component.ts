@@ -156,7 +156,7 @@ checkSDT(): AsyncValidatorFn {
 }
 checkEmail(): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=16) {
+      if (control.value.length >=10) {
           return this.quanlyKhachHangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
               return data ? { 'invalidEmail': true } : null;
           }).catch(err => {
