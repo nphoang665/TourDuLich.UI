@@ -385,7 +385,9 @@ export class QuanlydattourComponent implements OnInit {
     })
   }
 
-
+  toNumber(value: string): number {
+    return Number(value);
+  }
   //hàm tính toán ngày đêm
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
     let startDate = thoiGianBatDau instanceof Date ? thoiGianBatDau : new Date(thoiGianBatDau);
@@ -498,10 +500,10 @@ export class QuanlydattourComponent implements OnInit {
           }
           this.myForm.reset();
           this.KhachHang.reset();
-          this.GhiChu_DatTour='';
-          this.TongDichVu=[];
-          this.SoLuongNguoiLon_DatTour=0,
-          this.SoLuongTreEm_DatTour=0;
+          this.GhiChu_DatTour = '';
+          this.TongDichVu = [];
+          this.SoLuongNguoiLon_DatTour = 0,
+            this.SoLuongTreEm_DatTour = 0;
 
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,
@@ -708,9 +710,9 @@ export class QuanlydattourComponent implements OnInit {
                     if (closeButton) {
                       closeButton.click();
                     }
-                      this.toastr.success('Thanh toán thành công', 'Thông báo', {
-                        timeOut: 1000,
-                      });
+                    this.toastr.success('Thanh toán thành công', 'Thông báo', {
+                      timeOut: 1000,
+                    });
                   },
                   error: (err) => {
                     console.log(err);
@@ -719,7 +721,7 @@ export class QuanlydattourComponent implements OnInit {
                     });
                   }
                 })
-            }        
+            }
           },
           error: (err) => {
             this.toastr.error('Sửa đặt tour thất bại', 'Thông báo', {

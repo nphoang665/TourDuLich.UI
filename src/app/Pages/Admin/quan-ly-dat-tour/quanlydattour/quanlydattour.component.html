@@ -332,12 +332,12 @@
                         <mat-list-item>
                             <div class="row">
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau | date:'dd/MM/yyyy
-                                    hh:mm'}}
+                                    <strong>Thời gian bắt đầu:</strong>
+                                    {{model.thoiGianBatDau | date:'dd/MM/yyyy hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc | date:'dd/MM/yyyy
-                                    hh:mm'}}
+                                    <strong>Thời gian kết thúc:</strong>
+                                    {{model.thoiGianKetThuc | date:'dd/MM/yyyy hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Nơi khởi hành:</strong> {{model.noiKhoiHanh}}
@@ -587,7 +587,7 @@
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn"
                     class="closee">Đóng</button>
                 <button mat-raised-button type="button" color="primary"
-                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0)"
+                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(model.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(model.soLuongTreEm) || SoLuongTreEm_DatTour <0)"
                     (click)="DatTour()">Đặt tour</button>
 
 
