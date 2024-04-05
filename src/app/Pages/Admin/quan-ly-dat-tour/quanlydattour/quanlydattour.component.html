@@ -228,7 +228,7 @@
                         </mat-form-field>
 
                         <div class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
-                           
+
                         </div>
 
 
@@ -490,7 +490,7 @@
                             <mat-form-field class="col-lg-4">
                                 <mat-label>CCCD</mat-label>
                                 <input matInput id="cCCD" name="cccd" placeholder="Nhập CCCD..."
-                                    (input)="TypingKhachHang()" type="number" maxlength="12" formControlName="cccd"
+                                    (input)="TypingKhachHang()" type="number" formControlName="cccd"
                                     [errorStateMatcher]="matcher">
                                 @if (cccd?.errors?.['required']) {
                                 <mat-error>Vui lòng nhập CCCD</mat-error>

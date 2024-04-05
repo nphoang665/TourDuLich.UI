@@ -259,7 +259,7 @@ export class QuanlydattourComponent implements OnInit {
     });
     this.GetDichVu();
     this.KiemTraChonKhachHangThanhToan();
-  
+
   }
 
   //xử lý select khách hàng
@@ -424,7 +424,7 @@ export class QuanlydattourComponent implements OnInit {
   //hàm đặt tour
   DatTour() {
     let formValues = { ...this.myForm.getRawValue() };
-    delete formValues.tinhTrang; // loại bỏ trường 'tinhTrang'
+    delete formValues.tinhTrang;
 
     const allFieldsEmpty = Object.values(formValues).every(x => (x == null || x == ''));
     //nếu khách hàng cũ có value
@@ -503,6 +503,7 @@ export class QuanlydattourComponent implements OnInit {
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,
           });
+          this.ngOnInit();
           return;
         });
     } else {
