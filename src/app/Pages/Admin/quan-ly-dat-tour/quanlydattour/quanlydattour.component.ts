@@ -22,17 +22,33 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DichVuChiTiet } from '../../models/dat-tour-khach-hang.model';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { NhanVien } from '../../models/nhan-vien.model';
 import { DatTour } from '../../models/dat-tour.model';
 import { log } from 'console';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -53,7 +69,11 @@ const MIN_DATE = new Date(2024, 3, 1); // Set your minimum date here
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
-  styleUrls: ['./quanlydattour.component.css']
+  styleUrls: ['./quanlydattour.component.css'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class QuanlydattourComponent implements OnInit {
   //table thông tin tuor
@@ -108,7 +128,7 @@ export class QuanlydattourComponent implements OnInit {
       Validators.maxLength(16),
 
     ]),
-    ngaySinh: new FormControl('',
+    ngaySinh: new FormControl(moment(),
       Validators.required,
     ),
     gioiTinh: new FormControl('',
