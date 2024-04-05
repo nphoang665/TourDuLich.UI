@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
 import { AsyncValidatorFn, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
@@ -22,17 +22,33 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DichVuChiTiet } from '../../models/dat-tour-khach-hang.model';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { NhanVien } from '../../models/nhan-vien.model';
 import { DatTour } from '../../models/dat-tour.model';
 import { log } from 'console';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -53,14 +69,17 @@ const MIN_DATE = new Date(2024, 3, 1); // Set your minimum date here
 @Component({
   selector: 'app-quanlydattour',
   templateUrl: './quanlydattour.component.html',
-  styleUrls: ['./quanlydattour.component.css']
+  styleUrls: ['./quanlydattour.component.css'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class QuanlydattourComponent implements OnInit {
   //table thông tin tuor
-  dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['soChoNguoiLon', 'soChoTreEm', 'giaNguoiLon', 'giaTreEm'];
   NguoiDung: any;
-
+  @ViewChild('myModal') myModal?: ElementRef;
+  @ViewChild('myModal1') myModal1?: ElementRef;
   mauButton = 0;
 
   selectedStatus: string = '';
@@ -222,7 +241,8 @@ checkEmail(): AsyncValidatorFn {
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private nhanvienServices: NhanVienService
+    private nhanvienServices: NhanVienService,
+    // public dialogRef: MatDialogRef<QuanlydattourComponent>,
   ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
@@ -243,7 +263,10 @@ checkEmail(): AsyncValidatorFn {
       this.KhachHang.disable();
     }
   }
-  getTinhTrangClass(tinhTrang: string): string {
+  getTinhTrangClass(tinhTrang: string, soChoConNhan: number): string {
+    if (soChoConNhan === 0) {
+      return 'bg-danger';
+    }
     switch (tinhTrang) {
       case 'Đang hoạt động':
         return 'bg-success';
@@ -290,10 +313,7 @@ checkEmail(): AsyncValidatorFn {
     });
     this.GetDichVu();
     this.KiemTraChonKhachHangThanhToan();
-    //Get data tableThongTinTour
-    this.dataSource.data = [
-      { soChoNguoiLon: 1, soChoTreEm: 2, giaNguoiLon: this.model?.giaNguoiLon, giaTreEm: this.model?.giaTreEm }
-    ];
+
   }
 
   //xử lý select khách hàng
@@ -414,7 +434,9 @@ checkEmail(): AsyncValidatorFn {
     })
   }
 
-
+  toNumber(value: string): number {
+    return Number(value);
+  }
   //hàm tính toán ngày đêm
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
     let startDate = thoiGianBatDau instanceof Date ? thoiGianBatDau : new Date(thoiGianBatDau);
@@ -456,7 +478,7 @@ checkEmail(): AsyncValidatorFn {
   //hàm đặt tour
   DatTour() {
     let formValues = { ...this.myForm.getRawValue() };
-    delete formValues.tinhTrang; // loại bỏ trường 'tinhTrang'
+    delete formValues.tinhTrang;
 
     const allFieldsEmpty = Object.values(formValues).every(x => (x == null || x == ''));
     //nếu khách hàng cũ có value
@@ -500,11 +522,9 @@ checkEmail(): AsyncValidatorFn {
         }
       })
   }
-
   onDatTour(khachHangRes: any) {
     if (this.NguoiDung) {
       // console.log(this.KhachHang.value, khachHangRes);
-
       let dataToSave = {
         idDatTour: '123',
         idTour: this.model?.idTour,
@@ -523,10 +543,21 @@ checkEmail(): AsyncValidatorFn {
           if (this.TongDichVu_Db.length > 0) {
             this.onThemDichVuChiTiet(response);
           }
+          const closeButton = this.myModal1?.nativeElement.querySelector('.closee');
+          if (closeButton) {
+            closeButton.click();
+          }
+          this.myForm.reset();
+          this.KhachHang.reset();
+          this.GhiChu_DatTour = '';
+          this.TongDichVu = [];
+          this.SoLuongNguoiLon_DatTour = 0,
+            this.SoLuongTreEm_DatTour = 0;
 
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,
           });
+          this.ngOnInit();
           return;
         });
     } else {
@@ -553,7 +584,7 @@ checkEmail(): AsyncValidatorFn {
       arr_TongDichVuRequest.push(objDichVu);
     });
     this.dichVuChiTietServices.LuuDichVuChiTietVaoDb(datTour.idDatTour, arr_TongDichVuRequest).subscribe((result: any) => {
-      alert(result);
+      // alert(result);
     })
   }
   //các phần khai báo cho thanh toán
@@ -637,7 +668,7 @@ checkEmail(): AsyncValidatorFn {
     this.TourThanhToan_HienThi = this.Tour_ThanhToan.filter((s: any) => s.idTour == this.idTour_ThanhToan && s.idKhachHang === this.TenKhachHang_ThanhToan.value.idKhachHang);
     this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi[0].idNhanVien).subscribe((resultNhanVien: NhanVien) => {
       this.TourThanhToan_HienThi[0].tenNhanVien = resultNhanVien.tenNhanVien;
-      console.log(this.TourThanhToan_HienThi);
+
     });
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
       this.LayTourDangThanhToan = data;
@@ -646,6 +677,7 @@ checkEmail(): AsyncValidatorFn {
         this.ThongTinDichVuThanhToan = result;
         this.ThongTinDichVuThanhToan.forEach(element => {
           this.TongTien_DichVu_ThanhToan += element.soLuong * element.dichVu.giaTien;
+          this.TinhTongTienThanhToan();
         });
       })
       this.LayTourDangThanhToan.SoNgayDem = this.calculateDaysAndNights(this.LayTourDangThanhToan.thoiGianBatDau, this.LayTourDangThanhToan.thoiGianKetThuc);
@@ -724,10 +756,13 @@ checkEmail(): AsyncValidatorFn {
               this.thanhToanService.thanhToan(thanhToanData)
                 .subscribe({
                   next: (response) => {
-                    this.router.navigateByUrl('/quanLyDatTour'),
-                      this.toastr.success('Thanh toán thành công', 'Thông báo', {
-                        timeOut: 1000,
-                      });
+                    const closeButton = this.myModal?.nativeElement.querySelector('.btn-secondary');
+                    if (closeButton) {
+                      closeButton.click();
+                    }
+                    this.toastr.success('Thanh toán thành công', 'Thông báo', {
+                      timeOut: 1000,
+                    });
                   },
                   error: (err) => {
                     console.log(err);
@@ -737,9 +772,6 @@ checkEmail(): AsyncValidatorFn {
                   }
                 })
             }
-            this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
-              timeOut: 1000,
-            });
           },
           error: (err) => {
             this.toastr.error('Sửa đặt tour thất bại', 'Thông báo', {

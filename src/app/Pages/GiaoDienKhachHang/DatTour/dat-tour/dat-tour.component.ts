@@ -70,9 +70,11 @@ export class DatTourComponent implements OnInit {
   }
   async TimKiemTatCa() {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
-
+    let now = new Date();
     if (data) {
-      this.TourDuLich = data;
+      // this.TourDuLich = data;
+      this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
+
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
@@ -92,10 +94,12 @@ export class DatTourComponent implements OnInit {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
 
     // Lọc danh sách tour dựa trên TuKhoaTimKiem
+    let now = new Date();
     if (data) {
       this.TourDuLich = data?.filter(tour =>
-        this.LocString(tour.loaiTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase())) ||
-        this.LocString(tour.tenTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase()))
+        (this.LocString(tour.loaiTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase())) ||
+          this.LocString(tour.tenTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase()))) &&
+        new Date(tour.thoiGianBatDau) > now
       );
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {

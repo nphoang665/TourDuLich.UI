@@ -138,3 +138,27 @@ input[type="number"]::-webkit-outer-spin-button {
 mat-button-toggle-group {
   margin-left: 12px;
 }
+button:disabled {
+  background-color: rgb(175, 167, 167);
+  color: white;
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px; /* Độ rộng của thanh cuộn /
+}
+
+/ Định nghĩa màu nền của thanh cuộn /
+::-webkit-scrollbar-track {
+  background: #f1f1f1; / Màu nền của thanh cuộn /
+}
+
+/ Định nghĩa màu của thanh cuộn /
+::-webkit-scrollbar-thumb {
+  background: #888; / Màu của thanh cuộn /
+}
+
+/ Định nghĩa màu của thanh cuộn khi rê chuột vào /
+::-webkit-scrollbar-thumb:hover {
+  background: #555; / Màu của thanh cuộn khi rê chuột vào */
+}

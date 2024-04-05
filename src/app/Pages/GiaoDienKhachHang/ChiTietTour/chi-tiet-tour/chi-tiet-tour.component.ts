@@ -61,6 +61,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
       //trả về data dạng tour
       this.TourChiTiet = data;
 
+
       this.TourChiTiet.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
       this.TourChiTiet.SoNgayDem = this.calculateDaysAndNights(this.TourChiTiet.thoiGianBatDau, this.TourChiTiet.thoiGianKetThuc);
       this.danhGiaServices.LayTrungBinhSaoMotTour(this.TourChiTiet.idTour).subscribe(result => {

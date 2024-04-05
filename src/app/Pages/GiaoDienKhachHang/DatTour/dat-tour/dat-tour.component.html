@@ -192,8 +192,8 @@
                                 <div class="row">
                                     <div class="col-md-3 col-lg-3">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
-                                            <span class="badge rounded-0 bg-danger">
-                                                {{item.tinhTrang}}
+                                            <span class="badge rounded-0 bg-danger" style="position: absolute; margin-top: 10px;">
+                                                {{item.phuongTienDiChuyen}}
                                             </span>
                                         </div>
                                         <div class="img_tour">
@@ -240,7 +240,7 @@
                                             <div class="col-lg-4">
                                                 <div class="price_tour">
                                                     <div class="khoiHanh_text d-flex justify-content-end"><span>
-                                                            Khởi hành: <span>{{item.ngayKhoiHanh}}</span>
+                                                            Khởi hành: <span>{{item.thoiGianBatDau | date:'dd/MM/yyyy'}}</span>
                                                         </span></div>
                                                     <!-- <div class="GiaGoc_text d-flex justify-content-end">
                                                         <span>6.690.000 VND</span>

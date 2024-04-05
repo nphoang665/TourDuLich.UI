@@ -11,17 +11,37 @@ import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-them-tour',
   templateUrl: './them-tour.component.html',
-  styleUrl: './them-tour.component.css'
+  styleUrl: './them-tour.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemTourComponent implements OnInit, OnDestroy {
   submitted = false;
@@ -41,25 +61,25 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required),
     moTa: new FormControl('',
       Validators.required),
-    soLuongNguoiLon: new FormControl(0, [
+    soLuongNguoiLon: new FormControl(1, [
       Validators.required,
       Validators.min(0),
       Validators.max(50),
 
     ]),
-    soLuongTreEm: new FormControl(0, [
+    soLuongTreEm: new FormControl(1, [
       Validators.required,
       Validators.min(0),
       Validators.max(50),
 
     ]),
-    thoiGianBatDau: new FormControl('',[
+    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
         Validators.required,
        this.kiemLoiNgayNhoHonHienTai(),
        this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
     ]
    ),
-    thoiGianKetThuc: new FormControl('',[
+    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
@@ -69,21 +89,16 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.maxLength(50),
       
     ]),
-    soChoConNhan: new FormControl(0, [
-      Validators.required,
-      Validators.min(2),
-      Validators.max(50),
-
-    ]),
+    soChoConNhan: new FormControl(2),
     idDoiTac: new FormControl('',
       Validators.required),
-    giaTreEm: new FormControl(0, [
+    giaTreEm: new FormControl('', [
       Validators.required,
       Validators.min(0),
       Validators.max(10000000),
 
     ]),
-    giaNguoiLon: new FormControl(0, [
+    giaNguoiLon: new FormControl('', [
       Validators.required,
       Validators.min(0),
       Validators.max(10000000),
@@ -124,9 +139,6 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   }
   get noiKhoiHanh() {
     return this.ThemTourForm.get('noiKhoiHanh');
-  }
-  get soChoConNhan() {
-    return this.ThemTourForm.get('soChoConNhan');
   }
   get idDoiTac() {
     return this.ThemTourForm.get('idDoiTac');

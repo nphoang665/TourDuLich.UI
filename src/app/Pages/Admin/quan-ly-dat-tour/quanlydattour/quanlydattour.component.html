@@ -37,8 +37,14 @@
                                 <div class="card_tour col-lg-3">
                                     <div class="div_img" style="height: 150px;">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
-                                            <span class="badge rounded-0" [class]="getTinhTrangClass(item.tinhTrang)">
+                                            <span class="badge rounded-0"
+                                                [class]="getTinhTrangClass(item.tinhTrang,item.soChoConNhan)">
+                                                @if(item.soChoConNhan ===0){
+                                                Hết chỗ
+                                                }
+                                                @else {
                                                 {{item.tinhTrang}}
+                                                }
                                             </span>
                                         </div>
 
@@ -65,14 +71,14 @@
                                             <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}} đ</span>
                                         </div>
                                         <div class="btn_bothBuy row gx-2">
-                                            <div class="col-sm-6 mt-1">
-                                                <button type="button" class="btn_DatTour equal w-100"
-                                                    data-bs-toggle="modal" data-bs-target="#datTourModal"
-                                                    (click)="LayTourDuLich(item.idTour)">
+                                            <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
+                                                <button [disabled]="item.soChoConNhan === 0" type="button"
+                                                    class="btn_DatTour equal w-100" data-bs-toggle="modal"
+                                                    data-bs-target="#datTourModal" (click)="LayTourDuLich(item.idTour)">
                                                     Đặt tour
                                                 </button>
                                             </div>
-                                            <div class="col-sm-6 mt-1">
+                                            <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
                                                 <button type="button" class="btn_ThanhToan equal w-100"
                                                     data-bs-toggle="modal" data-bs-target="#thanhToanModal"
                                                     (click)="LayThanhToanTourDuLich(item.idTour)">
@@ -80,6 +86,15 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="row gx-2 justify-content-center">
+                                            <div *ngIf="item.tinhTrang === 'Tạm hoãn'"
+                                                class="col-sm-12 mt-1 d-flex justify-content-center">
+                                                <button type="button" class="btn_DatTour equal p-2" disabled>
+                                                    Tour này đang tạm hoãn
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -113,7 +128,8 @@
 
 
 
-<div class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel" aria-hidden="true">
+<div #myModal1 class="modal fade" id="datTourModal" tabindex="-1" aria-labelledby="datTourModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             @if(model){
@@ -211,37 +227,9 @@
                                 rows="3"></textarea>
                         </mat-form-field>
 
-                        <mat-card class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
-                            <mat-card-title>Thông tin tour</mat-card-title>
-                            <mat-table [dataSource]="dataSource">
-                                <!-- Số chỗ người lớn -->
-                                <ng-container matColumnDef="soChoNguoiLon">
-                                    <mat-header-cell *matHeaderCellDef>Số chỗ người lớn</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.soChoNguoiLon}}</mat-cell>
-                                </ng-container>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
 
-                                <!-- Số chỗ trẻ em -->
-                                <ng-container matColumnDef="soChoTreEm">
-                                    <mat-header-cell *matHeaderCellDef>Số chỗ trẻ em</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.soChoTreEm}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Giá người lớn -->
-                                <ng-container matColumnDef="giaNguoiLon">
-                                    <mat-header-cell *matHeaderCellDef>Giá người lớn</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.giaNguoiLon}}</mat-cell>
-                                </ng-container>
-
-                                <!-- Giá trẻ em -->
-                                <ng-container matColumnDef="giaTreEm">
-                                    <mat-header-cell *matHeaderCellDef>Giá trẻ em</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.giaTreEm}}</mat-cell>
-                                </ng-container>
-
-                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                            </mat-table>
-                        </mat-card>
+                        </div>
 
 
 
@@ -316,10 +304,12 @@
                         <mat-list-item>
                             <div class="row">
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian bắt đầu:</strong> {{model.thoiGianBatDau}}
+                                    <strong>Thời gian bắt đầu:</strong>
+                                    {{model.thoiGianBatDau | date:'dd/MM/yyyy hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Thời gian kết thúc:</strong> {{model.thoiGianKetThuc}}
+                                    <strong>Thời gian kết thúc:</strong>
+                                    {{model.thoiGianKetThuc | date:'dd/MM/yyyy hh:mm'}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Nơi khởi hành:</strong> {{model.noiKhoiHanh}}
@@ -351,7 +341,7 @@
                                     <strong>Giá người lớn:</strong> {{model.giaNguoiLon}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Ngày thêm:</strong> {{model.ngayThem}}
+                                    <strong>Ngày thêm:</strong> {{model.ngayThem | date:'dd/MM/yyyy'}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Dịch vụ đi kèm:</strong> {{model.dichVuDiKem}}
@@ -463,7 +453,6 @@
                             </mat-form-field>
                             <mat-form-field class="col-lg-4">
                                 <mat-label>Số điện thoại</mat-label>
-                                <span matTextPrefix>+84 &nbsp;</span>
                                 <input type="tel" maxlength="10" minlength="10" matInput placeholder="033-233-1231"
                                     (input)="TypingKhachHang()" formControlName="soDienThoai"
                                     [errorStateMatcher]="matcher">
@@ -582,10 +571,10 @@
             </mat-tab-group>
 
             <div mat-dialog-actions class="modal-footer">
-                <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn">Đóng</button>
-
+                <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn"
+                    class="closee">Đóng</button>
                 <button mat-raised-button type="button" color="primary"
-                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0)"
+                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(model.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(model.soLuongTreEm) || SoLuongTreEm_DatTour <0)"
                     (click)="DatTour()">Đặt tour</button>
 
 
@@ -643,7 +632,8 @@
 @if(TenKhachHang_ThanhToan.value){
 
 
-<div class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel" aria-hidden="true">
+<div #myModal class="modal fade " id="thanhToanModal1" tabindex="-1" aria-labelledby="thanhToanModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
