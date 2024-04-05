@@ -174,11 +174,7 @@ checkEmail(): AsyncValidatorFn {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  TestDl(){
-    this.quanlyKhachHangService.checkCCCDCuaKhachHang('2222222222').subscribe(result => {
-        console.log(result);
-    });
-}
+  
 
 
   constructor(

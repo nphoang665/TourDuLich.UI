@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { themTour } from '../../models/them-tour.model';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -53,14 +53,21 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.max(50),
 
     ]),
-    thoiGianBatDau: new FormControl('',
-      Validators.required),
-    thoiGianKetThuc: new FormControl('',
-      Validators.required),
+    thoiGianBatDau: new FormControl('',[
+        Validators.required,
+       this.kiemLoiNgayNhoHonHienTai(),
+       this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
+    ]
+   ),
+    thoiGianKetThuc: new FormControl('',[
+      Validators.required,
+      this.kiemLoiNgayNhoHonHienTai(),
+      this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
     noiKhoiHanh: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(50)
+      Validators.maxLength(50),
+      
     ]),
     soChoConNhan: new FormControl(0, [
       Validators.required,
@@ -73,13 +80,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     giaTreEm: new FormControl(0, [
       Validators.required,
       Validators.min(0),
-      Validators.max(1000000),
+      Validators.max(10000000),
 
     ]),
     giaNguoiLon: new FormControl(0, [
       Validators.required,
       Validators.min(0),
-      Validators.max(1000000),
+      Validators.max(10000000),
 
     ]),
     ngayThem: new FormControl(new Date()),
@@ -144,6 +151,24 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  kiemLoiNgayNhoHonHienTai(): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayChonTuInput = new Date(control.value);
+      const ngayHienTai = new Date();
+      ngayHienTai.setHours(0,0,0,0);
+      return ngayChonTuInput < ngayHienTai ? {'dateInvalid': true} : null;
+    }
+  }
+  kiemLoiNgayBatDauNhoHonNgayKetThuc():ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+      const ngayBatDau = new Date(control.parent?.get('thoiGianBatDau')?.value);
+      const ngayKetThuc = new Date(control.parent?.get('thoiGianKetThuc')?.value);
+      // console.log(ngayBatDau, ngayKetThuc);
+      
+      return ngayBatDau > ngayKetThuc ? {'ngayKetThucInvalid': true} : null;
+      return {'ngayKetThucInvalid': true};
+    }
   }
 
 
