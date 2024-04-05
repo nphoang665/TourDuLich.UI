@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { KhachHang } from '../../models/khach-hang.model';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { QuanLyTourService } from '../../services/quan-ly-tour.service';
@@ -27,6 +27,7 @@ import { NhanVienService } from '../../services/NhanVien/nhan-vien.service';
 import { NhanVien } from '../../models/nhan-vien.model';
 import { DatTour } from '../../models/dat-tour.model';
 import { log } from 'console';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -168,7 +169,9 @@ export class QuanlydattourComponent implements OnInit {
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private nhanvienServices: NhanVienService
+    private nhanvienServices: NhanVienService,
+    public dialog: MatDialog
+    // public dialogRef: MatDialogRef<QuanlydattourComponent>,
   ) {
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
@@ -189,7 +192,10 @@ export class QuanlydattourComponent implements OnInit {
       this.KhachHang.disable();
     }
   }
-  getTinhTrangClass(tinhTrang: string): string {
+  getTinhTrangClass(tinhTrang: string, soChoConNhan: number): string {
+    if (soChoConNhan === 0) {
+      return 'bg-danger';
+    }
     switch (tinhTrang) {
       case 'Đang hoạt động':
         return 'bg-success';
@@ -446,11 +452,9 @@ export class QuanlydattourComponent implements OnInit {
         }
       })
   }
-
   onDatTour(khachHangRes: any) {
     if (this.NguoiDung) {
       // console.log(this.KhachHang.value, khachHangRes);
-
       let dataToSave = {
         idDatTour: '123',
         idTour: this.model?.idTour,
@@ -469,6 +473,7 @@ export class QuanlydattourComponent implements OnInit {
           if (this.TongDichVu_Db.length > 0) {
             this.onThemDichVuChiTiet(response);
           }
+
 
           this.toastr.success('Đặt tour thành công', 'Thông báo', {
             timeOut: 1000,

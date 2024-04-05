@@ -37,8 +37,14 @@
                                 <div class="card_tour col-lg-3">
                                     <div class="div_img" style="height: 150px;">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
-                                            <span class="badge rounded-0" [class]="getTinhTrangClass(item.tinhTrang)">
+                                            <span class="badge rounded-0"
+                                                [class]="getTinhTrangClass(item.tinhTrang,item.soChoConNhan)">
+                                                @if(item.soChoConNhan ===0){
+                                                Hết chỗ
+                                                }
+                                                @else {
                                                 {{item.tinhTrang}}
+                                                }
                                             </span>
                                         </div>
 
@@ -66,9 +72,9 @@
                                         </div>
                                         <div class="btn_bothBuy row gx-2">
                                             <div class="col-sm-6 mt-1">
-                                                <button type="button" class="btn_DatTour equal w-100"
-                                                    data-bs-toggle="modal" data-bs-target="#datTourModal"
-                                                    (click)="LayTourDuLich(item.idTour)">
+                                                <button [disabled]="item.soChoConNhan ===0" type="button"
+                                                    class="btn_DatTour equal w-100" data-bs-toggle="modal"
+                                                    data-bs-target="#datTourModal" (click)="LayTourDuLich(item.idTour)">
                                                     Đặt tour
                                                 </button>
                                             </div>

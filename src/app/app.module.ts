@@ -65,6 +65,7 @@ import { ThemTourComponent } from './Pages/Admin/quan-ly-tour/them-tour/them-tou
 import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/xem-thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
+import { MatDialogRef } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
