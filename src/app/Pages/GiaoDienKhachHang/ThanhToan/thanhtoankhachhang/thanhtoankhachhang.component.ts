@@ -16,15 +16,31 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { KhachHang } from '../../../Admin/models/khach-hang.model';
 import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 interface DichVuThemVaoDb {
   idDihVuChiTiet: string;
   idDichVu: string;
@@ -36,7 +52,12 @@ interface DichVuThemVaoDb {
 @Component({
   selector: 'app-thanhtoankhachhang',
   templateUrl: './thanhtoankhachhang.component.html',
-  styleUrl: './thanhtoankhachhang.component.css'
+  styleUrl: './thanhtoankhachhang.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThanhtoankhachhangComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
@@ -88,7 +109,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
       SoDienThoai: '',
       DiaChi: '',
       CCCD: '',
-      NgaySinh: '',
+      NgaySinh: moment().format('dd-MM-yyyy'),
       GioiTinh: '',
       Email: '',
       TinhTrangKhachHang: '',
