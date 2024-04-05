@@ -98,22 +98,22 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  kiemLoiNgayNhoHonHienTai(): ValidatorFn{
-    return (control: AbstractControl): ValidationErrors | null =>{
+  kiemLoiNgayNhoHonHienTai(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const ngayChonTuInput = new Date(control.value);
       const ngayHienTai = new Date();
-      ngayHienTai.setHours(0,0,0,0);
-      return ngayChonTuInput < ngayHienTai ? {'dateInvalid': true} : null;
+      ngayHienTai.setHours(0, 0, 0, 0);
+      return ngayChonTuInput < ngayHienTai ? { 'dateInvalid': true } : null;
     }
   }
-  kiemLoiNgayBatDauNhoHonNgayKetThuc():ValidatorFn{
-    return (control: AbstractControl): ValidationErrors | null =>{
+  kiemLoiNgayBatDauNhoHonNgayKetThuc(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const ngayBatDau = new Date(control.parent?.get('thoiGianBatDau')?.value);
       const ngayKetThuc = new Date(control.parent?.get('thoiGianKetThuc')?.value);
       // console.log(ngayBatDau, ngayKetThuc);
-      
-      return ngayBatDau > ngayKetThuc ? {'ngayKetThucInvalid': true} : null;
-      return {'ngayKetThucInvalid': true};
+
+      return ngayBatDau > ngayKetThuc ? { 'ngayKetThucInvalid': true } : null;
+      return { 'ngayKetThucInvalid': true };
     }
   }
   ///////
@@ -129,6 +129,7 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     base_url: '/tinymce',
     suffix: '.min',
     plugins: 'lists link image table wordcount'
+
   };
   DoiTac: any[] = [];
   constructor(
@@ -138,10 +139,10 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     private doiTacServices: DoiTacService,
     private toastr: ToastrService,
     private router: Router) { }
-  Test() {
-    console.log(this.model?.moTa);
-  }
+
   get sanitizedText() {
+    console.log(this.model?.moTa);
+
     return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
   }
   Fn_Display_Description() {
