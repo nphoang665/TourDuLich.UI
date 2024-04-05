@@ -135,8 +135,7 @@
 
                 </mat-form-field>
 
-                <div class="col-lg-2">
-                  <mat-form-field>
+                  <mat-form-field  class="col-lg-2">
                     <mat-label>Giá trẻ em</mat-label>
                     <input matInput type="number" formControlName="giaTreEm" [errorStateMatcher]="matcher" />
                     @if (giaTreEm?.errors?.['required']) {
@@ -151,11 +150,24 @@
 
                   </mat-form-field>
 
-                </div>
+
+                  <mat-form-field class="col-lg-3">
+                    <mat-label>Nơi khởi hành</mat-label>
+                    <input matInput formControlName="noiKhoiHanh" [errorStateMatcher]="matcher" />
+                    @if (noiKhoiHanh?.errors?.['required']) {
+                    <mat-error>Vui lòng nhập nơi khởi hành</mat-error>
+                    }
+                    @else if (noiKhoiHanh?.errors?.['minlength']) {
+                    <mat-error>Nơi khởi hành quá ngắn</mat-error>
+                    }
+                    @else if (noiKhoiHanh?.errors?.['maxlength']) {
+                    <mat-error>Nơi khởi hành quá dài</mat-error>
+                    }
+  
+                  </mat-form-field>
 
 
-
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                   <mat-label>Thời gian bắt đầu</mat-label>
                   <input matInput formControlName="thoiGianBatDau" id='element' [errorStateMatcher]="matcher" />
                   @if (thoiGianBatDau?.errors?.['required']) {
@@ -168,7 +180,7 @@
                       <mat-error>Thời gian bắt đầu không được lớn hơn hơn thời gian kết thúc</mat-error>
                       }
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                   <mat-label>Thời gian kết thúc</mat-label>
                   <input matInput formControlName="thoiGianKetThuc" id='element2' [errorStateMatcher]="matcher" />
                   @if (thoiGianKetThuc?.errors?.['required']) {
@@ -184,20 +196,7 @@
 
 
 
-                <mat-form-field class="col-lg-3">
-                  <mat-label>Nơi khởi hành</mat-label>
-                  <input matInput formControlName="noiKhoiHanh" [errorStateMatcher]="matcher" />
-                  @if (noiKhoiHanh?.errors?.['required']) {
-                  <mat-error>Vui lòng nhập nơi khởi hành</mat-error>
-                  }
-                  @else if (noiKhoiHanh?.errors?.['minlength']) {
-                  <mat-error>Nơi khởi hành quá ngắn</mat-error>
-                  }
-                  @else if (noiKhoiHanh?.errors?.['maxlength']) {
-                  <mat-error>Nơi khởi hành quá dài</mat-error>
-                  }
-
-                </mat-form-field>
+               
 
                 <mat-form-field appearance="fill" class="col-lg-3">
                   <mat-label>Đối tác</mat-label>

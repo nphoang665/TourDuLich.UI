@@ -11,17 +11,37 @@ import { DoiTacService } from '../../services/DoiTac/doi-tac.service';
 import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-them-tour',
   templateUrl: './them-tour.component.html',
-  styleUrl: './them-tour.component.css'
+  styleUrl: './them-tour.component.css',
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ThemTourComponent implements OnInit, OnDestroy {
   submitted = false;
@@ -53,13 +73,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.max(50),
 
     ]),
-    thoiGianBatDau: new FormControl('',[
+    thoiGianBatDau: new FormControl(moment(),[
         Validators.required,
        this.kiemLoiNgayNhoHonHienTai(),
        this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
     ]
    ),
-    thoiGianKetThuc: new FormControl('',[
+    thoiGianKetThuc: new FormControl(moment(),[
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
