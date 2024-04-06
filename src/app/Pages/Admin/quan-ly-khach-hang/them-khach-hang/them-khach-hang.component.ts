@@ -54,6 +54,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+    
     ]),
     soDienThoai: new FormControl('', {
       validators:[
@@ -76,7 +77,7 @@ export class ThemKhachHangComponent implements OnInit{
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-        Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        Validators.pattern('^[0-9]*$'),
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
@@ -175,6 +176,7 @@ checkEmail(): AsyncValidatorFn {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  
   kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const ngayChonTuInput = new Date(control.value);

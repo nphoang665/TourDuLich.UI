@@ -94,6 +94,9 @@
                             @if (NgaySinh?.errors?.['required']) {
                             <mat-error>Ngày sinh không được để trống</mat-error>
                             }
+                            @else if (NgaySinh?.errors?.['ageInvalid']) {
+                            <mat-error>Khách hàng phải lớn hơn 18 tuổi</mat-error>
+                            }
                         </mat-form-field>
 
                         <!-- Email -->

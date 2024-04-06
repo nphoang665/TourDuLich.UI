@@ -295,8 +295,9 @@ export class ThanhtoankhachhangComponent implements OnInit {
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
     }),
-    NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',
-    Validators.required),
+    NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',[
+    Validators.required,
+    this.kiemLoiTuoiPhaiLonHon18()]),
     GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : '',
     Validators.required),
     Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '',{
@@ -429,6 +430,15 @@ checkEmail(): AsyncValidatorFn {
       } else {
           return Promise.resolve(null);
       }
+  };
+}
+kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const ngayChonTuInput = new Date(control.value);
+    const ngayHienTai = new Date();
+    ngayHienTai.setHours(0, 0, 0, 0);
+    const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+    return tuoi < 18 ? { 'ageInvalid': true } : null;
   };
 }
   XacNhanDatTour() {

@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { KhachhangService } from '../../Admin/services/KhachHang/khachhang.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -50,11 +51,16 @@ const google_login = `
 export class RegisterComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   register: FormGroup = new FormGroup({
-    email: new FormControl('',[
+    email: new FormControl('',{
+      validators:[
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50),
-    ]),
+      Validators.maxLength(50), 
+      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+    ],
+    asyncValidators: [this.checkEmail()],
+    updateOn: 'change'
+  }),
     name: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
@@ -90,8 +96,22 @@ export class RegisterComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  
+  checkEmail(): AsyncValidatorFn {
+     return (control: AbstractControl): Promise<ValidationErrors | null> => {
+         if (control.value.length >=10) {
+             return this.khachHangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+                 return data ? { 'invalidEmail': true } : null;
+             }).catch(err => {
+                 console.error(err);
+                 return null;
+             });
+         } else {
+             return Promise.resolve(null);
+         }
+     };
+   }
   constructor(private authService: AuthService,
+    private khachHangService: KhachhangService,
     private router: Router,
     private toastr: ToastrService,
     iconRegistry: MatIconRegistry,

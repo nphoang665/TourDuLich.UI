@@ -53,6 +53,9 @@
       @else if(cccd?.errors?.['invalidCCCD']){
           <mat-error>CCCD đã tồn tại</mat-error>
         }
+      @else if(cccd?.errors?.['pattern']){
+          <mat-error>CCCD không chứa chữ và ký tự đặc biệt</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
