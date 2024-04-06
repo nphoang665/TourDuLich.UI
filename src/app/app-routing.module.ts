@@ -22,35 +22,36 @@ import { TiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/tiep-
 import { SuaTiepNhanDatTourComponent } from './Pages/Admin/tiep-nhan-dat-tour/suaTiepNhanDatTour/sua-tiep-nhan-dat-tour/sua-tiep-nhan-dat-tour.component';
 
 import { LoginComponent } from './Pages/Auth/login/login.component';
-import { authGuard } from './Pages/Auth/guards/auth.guard';
+import { GuestGuard, adminGuard, adminOrEmployeeGuard, customerGuard, employeeGuard, guestOrCustomerGuard } from './Pages/Auth/guards/auth.guard';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
-  { path: 'lichsudattour', component: LichsudattourkhachhangComponent },
+  { path: 'lichsudattour', component: LichsudattourkhachhangComponent, canActivate: [guestOrCustomerGuard] },
   { path: 'dattour/:id', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
-  { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent },
-  { path: 'tiepNhanDatTour', component: TiepNhanDatTourComponent },
-  { path: 'suaTiepNhanDatTour/:id', component: SuaTiepNhanDatTourComponent },
-  { path: 'quanlytour', component: QuanLyTourComponent, canActivate: [authGuard] },
-  { path: 'trangChuAdmin', component: TrangChuAdminComponent, canActivate: [authGuard] },
-  { path: 'quanLyDatTour', component: QuanlydattourComponent, canActivate: [authGuard] },
-  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent, canActivate: [authGuard] },
-  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent, canActivate: [authGuard] },
-  { path: 'quanLyDichVu', component: QuanLyDichVuComponent, canActivate: [authGuard] },
-  { path: 'themNhanVien', component: ThemNhanVienComponent, canActivate: [authGuard] },
-  { path: 'suaNhanVien/:id', component: SuaNhanVienComponent, canActivate: [authGuard] },
-  { path: 'suaKhachHang/:id', component: SuaKhachHangComponent, canActivate: [authGuard] },
-  { path: 'themKhachHang', component: ThemKhachHangComponent, canActivate: [authGuard] },
+  { path: 'thanhtoankhachhang', component: ThanhtoankhachhangComponent, canActivate: [guestOrCustomerGuard] },
+  { path: 'tiepNhanDatTour', component: TiepNhanDatTourComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'suaTiepNhanDatTour/:id', component: SuaTiepNhanDatTourComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'quanlytour', component: QuanLyTourComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'trangChuAdmin', component: TrangChuAdminComponent, canActivate: [adminGuard] },
+  //
+  { path: 'quanLyDatTour', component: QuanlydattourComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'quanLyKhachHang', component: QuanLyKhachHangComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'quanLyNhanVien', component: QuanLyNhanVienComponent, canActivate: [adminGuard] },
+  { path: 'quanLyDichVu', component: QuanLyDichVuComponent, canActivate: [adminGuard] },
+  { path: 'themNhanVien', component: ThemNhanVienComponent, canActivate: [adminGuard] },
+  { path: 'suaNhanVien/:id', component: SuaNhanVienComponent, canActivate: [adminGuard] },
+  { path: 'suaKhachHang/:id', component: SuaKhachHangComponent, canActivate: [adminOrEmployeeGuard] },
+  { path: 'themKhachHang', component: ThemKhachHangComponent, canActivate: [adminOrEmployeeGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'themTour', component: ThemTourComponent, canActivate: [authGuard] },
-  { path: 'suaTour/:id', component: SuaTourComponent, canActivate: [authGuard] },
-  { path: 'thanhToan', component: ThanhToanComponent },
+  { path: 'themTour', component: ThemTourComponent, canActivate: [adminGuard] },
+  { path: 'suaTour/:id', component: SuaTourComponent, canActivate: [adminGuard] },
+  { path: 'thanhToan', component: ThanhToanComponent, canActivate: [adminOrEmployeeGuard] },
 
 
   { path: '**', redirectTo: '/trangchu', pathMatch: 'full' },
