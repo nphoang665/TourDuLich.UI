@@ -29,7 +29,7 @@ import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsu
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
   { path: 'lienhe', component: LienHeComponent },
-  { path: 'lichsudattour', component: LichsudattourkhachhangComponent, canActivate: [guestOrCustomerGuard] },
+  { path: 'lichsudattour', component: LichsudattourkhachhangComponent, canActivate: [customerGuard] },
   { path: 'dattour/:id', component: DatTourComponent },
   { path: 'diemden', component: DiemDenComponent },
   { path: 'chitiettour/:id', component: ChiTietTourComponent },
