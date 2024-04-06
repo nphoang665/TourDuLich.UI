@@ -4,6 +4,7 @@ import { environment } from '../../../../../environments/environment';
 import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
+import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
 
 export enum SortCriteria {
   DeXuat = 'DeXuat',
@@ -25,6 +26,7 @@ export class DatTourComponent implements OnInit {
     private route: ActivatedRoute,
     private danhGiaServices: DanhgiaService,
     private tourServices: QuanLyTourService,
+    private datTourService: DattourService
   ) {
 
   }
@@ -75,15 +77,19 @@ export class DatTourComponent implements OnInit {
       // this.TourDuLich = data;
       this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
 
+
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
+        this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe((resulDt: any) => {
+          element.soChoConNhan = resulDt.SoChoConNhanTrongTour;
+        });
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
         element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
         this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
           element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
           element.SoLuongDanhGia = result.soLuongDanhGia;
-          // console.log(element);
+
 
 
         });

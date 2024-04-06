@@ -191,7 +191,7 @@
                                         </div>
                                         <input type="text" class="form-control shadow-none border-0 text-center"
                                             aria-label="Username" aria-describedby="basic-addon1"
-                                            [(ngModel)]="Sl_NguoiLon_ThanhToan">
+                                            [(ngModel)]="Sl_NguoiLon_ThanhToan" (input)="ThayDoiSoLuongNguoiDuTour()">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
                                                 style="cursor: pointer;"
@@ -222,7 +222,7 @@
                                         </div>
                                         <input type="text" class="form-control shadow-none border-0 text-center"
                                             aria-label="Username" aria-describedby="basic-addon1"
-                                            [(ngModel)]="Sl_TreEm_ThanhToan">
+                                            [(ngModel)]="Sl_TreEm_ThanhToan" (input)="ThayDoiSoLuongNguoiDuTour()">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
                                                 style="cursor: pointer;"
@@ -267,9 +267,9 @@
                                                         id="basic-addon1"
                                                         (click)="ThayDoiSoLuongDichVu(i,'Tru')"><strong>-</strong></span>
                                                 </div>
-                                                <input type="text" class="form-control border-0 text-center"
+                                                <input type="number" class="form-control border-0 text-center"
                                                     aria-label="Username" aria-describedby="basic-addon1"
-                                                    [(ngModel)]="_ngSoLuongDaChon[i]">
+                                                    [(ngModel)]="_ngSoLuongDaChon[i]" readonly>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text border-0 bg-transparent"
                                                         id="basic-addon1"
