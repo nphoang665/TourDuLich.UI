@@ -65,7 +65,7 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
       if (this.datTour[index].idDatTour == id) {
         this.tourById = this.datTour[index];
         this.tourById.idNhanVien = nguoiDung.idNhanVien;
-        this.tourById.tinhTrang = "Đã được duyệt";
+        this.tourById.tinhTrang = "Đã đặt tour";
         this.tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} chấp nhận tour`;
       }
 

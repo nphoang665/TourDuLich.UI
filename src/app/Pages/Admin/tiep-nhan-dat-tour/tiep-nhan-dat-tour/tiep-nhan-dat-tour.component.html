@@ -86,7 +86,7 @@
                   <td mat-cell *matCellDef="let element">
                     <button mat-raised-button style="background-color: #009628; color: white;" class="m-1"
                       (click)="chapNhanDatTour(element.idDatTour)"
-                      [disabled]="element.tinhTrang ==='Đã thanh toán' ||element.tinhTrang ==='Đã được duyệt' ||element.tinhTrang ==='Đã đặt tour' || element.tinhTrang ==='Đang đợi duyệt' || element.tinhTrang==='Khách hàng hủy'">
+                      [disabled]="element.tinhTrang ==='Đã thanh toán'||element.tinhTrang ==='Đã đặt tour' ||  element.tinhTrang==='Khách hàng hủy'">
                       <i class=" fa-regular fa-circle-check"></i>
 
                     </button>

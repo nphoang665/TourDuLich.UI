@@ -331,17 +331,12 @@ export class QuanlydattourComponent implements OnInit {
       //đầu tiên lấy những khách hàng nào đã đăt tour và đã đặt tour đó có tình trạng từ chối
       this.datTourService.getAllDatTour().subscribe((resDatTour: any) => {
         let arrKhachHangCopy = [...khachhangs];
-        arrKhachHangCopy.forEach(element => {
+        arrKhachHangCopy = arrKhachHangCopy.filter(element => {
           let existsKhachHang = resDatTour.find((datTour: any) => datTour.idTour == idTour && datTour.idKhachHang == element.idKhachHang);
           if (existsKhachHang) {
-            if (existsKhachHang.tinhTrang != 'Đã từ chối' && existsKhachHang.tinhTrang != 'Đã thanh toán') {
-              for (let index = 0; index < arrKhachHangCopy.length; index++) {
-                if (arrKhachHangCopy[index].idKhachHang === existsKhachHang.idKhachHang) {
-                  arrKhachHangCopy.splice(index, 1);
-                }
-              }
-            }
+            return !['Đã từ chối', 'Đang đợi duyệt', 'Đã đặt tour', 'Đã thanh toán'].includes(existsKhachHang.tinhTrang);
           }
+          return true;
         });
         khachhangs = arrKhachHangCopy;
         console.log(arrKhachHangCopy);
@@ -402,12 +397,9 @@ export class QuanlydattourComponent implements OnInit {
   TongTien_DatTour!: number;
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
-
-
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       this.model = data;
       this.LayKhachHang(idTour);
-
       //gọi services xử lý số lượng người dùng
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe({
         next: (responseTinhSoLuongNguoiConNhan: any) => {
@@ -436,7 +428,6 @@ export class QuanlydattourComponent implements OnInit {
       this.TinhTongTien();
     })
   }
-
   toNumber(value: string): number {
     return Number(value);
   }
@@ -606,10 +597,9 @@ export class QuanlydattourComponent implements OnInit {
     this.idTour_ThanhToan = idTour;
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
       this.Tour_ThanhToan = data;
-      for (let index = 0; index < data.length; index++) {
-        if (data[index].tinhTrang != "Đang đợi duyệt" && data[index].tinhTrang != "Đã thanh toán") {
-          // console.log(data);
 
+      for (let index = 0; index < data.length; index++) {
+        if (!["Đang đợi duyệt", "Đã từ chối", "Đã thanh toán"].includes(data[index].tinhTrang)) {
           this.arrKhachHangThanhToan.push(data[index].khachHang);
         }
       }
@@ -623,9 +613,8 @@ export class QuanlydattourComponent implements OnInit {
         );
       }
     })
-    //get dịch vụ chi tiết
-
   }
+
   displayFnKhachHang_ThanhToan(kh: KhachHang): string {
     return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
   }
