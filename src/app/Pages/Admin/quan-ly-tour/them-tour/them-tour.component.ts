@@ -13,7 +13,7 @@ import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
 import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -39,8 +39,8 @@ export const MY_FORMATS = {
   templateUrl: './them-tour.component.html',
   styleUrl: './them-tour.component.css',
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class ThemTourComponent implements OnInit, OnDestroy {
@@ -73,13 +73,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.max(50),
 
     ]),
-    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
-        Validators.required,
-       this.kiemLoiNgayNhoHonHienTai(),
-       this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
+    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
+      Validators.required,
+      this.kiemLoiNgayNhoHonHienTai(),
+      this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
     ]
-   ),
-    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'),[
+    ),
+    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
@@ -87,7 +87,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(50),
-      
+
     ]),
     soChoConNhan: new FormControl(2),
     idDoiTac: new FormControl('',
@@ -164,22 +164,22 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  kiemLoiNgayNhoHonHienTai(): ValidatorFn{
-    return (control: AbstractControl): ValidationErrors | null =>{
+  kiemLoiNgayNhoHonHienTai(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const ngayChonTuInput = new Date(control.value);
       const ngayHienTai = new Date();
-      ngayHienTai.setHours(0,0,0,0);
-      return ngayChonTuInput < ngayHienTai ? {'dateInvalid': true} : null;
+      ngayHienTai.setHours(0, 0, 0, 0);
+      return ngayChonTuInput < ngayHienTai ? { 'dateInvalid': true } : null;
     }
   }
-  kiemLoiNgayBatDauNhoHonNgayKetThuc():ValidatorFn{
-    return (control: AbstractControl): ValidationErrors | null =>{
+  kiemLoiNgayBatDauNhoHonNgayKetThuc(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       const ngayBatDau = new Date(control.parent?.get('thoiGianBatDau')?.value);
       const ngayKetThuc = new Date(control.parent?.get('thoiGianKetThuc')?.value);
       // console.log(ngayBatDau, ngayKetThuc);
-      
-      return ngayBatDau > ngayKetThuc ? {'ngayKetThucInvalid': true} : null;
-      return {'ngayKetThucInvalid': true};
+
+      return ngayBatDau > ngayKetThuc ? { 'ngayKetThucInvalid': true } : null;
+      return { 'ngayKetThucInvalid': true };
     }
   }
 
@@ -207,6 +207,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   ) {
 
   }
+
 
   onFieldTouched(fieldName: string): void {
     this.ThemTourForm.get(fieldName)?.markAsTouched();
@@ -275,6 +276,15 @@ export class ThemTourComponent implements OnInit, OnDestroy {
   get sanitizedText() {
     const moTaControl = this.ThemTourForm.get('moTa');
     return this.domSanitizer.bypassSecurityTrustHtml(moTaControl?.value || '');
+  }
+  IsDisplayPreviewDescription: boolean = false;
+  Fn_Display_Description() {
+    if (this.IsDisplayPreviewDescription === false) {
+      this.IsDisplayPreviewDescription = true;
+    }
+    else {
+      this.IsDisplayPreviewDescription = false;
+    }
   }
   get f(): { [key: string]: any } {
     return this.ThemTourForm.controls;

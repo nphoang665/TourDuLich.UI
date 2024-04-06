@@ -266,16 +266,22 @@
                 <div class="d-flex justify-content-end mt-2">
                   <div mat-dialog-actions>
                     <button mat-raised-button routerLink="/quanlytour" color="warn">Hủy thêm</button>
-                    <button mat-raised-button (click)="SuaTour()" [disabled]="suaTourForm.invalid" color="primary">Thêm
+                    <button mat-raised-button (click)="Fn_Display_Description()">Xem trước mô tả</button>
+
+                    <button mat-raised-button (click)="SuaTour()" [disabled]="suaTourForm.invalid" color="primary">Sửa
                       tour</button>
                   </div>
                 </div>
 
               </div>
             </div>
-
-
           </form>
+          @if(IsDisplayPreviewDescription){
+          <div style="margin-top: 20px;  margin: 0 auto; max-width: 800px;">
+            <strong>Preview:</strong>
+            <div [innerHTML]="sanitizedText"></div>
+          </div>
+          }
 
         </div>
       </div>
