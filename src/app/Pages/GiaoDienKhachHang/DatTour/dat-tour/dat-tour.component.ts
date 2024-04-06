@@ -5,6 +5,7 @@ import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
+import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 
 export enum SortCriteria {
   DeXuat = 'DeXuat',

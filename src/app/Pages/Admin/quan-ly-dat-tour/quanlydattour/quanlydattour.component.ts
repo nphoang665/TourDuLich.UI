@@ -30,6 +30,7 @@ import { log } from 'console';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { LoadingSanphamService } from '../../services/Loading/loading-sanpham.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -110,15 +111,15 @@ export class QuanlydattourComponent implements OnInit {
       this.noSpecialCharValidator(),
     ]),
     soDienThoai: new FormControl('', {
-      validators:[
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10), 
-      Validators.pattern(/^(0[0-9]{9})$/)
-    ],
-    asyncValidators: [this.checkSDT()],
-    updateOn:'change'
-  }),
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^(0[0-9]{9})$/)
+      ],
+      asyncValidators: [this.checkSDT()],
+      updateOn: 'change'
+    }),
     diaChi: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
@@ -130,7 +131,7 @@ export class QuanlydattourComponent implements OnInit {
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-       
+
         //Validators.pattern(/^(0|[1-9][0-9]*)$/),
       ],
       asyncValidators: [this.checkCCCD()],
@@ -141,16 +142,16 @@ export class QuanlydattourComponent implements OnInit {
     ),
     gioiTinh: new FormControl('',
       Validators.required),
-    email: new FormControl('',{
-      validators:[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50), 
-      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-    ],
-    asyncValidators: [this.checkEmail()],
-    updateOn: 'change'
-  }),
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ],
+      asyncValidators: [this.checkEmail()],
+      updateOn: 'change'
+    }),
     tinhTrang: new FormControl('Đang hoạt động'),
   });
   get tenKhachHang() {
@@ -189,46 +190,46 @@ export class QuanlydattourComponent implements OnInit {
   }
   checkSDT(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 10) {
-            return this.quanLyKhachHangServices.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidSDT': true } : null;
-            }).catch(err => {
-                console.error(err);
-                return null;
-            });
-        } else {
-            return Promise.resolve(null);
-        }
+      if (control.value.length === 10) {
+        return this.quanLyKhachHangServices.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidSDT': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
+      } else {
+        return Promise.resolve(null);
+      }
     };
   }
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 12) {
-            return this.quanLyKhachHangServices.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidCCCD': true } : null;
-            }).catch(err => {
-                console.error(err);
-                return null;
-            });
-        } else {
-            return Promise.resolve(null);
-        }
-    };
-}
-checkEmail(): AsyncValidatorFn {
-  return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=10) {
-          return this.quanLyKhachHangServices.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
-              return data ? { 'invalidEmail': true } : null;
-          }).catch(err => {
-              console.error(err);
-              return null;
-          });
+      if (control.value.length === 12) {
+        return this.quanLyKhachHangServices.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidCCCD': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
       } else {
-          return Promise.resolve(null);
+        return Promise.resolve(null);
       }
-  };
-}
+    };
+  }
+  checkEmail(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >= 10) {
+        return this.quanLyKhachHangServices.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidEmail': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
+      } else {
+        return Promise.resolve(null);
+      }
+    };
+  }
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -242,6 +243,8 @@ checkEmail(): AsyncValidatorFn {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private nhanvienServices: NhanVienService,
+    public loaderServices: LoadingSanphamService,
+
     // public dialogRef: MatDialogRef<QuanlydattourComponent>,
   ) {
     var ngayGioHienTai = new Date();
