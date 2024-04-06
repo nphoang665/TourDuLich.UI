@@ -4,48 +4,227 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 import { jwtDecode } from "jwt-decode";
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = (route, state) => {
   const cookieService = inject(CookieService);
   const authService = inject(AuthService);
   const router = inject(Router);
   const user = authService.getUser();
 
-   // Kiểm tra sự tồn tại của user
   if (!user) {
     authService.logout();
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
   }
-  
-    // Check for the JWT Token
-    let token = cookieService.get('Authorization');
+
+  let token = cookieService.get('Authorization');
 
   if (token && user) {
     token = token.replace('Bearer ', '');
     const decodedToken: any = jwtDecode(token);
 
-    // Check if token has expired
     const expirationDate = decodedToken.exp * 1000;
     const currentTime = new Date().getTime();
 
     if (expirationDate < currentTime) {
-      // Logout
       authService.logout();
       return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
     } else {
-      // Token is still valid
-
-       // Kiểm tra vai trò người dùng
-      if (user.roles.some(role => role === 'Admin' || role === 'Nhân viên')) {
+      if (user.roles.some(role => role === 'Admin')) {
         return true;
       } else {
         alert('Bạn chưa được cấp quyền truy cập');
         return router.createUrlTree(['/404']);
-        // return false;
       }
-      
     }
   } else {
-    // Logout
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+  }
+};
+
+export const employeeGuard: CanActivateFn = (route, state) => {
+  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const user = authService.getUser();
+
+  if (!user) {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
+  }
+
+  let token = cookieService.get('Authorization');
+
+  if (token && user) {
+    token = token.replace('Bearer ', '');
+    const decodedToken: any = jwtDecode(token);
+
+    const expirationDate = decodedToken.exp * 1000;
+    const currentTime = new Date().getTime();
+
+    if (expirationDate < currentTime) {
+      authService.logout();
+      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    } else {
+      if (user.roles.some(role => role === 'Nhân viên')) {
+        return true;
+      } else {
+        alert('Bạn chưa được cấp quyền truy cập');
+        return router.createUrlTree(['/404']);
+      }
+    }
+  } else {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+  }
+};
+export const customerGuard: CanActivateFn = (route, state) => {
+  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const user = authService.getUser();
+
+  if (!user) {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
+  }
+
+  let token = cookieService.get('Authorization');
+
+  if (token && user) {
+    token = token.replace('Bearer ', '');
+    const decodedToken: any = jwtDecode(token);
+
+    const expirationDate = decodedToken.exp * 1000;
+    const currentTime = new Date().getTime();
+
+    if (expirationDate < currentTime) {
+      authService.logout();
+      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    } else {
+      if (user.roles.some(role => role === 'Khách hàng')) {
+        return true;
+      } else {
+        alert('Bạn chưa được cấp quyền truy cập');
+        return router.createUrlTree(['/404']);
+      }
+    }
+  } else {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+  }
+};
+export const GuestGuard: CanActivateFn = (route, state) => {
+  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const user = authService.getUser();
+
+
+  if (!user) {
+    return true;
+  }
+
+  let token = cookieService.get('Authorization');
+
+  if (token && user) {
+    token = token.replace('Bearer ', '');
+    const decodedToken: any = jwtDecode(token);
+
+    const expirationDate = decodedToken.exp * 1000;
+    const currentTime = new Date().getTime();
+
+    if (expirationDate < currentTime) {
+      authService.logout();
+      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    } else {
+      console.log(user.roles);
+
+      if (user.roles.some(role => role === null)) {
+        return true;
+      } else {
+        alert('Bạn chưa được cấp quyền truy cập');
+        return router.createUrlTree(['/404']);
+      }
+    }
+  } else {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+  }
+};
+export const guestOrCustomerGuard: CanActivateFn = (route, state) => {
+  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const user = authService.getUser();
+
+  if (!user) {
+    // Allow guests to access
+    return true;
+  }
+
+  let token = cookieService.get('Authorization');
+
+  if (token && user) {
+    token = token.replace('Bearer ', '');
+    const decodedToken: any = jwtDecode(token);
+
+    const expirationDate = decodedToken.exp * 1000;
+    const currentTime = new Date().getTime();
+
+    if (expirationDate < currentTime) {
+      authService.logout();
+      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    } else {
+      console.log(user.roles);
+
+      if (user.roles.some(role => role === null || role === 'Khách hàng')) {
+        // Allow guests or customers to access
+        return true;
+      } else {
+        alert('Bạn chưa được cấp quyền truy cập');
+        return router.createUrlTree(['/404']);
+      }
+    }
+  } else {
+    // Allow guests to access
+    return true;
+  }
+};
+export const adminOrEmployeeGuard: CanActivateFn = (route, state) => {
+  const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const user = authService.getUser();
+
+  if (!user) {
+    authService.logout();
+    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
+  }
+
+  let token = cookieService.get('Authorization');
+
+  if (token && user) {
+    token = token.replace('Bearer ', '');
+    const decodedToken: any = jwtDecode(token);
+
+    const expirationDate = decodedToken.exp * 1000;
+    const currentTime = new Date().getTime();
+
+    if (expirationDate < currentTime) {
+      authService.logout();
+      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    } else {
+      console.log(user.roles);
+
+      if (user.roles.some(role => role === 'Admin' || role === 'Nhân viên')) {
+        // Allow Admin or Nhân viên to access
+        return true;
+      } else {
+        alert('Bạn chưa được cấp quyền truy cập');
+        return router.createUrlTree(['/404']);
+      }
+    }
+  } else {
     authService.logout();
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
   }
