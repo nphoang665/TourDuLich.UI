@@ -8,6 +8,7 @@ import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service'
 import { isPlatformBrowser } from '@angular/common';
 import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
+import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
 
 declare var bootstrap: any;
 @Component({
@@ -23,13 +24,12 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute,
     private tourDuLichServices: QuanLyTourService,
     public domSanitizer: DomSanitizer,
-    private el: ElementRef,
-    //đối tượng gọi thủ công dom
     private cdRef: ChangeDetectorRef,
     public loaderServices: LoadingSanphamService,
     private router: Router,
     @Inject(PLATFORM_ID) private _platformId: Object,
-    private danhGiaServices: DanhgiaService
+    private danhGiaServices: DanhgiaService,
+    private datTourService: DattourService,
   ) {
 
   }
@@ -60,18 +60,14 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     this.tourDuLichServices.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       //trả về data dạng tour
       this.TourChiTiet = data;
-
-
+      this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe(resultDatTour => {
+        this.TourChiTiet.soChoConNhan = resultDatTour.SoChoConNhanTrongTour;
+      })
       this.TourChiTiet.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
       this.TourChiTiet.SoNgayDem = this.calculateDaysAndNights(this.TourChiTiet.thoiGianBatDau, this.TourChiTiet.thoiGianKetThuc);
       this.danhGiaServices.LayTrungBinhSaoMotTour(this.TourChiTiet.idTour).subscribe(result => {
         this.TourChiTiet.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
         this.TourChiTiet.soLuongDanhGia = result.soLuongDanhGia;
-
-
-
-
-
       });
       //gán ảnh tour vào mảng 
       //xử lý ảnh và gán vào mảng tour
@@ -81,9 +77,6 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
         //sao chép img gốc thành mảng clone
         this.images_clone.push(environment.apiBaseUrl + '/uploads/' + this.TourChiTiet.anhTour[index].imgTour)
       }
-
-
-
     })
   }
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {
@@ -103,32 +96,20 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
   LayIdRoute(): string {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-
     });
     return this.id;
   }
-
-
   //lấy dịch vụ mẫu from services
   // biến lấy dịch vụ mẫu
-
-
-
-
   // tạo mảng chứa imgTour
   images: string[] = [
-
   ];
   //tạo 1 mảng clone sao chép imgTour gốc
   images_clone: string[] = [];
   loadMoreImages = (direction: 'start' | 'end' | undefined) => {
     if (direction === 'end') {
-
-
     } else if (direction === 'start') {
-
     }
-
   }
 
   //xử lý ảnh con khi click hiển thị preview

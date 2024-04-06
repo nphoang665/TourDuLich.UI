@@ -15,12 +15,12 @@ import { DichVuChiTietService } from '../../../Admin/services/DichVuChiTiet/dich
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
-import { ReactiveFormsModule,  Validator, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
 import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { KhachHang } from '../../../Admin/models/khach-hang.model';
 import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
 import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -54,15 +54,15 @@ interface DichVuThemVaoDb {
   templateUrl: './thanhtoankhachhang.component.html',
   styleUrl: './thanhtoankhachhang.component.css',
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
 
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class ThanhtoankhachhangComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   constructor(private dichVuServices: DichvuService,
-    
+
     @Inject(PLATFORM_ID) private _platform_id: Object,
     private tourDuLichServices: QuanLyTourService,
     private datTourChoKhachHangServices: DattourService,
@@ -70,9 +70,9 @@ export class ThanhtoankhachhangComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private KhachhangService: KhachhangService,
-  
+
   ) {
-    
+
   }
   private nguoiDungLogin = this.nguoiDung.LayNguoiDungTuLocalStorage();
 
@@ -198,6 +198,9 @@ export class ThanhtoankhachhangComponent implements OnInit {
     this.TinhTienDichVu();
 
   }
+  ThayDoiSoLuongNguoiDuTour() {
+    this.TinhTongTienTour();
+  }
   ThayDoiSoLuong(loaiNguoi: any, loaiNutBam: any) {
     //nếu loại người =  người lớn 
     if (loaiNguoi === "NguoiLon") {
@@ -263,29 +266,29 @@ export class ThanhtoankhachhangComponent implements OnInit {
   private ngaySinh = this.nguoiDungLogin ? new Date(this.nguoiDungLogin.ngaySinh).toISOString().split('T')[0] : '';
   ThanhToan = new FormGroup({
     IdKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.idKhachHang : ''),
-    TenKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.tenKhachHang : '',[
+    TenKhachHang: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.tenKhachHang : '', [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
     ]),
-    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : '',{
-      validators:[
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10), 
-      Validators.pattern(/^(0[0-9]{9})$/)
-    ],
-    asyncValidators: [this.checkSDT()],
-    updateOn:'change'
-  }),
-    DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : '',[
+    SoDienThoai: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.soDienThoai : '', {
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^(0[0-9]{9})$/)
+      ],
+      asyncValidators: [this.checkSDT()],
+      updateOn: 'change'
+    }),
+    DiaChi: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.diaChi : '', [
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50), 
-      
+      Validators.maxLength(50),
+
     ]),
-    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '',{
+    CCCD: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.cccd : '', {
       validators: [
         Validators.required,
         Validators.maxLength(12),
@@ -296,43 +299,43 @@ export class ThanhtoankhachhangComponent implements OnInit {
       updateOn: 'change'
     }),
     NgaySinh: new FormControl(this.nguoiDungLogin ? this.ngaySinh : '',
-    Validators.required),
+      Validators.required),
     GioiTinh: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.gioiTinh : '',
-    Validators.required),
-    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '',{
-      validators:[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50), 
-      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-    ],
-    asyncValidators: [this.checkEmail()],
-    updateOn: 'change'
-  }),
+      Validators.required),
+    Email: new FormControl(this.nguoiDungLogin ? this.nguoiDungLogin.email : '', {
+      validators: [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ],
+      asyncValidators: [this.checkEmail()],
+      updateOn: 'change'
+    }),
     TinhTrangKhachHang: new FormControl('Đang hoạt động'),
   });
-  get TenKhachHang(){
+  get TenKhachHang() {
     return this.ThanhToan.get('TenKhachHang');
   }
-  get SoDienThoai(){
+  get SoDienThoai() {
     return this.ThanhToan.get('SoDienThoai');
   }
-  get CCCD(){
+  get CCCD() {
     return this.ThanhToan.get('CCCD');
   }
-  get DiaChi(){
+  get DiaChi() {
     return this.ThanhToan.get('DiaChi');
   }
-  get NgaySinh(){
+  get NgaySinh() {
     return this.ThanhToan.get('NgaySinh');
   }
-  get Email(){
+  get Email() {
     return this.ThanhToan.get('Email');
   }
-  get GioiTinh(){
+  get GioiTinh() {
     return this.ThanhToan.get('GioiTinh');
   }
-  get TinhTrangKhachHang(){
+  get TinhTrangKhachHang() {
     return this.ThanhToan.get('TinhTrangKhachHang');
   }
   noSpecialCharValidator(): ValidatorFn {
@@ -343,88 +346,89 @@ export class ThanhtoankhachhangComponent implements OnInit {
   }
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 12) {
-          var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
-        if(NguoiDung && NguoiDung.idKhachHang !=''){
-        if(control.value != NguoiDung?.soDienThoai){
+      if (control.value.length === 12) {
+        var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
+        if (NguoiDung && NguoiDung.idKhachHang != '') {
+          if (control.value != NguoiDung?.soDienThoai) {
             return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidCCCD': true } : null;
+              return data ? { 'invalidCCCD': true } : null;
             }).catch(err => {
-                console.error(err);
-                return null;
+              console.error(err);
+              return null;
             });
           }
         }
-        if(!NguoiDung){
+        if (!NguoiDung) {
           return this.KhachhangService.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
             return data ? { 'invalidCCCD': true } : null;
-        }).catch(err => {
+          }).catch(err => {
             console.error(err);
             return null;
-        });
-        }
-          return Promise.resolve(null);
-        } else {
-            return Promise.resolve(null);
-        }
-    };
-}
-checkSDT(): AsyncValidatorFn {
-  return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length === 10) {
-      var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
-      if(NguoiDung && NguoiDung.idKhachHang !=''){
-        if(control.value != NguoiDung?.soDienThoai){
-          return this.KhachhangService.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
-              return data ? { 'invalidSDT': true } : null;
-          }).catch(err => {
-              console.error(err);
-              return null;
           });
-         }
-      }
-      if(!NguoiDung){
-        return this.KhachhangService.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
-          return data ? { 'invalidSDT': true } : null;
-      }).catch(err => {
-          console.error(err);
-          return null;
-      });
-      }
+        }
         return Promise.resolve(null);
       } else {
-          return Promise.resolve(null);
+        return Promise.resolve(null);
       }
-  };
-}
-checkEmail(): AsyncValidatorFn {
-  return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=10) {
+    };
+  }
+  checkSDT(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length === 10) {
         var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
-      if(NguoiDung && NguoiDung.idKhachHang !=''){
-        if(control.value != NguoiDung?.soDienThoai){
-        
-          return this.KhachhangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
-              return data ? { 'invalidEmail': true } : null;
-          }).catch(err => {
+        if (NguoiDung && NguoiDung.idKhachHang != '') {
+          if (control.value != NguoiDung?.soDienThoai) {
+            return this.KhachhangService.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidSDT': true } : null;
+            }).catch(err => {
               console.error(err);
               return null;
+            });
+          }
+        }
+        if (!NguoiDung) {
+          return this.KhachhangService.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+            return data ? { 'invalidSDT': true } : null;
+          }).catch(err => {
+            console.error(err);
+            return null;
           });
-        }}
-        if(!NguoiDung){
+        }
+        return Promise.resolve(null);
+      } else {
+        return Promise.resolve(null);
+      }
+    };
+  }
+  checkEmail(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >= 10) {
+        var NguoiDung = this.nguoiDung.LayNguoiDungTuLocalStorage();
+        if (NguoiDung && NguoiDung.idKhachHang != '') {
+          if (control.value != NguoiDung?.soDienThoai) {
+
+            return this.KhachhangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+              return data ? { 'invalidEmail': true } : null;
+            }).catch(err => {
+              console.error(err);
+              return null;
+            });
+          }
+        }
+        if (!NguoiDung) {
           return this.KhachhangService.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
             return data ? { 'invalidEmail': true } : null;
-        }).catch(err => {
+          }).catch(err => {
             console.error(err);
             return null;
-        });
+          });
         }
         return Promise.resolve(null);
       } else {
-          return Promise.resolve(null);
+        return Promise.resolve(null);
       }
-  };
-}
+    };
+  }
   XacNhanDatTour() {
     // this.isfalse = !this.isfalse;
     this.DatTourChoKhachHang();
@@ -482,6 +486,8 @@ checkEmail(): AsyncValidatorFn {
   //khai báo tổng tiền dịch vụ
   TongTienDichVu: number = 0;
   TinhTienDichVu() {
+    console.log('s');
+
     //reset khi tính tiền 
     this.TongTienDichVu = 0;
     this.TongDichVu_Db.forEach(element => {
