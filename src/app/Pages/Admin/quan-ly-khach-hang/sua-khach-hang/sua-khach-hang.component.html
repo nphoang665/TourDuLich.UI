@@ -58,7 +58,10 @@
           <mat-error>CCCD không hợp lệ</mat-error>
         }
       @else if(cccd?.errors?.['invalidCCCD']){
-          <mat-error>Căn cước công dân đã tồn tại</mat-error>
+          <mat-error>CCCD đã tồn tại</mat-error>
+        }
+      @else if(cccd?.errors?.['pattern']){
+          <mat-error>CCCD không chứa chữ hoặc ký tự đặc biệt</mat-error>
         }
     </mat-form-field>
 

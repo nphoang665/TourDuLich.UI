@@ -103,6 +103,10 @@
                   @else if (password?.errors?.['maxlength']) {
                       <mat-error>Mật khẩu quá dài</mat-error>
                     }
+                    @else if (password?.errors?.['MatKhauDauTienInvalid']) {
+                      <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
+                      }
+                    
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                 </mat-form-field>
@@ -111,15 +115,18 @@
                   <mat-label>Nhập lại mật khẩu</mat-label>
                   <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword"[errorStateMatcher]="matcher">
-                  @if (password?.errors?.['required']) {
-                    <mat-error>Vui lòng nhập lại mật khẩu</mat-error>
+                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                  @if (confirmPassword?.errors?.['required']) {
+                    <mat-error>Nhập lại mật khẩu không được để trống</mat-error>
                     } 
-                  @else if (password?.errors?.['minlength']) {
+                  @else if (confirmPassword?.errors?.['minlength']) {
                     <mat-error>Mật khẩu không đúng</mat-error>
                     }
-                  @else if (password?.errors?.['maxlength']) {
-                      <mat-error>Mật khẩu không đúng</mat-error>
+                  @else if (confirmPassword?.errors?.['maxlength']) {
+                    <mat-error>Mật khẩu không đúng</mat-error>
+                    }
+                  @else if (confirmPassword?.errors?.['MatKhauXacNhanInvalid']) {
+                    <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
                     }
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>

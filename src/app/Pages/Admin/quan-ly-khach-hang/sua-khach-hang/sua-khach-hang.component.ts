@@ -218,7 +218,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
           Validators.required,
           Validators.maxLength(12),
           Validators.minLength(12),
-          Validators.pattern(/^(0|[1-9][0-9]*)$/),
+          Validators.pattern('^[0-9]*$'),
         ],
         asyncValidators: [this.checkCCCD()],
         updateOn: 'change'

@@ -290,7 +290,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-        
+        Validators.pattern('^[0-9]*$'),
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'

@@ -10,7 +10,7 @@
       <mat-label>Tên dịch vụ</mat-label>
       <input matInput formControlName="tenDichVu"  [errorStateMatcher]="matcher"/>
       @if (tenDichVu?.errors?.['required']) {
-        <mat-error>Vui lòng nhập tên dịch vụ</mat-error>
+        <mat-error>Tên dịch vụ không được để trống</mat-error>
         } 
       @else if (tenDichVu?.errors?.['minlength']) {
         <mat-error>Tên dịch vụ quá ngắn</mat-error>
@@ -27,7 +27,7 @@
       <mat-label>Đơn vị tính</mat-label>
       <input matInput formControlName="donViTinh"[errorStateMatcher]="matcher" />
       @if (donViTinh?.errors?.['required']) {
-        <mat-error>Vui lòng nhập đơn vị tính</mat-error>
+        <mat-error>Đơn vị tính không được để trống</mat-error>
         } 
       @else if (donViTinh?.errors?.['minlength']) {
         <mat-error>Đơn vị tính quá ngắn</mat-error>
@@ -44,7 +44,7 @@
       <mat-label>Giá tiền</mat-label>
       <input matInput formControlName="giaTien"[errorStateMatcher]="matcher" />
       @if (giaTien?.errors?.['required']) {
-        <mat-error>Vui lòng nhập giá tiền</mat-error>
+        <mat-error>Giá tiền không được để trống</mat-error>
         } 
       @else if (giaTien?.errors?.['min']) {
         <mat-error>Giá tiền không được dưới 10000</mat-error>

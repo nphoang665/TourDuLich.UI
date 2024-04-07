@@ -70,12 +70,15 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50),
+      Validators.maxLength(100),
+     
+
     ]),
     confirmPassword: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(50),
+      Validators.maxLength(100),
+      this.KiemLoiMatKhauXacNhanKhongTrungNhau(),
     ])
   })
   get email(){
@@ -88,7 +91,26 @@ export class RegisterComponent implements OnInit {
     return this.register.get('confirmPassword');
   }
   get name(){
-    return this.register.get('confirmPassword');
+    return this.register.get('name');
+  }
+  KiemLoiMatKhauXacNhanKhongTrungNhau(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const MatKhau = control.parent?.get('password')?.value;
+      const XacNhanMatKhau = control.value;
+      
+      // console.log(ngayBatDau, ngayKetThuc);
+      return MatKhau != XacNhanMatKhau ? { 'MatKhauXacNhanInvalid': true } : null;
+    }
+  }
+  KiemLoiMatKhauKhongTrungNhau(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const MatKhau = control.value;
+      const XacNhanMatKhau = control.parent?.get('confirmPassword')?.value;
+      console.log(MatKhau, XacNhanMatKhau);
+      
+      // console.log(ngayBatDau, ngayKetThuc);
+      return MatKhau != XacNhanMatKhau ? { 'MatKhauDauTienInvalid': true } : null;
+    }
   }
   noSpecialCharValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -124,6 +146,9 @@ export class RegisterComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('google-login', sanitizer.bypassSecurityTrustHtml(google_login));
   }
   ngOnInit(): void {
+    this.register.get('password')?.valueChanges.subscribe(()=>{
+      this.register.get('confirmPassword')?.updateValueAndValidity();
+    });
   }
 
   onFormSubmit() {

@@ -5,7 +5,7 @@
       <mat-label>Tên dịch vụ</mat-label>
       <input matInput formControlName="tenDichVu" [errorStateMatcher]="matcher" />
       @if (tenDichVu?.errors?.['required']) {
-        <mat-error>Vui lòng nhập tên dịch vụ</mat-error>
+        <mat-error>Tên dịch vụ không được để trống</mat-error>
         } 
       @else if (tenDichVu?.errors?.['minlength']) {
         <mat-error>Tên dịch vụ quá ngắn</mat-error>
@@ -22,13 +22,13 @@
       <mat-label>Đơn vị tính</mat-label>
       <input matInput formControlName="donViTinh" [errorStateMatcher]="matcher" />
       @if (donViTinh?.errors?.['required']) {
-        <mat-error>Vui lòng nhập đơn vị tính</mat-error>
+        <mat-error>Đơn vị tính không được để trống</mat-error>
         } 
       @else if (donViTinh?.errors?.['minlength']) {
-        <mat-error>Đơn vị tính quá ngắn</mat-error>
+        <mat-error>Đơn vị tính không hợp lệ</mat-error>
         }
       @else if (donViTinh?.errors?.['maxlength']) {
-          <mat-error>Đơn vị tính quá dài</mat-error>
+          <mat-error>Đơn vị tính không hợp lệ</mat-error>
         }
       @else if (donViTinh?.errors?.['invalidChar']) {
           <mat-error>Đơn vị tính không chứa ký tự đặc biệt & số</mat-error>
@@ -39,7 +39,7 @@
       <mat-label>Giá tiền</mat-label>
       <input matInput formControlName="giaTien" type="number" [errorStateMatcher]="matcher" />
       @if (giaTien?.errors?.['required']) {
-        <mat-error>Vui lòng nhập giá tiền</mat-error>
+        <mat-error>Giá tiền không được để trống</mat-error>
         } 
       @else if (giaTien?.errors?.['min']) {
         <mat-error>Giá tiền không được dưới 10000</mat-error>
@@ -52,14 +52,14 @@
         <mat-label>Giờ bắt đầu</mat-label>
           <input matInput id='element' formControlName="gioBatDau" [errorStateMatcher]="matcher" />
           @if (gioBatDau?.errors?.['required']) {
-            <mat-error>Vui lòng nhập giờ bắt đầu</mat-error>
+            <mat-error>Giờ bắt đầu không được để trống</mat-error>
             } 
       </div>
       <div style="margin: 1%; width: 48%;">
         <mat-label>Giờ kết thúc</mat-label>
         <input matInput id='element2' color="primary" formControlName="gioKetThuc" [errorStateMatcher]="matcher" />
         @if (gioKetThuc?.errors?.['required']) {
-          <mat-error>Vui lòng nhập giờ kết thúc</mat-error>
+          <mat-error>Giờ kết thúc không được để trống</mat-error>
           } 
       </div>
     </div>

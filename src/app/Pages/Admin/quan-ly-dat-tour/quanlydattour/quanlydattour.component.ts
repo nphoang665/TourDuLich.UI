@@ -130,15 +130,16 @@ export class QuanlydattourComponent implements OnInit {
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-       
+        Validators.pattern('^[0-9]*$'),
         //Validators.pattern(/^(0|[1-9][0-9]*)$/),
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
     }),
-    ngaySinh: new FormControl('',
+    ngaySinh: new FormControl('',[
       Validators.required,
-    ),
+      this.kiemLoiTuoiPhaiLonHon18(),
+    ]),
     gioiTinh: new FormControl('',
       Validators.required),
     email: new FormControl('',{
@@ -227,6 +228,15 @@ checkEmail(): AsyncValidatorFn {
       } else {
           return Promise.resolve(null);
       }
+  };
+}
+kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const ngayChonTuInput = new Date(control.value);
+    const ngayHienTai = new Date();
+    ngayHienTai.setHours(0, 0, 0, 0);
+    const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+    return tuoi < 18 ? { 'ageInvalid': true } : null;
   };
 }
   constructor(private quanLyTourService: QuanLyTourService,
