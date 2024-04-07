@@ -108,9 +108,18 @@ export class DatTourComponent implements OnInit {
   }
   async TimKiemTheoYeuCauKhachHang(tentour: string, ngaydi: string, songuoilon: string, sotreem: string) {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+
     // Lọc danh sách tour dựa trên các tham số tìm kiếm
     let now = new Date();
     if (data) {
+      const promises = data.map(element =>
+        this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).toPromise().then((result: any) => {
+          element.soLuongNguoiLon = result.TongSoLuongNguoiLonDaDatTrongTour;
+          element.soLuongTreEm = result.TongSoLuongTreEmDaDatTrongTour;
+        })
+      );
+      await Promise.all(promises);
+
       console.log(tentour, new Date(ngaydi), songuoilon, sotreem);
       this.TourDuLich = data?.filter((tour: any) =>
         (this.LocString(tour.loaiTour.toLowerCase()).includes(this.LocString(tentour.toLowerCase())) ||
@@ -130,6 +139,7 @@ export class DatTourComponent implements OnInit {
       }
     }
   }
+
   //lọc string
   LocString(tukhoa: any) {
     return tukhoa.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
