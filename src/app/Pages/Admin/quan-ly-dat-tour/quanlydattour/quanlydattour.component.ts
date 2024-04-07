@@ -304,7 +304,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     this.NguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
-      this.TourDuLich = data;
+      this.TourDuLich =  data.filter(tour => tour.tinhTrang === 'Đang hoạt động' || tour.tinhTrang === 'Tạm hoãn');
       this.filterTours();
       this.TourDuLich.forEach(element => {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe({

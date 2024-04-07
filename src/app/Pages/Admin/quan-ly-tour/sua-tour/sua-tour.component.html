@@ -152,6 +152,17 @@
                   }
 
                 </mat-form-field>
+                <mat-form-field class="col-lg-3">
+                  <mat-label>Tình trạng</mat-label>
+                  <mat-select formControlName="tinhTrang" [errorStateMatcher]="matcher">
+                    <mat-option value="Đang hoạt động">Đang hoạt động</mat-option>
+                    <mat-option value="Ngưng hoạt động">Ngưng hoạt động</mat-option>
+                    <mat-option value="Tạm hoãn">Tạm hoãn</mat-option>
+                  </mat-select>
+                  @if (tinhTrang?.errors?.['required']) {
+                  <mat-error>Vui lòng chọn tình trạng</mat-error>
+                  }
+                </mat-form-field>
 
 
                 <div class="col-lg-3">
