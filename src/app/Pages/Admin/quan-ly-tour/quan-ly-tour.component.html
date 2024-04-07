@@ -14,16 +14,40 @@
       <div class="main-content-container container-fluid px-4">
         <div class="page-header row no-gutters py-4">
           <div class="QuanLuTour_container">
-            <button mat-raised-button color="primary" class="mb-3" routerLink="/themTour">
-              Thêm tour (+)
-            </button>
-            <br>
-            <mat-form-field>
-              <mat-label>Tìm kiếm</mat-label>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
-            </mat-form-field>
+            <div class="row">
+              <div class="col-lg-3 d-flex align-items-center"> <button mat-raised-button color="primary" class="mb-3"
+                  routerLink="/themTour">
+                  Thêm tour (+)
+                </button></div>
+              <div class="col-lg-6 d-flex align-items-center">
+                <mat-form-field>
+                  <mat-label>Tìm kiếm</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
+                </mat-form-field>
+              </div>
+              <div class="col-lg-3 d-flex align-items-center justify-content-end">
+                <div class="example-disabled">
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-printer"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-copy"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-filetype-pdf"></i>
+                  </button>
+                </div>
 
-            <div class="mat-elevation-z8">
+              </div>
+            </div>
+
+
+
+
+            <div class=" mat-elevation-z8">
               <table mat-table [dataSource]="dataSource" matSort>
                 <!-- ID DichVu Column -->
                 <ng-container matColumnDef="idTour">

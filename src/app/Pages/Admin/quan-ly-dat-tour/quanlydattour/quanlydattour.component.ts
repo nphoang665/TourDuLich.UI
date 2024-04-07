@@ -30,6 +30,7 @@ import { log } from 'console';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { LoadingSanphamService } from '../../services/Loading/loading-sanpham.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -110,15 +111,15 @@ export class QuanlydattourComponent implements OnInit {
       this.noSpecialCharValidator(),
     ]),
     soDienThoai: new FormControl('', {
-      validators:[
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10), 
-      Validators.pattern(/^(0[0-9]{9})$/)
-    ],
-    asyncValidators: [this.checkSDT()],
-    updateOn:'change'
-  }),
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^(0[0-9]{9})$/)
+      ],
+      asyncValidators: [this.checkSDT()],
+      updateOn: 'change'
+    }),
     diaChi: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
@@ -142,16 +143,16 @@ export class QuanlydattourComponent implements OnInit {
     ]),
     gioiTinh: new FormControl('',
       Validators.required),
-    email: new FormControl('',{
-      validators:[
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(50), 
-      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-    ],
-    asyncValidators: [this.checkEmail()],
-    updateOn: 'change'
-  }),
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ],
+      asyncValidators: [this.checkEmail()],
+      updateOn: 'change'
+    }),
     tinhTrang: new FormControl('Đang hoạt động'),
   });
   get tenKhachHang() {
@@ -190,43 +191,43 @@ export class QuanlydattourComponent implements OnInit {
   }
   checkSDT(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 10) {
-            return this.quanLyKhachHangServices.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidSDT': true } : null;
-            }).catch(err => {
-                console.error(err);
-                return null;
-            });
-        } else {
-            return Promise.resolve(null);
-        }
+      if (control.value.length === 10) {
+        return this.quanLyKhachHangServices.checkSDTCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidSDT': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
+      } else {
+        return Promise.resolve(null);
+      }
     };
   }
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
-        if (control.value.length === 12) {
-            return this.quanLyKhachHangServices.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
-                return data ? { 'invalidCCCD': true } : null;
-            }).catch(err => {
-                console.error(err);
-                return null;
-            });
-        } else {
-            return Promise.resolve(null);
-        }
-    };
-}
-checkEmail(): AsyncValidatorFn {
-  return (control: AbstractControl): Promise<ValidationErrors | null> => {
-      if (control.value.length >=10) {
-          return this.quanLyKhachHangServices.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
-              return data ? { 'invalidEmail': true } : null;
-          }).catch(err => {
-              console.error(err);
-              return null;
-          });
+      if (control.value.length === 12) {
+        return this.quanLyKhachHangServices.checkCCCDCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidCCCD': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
       } else {
-          return Promise.resolve(null);
+        return Promise.resolve(null);
+      }
+    };
+  }
+  checkEmail(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      if (control.value.length >= 10) {
+        return this.quanLyKhachHangServices.checkEmailCuaKhachHang(control.value).toPromise().then(data => {
+          return data ? { 'invalidEmail': true } : null;
+        }).catch(err => {
+          console.error(err);
+          return null;
+        });
+      } else {
+        return Promise.resolve(null);
       }
   };
 }
@@ -252,6 +253,8 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private nhanvienServices: NhanVienService,
+    public loaderServices: LoadingSanphamService,
+
     // public dialogRef: MatDialogRef<QuanlydattourComponent>,
   ) {
     var ngayGioHienTai = new Date();
@@ -338,17 +341,12 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
       //đầu tiên lấy những khách hàng nào đã đăt tour và đã đặt tour đó có tình trạng từ chối
       this.datTourService.getAllDatTour().subscribe((resDatTour: any) => {
         let arrKhachHangCopy = [...khachhangs];
-        arrKhachHangCopy.forEach(element => {
+        arrKhachHangCopy = arrKhachHangCopy.filter(element => {
           let existsKhachHang = resDatTour.find((datTour: any) => datTour.idTour == idTour && datTour.idKhachHang == element.idKhachHang);
           if (existsKhachHang) {
-            if (existsKhachHang.tinhTrang != 'Đã từ chối' && existsKhachHang.tinhTrang != 'Đã thanh toán') {
-              for (let index = 0; index < arrKhachHangCopy.length; index++) {
-                if (arrKhachHangCopy[index].idKhachHang === existsKhachHang.idKhachHang) {
-                  arrKhachHangCopy.splice(index, 1);
-                }
-              }
-            }
+            return !['Đã từ chối', 'Đang đợi duyệt', 'Đã đặt tour', 'Đã thanh toán'].includes(existsKhachHang.tinhTrang);
           }
+          return true;
         });
         khachhangs = arrKhachHangCopy;
         console.log(arrKhachHangCopy);
@@ -409,12 +407,9 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
   TongTien_DatTour!: number;
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
-
-
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       this.model = data;
       this.LayKhachHang(idTour);
-
       //gọi services xử lý số lượng người dùng
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe({
         next: (responseTinhSoLuongNguoiConNhan: any) => {
@@ -443,7 +438,6 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
       this.TinhTongTien();
     })
   }
-
   toNumber(value: string): number {
     return Number(value);
   }
@@ -613,10 +607,9 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     this.idTour_ThanhToan = idTour;
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
       this.Tour_ThanhToan = data;
-      for (let index = 0; index < data.length; index++) {
-        if (data[index].tinhTrang != "Đang đợi duyệt" && data[index].tinhTrang != "Đã thanh toán") {
-          // console.log(data);
 
+      for (let index = 0; index < data.length; index++) {
+        if (!["Đang đợi duyệt", "Đã từ chối", "Đã thanh toán"].includes(data[index].tinhTrang)) {
           this.arrKhachHangThanhToan.push(data[index].khachHang);
         }
       }
@@ -630,9 +623,8 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
         );
       }
     })
-    //get dịch vụ chi tiết
-
   }
+
   displayFnKhachHang_ThanhToan(kh: KhachHang): string {
     return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
   }

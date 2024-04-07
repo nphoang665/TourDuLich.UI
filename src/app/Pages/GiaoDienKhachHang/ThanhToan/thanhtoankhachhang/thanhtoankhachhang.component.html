@@ -18,7 +18,8 @@
         <h4><b>THANH TOÁN TOUR DU LỊCH</b></h4>
         <div class="row gx-3">
             <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
+                <div class="p-2 border text-white text-center"
+                    [style]="ThanhToan.invalid ? 'background-color: red': 'background-color: #4758B8' "><i
                         class="bi bi-1-circle-fill me-1"></i>Thông
                     tin liên hệ
                 </div>
@@ -68,8 +69,8 @@
                         <!-- CCCD -->
                         <mat-form-field class="m-0">
                             <mat-label for="inputCCCD">CCCD</mat-label>
-                            <input matInput type="text" maxlength="12" [errorStateMatcher]="matcher" formControlName="CCCD"
-                                id="inputCCCD" placeholder="Nhập CCCD của bạn">
+                            <input matInput type="text" maxlength="12" [errorStateMatcher]="matcher"
+                                formControlName="CCCD" id="inputCCCD" placeholder="Nhập CCCD của bạn">
                             @if (CCCD?.errors?.['required']) {
                             <mat-error>CCCD không được để trống</mat-error>
                             }
@@ -158,7 +159,7 @@
                 </form>
             </div> @if(ItemTourById){
             <div class="col-lg-4 col-md-6 col-sm-12 ">
-                <div class="p-2 border text-white text-center" style="background-color: #496989;"><i
+                <div class="p-2 border text-white text-center" style="background-color: #4758B8;"><i
                         class="bi bi-2-circle-fill me-1"></i>Thông
                     tin đặt tour
                 </div>
@@ -194,7 +195,7 @@
                                         </div>
                                         <input type="text" class="form-control shadow-none border-0 text-center"
                                             aria-label="Username" aria-describedby="basic-addon1"
-                                            [(ngModel)]="Sl_NguoiLon_ThanhToan">
+                                            [(ngModel)]="Sl_NguoiLon_ThanhToan" (input)="ThayDoiSoLuongNguoiDuTour()">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
                                                 style="cursor: pointer;"
@@ -225,7 +226,7 @@
                                         </div>
                                         <input type="text" class="form-control shadow-none border-0 text-center"
                                             aria-label="Username" aria-describedby="basic-addon1"
-                                            [(ngModel)]="Sl_TreEm_ThanhToan">
+                                            [(ngModel)]="Sl_TreEm_ThanhToan" (input)="ThayDoiSoLuongNguoiDuTour()">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-transparent" id="basic-addon1"
                                                 style="cursor: pointer;"
@@ -270,9 +271,9 @@
                                                         id="basic-addon1"
                                                         (click)="ThayDoiSoLuongDichVu(i,'Tru')"><strong>-</strong></span>
                                                 </div>
-                                                <input type="text" class="form-control border-0 text-center"
+                                                <input type="number" class="form-control border-0 text-center"
                                                     aria-label="Username" aria-describedby="basic-addon1"
-                                                    [(ngModel)]="_ngSoLuongDaChon[i]">
+                                                    [(ngModel)]="_ngSoLuongDaChon[i]" readonly>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text border-0 bg-transparent"
                                                         id="basic-addon1"
@@ -352,7 +353,7 @@
             </div>
             }
             <div class="col-lg-4 col-md-12 col-sm-12 mt-md-5 mt-lg-0">
-                <div class="p-2 border  text-white text-center" style="background-color: #496989;"><i
+                <div class="p-2 border  text-white text-center" style="background-color: #4758B8;"><i
                         class="bi bi-3-circle-fill me-1"></i>Gửi
                     đơn đặt tour
                 </div>
@@ -363,8 +364,11 @@
                             @if(isfalse===true){
 
 
-                            <button class="btn btn-primary d-flex justify-content-center" [disabled]="ThanhToan.invalid"
+                            <!-- <button class="btn btn-primary d-flex justify-content-center" [disabled]="ThanhToan.invalid"
                                 (click)="XacNhanDatTour()">XÁC
+                                NHẬN ĐẶT TOUR</button> -->
+                            <button mat-flat-button color="primary" class="d-flex justify-content-center"
+                                (click)="XacNhanDatTour()" [disabled]="ThanhToan.invalid">XÁC
                                 NHẬN ĐẶT TOUR</button>
                             }
                             @else {

@@ -141,10 +141,11 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   get sanitizedText() {
-    console.log(this.model?.moTa);
 
-    return this.domSanitizer.bypassSecurityTrustHtml(this.model?.moTa || '');
+
+    return this.domSanitizer.bypassSecurityTrustHtml(this.suaTourForm.get('moTa')?.value || '');
   }
+
   Fn_Display_Description() {
     if (this.IsDisplayPreviewDescription === false) {
       this.IsDisplayPreviewDescription = true;
