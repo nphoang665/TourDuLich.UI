@@ -19,28 +19,28 @@
                   routerLink="/themTour">
                   Thêm tour (+)
                 </button></div>
-              <div class="col-lg-4 d-flex align-items-center">
+              <div class="col-lg-6 d-flex align-items-center">
                 <mat-form-field>
                   <mat-label>Tìm kiếm</mat-label>
                   <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
                 </mat-form-field>
               </div>
               <div class="col-lg-3 d-flex align-items-center justify-content-end">
-                <div matTooltip="Disabled" class="example-disabled">
-                  <button mat-mini-fab disabled aria-label="Example mini fab with a heart icon">
-                    <mat-icon>favorite</mat-icon>
+                <div class="example-disabled">
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-printer"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-copy"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-filetype-pdf"></i>
                   </button>
                 </div>
-                <div matTooltip="Disabled" class="example-disabled">
-                  <button mat-mini-fab disabled aria-label="Example mini fab with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </button>
-                </div>
-                <div matTooltip="Disabled" class="example-disabled">
-                  <button mat-mini-fab disabled aria-label="Example mini fab with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </button>
-                </div>
+
               </div>
             </div>
 
