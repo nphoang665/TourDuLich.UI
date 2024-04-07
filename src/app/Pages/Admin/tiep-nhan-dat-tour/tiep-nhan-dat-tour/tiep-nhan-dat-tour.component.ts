@@ -48,7 +48,10 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
 
   getDatTourData() {
     this.datToursServices.getAllDatTour().subscribe(
-      (data: DatTour[]) => {
+      (data: any) => {
+        data = data.filter((s: any) => s.tinhTrang != 'Đã thanh toán');
+        console.log(data);
+
         this.dataSource.data = data;
         this.datTour = data;
       },
