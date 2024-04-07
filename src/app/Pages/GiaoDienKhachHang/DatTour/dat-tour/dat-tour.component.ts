@@ -91,6 +91,8 @@ export class DatTourComponent implements OnInit {
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe((resulDt: any) => {
+          element.soLuongNguoiLon = resulDt.TongSoLuongNguoiLonDaDatTrongTour,
+            element.soLuongTreEm = resulDt.TongSoLuongTreEmDaDatTrongTour
           element.soChoConNhan = resulDt.SoChoConNhanTrongTour;
         });
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
@@ -116,6 +118,7 @@ export class DatTourComponent implements OnInit {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).toPromise().then((result: any) => {
           element.soLuongNguoiLon = result.TongSoLuongNguoiLonDaDatTrongTour;
           element.soLuongTreEm = result.TongSoLuongTreEmDaDatTrongTour;
+          element.soChoConNhan = result.SoChoConNhanTrongTour;
         })
       );
       await Promise.all(promises);
