@@ -135,6 +135,10 @@ export class ThanhtoankhachhangComponent implements OnInit {
         //get tour du lịch theo id
         this.tourDuLichServices.getTourDuLichById(__itemTour.IdTour).subscribe((data: TourDuLich) => {
           this.ItemTourById = data;
+          this.datTourChoKhachHangServices.tinhSoLuongNguoiConNhan(data.idTour).subscribe((result: any) => {
+            data.soLuongNguoiLon = result.TongSoLuongNguoiLonDaDatTrongTour;
+            data.soLuongTreEm = result.TongSoLuongTreEmDaDatTrongTour;
+          })
           this.TinhTongTienTour();
           this.ItemTourById.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
         })
@@ -206,7 +210,10 @@ export class ThanhtoankhachhangComponent implements OnInit {
     if (loaiNguoi === "NguoiLon") {
       //nếu loại nút bấm là cộng
       if (loaiNutBam === "Cong") {
-        this.Sl_NguoiLon_ThanhToan++;
+        if (this.Sl_NguoiLon_ThanhToan < this.ItemTourById.soLuongNguoiLon) {
+          this.Sl_NguoiLon_ThanhToan++;
+        }
+
       }
       //nếu loại nút bấm là trừ
       else {
@@ -219,11 +226,14 @@ export class ThanhtoankhachhangComponent implements OnInit {
     else {
       //nếu loại nút bấm là cộng
       if (loaiNutBam === "Cong") {
-        this.Sl_TreEm_ThanhToan++;
+        if (this.Sl_TreEm_ThanhToan < this.ItemTourById.soLuongTreEm) {
+
+          this.Sl_TreEm_ThanhToan++;
+        }
       }
       //nếu loại nút bấm là cộng
       else {
-        if (this.Sl_TreEm_ThanhToan > 1) {
+        if (this.Sl_TreEm_ThanhToan >= 1) {
           this.Sl_TreEm_ThanhToan--;
         }
       }
