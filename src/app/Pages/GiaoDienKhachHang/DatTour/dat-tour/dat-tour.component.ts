@@ -119,6 +119,7 @@ export class DatTourComponent implements OnInit {
         })
       );
       await Promise.all(promises);
+      console.log(data);
 
       console.log(tentour, new Date(ngaydi), songuoilon, sotreem);
       this.TourDuLich = data?.filter((tour: any) =>
