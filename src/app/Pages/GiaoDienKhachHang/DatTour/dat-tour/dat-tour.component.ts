@@ -56,21 +56,30 @@ export class DatTourComponent implements OnInit {
   }
 
   isLoading: boolean = true;
-  //lấy id tìm kiếm
+  // Lấy các tham số tìm kiếm
   TuKhoaTimKiem: string = '';
-  async TimKiem() {
-    let id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.TuKhoaTimKiem = id;
+  NgayDi: string = '';
+  SoNguoiLon: string = '';
+  SoTreEm: string = '';
 
-      if (id == 'tatca') {
-        await this.TimKiemTatCa();
-      } else {
-        await this.TimKiemTheoYeuCauKhachHang(id);
-      }
-      this.isLoading = false;
+  async TimKiem() {
+    let tentour = this.route.snapshot.paramMap.get('tentour');
+    let ngaydi = this.route.snapshot.paramMap.get('ngaydi');
+    let songuoilon = this.route.snapshot.paramMap.get('songuoilon');
+    let sotreem = this.route.snapshot.paramMap.get('sotreem');
+
+    if (tentour == 'tatca') {
+      await this.TimKiemTatCa();
+    } else {
+      this.TuKhoaTimKiem = tentour ?? '';
+      this.NgayDi = ngaydi ?? '';
+      this.SoNguoiLon = songuoilon ?? '';
+      this.SoTreEm = sotreem ?? '';
+      await this.TimKiemTheoYeuCauKhachHang(this.TuKhoaTimKiem, this.NgayDi, this.SoNguoiLon, this.SoTreEm);
     }
+    this.isLoading = false;
   }
+
   async TimKiemTatCa() {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
     let now = new Date();
@@ -97,17 +106,22 @@ export class DatTourComponent implements OnInit {
       }
     }
   }
-  async TimKiemTheoYeuCauKhachHang(TuKhoaTimKiem: string) {
+  async TimKiemTheoYeuCauKhachHang(tentour: string, ngaydi: string, songuoilon: string, sotreem: string) {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
-
-    // Lọc danh sách tour dựa trên TuKhoaTimKiem
+    // Lọc danh sách tour dựa trên các tham số tìm kiếm
     let now = new Date();
     if (data) {
-      this.TourDuLich = data?.filter(tour =>
-        (this.LocString(tour.loaiTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase())) ||
-          this.LocString(tour.tenTour.toLowerCase()).includes(this.LocString(TuKhoaTimKiem.toLowerCase()))) &&
-        new Date(tour.thoiGianBatDau) > now
+      console.log(tentour, new Date(ngaydi), songuoilon, sotreem);
+      this.TourDuLich = data?.filter((tour: any) =>
+        (this.LocString(tour.loaiTour.toLowerCase()).includes(this.LocString(tentour.toLowerCase())) ||
+          this.LocString(tour.tenTour.toLowerCase()).includes(this.LocString(tentour.toLowerCase())))
+        &&
+        new Date(tour.thoiGianBatDau) >= new Date(ngaydi)
+        &&
+        tour.soLuongNguoiLon >= parseInt(songuoilon) &&
+        tour.soLuongTreEm >= parseInt(sotreem)
       );
+
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();

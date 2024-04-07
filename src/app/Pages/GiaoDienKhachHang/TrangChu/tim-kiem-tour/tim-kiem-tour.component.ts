@@ -5,7 +5,7 @@ import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 import { Observable, map, startWith } from 'rxjs';
 import { QuanLyTourService } from '../../../Admin/services/quan-ly-tour.service';
 import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 const moment = _rollupMoment || _moment;
@@ -27,12 +27,16 @@ export const MY_FORMATS = {
   templateUrl: './tim-kiem-tour.component.html',
   styleUrl: './tim-kiem-tour.component.css',
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class TimKiemTourComponent implements OnInit {
   NoiDen = new FormControl();
+  NgayDi = new FormControl();
+  SoNguoiLon = new FormControl();
+  SoTreEm = new FormControl();
+
   ngayDi = new FormControl(moment())
   options: TourDuLich[] = []; // Danh sách các tùy chọn cho autocomplete
   filteredOptions!: Observable<TourDuLich[]>;
@@ -41,7 +45,7 @@ export class TimKiemTourComponent implements OnInit {
 
   ngOnInit() {
     this.quanLyTourService.getAllTourDuLich().subscribe(tours => {
-      this.options = tours;
+      this.options = tours.filter(tour => new Date(tour.thoiGianBatDau) >= new Date());
       this.filteredOptions = this.NoiDen.valueChanges.pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.tenTour),
@@ -87,17 +91,24 @@ export class TimKiemTourComponent implements OnInit {
   }
 
 
-
   TimKiemTour() {
-    console.log(this.NoiDen.value);
-    if (this.NoiDen.value.tenTour) {
-      this.router.navigate(['/dattour/' + this.NoiDen.value.tenTour]);
-    }
-    else {
-      this.router.navigate(['/dattour/' + this.NoiDen.value]);
+    let params: ParamQuery = {
+      NoiDen: this.NoiDen.value?.tenTour ? this.NoiDen.value.tenTour : this.NoiDen.value || 'tatca',
+      NgayDi: this.NgayDi.value?._d ? new Date(this.NgayDi.value._d).toLocaleDateString() : null,
+      SoNguoiLon: this.SoNguoiLon.value,
+      SoTreEm: this.SoTreEm.value
+    } as any;
 
-    }
-
+    this.router.navigate(['/dattour', params.NoiDen, params.NgayDi, params.SoNguoiLon, params.SoTreEm]);
   }
+
+
+
+}
+class ParamQuery {
+  NoiDen !: string;
+  NgayDi !: string;
+  SoNguoiLon !: string;
+  SoTreEm!: string;
 }
 

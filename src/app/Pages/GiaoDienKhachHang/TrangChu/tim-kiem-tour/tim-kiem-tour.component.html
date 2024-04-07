@@ -15,7 +15,7 @@
         <div class="col-6 col-md-6 col-lg-3">
             <mat-form-field class="mat_form">
                 <mat-label>Ngày đi</mat-label>
-                <input matInput [matDatepicker]="picker1" readonly>
+                <input matInput [matDatepicker]="picker1" [formControl]="NgayDi">
                 <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -23,13 +23,13 @@
         <div class="col-6 col-md-3 col-lg-2">
             <mat-form-field class="mat_form">
                 <mat-label>Người lớn</mat-label>
-                <input matInput type="number">
+                <input matInput type="number" [formControl]="SoNguoiLon">
             </mat-form-field>
         </div>
         <div class="col-6 col-md-3 col-lg-2">
             <mat-form-field class="mat_form">
                 <mat-label>Trẻ em</mat-label>
-                <input matInput type="number">
+                <input matInput type="number" [formControl]="SoTreEm">
             </mat-form-field>
         </div>
         <div class="col-6 d-flex justify-content-end col-md-6 col-lg-2">
