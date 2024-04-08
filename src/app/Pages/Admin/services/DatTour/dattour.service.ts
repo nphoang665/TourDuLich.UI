@@ -47,8 +47,10 @@ export class DattourService {
     return this.getDatTourById(idTour).pipe(
       switchMap((response: any) => {
         response.forEach((element: any) => {
-          TongSoLuongNguoiLonDaDatTrongTour += element.soLuongNguoiLon;
-          TongSoLuongTreEmDaDatTrongTour += element.soLuongTreEm;
+          if (element.tinhTrang != 'Đã từ chối') {
+            TongSoLuongNguoiLonDaDatTrongTour += element.soLuongNguoiLon;
+            TongSoLuongTreEmDaDatTrongTour += element.soLuongTreEm;
+          }
         });
         // Biến đổi dữ liệu trả về tại đây nếu cần
         return this.tourDuLichServices.getTourDuLichById(idTour).pipe(

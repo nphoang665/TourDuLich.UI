@@ -47,7 +47,8 @@
                             <span class="badge bg-warning">{{item.tinhTrang}}</span>
                             <div class="d-flex align-items-center">
                                 <mat-icon svgIcon="icon_eye" class="me-3"></mat-icon>
-                                <mat-icon svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
+                                <mat-icon svgIcon="icon_close" (click)="huyDatTour(item.idDatTour)"
+                                    style="height: 100%;" class=""></mat-icon>
                             </div>
                         </td>
                         }

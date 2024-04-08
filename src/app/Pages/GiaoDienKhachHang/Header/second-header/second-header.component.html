@@ -34,7 +34,8 @@
                             <button mat-button [matMenuTriggerFor]="menu" class="text-white">Xin chào!
                                 {{user?.email}}</button>
                             <mat-menu #menu="matMenu" style="z-index: 10000;">
-                                <button mat-menu-item><mat-icon svgIcon="icon_User"></mat-icon> Thông tin cá
+                                <button mat-menu-item data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon
+                                        svgIcon="icon_User"></mat-icon> Thông tin cá
                                     nhân</button>
                                 <button mat-menu-item routerLink="/lichsudattour"><mat-icon
                                         svgIcon="icon_History"></mat-icon> Lịch sử đặt tour</button>
@@ -121,3 +122,275 @@
         </ul>
     </div>
 </div>
+@if(nguoiDung && nguoiDung.tenKhachHang ===''){
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin cá nhân</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <mat-horizontal-stepper #stepper>
+
+                    <mat-step>
+                        <form [formGroup]="CapNhatThongTinKhachHang">
+                            <ng-template matStepLabel>Thông tin cá nhân</ng-template>
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Tên Khách Hàng</mat-label>
+                                <input matInput formControlName="tenKhachHang" placeholder="Tên Khách Hàng">
+                            </mat-form-field>
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Số điện thoại</mat-label>
+                                <input matInput formControlName="soDienThoai" placeholder="Số điện thoại">
+                            </mat-form-field>
+                        </form>
+                        <div class="d-flex justify-content-end">
+                            <button mat-button matStepperNext>Tiếp theo</button>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <form [formGroup]="CapNhatThongTinKhachHang">
+
+                            <ng-template matStepLabel>Thông tin cá nhân</ng-template>
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Địa chỉ</mat-label>
+                                <input matInput formControlName="diaChi" placeholder="Địa chỉ">
+                            </mat-form-field>
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Căn cước công dân</mat-label>
+                                <input matInput formControlName="cccd" placeholder="Căn cước công dân">
+                            </mat-form-field>
+                            <div class="d-flex justify-content-end">
+                                <button mat-button matStepperNext>Tiếp theo</button>
+                            </div>
+                        </form>
+
+                    </mat-step>
+                    <mat-step>
+                        <form [formGroup]="CapNhatThongTinKhachHang">
+
+                            <ng-template matStepLabel>Thông tin cá nhân</ng-template>
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Ngày sinh</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="ngaySinh"
+                                    placeholder="Ngày sinh">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field class="mt-3 col-5">
+                                <mat-label>Giới tính</mat-label>
+                                <mat-select formControlName="gioiTinh">
+                                    <mat-option value="Nam">Nam</mat-option>
+                                    <mat-option value="Nữ">Nữ</mat-option>
+                                    <!-- Thêm các tùy chọn khác nếu cần -->
+                                </mat-select>
+                            </mat-form-field>
+
+
+                            <div class="d-flex justify-content-end">
+                                <button mat-button matStepperNext>Tiếp theo</button>
+                            </div>
+                        </form>
+
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Hoàn tất thông tin</ng-template>
+                        <p>Bạn chắc chắn những thông tin bạn vừa nhập là chính xác không?</p>
+                        <div class="d-flex justify-content-end">
+                            <button mat-button matStepperCancel>Hủy</button>
+                            <button mat-button matStepperNext (click)="CapNhatThongTinKhachHangFn()">Xác
+                                nhận</button>
+                        </div>
+                    </mat-step>
+
+                </mat-horizontal-stepper>
+            </div>
+
+        </div>
+    </div>
+</div>
+}
+@else if (nguoiDung) {
+@if(nguoiDung.idKhachHang){
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Thông tin khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Tên khách hàng:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.tenKhachHang}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Số điện thoại</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.soDienThoai}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Địa chỉ:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.diaChi}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">CCCD:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.cccd}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Ngày sinh:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.ngaySinh| date:'dd/MM/yyyy'}}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Giới tính:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.gioiTinh}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Email:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.email}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Ngày đăng ký:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.ngayDangKy | date:'dd/MM/yyyy'}}
+                        </p>
+                    </div>
+                </div>
+                <!-- Tương tự cho các trường khác -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+@else if(nguoiDung.idNhanVien){
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal nhân viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Tên nhân viên:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.tenNhanVien}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Số điện thoại</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.soDienThoai}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Địa chỉ:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.diaChi}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">CCCD:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.cccd}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Ngày sinh:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.ngaySinh| date:'dd/MM/yyyy'}}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Giới tính:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.gioiTinh}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Email:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.email}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label for="tenKhachHang" class="col-form-label">Ngày đăng ký:</label>
+                    </div>
+                    <div class="col-auto">
+                        <p id="tenKhachHang" class="form-control-plaintext">{{nguoiDung.ngayDangKy | date:'dd/MM/yyyy'}}
+                        </p>
+                    </div>
+                </div>
+                <!-- Tương tự cho các trường khác -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+}
