@@ -169,7 +169,9 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     if (loaiNguoi === "NguoiLon") {
       //nếu loại nút bấm là cộng
       if (loaiNutBam === "Cong") {
-        this.Sl_NguoiLon_ThanhToan++;
+        if (this.Sl_NguoiLon_ThanhToan < this.TourChiTiet.soLuongNguoiLon) {
+          this.Sl_NguoiLon_ThanhToan++;
+        }
       }
       //nếu loại nút bấm là trừ
       else {
@@ -182,11 +184,14 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     else {
       //nếu loại nút bấm là cộng
       if (loaiNutBam === "Cong") {
-        this.Sl_TreEm_ThanhToan++;
+        if (this.Sl_TreEm_ThanhToan < this.TourChiTiet.soLuongTreEm) {
+
+          this.Sl_TreEm_ThanhToan++;
+        }
       }
       //nếu loại nút bấm là cộng
       else {
-        if (this.Sl_TreEm_ThanhToan > 1) {
+        if (this.Sl_TreEm_ThanhToan >= 1) {
           this.Sl_TreEm_ThanhToan--;
         }
       }

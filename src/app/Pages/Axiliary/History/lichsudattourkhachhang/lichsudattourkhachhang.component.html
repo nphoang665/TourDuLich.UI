@@ -1,4 +1,7 @@
 <app-second-header></app-second-header>
+<div *ngIf="loaderServices.isLoading | async">
+    <app-loading-giaodien></app-loading-giaodien>
+</div>
 <div style="margin-top: 100px" class="container-fluid">
     <!-- <h3 class="pt-3 ps-2 pe-2 ">Lịch sử đặt tour của bạn</h3> -->
     <div class="ps-2 pe-2 gx-0 container pt-5">

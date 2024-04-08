@@ -3,6 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 import { jwtDecode } from "jwt-decode";
+import { LoadingSanphamService } from '../../Admin/services/Loading/loading-sanpham.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
   const cookieService = inject(CookieService);
@@ -77,14 +78,20 @@ export const employeeGuard: CanActivateFn = (route, state) => {
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
   }
 };
-export const customerGuard: CanActivateFn = (route, state) => {
+export const customerGuard: CanActivateFn = async (route, state) => {
   const cookieService = inject(CookieService);
   const authService = inject(AuthService);
   const router = inject(Router);
-  const user = authService.getUser();
+  const loadingService = inject(LoadingSanphamService);
+
+  // Set loading state to true
+  loadingService.isLoading.next(true);
+
+  const user = await authService.getUser();
 
   if (!user) {
     authService.logout();
+    loadingService.isLoading.next(false);
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
   }
 
@@ -99,17 +106,21 @@ export const customerGuard: CanActivateFn = (route, state) => {
 
     if (expirationDate < currentTime) {
       authService.logout();
+      loadingService.isLoading.next(false);
       return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
     } else {
       if (user.roles.some(role => role === 'Khách hàng')) {
+        loadingService.isLoading.next(false);
         return true;
       } else {
         alert('Bạn chưa được cấp quyền truy cập');
+        loadingService.isLoading.next(false);
         return router.createUrlTree(['/404']);
       }
     }
   } else {
     authService.logout();
+    loadingService.isLoading.next(false);
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
   }
 };
