@@ -25,11 +25,11 @@ button {
   right: 2px;
   top: -2px;
   border: 0;
-  background-color: #40679e;
+  background-color: red;
   color: white;
 }
 .dv_khung_img {
-  /* border: 1px solid gray; */
+  border: 1px solid gray;
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;

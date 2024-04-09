@@ -14,6 +14,7 @@ import { ChangeEventArgs, DateTimePicker } from '@syncfusion/ej2-calendars';
 import { FormsModule, ValidatorFn, } from '@angular/forms';
 import { ReactiveFormsModule, Validator, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import moment from 'moment';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -36,8 +37,8 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     moTa: new FormControl(''),
     soLuongNguoiLon: new FormControl(0),
     soLuongTreEm: new FormControl(0),
-    thoiGianBatDau: new FormControl(''),
-    thoiGianKetThuc: new FormControl(''),
+    thoiGianBatDau: new FormControl(moment().format("dd/MM/yyyy HH:ss:ss")),
+    thoiGianKetThuc: new FormControl(moment().format("dd/MM/yyyy HH:ss:ss")),
     noiKhoiHanh: new FormControl(''),
     soChoConNhan: new FormControl(0),
     idDoiTac: new FormControl(''),
@@ -188,24 +189,40 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       placeholder: "Select DateTime",
       change: (args: ChangeEventArgs) => {
         const selectedDate = args.value as Date;
-        const formattedDate = this.formatDate(selectedDate);
-        var a = new Date(formattedDate).toISOString();
-        this.suaTourForm.get('thoiGianBatDau')?.setValue(a);
+        const hasTime = selectedDate.getHours() !== 0 || selectedDate.getMinutes() !== 0;
+        const formattedDate = this.formatDate(selectedDate, hasTime);
+        this.suaTourForm.get('thoiGianBatDau')?.setValue(formattedDate);
       }
+      
     });
     datetimepicker.appendTo('#element');
-
+    
     let datetimepicker2: DateTimePicker = new DateTimePicker({
       placeholder: "Select DateTime2",
       change: (args: ChangeEventArgs) => {
         const selectedDate = args.value as Date;
-        const formattedDate = this.formatDate(selectedDate);
-        var a = new Date(formattedDate).toISOString();
-        this.suaTourForm.get('thoiGianKetThuc')?.setValue(a);
+        const hasTime = selectedDate.getHours() !== 0 || selectedDate.getMinutes() !== 0;
+        const formattedDate = this.formatDate(selectedDate, hasTime);
+        this.suaTourForm.get('thoiGianKetThuc')?.setValue(formattedDate);
       }
     });
     datetimepicker2.appendTo('#element2');
+    
   }
+  formatDate(date: Date, hasTime: boolean = false): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = date.getFullYear();
+    
+    if (hasTime) {
+      let hours = date.getHours().toString().padStart(2, '0');
+      let minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } else {
+      return `${day}/${month}/${year} 12:00`;
+    }
+  }
+  
   updateSoChoConNhan(): void {
     const soLuongTreEm = this.suaTourForm.get('soLuongTreEm')?.value || 0;
     const soLuongNguoiLon = this.suaTourForm.get('soLuongNguoiLon')?.value || 0;
@@ -213,18 +230,6 @@ export class SuaTourComponent implements OnInit, OnDestroy {
 
     this.suaTourForm.get('soChoConNhan')?.setValue(soLuongTreEm + soLuongNguoiLon);
   }
-
-  formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
-
   initializeForm(): void {
     this.suaTourForm = new FormGroup({
       tenTour: new FormControl(this.model?.tenTour || '', [
@@ -251,10 +256,8 @@ export class SuaTourComponent implements OnInit, OnDestroy {
         Validators.max(50),
 
       ]),
-      thoiGianBatDau: new FormControl(this.model?.thoiGianBatDau || '',
-        Validators.required),
-      thoiGianKetThuc: new FormControl(this.model?.thoiGianKetThuc || '',
-        Validators.required),
+      thoiGianBatDau: new FormControl((moment(this.model?.thoiGianBatDau || '').format("DD/MM/YYYY HH:ss:ss")),Validators.required),
+      thoiGianKetThuc: new FormControl((moment(this.model?.thoiGianKetThuc || '').format("DD/MM/YYYY HH:ss:ss")),Validators.required),
       noiKhoiHanh: new FormControl(this.model?.noiKhoiHanh || '', [
         Validators.required,
         Validators.minLength(4),
@@ -374,6 +377,13 @@ export class SuaTourComponent implements OnInit, OnDestroy {
     }
 
     if (this.model && this.id) {
+       // Chuyển đổi định dạng thời gian sang ISO 8601
+ const thoiGianBatDauISO = this.formatDateToISO(this.suaTourForm.get('thoiGianBatDau')?.value);
+ const thoiGianKetThucISO = this.formatDateToISO(this.suaTourForm.get('thoiGianKetThuc')?.value);
+
+ // Cập nhật giá trị của form với định dạng mới
+ this.suaTourForm.get('thoiGianBatDau')?.setValue(thoiGianBatDauISO);
+ this.suaTourForm.get('thoiGianKetThuc')?.setValue(thoiGianKetThucISO);
       const suaTour: SuaTour = { ...this.suaTourForm.value };
       suaTour.anhTourBrowse = this.fileImgPreviewFromBrowse;
       suaTour.anhTourDb = this.arrImgPreviewClientHandle;
@@ -388,7 +398,13 @@ export class SuaTourComponent implements OnInit, OnDestroy {
       })
     }
   }
-
+  formatDateToISO(date: string): string {
+    const [day, month, yearTime] = date.split('/');
+    const [year, time] = yearTime.split(' ');
+    const [hour, minute] = time ? time.split(':') : ['00', '00'];
+  
+    return `${year}-${month}-${day}T${hour}:${minute}:00Z`;
+  }
 
 
 

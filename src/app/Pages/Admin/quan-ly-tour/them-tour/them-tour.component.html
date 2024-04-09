@@ -162,27 +162,27 @@
                   <mat-label>Thời gian bắt đầu</mat-label>
                   <input matInput formControlName="thoiGianBatDau" id='element' [errorStateMatcher]="matcher" />
                   @if (thoiGianBatDau?.errors?.['required']) {
-                  <mat-error>Vui lòng chọn thời gian bắt đầu</mat-error>
-                  }
-                  @else if (thoiGianBatDau?.errors?.['dateInvalid']) {
-                  <mat-error>Thời gian bắt đầu không được nhỏ hơn hiện tại</mat-error>
-                  }
-                  @else if (thoiGianBatDau?.errors?.['ngayKetThucInvalid']) {
-                  <mat-error>Thời gian bắt đầu không được lớn hơn hơn thời gian kết thúc</mat-error>
-                  }
+                    <mat-error>Vui lòng chọn thời gian bắt đầu</mat-error>
+                    }
+                    @else if (thoiGianBatDau?.errors?.['dateInvalid']) {
+                    <mat-error>Thời gian bắt đầu không được nhỏ hơn hiện tại</mat-error>
+                    }
+                    @else if (thoiGianBatDau?.errors?.['ngayKetThucInvalid']) {
+                    <mat-error>Thời gian bắt đầu không được lớn hơn hơn thời gian kết thúc</mat-error>
+                    }
                 </div>
                 <div class="col-lg-3">
                   <mat-label>Thời gian kết thúc</mat-label>
                   <input matInput formControlName="thoiGianKetThuc" id='element2' [errorStateMatcher]="matcher" />
                   @if (thoiGianKetThuc?.errors?.['required']) {
-                  <mat-error>Vui lòng chọn thời gian kết thúc</mat-error>
-                  }
-                  @else if (thoiGianKetThuc?.errors?.['dateInvalid']) {
-                  <mat-error>Thời gian kết thúc không được nhỏ hơn hiện tại</mat-error>
-                  }
-                  @else if (thoiGianKetThuc?.errors?.['ngayKetThucInvalid']) {
-                  <mat-error>Thời gian kết thúc không được nhỏ hơn thời gian bắt đầu</mat-error>
-                  }
+                    <mat-error>Vui lòng chọn thời gian kết thúc</mat-error>
+                    }
+                    @else if (thoiGianKetThuc?.errors?.['dateInvalid']) {
+                    <mat-error>Thời gian kết thúc không được nhỏ hơn hiện tại</mat-error>
+                    }
+                    @else if (thoiGianKetThuc?.errors?.['ngayKetThucInvalid']) {
+                    <mat-error>Thời gian kết thúc không được nhỏ hơn thời gian bắt đầu</mat-error>
+                    }
                 </div>
 
 
