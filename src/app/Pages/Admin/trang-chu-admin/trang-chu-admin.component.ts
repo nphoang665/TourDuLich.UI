@@ -14,6 +14,14 @@ constructor(private trangChuService:TrangChuService){}
     this.getDichVuDaDat();
     this.getTourDaDat();
     this.getTiLeDatTour();
+    document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll('.highcharts-credits');
+      elements.forEach((element) => {
+          (element as HTMLElement).style.display = 'none';
+      });
+  });
+  
+  
   }
    transformedData:any;
    //Chart Doanh thu
