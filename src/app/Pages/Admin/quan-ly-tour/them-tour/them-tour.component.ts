@@ -73,13 +73,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.max(100),
 
     ]),
-    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
+    thoiGianBatDau: new FormControl(moment().format('DD/MM/YYYY hh:mm'), [
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
     ]
     ),
-    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
+    thoiGianKetThuc: new FormControl(moment().format('DD/MM/YYYY hh:mm'), [
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
