@@ -225,7 +225,6 @@ export const adminOrEmployeeGuard: CanActivateFn = (route, state) => {
       authService.logout();
       return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
     } else {
-      console.log(user.roles);
 
       if (user.roles.some(role => role === 'Admin' || role === 'Nhân viên')) {
         // Allow Admin or Nhân viên to access

@@ -60,6 +60,7 @@ export class DattourService {
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
 
             return {
+
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,
               TongSoLuongTreEmDaDatTrongTour: TongSoLuongTreEmDaDatTrongTour,
               SoChoConNhanTrongTour: SoChoConNhanTrongTour,
@@ -75,8 +76,4 @@ export class DattourService {
       })
     );
   }
-
-
-
-
 }

@@ -137,7 +137,7 @@ export class QuanlydattourComponent implements OnInit {
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
     }),
-    ngaySinh: new FormControl('',[
+    ngaySinh: new FormControl('', [
       Validators.required,
       this.kiemLoiTuoiPhaiLonHon18(),
     ]),
@@ -229,17 +229,17 @@ export class QuanlydattourComponent implements OnInit {
       } else {
         return Promise.resolve(null);
       }
-  };
-}
-kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const ngayChonTuInput = new Date(control.value);
-    const ngayHienTai = new Date();
-    ngayHienTai.setHours(0, 0, 0, 0);
-    const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
-    return tuoi < 18 ? { 'ageInvalid': true } : null;
-  };
-}
+    };
+  }
+  kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const ngayChonTuInput = new Date(control.value);
+      const ngayHienTai = new Date();
+      ngayHienTai.setHours(0, 0, 0, 0);
+      const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
+      return tuoi < 18 ? { 'ageInvalid': true } : null;
+    };
+  }
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,
     private dichVuServices: DichvuService,
@@ -304,7 +304,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     this.NguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     this.tourDuLich$ = this.quanLyTourService.getAllTourDuLich();
     this.tourDuLich$.subscribe((data: TourDuLich[]) => {
-      this.TourDuLich =  data.filter(tour => tour.tinhTrang === 'Đang hoạt động' || tour.tinhTrang === 'Tạm hoãn');
+      this.TourDuLich = data.filter(tour => tour.tinhTrang === 'Đang hoạt động' || tour.tinhTrang === 'Tạm hoãn');
       this.filterTours();
       this.TourDuLich.forEach(element => {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe({
@@ -665,11 +665,14 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
   LayTourDangThanhToan: any = {};
   ThongTinDichVuThanhToan: DichVuChiTietDto[] = [];
   ThongTinThanhToan() {
-
+    const nhanVienThanhToan = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     this.TourThanhToan_HienThi = [];
     this.TourThanhToan_HienThi = this.Tour_ThanhToan.filter((s: any) => s.idTour == this.idTour_ThanhToan && s.idKhachHang === this.TenKhachHang_ThanhToan.value.idKhachHang);
-    this.nhanvienServices.getNhanVienById(this.TourThanhToan_HienThi[0].idNhanVien).subscribe((resultNhanVien: NhanVien) => {
-      this.TourThanhToan_HienThi[0].tenNhanVien = resultNhanVien.tenNhanVien;
+
+    this.nhanvienServices.getNhanVienById(nhanVienThanhToan.idNhanVien).subscribe((resultNhanVien: NhanVien) => {
+      this.TourThanhToan_HienThi[0].idNhanVien = nhanVienThanhToan.idNhanVien;
+      this.TourThanhToan_HienThi[0].tenNhanVien = nhanVienThanhToan.tenNhanVien;
+
 
     });
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {

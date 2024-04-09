@@ -64,20 +64,32 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
   chapNhanDatTour(id: string) {
     const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
 
+    let tourById: any;
+
     for (let index = 0; index < this.datTour.length; index++) {
       if (this.datTour[index].idDatTour == id) {
-        this.tourById = this.datTour[index];
-        this.tourById.idNhanVien = nguoiDung.idNhanVien;
-        this.tourById.tinhTrang = "Đã đặt tour";
-        this.tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} chấp nhận tour`;
+        tourById = this.datTour[index];
       }
-
     }
-    this.datToursServices.putDatTour(this.tourById, id).subscribe((data: any) => {
-      console.log(data);
 
+    this.datToursServices.tinhSoLuongNguoiConNhan(tourById.idTour).subscribe((resDatTour: any) => {
+      if (tourById.soLuongNguoiLon < resDatTour.TongSoLuongNguoiLonDaDatTrongTour && tourById.soLuongTreEm < resDatTour.TongSoLuongTreEmDaDatTrongTour) {
+        // Gán giá trị khi đặt tour thành công
+        tourById.idNhanVien = nguoiDung.idNhanVien;
+        tourById.tinhTrang = "Đã đặt tour";
+        tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} chấp nhận tour`;
+
+        this.datToursServices.putDatTour(tourById, id).subscribe((data: any) => {
+          console.log(data);
+        })
+      } else {
+        this.toastr.warning('Số lượng người trong tour vượt mức cho phép vui lòng thử lại', 'Thông báo', {
+          timeOut: 1000,
+        });
+      }
     })
   }
+
 
   //
   huyDatTour(id: string) {

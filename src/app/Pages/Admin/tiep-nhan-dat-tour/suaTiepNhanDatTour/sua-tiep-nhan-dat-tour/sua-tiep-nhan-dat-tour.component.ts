@@ -31,7 +31,7 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     private dichVuChiTiet: DichVuChiTietService,
     private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
-    private router:Router
+    private router: Router
 
   ) {
 
@@ -273,11 +273,8 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     // console.log(this._ngDichVuDaChon[0], this.DichVu);
     for (let index = 0; index < this.DichVu.length; index++) {
       if (this._ngDichVuDaChon[i] == this.DichVu[index].idDichVu) {
-
         this.TongDichVu_Db[i].giaTien = this.DichVu[index].giaTien
-
       }
-
     }
     //update tiền dịch vụ
     this.TinhTienDichVu();

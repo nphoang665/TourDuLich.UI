@@ -42,6 +42,8 @@ export class LichsudattourkhachhangComponent implements OnInit {
     let KhachHang = this.nguoiDungServices.LayNguoiDungTuLocalStorage()
     if (KhachHang && KhachHang.idKhachHang) {
       this.idKhachHang = KhachHang.idKhachHang;
+      console.log(this.idKhachHang);
+
 
       this.getDatTourByIdKhachHang();
     }
@@ -62,9 +64,12 @@ export class LichsudattourkhachhangComponent implements OnInit {
     });
   }
   huyDatTour(idDatTour: string) {
+    console.log(idDatTour);
+
     this.datTourServices.getDatTourByIdDatTour(idDatTour).subscribe({
-      next: (resultDatTour: DatTour) => {
-        resultDatTour.TinhTrang = 'Khách hàng hủy';
+      next: (resultDatTour: any) => {
+        resultDatTour.ghiChu = 'Khách hàng ' + resultDatTour.idKhachHang + ' đã hủy đặt tour';
+        resultDatTour.tinhTrang = 'Đã hủy';
         console.log(resultDatTour);
         this.datTourServices.putDatTour(resultDatTour, idDatTour).subscribe({
           next: (responseSuaTour: any) => {
