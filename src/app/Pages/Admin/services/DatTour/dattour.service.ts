@@ -58,9 +58,7 @@ export class DattourService {
             TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
-
             return {
-
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,
               TongSoLuongTreEmDaDatTrongTour: TongSoLuongTreEmDaDatTrongTour,
               SoChoConNhanTrongTour: SoChoConNhanTrongTour,
