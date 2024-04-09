@@ -26,6 +26,7 @@ import { GuestGuard, adminGuard, adminOrEmployeeGuard, customerGuard, employeeGu
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
+
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent, title: 'Trang chủ' },
   { path: 'lienhe', component: LienHeComponent, title: 'Liên hệ' },
