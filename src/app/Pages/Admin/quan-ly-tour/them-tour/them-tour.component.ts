@@ -182,7 +182,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       return { 'ngayKetThucInvalid': true };
     }
   }
-  
+
 
   private addTourSubscribtion?: Subscription;
 
@@ -308,6 +308,8 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.ThemTourForm.value)
       .subscribe({
         next: (response) => {
+          console.log(response);
+
           this.router.navigateByUrl('/quanlytour');
           // console.log(response);
           this.toastr.success('Thêm tour thành công', 'Thông báo', {
