@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemKhachHangComponent } from './them-khach-hang/them-khach-hang.component';
 import { SuaKhachHangComponent } from './sua-khach-hang/sua-khach-hang.component';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-quan-ly-khach-hang',
   templateUrl: './quan-ly-khach-hang.component.html',
@@ -104,5 +104,45 @@ export class QuanLyKhachHangComponent implements AfterViewInit,OnInit{
       this.getKhachHangData();
     });
   }
+  exportToExcel(data: any[]): void {
+    
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+  
+    const headings = ['Mã khách hàng', 'Tên khách hàng', 'Số điện thoại', 'Địa chỉ', 'Căn cước công dân', 'Ngày sinh', 'Giới tính', 'Email', 'Tình trạng' ,'Ngày đăng ký'];
+    XLSX.utils.sheet_add_aoa(ws, [headings], { origin: 'A1' });
+  
+  
+    const headerRange = ws['!ref'];
+    if (headerRange) {
+      const decodedHeaderRange: XLSX.Range = XLSX.utils.decode_range(headerRange);
+      for (let col = decodedHeaderRange.s.c; col <= decodedHeaderRange.e.c; col++) {
+        const headerCell: XLSX.CellObject = ws[XLSX.utils.encode_cell({ r: decodedHeaderRange.s.r, c: col })];
+        if (headerCell) {
+          headerCell.s = {
+            font: { bold: true }, 
+            alignment: { horizontal: 'center' }
+          };
+        }
+      }
+    }
+  
+  
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+    
+    XLSX.writeFile(wb, 'khachHang.xlsx');
+  }
+    getKhachHanngDataAndExportToExcel() {
+      this.quanLyKhachHangService.getAllKhachHang().subscribe(
+        (data: KhachHang[]) => {
+          this.dataSource.data = data.filter(khachHang => khachHang.tinhTrang === 'Đang hoạt động');
+          this.exportToExcel(this.dataSource.data);
+        },
+        (error) => {
+          console.error('Error fetching khachHang data: ', error);
+        }
+      );
+    }
 }
 

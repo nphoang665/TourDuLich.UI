@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemDichVuComponent } from './them-dich-vu/them-dich-vu.component';
 import { SuaDichVuComponent } from './sua-dich-vu/sua-dich-vu.component';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-quan-ly-dich-vu',
   templateUrl: './quan-ly-dich-vu.component.html',
@@ -101,5 +101,47 @@ export class QuanLyDichVuComponent implements AfterViewInit, OnInit {
       });
       this.getDichVuData();
     });
+  }
+
+  exportToExcel(data: any[]): void {
+    
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+  
+    const headings = ['Mã dịch vụ', 'Tên dịch vụ', 'Đơn vị tính', 'Tình trạng', 'Giá tiền', 'Giờ bắt đầu', 'Giờ kết thúc', 'Ngày thêm'];
+    XLSX.utils.sheet_add_aoa(ws, [headings], { origin: 'A1' });
+  
+
+    const headerRange = ws['!ref'];
+    if (headerRange) {
+      const decodedHeaderRange: XLSX.Range = XLSX.utils.decode_range(headerRange);
+      for (let col = decodedHeaderRange.s.c; col <= decodedHeaderRange.e.c; col++) {
+        const headerCell: XLSX.CellObject = ws[XLSX.utils.encode_cell({ r: decodedHeaderRange.s.r, c: col })];
+        if (headerCell) {
+          headerCell.s = {
+            font: { bold: true }, 
+            alignment: { horizontal: 'center' }
+          };
+        }
+      }
+    }
+  
+    
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+ 
+    XLSX.writeFile(wb, 'dichVu.xlsx');
+  }
+  
+  getDichVuDataAndExportToExcel() {
+    this.quanLyDichVuService.getAllDichVu().subscribe(
+      (data: DichVu[]) => {
+        const filteredData = data.filter(dichvu => dichvu.tinhTrang === 'Đang hoạt động');
+        this.exportToExcel(filteredData);
+      },
+      (error) => {
+        console.error('Error fetching DichVu data: ', error);
+      }
+    );
   }
 }
