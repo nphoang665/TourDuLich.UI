@@ -1,4 +1,4 @@
-<!-- <div class="container">
+r<!-- <div class="container">
   <div class="mt-5">
     <div class="col-12 col-md-6 col-lg-4 mx-auto">
       <h1>Đăng ký</h1>
@@ -73,17 +73,17 @@
                   <mat-label>Họ và tên</mat-label>
                   <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput formControlName="name" placeholder="Họ và tên"[errorStateMatcher]="matcher">
-                  @if (name?.errors?.['required']) {
+                  <input matInput formControlName="userName" placeholder="Họ và tên"[errorStateMatcher]="matcher">
+                  @if (userName?.errors?.['required']) {
                     <mat-error>Họ tên không được để trống</mat-error>
                     } 
-                  @else if (name?.errors?.['minlength']) {
+                  @else if (userName?.errors?.['minlength']) {
                     <mat-error>Họ và tên quá ngắn</mat-error>
                     }
-                  @else if (name?.errors?.['maxlength']) {
+                  @else if (userName?.errors?.['maxlength']) {
                       <mat-error>Họ và tên quá dài</mat-error>
                     }
-                  @else if (name?.errors?.['invalidChar']) {
+                  @else if (userName?.errors?.['invalidChar']) {
                         <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
                     }    
                 </mat-form-field>

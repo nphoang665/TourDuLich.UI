@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
     asyncValidators: [this.checkEmail()],
     updateOn: 'change'
   }),
-    name: new FormControl('',[
+    userName: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
@@ -90,8 +90,8 @@ export class RegisterComponent implements OnInit {
   get confirmPassword(){
     return this.register.get('confirmPassword');
   }
-  get name(){
-    return this.register.get('name');
+  get userName(){
+    return this.register.get('userName');
   }
   KiemLoiMatKhauXacNhanKhongTrungNhau(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
