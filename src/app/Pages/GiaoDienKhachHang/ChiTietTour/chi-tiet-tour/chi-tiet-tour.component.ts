@@ -9,6 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
+import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
 
 declare var bootstrap: any;
 @Component({
@@ -30,11 +31,15 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private _platformId: Object,
     private danhGiaServices: DanhgiaService,
     private datTourService: DattourService,
+    protected nguoiDungServices: NguoiDungService
+
   ) {
 
   }
   //khai báo đối tượng chứa tour đã lấy
   TourChiTiet: any = {};
+  kiemTraTour!: boolean;
+
   ngOnInit(): void {
     //gọi hàm get tour và truyền biến id tour vào
     this.GetTour(this.LayIdRoute());
@@ -78,6 +83,14 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
         this.images.push(environment.apiBaseUrl + '/uploads/' + this.TourChiTiet.anhTour[index].imgTour)
         //sao chép img gốc thành mảng clone
         this.images_clone.push(environment.apiBaseUrl + '/uploads/' + this.TourChiTiet.anhTour[index].imgTour)
+      }
+      const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
+      if (nguoiDung && nguoiDung.idKhachHang) {
+        this.datTourService.kiemTraKhachHangDatTour(nguoiDung.idKhachHang, idTour).subscribe(ketQua => {
+          this.kiemTraTour = ketQua;
+          console.log(this.kiemTraTour);
+
+        });
       }
     })
   }
