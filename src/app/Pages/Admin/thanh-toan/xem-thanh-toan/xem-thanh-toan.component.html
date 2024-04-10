@@ -136,15 +136,15 @@
                         <tr>
                             <td colspan="2" style=" width: auto; font-size: 17px;">
                                 <b> THÔNG TIN NHÂN VIÊN</b><br />
-                                <b>Tên nhân viên:</b>{{thanhToanDto$?.nhanVien.tenNhanVien}} <br />
+                                <b>Tên nhân viên: </b>{{thanhToanDto$?.nhanVien.tenNhanVien}} <br />
                                 <b>Số điện thoại: </b>{{thanhToanDto$?.nhanVien.soDienThoai}}<br />
-                                <b>Email:</b>{{thanhToanDto$?.nhanVien.email}} <br />
+                                <b>Email: </b>{{thanhToanDto$?.nhanVien.email}} <br />
                             </td>
                             <td colspan="2" style=" width: auto; font-size: 17px; ">
                                 <b> THÔNG TIN KHÁCH HÀNG </b><br />
-                                <b>Tên khách hàng:</b> {{thanhToanDto$?.khachHang.tenKhachHang}} <br />
-                                <b>Số điện thoại:</b> {{thanhToanDto$?.khachHang.soDienThoai}} <br />
-                                <b>Email:</b> {{thanhToanDto$?.khachHang.email}}
+                                <b>Tên khách hàng: </b> {{thanhToanDto$?.khachHang.tenKhachHang}} <br />
+                                <b>Số điện thoại: </b> {{thanhToanDto$?.khachHang.soDienThoai}} <br />
+                                <b>Email: </b> {{thanhToanDto$?.khachHang.email}}
                             </td>
                         </tr>
                     </table>
@@ -169,10 +169,10 @@
 
                         </tr>
                         <tr class="item tr_item_DatTour">
-                            <td style="width:25%;">Teen tour</td>
-                            <td style="width:10%; text-align:center;"> so luong nguoi lon</td>
-                            <td style="width:10%; text-align:center;">soluong tre em</td>
-                            <td style="width:15%; text-align:center;">thoi gian dat</td>
+                            <td style="width:25%;">Tên Tour</td>
+                            <td style="width:10%; text-align:center;"> {{datTour?.soLuongNguoiLon}}</td>
+                            <td style="width:10%; text-align:center;">{{datTour?.soLuongTreEm}}</td>
+                            <td style="width:15%; text-align:center;">{{datTour?.thoiGianDatTour|date:"dd/MM/yyyy HH:ss"}}</td>
 
                         </tr>
 
@@ -196,10 +196,10 @@
 
                         </tr>
                         <tr class="item tr_item_DichVu">
-                            <td style="width:25%;">ten dv</td>
-                            <td style="width:10%; text-align:center;">sl dv</td>
-                            <td style="width:10%; text-align:center;">don gia dv</td>
-                            <td style="width:15%; text-align:center;">thoi gian dv</td>
+                            <td style="width:25%;">Tên dịch vụ</td>
+                            <td style="width:10%; text-align:center;">0</td>
+                            <td style="width:10%; text-align:center;">0</td>
+                            <td style="width:15%; text-align:center;">0</td>
 
                         </tr>
 
