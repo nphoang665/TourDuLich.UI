@@ -1,4 +1,4 @@
-r<!-- <div class="container">
+<!-- <div class="container">
   <div class="mt-5">
     <div class="col-12 col-md-6 col-lg-4 mx-auto">
       <h1>Đăng ký</h1>
@@ -54,38 +54,38 @@ r<!-- <div class="container">
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                   <input matInput formControlName="email" placeholder="Email" [errorStateMatcher]="matcher">
                   @if (email?.errors?.['required']) {
-                    <mat-error>Email không được để trống</mat-error>
-                    } 
+                  <mat-error>Email không được để trống</mat-error>
+                  }
                   @else if (email?.errors?.['minlength']) {
-                    <mat-error>Email không hợp lệ</mat-error>
-                    }
+                  <mat-error>Email không hợp lệ</mat-error>
+                  }
                   @else if (email?.errors?.['maxlength']) {
-                      <mat-error>Email không hợp lệ</mat-error>
-                    }
+                  <mat-error>Email không hợp lệ</mat-error>
+                  }
                   @else if (email?.errors?.['pattern']) {
-                      <mat-error>Email không hợp lệ</mat-error>
-                    }
+                  <mat-error>Email không hợp lệ</mat-error>
+                  }
                   @else if (email?.errors?.['invalidEmail']) {
-                      <mat-error>Email không đã tồn tại</mat-error>
-                    }
+                  <mat-error>Email không đã tồn tại</mat-error>
+                  }
                 </mat-form-field>
                 <mat-form-field class="example-full-width w-100">
                   <mat-label>Họ và tên</mat-label>
                   <mat-icon matPrefix svgIcon="user-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput formControlName="userName" placeholder="Họ và tên"[errorStateMatcher]="matcher">
+                  <input matInput formControlName="userName" placeholder="Họ và tên" [errorStateMatcher]="matcher">
                   @if (userName?.errors?.['required']) {
-                    <mat-error>Họ tên không được để trống</mat-error>
-                    } 
+                  <mat-error>Họ tên không được để trống</mat-error>
+                  }
                   @else if (userName?.errors?.['minlength']) {
-                    <mat-error>Họ và tên quá ngắn</mat-error>
-                    }
+                  <mat-error>Họ và tên quá ngắn</mat-error>
+                  }
                   @else if (userName?.errors?.['maxlength']) {
-                      <mat-error>Họ và tên quá dài</mat-error>
-                    }
+                  <mat-error>Họ và tên quá dài</mat-error>
+                  }
                   @else if (userName?.errors?.['invalidChar']) {
-                        <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
-                    }    
+                  <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
+                  }
                 </mat-form-field>
 
 
@@ -93,20 +93,20 @@ r<!-- <div class="container">
                   <mat-label>Mật khẩu</mat-label>
                   <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput placeholder="Mật khẩu" formControlName="password"[errorStateMatcher]="matcher">
+                  <input matInput placeholder="Mật khẩu" formControlName="password" [errorStateMatcher]="matcher">
                   @if (password?.errors?.['required']) {
-                    <mat-error>Mật khẩu không được để trống</mat-error>
-                    } 
+                  <mat-error>Mật khẩu không được để trống</mat-error>
+                  }
                   @else if (password?.errors?.['minlength']) {
-                    <mat-error>Mật khẩu quá ngắn</mat-error>
-                    }
+                  <mat-error>Mật khẩu quá ngắn</mat-error>
+                  }
                   @else if (password?.errors?.['maxlength']) {
-                      <mat-error>Mật khẩu quá dài</mat-error>
-                    }
-                    @else if (password?.errors?.['MatKhauDauTienInvalid']) {
-                      <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
-                      }
-                    
+                  <mat-error>Mật khẩu quá dài</mat-error>
+                  }
+                  @else if (password?.errors?.['MatKhauDauTienInvalid']) {
+                  <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
+                  }
+
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                 </mat-form-field>
@@ -115,19 +115,20 @@ r<!-- <div class="container">
                   <mat-label>Nhập lại mật khẩu</mat-label>
                   <mat-icon matPrefix svgIcon="password-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
-                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                  <input matInput placeholder="Nhập lại mật khẩu" formControlName="confirmPassword"
+                    [errorStateMatcher]="matcher">
                   @if (confirmPassword?.errors?.['required']) {
-                    <mat-error>Nhập lại mật khẩu không được để trống</mat-error>
-                    } 
+                  <mat-error>Nhập lại mật khẩu không được để trống</mat-error>
+                  }
                   @else if (confirmPassword?.errors?.['minlength']) {
-                    <mat-error>Mật khẩu không đúng</mat-error>
-                    }
+                  <mat-error>Mật khẩu không đúng</mat-error>
+                  }
                   @else if (confirmPassword?.errors?.['maxlength']) {
-                    <mat-error>Mật khẩu không đúng</mat-error>
-                    }
+                  <mat-error>Mật khẩu không đúng</mat-error>
+                  }
                   @else if (confirmPassword?.errors?.['MatKhauXacNhanInvalid']) {
-                    <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
-                    }
+                  <mat-error>Mật khẩu không trùng khớp vui lòng nhập lại</mat-error>
+                  }
                   <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                     aria-label="Example thumbs up SVG icon"></mat-icon>
                 </mat-form-field>

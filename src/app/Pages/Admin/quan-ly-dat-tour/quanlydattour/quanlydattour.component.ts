@@ -551,6 +551,10 @@ export class QuanlydattourComponent implements OnInit {
           if (closeButton) {
             closeButton.click();
           }
+          if (dataToSave.idTour) {
+            this.LayKhachHang(dataToSave.idTour);
+          }
+
           this.myForm.reset();
           this.KhachHang.reset();
           this.GhiChu_DatTour = '';
@@ -770,6 +774,10 @@ export class QuanlydattourComponent implements OnInit {
                     if (closeButton) {
                       closeButton.click();
                     }
+                    this.LayThanhToanTourDuLich(this.TourThanhToan_HienThi.idTour);
+                    console.log(this.TourThanhToan_HienThi);
+
+                    // this.LayThanhToanTourDuLich(response.)
                     this.toastr.success('Thanh toán thành công', 'Thông báo', {
                       timeOut: 1000,
                     });
