@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ThanhToan } from '../../models/thanh-toan.model';
+import { ThanhToan, ThanhToanDto } from '../../models/thanh-toan.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ThanhToanService } from '../../services/ThanhToan/thanh-toan.service';
@@ -14,6 +14,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class XemThanhToanComponent implements OnInit {
   id: string | null = null;
   model?: ThanhToan;
+  thanhToanDto$?:ThanhToanDto;
   thanhToan$?: Observable<ThanhToan[]>;
 
   constructor(
@@ -35,8 +36,8 @@ export class XemThanhToanComponent implements OnInit {
 
        if(this.id){
         this.thanhToanService.getThanhToanById(this.id).subscribe({
-          next:(response)=>{
-            this.model = response;
+          next:(response:ThanhToanDto)=>{
+            this.thanhToanDto$ = response;
           }
         })
        }
