@@ -8,7 +8,7 @@ import { TrangChuService } from '../services/TrangChu/trang-chu.service';
   styleUrl: './trang-chu-admin.component.css'
 })
 export class TrangChuAdminComponent implements OnInit {
-constructor(private trangChuService:TrangChuService){}
+  constructor(private trangChuService: TrangChuService) { }
   ngOnInit(): void {
     this.getDatTourData();
     this.getDichVuDaDat();
@@ -17,15 +17,15 @@ constructor(private trangChuService:TrangChuService){}
     document.addEventListener("DOMContentLoaded", () => {
       const elements = document.querySelectorAll('.highcharts-credits');
       elements.forEach((element) => {
-          (element as HTMLElement).style.display = 'none';
+        (element as HTMLElement).style.display = 'none';
       });
-  });
-  
-  
+    });
+
+
   }
-   transformedData:any;
-   //Chart Doanh thu
-   getDatTourData() {
+  transformedData: any;
+  //Chart Doanh thu
+  getDatTourData() {
     this.trangChuService.getDoanhThu().subscribe(
       (data: any) => {
         // Tạo một mảng với độ dài 12, tất cả các phần tử đều là 0
@@ -47,11 +47,11 @@ constructor(private trangChuService:TrangChuService){}
           },
           yAxis: {
             title: {
-                text: 'Tổng tiền'
+              text: 'Tổng tiền'
             }
-        },
+          },
           series: [{
-            data: transformedData,  
+            data: transformedData,
             type: 'line'
           }]
         };
@@ -60,7 +60,7 @@ constructor(private trangChuService:TrangChuService){}
         console.error(error);
       }
     )
-}
+  }
 
   DoanhThucharts: typeof Highcharts = Highcharts;
   DoanhThuchartsOptions: Highcharts.Options = {
@@ -71,12 +71,12 @@ constructor(private trangChuService:TrangChuService){}
       categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
     },
     series: [{
-      data: [100,200,4000,4040,40140,40140,410410,410041,401401,41041,414,1414],  
+      data: [100, 200, 4000, 4040, 40140, 40140, 410410, 410041, 401401, 41041, 414, 1414],
       type: 'line'
     }]
   };
   //chart tỉ lệ
-  
+
   getTiLeDatTour() {
     this.trangChuService.getTiLe().subscribe(
       (data: any) => {
@@ -88,7 +88,7 @@ constructor(private trangChuService:TrangChuService){}
 
         // Cập nhật dữ liệu cho biểu đồ
         this.tiLeDatHuyCharttOptions = {
-      // giữ nguyên các cài đặt biểu đồ hiện tại
+          // giữ nguyên các cài đặt biểu đồ hiện tại
           series: [{
             name: 'Tỉ lệ',
             data: [{
@@ -112,7 +112,7 @@ constructor(private trangChuService:TrangChuService){}
         console.error(error);
       }
     )
-}
+  }
 
   tiLeDatHuyChart: typeof Highcharts = Highcharts;
   tiLeDatHuyCharttOptions: Highcharts.Options = {
@@ -156,10 +156,10 @@ constructor(private trangChuService:TrangChuService){}
           },
           yAxis: {
             title: {
-                text: 'Tổng tiền'
+              text: 'Tổng tiền'
             }
-        },
-          
+          },
+
           series: [
             {
               name: 'Số lượng',
@@ -178,7 +178,7 @@ constructor(private trangChuService:TrangChuService){}
         console.error(error);
       }
     )
-}
+  }
 
   dichVuDaDat: typeof Highcharts = Highcharts;
   dichVuDaDatOptions: Highcharts.Options = {
@@ -194,12 +194,12 @@ constructor(private trangChuService:TrangChuService){}
     series: [
       {
         name: 'Số lượng',
-        data: [1,2,3,4,5],
+        data: [1, 2, 3, 4, 5],
         type: 'column'
       },
       {
         name: 'Doanh thu',
-        data: [100,32,3123,313,122],
+        data: [100, 32, 3123, 313, 122],
         type: 'line'
       }
     ]
@@ -226,9 +226,9 @@ constructor(private trangChuService:TrangChuService){}
           },
           yAxis: {
             title: {
-                text: 'Tổng tiền'
+              text: 'Tổng tiền'
             }
-        },
+          },
           series: [
             {
               name: 'Số lượng',
@@ -247,10 +247,10 @@ constructor(private trangChuService:TrangChuService){}
         console.error(error);
       }
     )
-}
+  }
 
-  TourDaDat:typeof Highcharts=Highcharts;
-  TourDaDatOptions:Highcharts.Options={
+  TourDaDat: typeof Highcharts = Highcharts;
+  TourDaDatOptions: Highcharts.Options = {
     chart: {
       type: 'column'
     },
@@ -263,12 +263,12 @@ constructor(private trangChuService:TrangChuService){}
     series: [
       {
         name: 'Số lượng',
-        data: [1,2,3,4,5],
+        data: [1, 2, 3, 4, 5],
         type: 'column'
       },
       {
         name: 'Doanh thu',
-        data: [100,32,3123,313,122],
+        data: [100, 32, 3123, 313, 122],
         type: 'line'
       }
     ]
