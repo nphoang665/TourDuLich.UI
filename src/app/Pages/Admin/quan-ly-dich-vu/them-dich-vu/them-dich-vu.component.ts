@@ -33,17 +33,19 @@ export class ThemDichVuComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator()
     ]),
     donViTinh: new FormControl('',[
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(50), 
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator()
     ]),
     giaTien: new FormControl('',[
       Validators.required,
       Validators.min(10000),
-      
+      this.noWhitespaceValidator()
       
     ]),
     tinhTrang: new FormControl(''),
@@ -75,6 +77,12 @@ export class ThemDichVuComponent implements OnInit {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   get gioKetThuc(){
     return this.myForm.get('gioKetThuc');

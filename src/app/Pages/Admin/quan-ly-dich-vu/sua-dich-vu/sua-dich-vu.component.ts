@@ -85,6 +85,12 @@ export class SuaDichVuComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ref: MatDialogRef<SuaDichVuComponent>,
@@ -149,12 +155,14 @@ export class SuaDichVuComponent implements OnInit {
         Validators.minLength(4),
         Validators.maxLength(50),
         this.noSpecialCharValidator(),
+        this.noWhitespaceValidator()
       ]),
       donViTinh: new FormControl(this.model?.donViTinh,[
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50), 
         this.noSpecialCharValidator(),
+        this.noWhitespaceValidator()
       ]),
       giaTien: new FormControl(this.model?.giaTien,[
         Validators.required,

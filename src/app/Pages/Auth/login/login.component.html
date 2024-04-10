@@ -61,11 +61,17 @@
                                     @if (email?.errors?.['required']) {
                                         <mat-error>Vui lòng nhập email</mat-error>
                                         } 
-                                      @else if (email?.errors?.['minlength']) {
-                                        <mat-error>Email không đúng định dạng</mat-error>
+                                        @else if (email?.errors?.['minlength']) {
+                                            <mat-error>Email không đúng định dạng</mat-error>
                                         }
-                                      @else if (email?.errors?.['maxlength']) {
-                                          <mat-error>Email quá dài</mat-error>
+                                         @else if (email?.errors?.['maxlength']) {
+                                            <mat-error>Email không hợp lệ</mat-error>
+                                        }
+                                        @else if (email?.errors?.['pattern']) {
+                                            <mat-error>Email không hợp lệ</mat-error>
+                                        }
+                                        @else if (email?.errors?.['whitespace']) {
+                                            <mat-error>Email không chứa khoảng trắng</mat-error>
                                         }
                                 </mat-form-field>
 
@@ -78,12 +84,15 @@
                                     @if (password?.errors?.['required']) {
                                         <mat-error>Vui lòng nhập mật khẩu</mat-error>
                                         } 
-                                      @else if (password?.errors?.['minlength']) {
+                                        @else if (password?.errors?.['minlength']) {
                                         <mat-error>Mật khẩu quá ngắn</mat-error>
                                         }
-                                      @else if (password?.errors?.['maxlength']) {
+                                        @else if (password?.errors?.['maxlength']) {
                                           <mat-error>Mật khẩu quá dài</mat-error>
                                         }
+                                        @else if (password?.errors?.['whitespace']) {
+                                            <mat-error>Mật khẩu không chứa khoảng trắng</mat-error>
+                                          }
                                     <mat-icon matSuffix svgIcon="eye-login" aria-hidden="false"
                                         aria-label="Example thumbs up SVG icon"></mat-icon>
                                 </mat-form-field>

@@ -68,6 +68,9 @@ r<!-- <div class="container">
                   @else if (email?.errors?.['invalidEmail']) {
                       <mat-error>Email không đã tồn tại</mat-error>
                     }
+                  @else if (email?.errors?.['whitespace']) {
+                      <mat-error>Email không chứa khoảng trắng</mat-error>
+                  }
                 </mat-form-field>
                 <mat-form-field class="example-full-width w-100">
                   <mat-label>Họ và tên</mat-label>
@@ -85,7 +88,10 @@ r<!-- <div class="container">
                     }
                   @else if (userName?.errors?.['invalidChar']) {
                         <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
-                    }    
+                    }   
+                  @else if (userName?.errors?.['whitespace']) {
+                      <mat-error>Họ và tên không chứa chứa khoảng trắng</mat-error>
+                  } 
                 </mat-form-field>
 
 

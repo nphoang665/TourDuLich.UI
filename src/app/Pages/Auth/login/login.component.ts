@@ -64,11 +64,14 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
+      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      this.noWhitespaceValidator()
     ]),
     password: new FormControl('',[
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
+      this.noWhitespaceValidator()
     ]),
   })
   get email(){
@@ -76,6 +79,12 @@ export class LoginComponent implements OnInit {
   }
   get password(){
     return this.login.get('password');
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   constructor(private authService: AuthService,
     private cookieService: CookieService,

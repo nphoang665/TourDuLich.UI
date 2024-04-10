@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(50), 
       Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      this.noWhitespaceValidator()
     ],
     asyncValidators: [this.checkEmail()],
     updateOn: 'change'
@@ -66,6 +67,7 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator()
     ]),
     password: new FormControl('',[
       Validators.required,
@@ -117,6 +119,12 @@ export class RegisterComponent implements OnInit {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   checkEmail(): AsyncValidatorFn {
      return (control: AbstractControl): Promise<ValidationErrors | null> => {
