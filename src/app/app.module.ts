@@ -66,6 +66,7 @@ import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.componen
 import { XemThanhToanComponent } from './Pages/Admin/thanh-toan/xem-thanh-toan/xem-thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { HighchartsChartModule } from 'highcharts-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,7 +133,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     ToastrModule.forRoot(),
     GoogleSigninButtonModule,
     ToastrModule.forRoot(),
-
+    HighchartsChartModule ,
+    
 
 
 

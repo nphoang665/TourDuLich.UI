@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrangChuAdminComponent } from './trang-chu-admin.component';
+import { TrangChuAdminComponent } from './TrangChuAdminComponent';
 
 describe('TrangChuAdminComponent', () => {
   let component: TrangChuAdminComponent;

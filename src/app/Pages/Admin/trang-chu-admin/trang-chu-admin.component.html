@@ -15,7 +15,60 @@
       <!-- Start Trang chủ -->
       <div class="main-content-container container-fluid px-4">
         <div class="page-header row no-gutters py-4">
-          <h1>Trang chủ</h1>
+         <div class="chart">
+          <div class="tiLeDatTour">
+            <highcharts-chart 
+            [Highcharts]="tiLeDatHuyChart"
+            [options]="tiLeDatHuyCharttOptions"
+          
+            style="width: 100%; height: 400px; display: block; "
+          ></highcharts-chart>
+          </div>
+          
+       
+          <div class="DoanhThuChart">
+            <highcharts-chart 
+            [Highcharts]="DoanhThucharts"
+            [options]="DoanhThuchartsOptions"
+          
+            style="width: 100%; height: 400px; display: block;"
+          ></highcharts-chart>
+          </div>
+          <div class="Dichvu">
+            <highcharts-chart 
+            [Highcharts]="dichVuDaDat"
+            [options]="dichVuDaDatOptions"
+          
+            style="width: 100%; height: 400px; display: block;"
+          ></highcharts-chart>
+          </div>
+            <div class="tourDuLich">
+              <highcharts-chart 
+              [Highcharts]="TourDaDat"
+              [options]="TourDaDatOptions"
+            
+              style="width: 100%; height: 400px; display: block;"
+            ></highcharts-chart>
+            </div>
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
       </div>
       <!-- End trang chủ -->

@@ -73,13 +73,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.max(100),
 
     ]),
-    thoiGianBatDau: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
+    thoiGianBatDau: new FormControl(moment().format('DD/MM/YYYY hh:mm'), [
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc(),
     ]
     ),
-    thoiGianKetThuc: new FormControl(moment().format('dd/MM/yyyy hh:mm'), [
+    thoiGianKetThuc: new FormControl(moment().format('DD/MM/YYYY hh:mm'), [
       Validators.required,
       this.kiemLoiNgayNhoHonHienTai(),
       this.kiemLoiNgayBatDauNhoHonNgayKetThuc()]),
@@ -240,38 +240,49 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       placeholder: "Select DateTime",
       change: (args: ChangeEventArgs) => {
         const selectedDate = args.value as Date;
-        const formattedDate = this.formatDate(selectedDate);
-        var a = new Date(formattedDate).toISOString();
-        this.ThemTourForm.get('thoiGianBatDau')?.setValue(a);
+        const hasTime = selectedDate.getHours() !== 0 || selectedDate.getMinutes() !== 0;
+        const formattedDate = this.formatDate(selectedDate, hasTime);
+        this.ThemTourForm.get('thoiGianBatDau')?.setValue(formattedDate);
       }
+      
     });
     datetimepicker.appendTo('#element');
-
+    
     let datetimepicker2: DateTimePicker = new DateTimePicker({
       placeholder: "Select DateTime2",
       change: (args: ChangeEventArgs) => {
         const selectedDate = args.value as Date;
-        const formattedDate = this.formatDate(selectedDate);
-        var a = new Date(formattedDate).toISOString();
-        this.ThemTourForm.get('thoiGianKetThuc')?.setValue(a);
+        const hasTime = selectedDate.getHours() !== 0 || selectedDate.getMinutes() !== 0;
+        const formattedDate = this.formatDate(selectedDate, hasTime);
+        this.ThemTourForm.get('thoiGianKetThuc')?.setValue(formattedDate);
       }
     });
     datetimepicker2.appendTo('#element2');
+    
   }
+  formatDate(date: Date, hasTime: boolean = false): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = date.getFullYear();
+    
+    if (hasTime) {
+      let hours = date.getHours().toString().padStart(2, '0');
+      let minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } else {
+      return `${day}/${month}/${year} 12:00`;
+    }
+  }
+  
+  
+  
+  
+  
+  
   updateSoChoConNhan(): void {
     const soLuongTreEm = this.ThemTourForm.get('soLuongTreEm')?.value || 0;
     const soLuongNguoiLon = this.ThemTourForm.get('soLuongNguoiLon')?.value || 0;
     this.ThemTourForm.get('soChoConNhan')?.setValue(soLuongTreEm + soLuongNguoiLon);
-  }
-  formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth trả về giá trị từ 0 đến 11
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
   get sanitizedText() {
     const moTaControl = this.ThemTourForm.get('moTa');
@@ -290,7 +301,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     return this.ThemTourForm.controls;
   }
   //thêm tour
-  ThemTour() {    // Bây giờ bạn có thể sử dụng tourData để thực hiện các thao tác tiếp theo
+  ThemTour() {   
     if (this.previewingFileImg.length === 0) {
       this.toastr.warning('Bạn chưa chọn ảnh', 'Thông báo', {
         timeOut: 1000,
@@ -304,7 +315,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     // Gán soChoConNhan bằng tổng số lượng người lớn và trẻ em
     // this.ThemTourForm.get('soChoConNhan')?.setValue(soLuongNguoiLon + soLuongTreEm);
 
+ // Chuyển đổi định dạng thời gian sang ISO 8601
+ const thoiGianBatDauISO = this.formatDateToISO(this.ThemTourForm.get('thoiGianBatDau')?.value);
+ const thoiGianKetThucISO = this.formatDateToISO(this.ThemTourForm.get('thoiGianKetThuc')?.value);
 
+ // Cập nhật giá trị của form với định dạng mới
+ this.ThemTourForm.get('thoiGianBatDau')?.setValue(thoiGianBatDauISO);
+ this.ThemTourForm.get('thoiGianKetThuc')?.setValue(thoiGianKetThucISO);
     this.addTourSubscribtion = this.quanLyTourService.themTourDuLich(this.ThemTourForm.value)
       .subscribe({
         next: (response) => {
@@ -317,8 +334,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
           });
         }
       })
-
-
+  }
+  formatDateToISO(date: string): string {
+    const [day, month, yearTime] = date.split('/');
+    const [year, time] = yearTime.split(' ');
+    const [hour, minute] = time ? time.split(':') : ['00', '00'];
+  
+    return `${year}-${month}-${day}T${hour}:${minute}:00Z`;
   }
 
 
