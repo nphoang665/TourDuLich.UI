@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { ThanhToan, ThanhToanDto } from '../../models/thanh-toan.model';
 import { environment } from '../../../../../environments/environment';
 import { DatTour } from '../../models/dat-tour.model';
+import { DichVu } from '../../models/Dich-Vu.model';
 
 @Injectable({
   providedIn: 'root'
