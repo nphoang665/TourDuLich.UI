@@ -80,4 +80,19 @@ export class DattourService {
       })
     );
   }
+
+  kiemTraKhachHangDatTour(idKhachHang: string, idTour: string): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      this.getAllDatTour().subscribe((resTour: any) => {
+        for (let tour of resTour) {
+          if (tour.idKhachHang === idKhachHang && tour.idTour === idTour && tour.tinhTrang !== 'Đã hủy') {
+            observer.next(true);
+            return;
+          }
+        }
+        observer.next(false);
+      });
+    });
+  }
+
 }
