@@ -10,6 +10,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 import { TourDuLich } from '../../models/tour-du-lich.model';
 import { QuanLyTourService } from '../quan-ly-tour.service';
 import { KhachHang } from '../../models/khach-hang.model';
+import { ThanhToan } from '../../models/thanh-toan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,11 @@ export class DattourService {
   putDatTour(data: SuaDatTour, id: string): Observable<SuaDatTour> {
     return this.http.put<SuaDatTour>(`${environment.apiBaseUrl}/api/datTour/${id}?addAuth=true`, data);
   }
+  guiMailHoaDon(idThanhToan: string) {
+    return this.http.get<any>(`${environment.apiBaseUrl}/api/Auth/GuiEmailChoKhachHang/${idThanhToan}`);
+  }
+
+
   tinhSoLuongNguoiConNhan(idTour: string): Observable<any> {
     let TongSoLuongNguoiLonDaDatTrongTour = 0;
     let TongSoLuongTreEmDaDatTrongTour = 0;
