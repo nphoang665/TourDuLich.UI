@@ -1,240 +1,243 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
-
-        .chuky {
-            font-family: "Style Script", cursive;
-            font-weight: 600;
-            font-style: inherit;
-            font-size: 20px;
-        }
+    .chuky {
+        font-family: "Style Script", cursive;
+        font-weight: 600;
+        font-style: inherit;
+        font-size: 20px;
+    }
 
 
-        button {
-            padding: 5px 10px;
-            font-size: 14px;
-        }
+    button {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
 
-        .invoice-box {
-            max-width: 890px;
-            margin: auto;
-            padding: 10px;
-            /* border: 1px solid #eee; */
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
-            font-size: 14px;
-            line-height: 24px;
-            font-family: 'Times New Roman', Times, serif;
-            color: #555;
-        }
+    .invoice-box {
+        max-width: 890px;
+        margin: auto;
+        padding: 10px;
+        /* border: 1px solid #eee; */
+        /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
+        font-size: 14px;
+        line-height: 24px;
+        font-family: 'Times New Roman', Times, serif;
+        color: #555;
+    }
 
-        .invoice-box table {
-            width: 100%;
-            line-height: inherit;
-            text-align: left;
-            /* border-bottom: solid 1px #ccc; */
-        }
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+        /* border-bottom: solid 1px #ccc; */
+    }
 
-        .invoice-box table td {
-            padding: 5px;
-            vertical-align: middle;
-        }
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: middle;
+    }
 
-        .invoice-box table tr td:nth-child(2) {
-            text-align: right;
-        }
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
 
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+
+    @media only screen and (max-width: 600px) {
         .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
-
-        .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
-            color: #333;
+            width: 100%;
+            display: block;
+            text-align: center;
         }
 
         .invoice-box table tr.information table td {
-            padding-bottom: 40px;
-        }
-
-        .invoice-box table tr.heading td {
-            background: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
-
-        .invoice-box table tr.item td {
-            border-bottom: 1px solid #eee;
-        }
-
-        .invoice-box table tr.item.last td {
-            border-bottom: none;
-        }
-
-        @media only screen and (max-width: 600px) {
-            .invoice-box table tr.top table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-
-            .invoice-box table tr.information table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-        }
-
-        /** RTL **/
-        .rtl {
-            direction: rtl;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        .rtl table {
-            text-align: right;
-        }
-
-        .rtl table tr td:nth-child(2) {
-            text-align: left;
-        }
-
-        .top_rw {
             width: 100%;
-            padding: 15px;
+            display: block;
+            text-align: center;
         }
+    }
 
-        .title_chung {
-            width: auto;
-        }
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: 'Times New Roman', Times, serif;
+    }
 
-        .title_chung_1 {
-            width: auto;
-            white-space: nowrap;
-        }
-    </style>
+    .rtl table {
+        text-align: right;
+    }
 
-    <div class="invoice-box container-fluid">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top_rw">
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
 
-                <td>
-                    <h2 class="title_chung" style="margin-bottom: 0px;">HÓA ĐƠN THANH TOÁN</h2>
-                </td>
-                <td>
-                    <span class="title_chung_1" style="white-space: nowrap; font-size: 17px;">Mã hóa đơn: {{thanhToanDto$?.idThanhToan}} | {{thanhToanDto$?.ngayThanhToan|date:"dd/MM/YYYY HH:mm"}}</span>
-                </td>
-            </tr>
-            <tr class="information" style=" width: auto;">
-                <td colspan="3" style=" width: auto;">
-                    <table>
-                        <tr>
-                            <td colspan="2" style=" width: auto; font-size: 17px;">
-                                <b> THÔNG TIN NHÂN VIÊN</b><br />
-                                <b>Tên nhân viên: </b>{{thanhToanDto$?.nhanVien.tenNhanVien}} <br />
-                                <b>Số điện thoại: </b>{{thanhToanDto$?.nhanVien.soDienThoai}}<br />
-                                <b>Email: </b>{{thanhToanDto$?.nhanVien.email}} <br />
-                            </td>
-                            <td colspan="2" style=" width: auto; font-size: 17px; ">
-                                <b> THÔNG TIN KHÁCH HÀNG </b><br />
-                                <b>Tên khách hàng: </b> {{thanhToanDto$?.khachHang.tenKhachHang}} <br />
-                                <b>Số điện thoại: </b> {{thanhToanDto$?.khachHang.soDienThoai}} <br />
-                                <b>Email: </b> {{thanhToanDto$?.khachHang.email}}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr class="total">
-                <td colspan="3">
-                    <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDatTour table ">
-                        <tr class="heading" style=" width: auto ">
-                            <td style="width:25%;">
-                                Tên tour
-                            </td>
-                            <td style="width:10%; text-align:center;">
-                                SL người lớn
-                            </td>
-                            <td style="width:10%; text-align:center;">
-                                SL trẻ em
-                            </td>
-                            <td style="width:15%; text-align:center;">
-                                Thời gian đặt tour
-                            </td>
+    .top_rw {
+        width: 100%;
+        padding: 15px;
+    }
 
-                        </tr>
-                        <tr class="item tr_item_DatTour">
-                            <td style="width:25%;">Tên Tour</td>
-                            <td style="width:10%; text-align:center;"> {{datTour?.soLuongNguoiLon}}</td>
-                            <td style="width:10%; text-align:center;">{{datTour?.soLuongTreEm}}</td>
-                            <td style="width:15%; text-align:center;">{{datTour?.thoiGianDatTour|date:"dd/MM/yyyy HH:ss"}}</td>
+    .title_chung {
+        width: auto;
+    }
 
-                        </tr>
+    .title_chung_1 {
+        width: auto;
+        white-space: nowrap;
+    }
+</style>
 
-                    </table>
+<div class="invoice-box container-fluid">
+    <table cellpadding="0" cellspacing="0">
+        <div class="row">
+            <div class="col-6" style="white-space: nowrap; font-size: 17px;">Tour du lịch: ASAP</div>
+            <div class="col-6"> <span class="title_chung_1" style="white-space: nowrap; font-size: 17px;">Mã hóa đơn:
+                    {{thanhToanDto$?.idThanhToan}} | {{thanhToanDto$?.ngayThanhToan|date:"dd/MM/YYYY HH:mm"}}</span>
+            </div>
+        </div>
+        <h2 class="title_chung text-center mt-2" style="margin-bottom: 0px;">HÓA ĐƠN THANH TOÁN</h2>
 
-                    <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDichVuChiTiet mt-3">
-                        <tr class="heading">
 
-                            <td style="width:25%;">
-                                Tên dịch vụ
-                            </td>
-                            <td style="width:10%; text-align:center;">
-                                Số lượng
-                            </td>
-                            <td style="width:10%; text-align:center;">
-                                Đơn giá
-                            </td>
-                            <td style="width:15%; text-align:center;">
-                                Thời gian dịch vụ
-                            </td>
+        <tr class="information mt-3" style=" width: auto;">
+            <td colspan="3" style=" width: auto;">
+                <table>
+                    <tr>
+                        <td colspan="2" style=" width: auto; font-size: 17px;">
+                            <b> THÔNG TIN NHÂN VIÊN</b><br />
+                            <b>Tên nhân viên: </b>{{thanhToanDto$?.nhanVien.tenNhanVien}} <br />
+                            <b>Số điện thoại: </b>{{thanhToanDto$?.nhanVien.soDienThoai}}<br />
+                            <b>Email: </b>{{thanhToanDto$?.nhanVien.email}} <br />
+                        </td>
+                        <td colspan="2" style=" width: auto; font-size: 17px; ">
+                            <b> THÔNG TIN KHÁCH HÀNG </b><br />
+                            <b>Tên khách hàng: </b> {{thanhToanDto$?.khachHang.tenKhachHang}} <br />
+                            <b>Số điện thoại: </b> {{thanhToanDto$?.khachHang.soDienThoai}} <br />
+                            <b>Email: </b> {{thanhToanDto$?.khachHang.email}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="total">
+            <td colspan="3">
+                <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDatTour table ">
+                    <tr class="heading" style=" width: auto ">
+                        <td style="width:25%;">
+                            Tên tour
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            SL người lớn
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            SL trẻ em
+                        </td>
+                        <td style="width:15%; text-align:center;">
+                            Thời gian đặt tour
+                        </td>
 
-                        </tr>
-                        <tr class="item tr_item_DichVu">
-                            <td style="width:25%;">Tên dịch vụ</td>
-                            <td style="width:10%; text-align:center;">0</td>
-                            <td style="width:10%; text-align:center;">0</td>
-                            <td style="width:15%; text-align:center;">0</td>
+                    </tr>
+                    <tr class="item tr_item_DatTour">
+                        <td style="width:25%;">{{datTour.TourDuLich.tenTour}}</td>
+                        <td style="width:10%; text-align:center;"> {{datTour?.soLuongNguoiLon}}</td>
+                        <td style="width:10%; text-align:center;">{{datTour?.soLuongTreEm}}</td>
+                        <td style="width:15%; text-align:center;">{{datTour?.thoiGianDatTour|date:"dd/MM/yyyy HH:ss"}}
+                        </td>
 
-                        </tr>
+                    </tr>
 
-                    </table>
-                    <table cellspacing="0px" cellpadding="2px">
-                        <!-- <tr>
+                </table>
+
+                <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDichVuChiTiet mt-3">
+                    <tr class="heading">
+
+                        <td style="width:25%;">
+                            Tên dịch vụ
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            Số lượng
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            Đơn giá
+                        </td>
+                        <td style="width:15%; text-align:center;">
+                            Thời gian dịch vụ
+                        </td>
+
+                    </tr>
+                    @for( item of DichVuChiTiet; track $index ){
+
+                    <tr class="item tr_item_DichVu">
+                        <td style="width:25%;">{{item.dichVu.tenDichVu}}</td>
+                        <td style="width:10%; text-align:center;">{{item.soLuong}}</td>
+                        <td style="width:10%; text-align:center;">{{item.dichVu.donGia}}</td>
+                        <td style="width:15%; text-align:center;">{{item.thoiGianDichVu}}</td>
+
+                    </tr>
+                    }
+
+                </table>
+                <table cellspacing="0px" cellpadding="2px">
+                    <!-- <tr>
                             <td colspan="2">
                                 Total Amount in Words : <b> Three Hundred Eighty Rupees Only </b>
                             </td>
                         </tr> -->
-                        <tr>
-                            <td width="50%">
+                    <tr>
+                        <td width="50%">
 
-                            </td>
-                            <td style=" width: auto; font-size: 20px; " class="pt-5">
-                                <span class="d-block"><b>TỔNG TIỀN</b></span>
-                                <span class="d-block">Tổng tiền tour: <b>{{thanhToanDto$?.tongTienTour}}</b>VNĐ</span>
-                                <span class="d-block">Tổng tiền dịch vụ: <b>{{thanhToanDto$?.tongTienDichVu}}</b>VNĐ</span>
-                                <span class="d-block">Tổng cộng: <b>{{thanhToanDto$?.tongTien}}</b>VNĐ</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                            </td>
-                            <td class="text-center pt-5">
-                                <b style="font-size: 20px;"> Chữ ký</b>
-                                <!-- <br /><br /> -->
-                                <div class="chuky mt-2">
-                                    ASAP TEAM
-                                </div>
-                                <br /><br /><br />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+                        </td>
+                        <td style=" width: auto; font-size: 20px; " class="pt-5">
+                            <span class="d-block"><b>TỔNG TIỀN</b></span>
+                            <span class="d-block">Tổng tiền tour: <b>{{thanhToanDto$?.tongTienTour}}</b>VNĐ</span>
+                            <span class="d-block">Tổng tiền dịch vụ: <b>{{thanhToanDto$?.tongTienDichVu}}</b>VNĐ</span>
+                            <span class="d-block">Tổng cộng: <b>{{thanhToanDto$?.tongTien}}</b>VNĐ</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                        </td>
+                        <td class="text-center pt-5">
+                            <b style="font-size: 20px;"> Chữ ký</b>
+                            <!-- <br /><br /> -->
+                            <div class="chuky mt-2">
+                                ASAP TEAM
+                            </div>
+                            <br /><br /><br />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
