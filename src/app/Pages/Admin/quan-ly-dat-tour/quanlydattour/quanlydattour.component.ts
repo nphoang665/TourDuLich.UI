@@ -761,6 +761,11 @@ export class QuanlydattourComponent implements OnInit {
               this.thanhToanService.thanhToan(thanhToanData)
                 .subscribe({
                   next: (response) => {
+                    if (response.idThanhToan) {
+                      this.datTourService.guiMailHoaDon(response.idThanhToan).subscribe(result => {
+                        console.log(result);
+                      })
+                    }
                     const closeButton = this.myModal?.nativeElement.querySelector('.btn-secondary');
                     if (closeButton) {
                       closeButton.click();
