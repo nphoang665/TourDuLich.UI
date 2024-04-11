@@ -38,6 +38,9 @@
                   @else if (tenTour?.errors?.['invalidChar']) {
                   <mat-error>Tên tour không chứa ký tự đặc biệt & số</mat-error>
                   }
+                  @else if (tenTour?.errors?.['whitespace']) {
+                  <mat-error>Tên tour không chứa khoảng trắng</mat-error>
+                  }
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="col-lg-3">
@@ -118,10 +121,10 @@
                   <mat-error>Vui lòng nhập giá vé người lớn</mat-error>
                   }
                   @else if (giaNguoiLon?.errors?.['min']) {
-                  <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+                  <mat-error>Giá vé không được nhỏ hơn 10000</mat-error>
                   }
-                  @else if (giaNguoiLon?.errors?.['max']) {
-                  <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+                  @else if (giaNguoiLon?.errors?.['whitespace']) {
+                  <mat-error>Giá vé không chứa khoảng trắng</mat-error>
                   }
 
                 </mat-form-field>
@@ -133,10 +136,10 @@
                   <mat-error>Vui lòng nhập giá vé trẻ em</mat-error>
                   }
                   @else if (giaTreEm?.errors?.['min']) {
-                  <mat-error>Giá vé không được nhỏ hơn 0</mat-error>
+                  <mat-error>Giá vé không được nhỏ hơn 10000</mat-error>
                   }
-                  @else if (giaTreEm?.errors?.['max']) {
-                  <mat-error>Giá vé vượt quá mức cho phép</mat-error>
+                  @else if (giaTreEm?.errors?.['whitespace']) {
+                  <mat-error>Giá vé không chứa khoảng trắng</mat-error>
                   }
 
                 </mat-form-field>
@@ -154,7 +157,9 @@
                   @else if (noiKhoiHanh?.errors?.['maxlength']) {
                   <mat-error>Nơi khởi hành quá dài</mat-error>
                   }
-
+                  @else if (noiKhoiHanh?.errors?.['whitespace']) {
+                  <mat-error>Nơi khởi hành không chứa khoảng trắng</mat-error>
+                  }
                 </mat-form-field>
 
 
@@ -213,7 +218,9 @@
                   @else if (dichVuDiKem?.errors?.['maxlength']) {
                   <mat-error>Độ dài vượt quá mức quy định</mat-error>
                   }
-
+                  @else if (dichVuDiKem?.errors?.['whitespace']) {
+                  <mat-error>Dịch vụ đi kèm không chứa khoảng trắng</mat-error>
+                  }
                 </mat-form-field>
 
                 <div class="col-lg-12">
