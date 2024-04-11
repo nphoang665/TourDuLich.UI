@@ -29,7 +29,7 @@
                         <mat-form-field class="m-0">
                             <mat-label for="inputName">Tên</mat-label>
                             <input matInput type="text" [errorStateMatcher]="matcher" formControlName="TenKhachHang"
-                                id="inputName" placeholder="Nhập tên của bạn">
+                                id="inputName" placeholder="Nhập tên của bạn" [readonly]="nguoiDungLogin">
                             @if (TenKhachHang?.errors?.['required']) {
                             <mat-error>Họ tên không được để trống</mat-error>
                             }
@@ -43,8 +43,8 @@
                             <mat-error>Họ và tên quá ngắn không chứa ký tự đặc biệt & số</mat-error>
                             }
                             @else if (TenKhachHang?.errors?.['whitespace']) {
-                                <mat-error>Họ và tên quá ngắn không chứa khoảng trắng</mat-error>
-                                }
+                            <mat-error>Họ và tên quá ngắn không chứa khoảng trắng</mat-error>
+                            }
                         </mat-form-field>
 
 
@@ -116,7 +116,7 @@
                         <mat-form-field class="form-group m-0">
                             <mat-label for="inputEmail">Email</mat-label>
                             <input matInput type="email" [errorStateMatcher]="matcher" formControlName="Email"
-                                id="inputEmail" placeholder="name@example.com">
+                                id="inputEmail" placeholder="name@example.com" [readonly]="nguoiDungLogin">
                             @if (Email?.errors?.['required']) {
                             <mat-error>Email không được để trống</mat-error>
                             }

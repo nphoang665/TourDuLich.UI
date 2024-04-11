@@ -74,7 +74,7 @@ export class ThanhtoankhachhangComponent implements OnInit {
   ) {
 
   }
-  private nguoiDungLogin = this.nguoiDung.LayNguoiDungTuLocalStorage();
+  public nguoiDungLogin = this.nguoiDung.LayNguoiDungTuLocalStorage();
 
   n: number = 0;
   DichVu: any[] = [];
