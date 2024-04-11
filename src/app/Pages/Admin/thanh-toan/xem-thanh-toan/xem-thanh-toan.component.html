@@ -167,8 +167,8 @@
                         </td>
 
                     </tr>
-                    <tr class="item tr_item_DatTour">
-                        <td style="width:25%;">{{datTour.TourDuLich.tenTour}}</td>
+                    <tr class="item tr_item_DatTour" *ngIf="datTour">
+                        <td style="width:25%;" *ngIf="datTour.TourDuLich">{{datTour.TourDuLich.tenTour}}</td>
                         <td style="width:10%; text-align:center;"> {{datTour?.soLuongNguoiLon}}</td>
                         <td style="width:10%; text-align:center;">{{datTour?.soLuongTreEm}}</td>
                         <td style="width:15%; text-align:center;">{{datTour?.thoiGianDatTour|date:"dd/MM/yyyy HH:ss"}}
@@ -178,9 +178,9 @@
 
                 </table>
 
-                <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDichVuChiTiet mt-3">
+                <table cellspacing="0px" cellpadding="2px" class="tbl_HienThiDichVuChiTiet mt-3"
+                    *ngIf="DichVuChiTiet.length>0">
                     <tr class="heading">
-
                         <td style="width:25%;">
                             Tên dịch vụ
                         </td>
