@@ -65,7 +65,9 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
     this.tourDuLichServices.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
       //trả về data dạng tour
       this.TourChiTiet = data;
+
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe(resultDatTour => {
+
         this.TourChiTiet.soChoConNhan = resultDatTour.SoChoConNhanTrongTour;
         this.TourChiTiet.soLuongNguoiLon = resultDatTour.TongSoLuongNguoiLonDaDatTrongTour;
         this.TourChiTiet.soLuongTreEm = resultDatTour.TongSoLuongTreEmDaDatTrongTour;
@@ -88,7 +90,7 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
       if (nguoiDung && nguoiDung.idKhachHang) {
         this.datTourService.kiemTraKhachHangDatTour(nguoiDung.idKhachHang, idTour).subscribe(ketQua => {
           this.kiemTraTour = ketQua;
-          console.log(this.kiemTraTour);
+          // console.log(this.kiemTraTour);
 
         });
       }

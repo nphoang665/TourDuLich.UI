@@ -73,7 +73,7 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
     }
 
     this.datToursServices.tinhSoLuongNguoiConNhan(tourById.idTour).subscribe((resDatTour: any) => {
-      if (tourById.soLuongNguoiLon < resDatTour.TongSoLuongNguoiLonDaDatTrongTour && tourById.soLuongTreEm < resDatTour.TongSoLuongTreEmDaDatTrongTour) {
+      if (tourById.soLuongNguoiLon <= resDatTour.TongSoLuongNguoiLonDaDatTrongTour && tourById.soLuongTreEm <= resDatTour.TongSoLuongTreEmDaDatTrongTour) {
         // Gán giá trị khi đặt tour thành công
         tourById.idNhanVien = nguoiDung.idNhanVien;
         tourById.tinhTrang = "Đã đặt tour";

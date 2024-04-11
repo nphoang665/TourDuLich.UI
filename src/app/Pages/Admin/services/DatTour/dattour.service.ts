@@ -61,9 +61,13 @@ export class DattourService {
         // Biến đổi dữ liệu trả về tại đây nếu cần
         return this.tourDuLichServices.getTourDuLichById(idTour).pipe(
           map((resTour: TourDuLich) => {
+            console.log(resTour, TongSoLuongNguoiLonDaDatTrongTour);
+
             TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
+            // console.log(SoChoConNhanTrongTour);
+
             return {
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,
               TongSoLuongTreEmDaDatTrongTour: TongSoLuongTreEmDaDatTrongTour,
@@ -80,6 +84,49 @@ export class DattourService {
       })
     );
   }
+  //hàm này không trừ hết số chỗ còn nhận của một tour, loại ra những đặt tour đang target là không lấy
+  LaySoChoConNhanTruIdDatTourDangTarget(idTour: string, idDatTour: string): Observable<any> {
+    let TongSoLuongNguoiLonDaDatTrongTour = 0;
+    let TongSoLuongTreEmDaDatTrongTour = 0;
+    let SoChoConNhanTrongTour = 0;
+
+    return this.getDatTourById(idTour).pipe(
+      switchMap((response: any) => {
+        response.forEach((element: any) => {
+
+          if (element.tinhTrang != 'Đã từ chối' && element.idDatTour != idDatTour) {
+            console.log(1);
+
+            TongSoLuongNguoiLonDaDatTrongTour += element.soLuongNguoiLon;
+            TongSoLuongTreEmDaDatTrongTour += element.soLuongTreEm;
+          }
+        });
+        // Biến đổi dữ liệu trả về tại đây nếu cần
+        return this.tourDuLichServices.getTourDuLichById(idTour).pipe(
+          map((resTour: TourDuLich) => {
+
+            TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
+            TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
+            SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
+            // console.log(SoChoConNhanTrongTour);
+
+            return {
+              TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,
+              TongSoLuongTreEmDaDatTrongTour: TongSoLuongTreEmDaDatTrongTour,
+              SoChoConNhanTrongTour: SoChoConNhanTrongTour,
+            };
+          })
+        );
+      }),
+      catchError((err: any) => {
+        this.toastr.warning('Lấy tour theo idTour thất bại', 'Thông báo', {
+          timeOut: 1000,
+        });
+        throw err;
+      })
+    );
+  }
+
 
   kiemTraKhachHangDatTour(idKhachHang: string, idTour: string): Observable<boolean> {
     return new Observable<boolean>((observer) => {

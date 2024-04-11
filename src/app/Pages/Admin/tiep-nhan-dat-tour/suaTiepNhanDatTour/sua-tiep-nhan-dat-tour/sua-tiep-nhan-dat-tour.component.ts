@@ -103,16 +103,26 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
       TinhTrang: this.suaTiepNhanDatTour.controls['tinhTrang'].value,
       IdNhanVien: this.suaTiepNhanDatTour.controls['idNhanVien'].value,
     }
+    this.datTourService.LaySoChoConNhanTruIdDatTourDangTarget(DatTour.IdTour, DatTour.IdDatTour).subscribe((resultDatTourDangTarget) => {
+      console.log(resultDatTourDangTarget);
 
+      if (DatTour.SoLuongNguoiLon <= resultDatTourDangTarget.TongSoLuongNguoiLonDaDatTrongTour && DatTour.SoLuongTreEm <= resultDatTourDangTarget.TongSoLuongTreEmDaDatTrongTour) {
+        this.datTourService.putDatTour(DatTour, this.id).subscribe((data: any) => {
+          console.log(data);
+          this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
+            timeOut: 1000,
+          });
+          this.router.navigateByUrl('/tiepNhanDatTour');
+        });
+        this.LuuDichVuChiTietVaoDb(DatTour);
 
-    this.datTourService.putDatTour(DatTour, this.id).subscribe((data: any) => {
-      console.log(data);
-      this.toastr.success('Sửa đặt tour thành công', 'Thông báo', {
-        timeOut: 1000,
-      });
-      this.router.navigateByUrl('/tiepNhanDatTour');
-    });
-    this.LuuDichVuChiTietVaoDb(DatTour);
+      }
+      else {
+        this.toastr.warning('Quá số lượng người dự tour', 'Thông báo', {
+          timeOut: 1000,
+        });
+      }
+    })
 
   }
   //
@@ -139,7 +149,6 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
       });
       //push vào mảng
       this.dichVuChiTiet.LuuDichVuChiTietVaoDb(DatTour.IdDatTour, db_ObjDichVuChiTiet).subscribe((data: any) => {
-        alert(data);
 
       });
       console.log(this.TongDichVu_Db);
