@@ -42,6 +42,9 @@
                             @else if (TenKhachHang?.errors?.['invalidChar']) {
                             <mat-error>Họ và tên quá ngắn không chứa ký tự đặc biệt & số</mat-error>
                             }
+                            @else if (TenKhachHang?.errors?.['whitespace']) {
+                                <mat-error>Họ và tên quá ngắn không chứa khoảng trắng</mat-error>
+                                }
                         </mat-form-field>
 
 
@@ -64,6 +67,9 @@
                             @else if (SoDienThoai?.errors?.['invalidSDT']) {
                             <mat-error>Số điện thoại đã tồn tại</mat-error>
                             }
+                            @else if (SoDienThoai?.errors?.['whitespace']) {
+                            <mat-error>Số điện thoại không chứa khoảng trắng</mat-error>
+                            }
                         </mat-form-field>
 
                         <!-- CCCD -->
@@ -85,6 +91,9 @@
                             }
                             @else if(CCCD?.errors?.['pattern']){
                             <mat-error>CCCD không chứa chữ và ký tự đặc biệt</mat-error>
+                            }
+                            @else if(CCCD?.errors?.['whitespace']){
+                            <mat-error>CCCD không chứa khoảng trắng</mat-error>
                             }
                         </mat-form-field>
 
@@ -123,6 +132,9 @@
                             @else if (Email?.errors?.['invalidEmail']) {
                             <mat-error>Email đã tồn tại</mat-error>
                             }
+                            @else if (Email?.errors?.['whitespace']) {
+                            <mat-error>Email không chứa khoảng trắng</mat-error>
+                            }
                         </mat-form-field>
 
                         <!-- Địa chỉ -->
@@ -138,6 +150,9 @@
                             }
                             @else if (DiaChi?.errors?.['maxlength']) {
                             <mat-error>Địa chỉ quá dài</mat-error>
+                            }
+                            @else if (DiaChi?.errors?.['whitespace']) {
+                            <mat-error>Địa chỉ không chứa khoảng trắng</mat-error>
                             }
                         </mat-form-field>
 

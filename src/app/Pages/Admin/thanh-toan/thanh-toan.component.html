@@ -24,14 +24,14 @@
                 </mat-form-field>
               </div>
               <div class="col-lg-3 d-flex align-items-center justify-content-end">
-                <div class="example-disabled" style="z-index: 0;">
+                <div class="example-disabled">
                   <button mat-stroked-button class="ms-1">
                     <i class="bi bi-printer"></i>
                   </button>
                   <button mat-stroked-button class="ms-1">
                     <i class="bi bi-copy"></i>
                   </button>
-                  <button mat-stroked-button class="ms-1">
+                  <button mat-stroked-button class="ms-1" (click)="getThanhToanDataAndExportToExcel()">
                     <i class="bi bi-file-earmark-spreadsheet"></i>
                   </button>
                   <button mat-stroked-button class="ms-1">

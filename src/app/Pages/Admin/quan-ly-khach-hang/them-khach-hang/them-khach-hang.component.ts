@@ -54,14 +54,15 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
-    
+      this.noWhitespaceValidator()
     ]),
     soDienThoai: new FormControl('', {
       validators:[
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-      Validators.pattern(/^(0[0-9]{9})$/)
+      Validators.pattern(/^(0[0-9]{9})$/),
+      this.noWhitespaceValidator()
     ],
     asyncValidators: [this.checkSDT()],
     updateOn:'change'
@@ -70,7 +71,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
-      
+      this.noWhitespaceValidator()
     ]),
     cccd: new FormControl('', {
       validators: [
@@ -78,6 +79,7 @@ export class ThemKhachHangComponent implements OnInit{
         Validators.maxLength(12),
         Validators.minLength(12),
         Validators.pattern('^[0-9]*$'),
+        this.noWhitespaceValidator()
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
@@ -93,6 +95,7 @@ export class ThemKhachHangComponent implements OnInit{
       Validators.minLength(4),
       Validators.maxLength(50), 
       Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      this.noWhitespaceValidator()
     ],
     asyncValidators: [this.checkEmail()],
     updateOn: 'change'
@@ -176,7 +179,12 @@ checkEmail(): AsyncValidatorFn {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
-  
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
+  }
   kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const ngayChonTuInput = new Date(control.value);

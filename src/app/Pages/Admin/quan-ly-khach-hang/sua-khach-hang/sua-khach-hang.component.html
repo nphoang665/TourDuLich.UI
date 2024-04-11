@@ -17,6 +17,9 @@
       @else if (tenKhachHang?.errors?.['invalidChar']) {
             <mat-error>Họ và tên quá ngắn không chứa ký tự đặc biệt & số</mat-error>
         }  
+      @else if (tenKhachHang?.errors?.['whitespace']) {
+          <mat-error>Họ và tên quá ngắn không chứa khoảng trắng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -43,6 +46,9 @@
       @else if (soDienThoai?.errors?.['pattern']) {
           <mat-error>Số điện thoại phải bắt đầu bằng số 0</mat-error>
         }
+      @else if (soDienThoai?.errors?.['whitespace']) {
+          <mat-error>Số điện thoại không chứa khoảng trắng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -62,6 +68,9 @@
         }
       @else if(cccd?.errors?.['pattern']){
           <mat-error>CCCD không chứa chữ hoặc ký tự đặc biệt</mat-error>
+        }
+      @else if(cccd?.errors?.['whitespace']){
+          <mat-error>CCCD không chứa khoảng trắng</mat-error>
         }
     </mat-form-field>
 
@@ -117,6 +126,9 @@
       @else if (email?.errors?.['invalidEmail']) {
           <mat-error>Email đã tồn tại</mat-error>
         }
+      @else if (email?.errors?.['whitespace']) {
+          <mat-error>Email không chứa khoảng trắng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -130,6 +142,9 @@
         }
       @else if (diaChi?.errors?.['maxlength']) {
           <mat-error>Địa chỉ không hợp lệ</mat-error>
+        }
+      @else if (diaChi?.errors?.['whitespace']) {
+          <mat-error>Địa chỉ không chứa khoảng trắng</mat-error>
         }
     </mat-form-field>
 

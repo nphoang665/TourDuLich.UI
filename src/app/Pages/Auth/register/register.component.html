@@ -66,7 +66,10 @@
                   <mat-error>Email không hợp lệ</mat-error>
                   }
                   @else if (email?.errors?.['invalidEmail']) {
-                  <mat-error>Email không đã tồn tại</mat-error>
+                      <mat-error>Email không đã tồn tại</mat-error>
+                    }
+                  @else if (email?.errors?.['whitespace']) {
+                      <mat-error>Email không chứa khoảng trắng</mat-error>
                   }
                 </mat-form-field>
                 <mat-form-field class="example-full-width w-100">
@@ -84,8 +87,11 @@
                   <mat-error>Họ và tên quá dài</mat-error>
                   }
                   @else if (userName?.errors?.['invalidChar']) {
-                  <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
-                  }
+                        <mat-error>Họ và tên không chứa ký tự đặc biệt & số</mat-error>
+                    }   
+                  @else if (userName?.errors?.['whitespace']) {
+                      <mat-error>Họ và tên không chứa chứa khoảng trắng</mat-error>
+                  } 
                 </mat-form-field>
 
 

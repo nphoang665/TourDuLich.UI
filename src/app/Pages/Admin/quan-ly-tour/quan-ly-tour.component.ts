@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ThemTourComponent } from './them-tour/them-tour.component';
 import { QuanLyTourService } from '../services/quan-ly-tour.service';
 import { Observable } from 'rxjs';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-quan-ly-tour',
   templateUrl: './quan-ly-tour.component.html',
@@ -91,4 +91,47 @@ export class QuanLyTourComponent implements AfterViewInit, OnInit{
         });
     }
   }
+  exportToExcel(data: any[]): void {
+    
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+  
+    const headings = ['Mã tour', 'Tên tour', 'Loại tour', 'Phương tiện di chuyển', 'Mô tả', 'Số lượng người lớn', 'Số lượng trẻ em',
+     'Thời gian bắt đầu', 'Thời gian kết thúc' ,'Nơi khởi hành','Số chỗ còn nhận','Mã đối tác','Giá trẻ em','Giá người lớn','Ngày thêm','Dịch vụ đi kèm','Tình trạng'
+     ,'Tên đối tác','Email đối tác','Số điện thoại đối tác','Ảnh tour'
+  ];
+    XLSX.utils.sheet_add_aoa(ws, [headings], { origin: 'A1' });
+  
+  
+    const headerRange = ws['!ref'];
+    if (headerRange) {
+      const decodedHeaderRange: XLSX.Range = XLSX.utils.decode_range(headerRange);
+      for (let col = decodedHeaderRange.s.c; col <= decodedHeaderRange.e.c; col++) {
+        const headerCell: XLSX.CellObject = ws[XLSX.utils.encode_cell({ r: decodedHeaderRange.s.r, c: col })];
+        if (headerCell) {
+          headerCell.s = {
+            font: { bold: true }, 
+            alignment: { horizontal: 'center' }
+          };
+        }
+      }
+    }
+  
+  
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+    
+    XLSX.writeFile(wb, 'TourDuLich.xlsx');
+  }
+    getTourDuLichDataAndExportToExcel() {
+      this.quanLyTourService.getAllTourDuLich().subscribe(
+        (data: TourDuLich[]) => {
+         
+          this.exportToExcel(this.dataSource.data);
+        },
+        (error) => {
+          console.error('Error fetching TourDuLich data: ', error);
+        }
+      );
+    }
 }

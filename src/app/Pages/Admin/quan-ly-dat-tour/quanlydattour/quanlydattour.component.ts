@@ -109,13 +109,15 @@ export class QuanlydattourComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator(),
     ]),
     soDienThoai: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
-        Validators.pattern(/^(0[0-9]{9})$/)
+        Validators.pattern(/^(0[0-9]{9})$/),
+        this.noWhitespaceValidator(),
       ],
       asyncValidators: [this.checkSDT()],
       updateOn: 'change'
@@ -124,7 +126,7 @@ export class QuanlydattourComponent implements OnInit {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50),
-
+      this.noWhitespaceValidator(),
     ]),
     cccd: new FormControl('', {
       validators: [
@@ -132,7 +134,7 @@ export class QuanlydattourComponent implements OnInit {
         Validators.maxLength(12),
         Validators.minLength(12),
         Validators.pattern('^[0-9]*$'),
-        //Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        this.noWhitespaceValidator(),
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
@@ -149,6 +151,7 @@ export class QuanlydattourComponent implements OnInit {
         Validators.minLength(4),
         Validators.maxLength(50),
         Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        this.noWhitespaceValidator(),
       ],
       asyncValidators: [this.checkEmail()],
       updateOn: 'change'
@@ -239,6 +242,12 @@ export class QuanlydattourComponent implements OnInit {
       const tuoi = ngayHienTai.getFullYear() - ngayChonTuInput.getFullYear();
       return tuoi < 18 ? { 'ageInvalid': true } : null;
     };
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   constructor(private quanLyTourService: QuanLyTourService,
     private quanLyKhachHangServices: KhachhangService,

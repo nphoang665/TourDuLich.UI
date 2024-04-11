@@ -89,6 +89,12 @@ export class SuaKhachHangComponent implements OnInit {
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
   }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
+  }
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
         if (control.value.length === 12) {
@@ -197,13 +203,15 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
         Validators.minLength(4),
         Validators.maxLength(50),
         this.noSpecialCharValidator(),
+        this.noWhitespaceValidator()
       ]),
       soDienThoai: new FormControl(this.model?.soDienThoai, {
         validators:[
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10), 
-        Validators.pattern(/^(0[0-9]{9})$/)
+        Validators.pattern(/^(0[0-9]{9})$/),
+        this.noWhitespaceValidator()
       ],
       asyncValidators: [this.checkSDT()],
       updateOn:'change'
@@ -212,6 +220,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50), 
+        this.noWhitespaceValidator()
       ]),
       cccd: new FormControl(this.model?.cccd,{
         validators: [
@@ -219,6 +228,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
           Validators.maxLength(12),
           Validators.minLength(12),
           Validators.pattern('^[0-9]*$'),
+          this.noWhitespaceValidator()
         ],
         asyncValidators: [this.checkCCCD()],
         updateOn: 'change'
@@ -234,6 +244,7 @@ kiemLoiTuoiPhaiLonHon18(): ValidatorFn {
         Validators.minLength(4),
         Validators.maxLength(50), 
         Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        this.noWhitespaceValidator()
       ],
       asyncValidators: [this.checkEmail()],
       updateOn: 'change'

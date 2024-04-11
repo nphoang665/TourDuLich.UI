@@ -48,13 +48,15 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator()
     ]),
     soDienThoai:new FormControl('', {
       validators:[
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10), 
-      Validators.pattern(/^(0[0-9]{9})$/)
+      Validators.pattern(/^(0[0-9]{9})$/),
+      this.noWhitespaceValidator()
     ],
     asyncValidators: [this.checkSDT()],
     updateOn:'change'
@@ -63,6 +65,7 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(50), 
+      this.noWhitespaceValidator()
     ]),
     cccd:new FormControl('', {
       validators: [
@@ -70,6 +73,7 @@ export class ThemNhanVienComponent implements OnInit{
         Validators.maxLength(12),
         Validators.minLength(12),
         Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        this.noWhitespaceValidator()
       ],
       asyncValidators: [this.checkCCCD()],
       updateOn: 'change'
@@ -83,6 +87,7 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.minLength(4),
       Validators.maxLength(50), 
       Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      this.noWhitespaceValidator()
     ],
     asyncValidators: [this.checkEmail()],
     updateOn: 'change'
@@ -124,6 +129,12 @@ export class ThemNhanVienComponent implements OnInit{
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {

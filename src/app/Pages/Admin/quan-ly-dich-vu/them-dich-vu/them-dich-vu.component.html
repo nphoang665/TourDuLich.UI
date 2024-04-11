@@ -11,11 +11,14 @@
         <mat-error>Tên dịch vụ quá ngắn</mat-error>
         }
       @else if (tenDichVu?.errors?.['maxlength']) {
-          <mat-error>Tên dịch vụ quá dài</mat-error>
+        <mat-error>Tên dịch vụ quá dài</mat-error>
         }
       @else if (tenDichVu?.errors?.['invalidChar']) {
-            <mat-error>Tên dịch vụ không chứa ký tự đặc biệt & số</mat-error>
-        }    
+        <mat-error>Tên dịch vụ không chứa ký tự đặc biệt & số</mat-error>
+        }  
+      @else if (tenDichVu?.errors?.['whitespace']) {
+        <mat-error>Tên dịch vụ không chứa khoảng trắng</mat-error>
+      }  
     </mat-form-field>
 
     <mat-form-field>
@@ -33,6 +36,9 @@
       @else if (donViTinh?.errors?.['invalidChar']) {
           <mat-error>Đơn vị tính không chứa ký tự đặc biệt & số</mat-error>
         }
+      @else if (donViTinh?.errors?.['whitespace']) {
+          <mat-error>Đơn vị tính không chứa khoảng trắng</mat-error>
+        }
     </mat-form-field>
 
     <mat-form-field>
@@ -43,6 +49,9 @@
         } 
       @else if (giaTien?.errors?.['min']) {
         <mat-error>Giá tiền không được dưới 10000</mat-error>
+        }
+      @else if (giaTien?.errors?.['whitespace']) {
+        <mat-error>Giá tiền không chứa khoảng trắng</mat-error>
         }
     </mat-form-field>
     <!-- <mat-form-field> -->
