@@ -8,130 +8,124 @@
         <!-- Main Navbar -->
         <app-main-navbar></app-main-navbar>
       </div>
-        <!-- / .main-navbar -->
+      <!-- / .main-navbar -->
 
 
 
-        <!-- Start dịch vụ -->
-        <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4">
-              <div class="QuanLuTour_container">
-                <div class="row">
-                  <div class="col-lg-9 d-flex align-items-center">
-                    <mat-form-field>
-                      <mat-label>Tìm kiếm</mat-label>
-                      <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-3 d-flex align-items-center justify-content-end">
-                    <div class="example-disabled">
-                      <button mat-stroked-button class="ms-1">
-                        <i class="bi bi-printer"></i>
-                      </button>
-                      <button mat-stroked-button class="ms-1">
-                        <i class="bi bi-copy"></i>
-                      </button>
-                      <button mat-stroked-button class="ms-1">
-                        <i class="bi bi-file-earmark-spreadsheet"></i>
-                      </button>
-                      <button mat-stroked-button class="ms-1">
-                        <i class="bi bi-filetype-pdf"></i>
-                      </button>
-                    </div>
-    
-                  </div>
-                </div>
-
-                <div class="mat-elevation-z8 mt-2">
-                  <table mat-table [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="idThanhToan">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Mã thanh toán
-                      </th>
-                      <td mat-cell *matCellDef="let row">{{ row.idThanhToan }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="idKhachHang">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Mã khách hàng
-                      </th>
-                      <td mat-cell *matCellDef="let row">{{ row.idKhachHang }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="idNhanVien">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Mã nhân viên
-                      </th>
-                      <td mat-cell *matCellDef="let row">{{ row.idNhanVien }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="tongTien">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Tổng tiền
-                      </th>
-                      <td mat-cell *matCellDef="let row">{{ row.tongTien }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="tinhTrang">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Tình trạng
-                      </th>
-                      <td mat-cell *matCellDef="let row">{{ row.tinhTrang }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="ngayThanhToan">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Ngày thanh toán
-                      </th>
-                      <td mat-cell *matCellDef="let row">
-                        {{ row.ngayThanhToan | date : "dd/MM/yyyy" }}
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>Hành động</th>
-                      <td mat-cell *matCellDef="let element">
-                        <button mat-raised-button color="primary" class="m-1" (click)="xemThanhToan(element.idThanhToan)">
-                          <i class="fa-solid fa-eye"></i>
-                          
-                        </button>
-                        <button mat-raised-button style="background-color: #009628; color: white;" class="m-1">
-                          <i class="fa-solid fa-file-export"></i>
-                        </button>
-    
-                      </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr
-                      mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                    ></tr>
-
-                     <!-- Row shown when there is no matching data. -->
-                  <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="7">
-                      Không có dữ liệu phù hợp với từ khóa "{{ input.value }}"
-                    </td>
-                  </tr>
-                </table>
-                <mat-paginator
-                [pageSizeOptions]="[5, 10, 25, 100]"
-                aria-label="Select page of users"
-              ></mat-paginator>
+      <!-- Start dịch vụ -->
+      <div class="main-content-container container-fluid px-4">
+        <div class="page-header row no-gutters py-4">
+          <div class="QuanLuTour_container">
+            <div class="row">
+              <div class="col-lg-9 d-flex align-items-center">
+                <mat-form-field>
+                  <mat-label>Tìm kiếm</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
+                </mat-form-field>
+              </div>
+              <div class="col-lg-3 d-flex align-items-center justify-content-end">
+                <div class="example-disabled" style="z-index: 0;">
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-printer"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-copy"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                  </button>
+                  <button mat-stroked-button class="ms-1">
+                    <i class="bi bi-filetype-pdf"></i>
+                  </button>
                 </div>
 
               </div>
-
             </div>
+
+            <div class="mat-elevation-z8 mt-2">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="idThanhToan">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Mã thanh toán
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.idThanhToan }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="idKhachHang">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Mã khách hàng
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.idKhachHang }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="idNhanVien">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Mã nhân viên
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.idNhanVien }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tongTien">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Tổng tiền
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.tongTien }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tinhTrang">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Tình trạng
+                  </th>
+                  <td mat-cell *matCellDef="let row">{{ row.tinhTrang }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="ngayThanhToan">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Ngày thanh toán
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.ngayThanhToan | date : "dd/MM/yyyy" }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Hành động</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" class="m-1" (click)="xemThanhToan(element.idThanhToan)">
+                      <i class="fa-solid fa-eye"></i>
+
+                    </button>
+                    <button mat-raised-button style="background-color: #009628; color: white;" class="m-1">
+                      <i class="fa-solid fa-file-export"></i>
+                    </button>
+
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="7">
+                    Không có dữ liệu phù hợp với từ khóa "{{ input.value }}"
+                  </td>
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+
+          </div>
+
         </div>
-        <!-- End dịch vụ -->
+      </div>
+      <!-- End dịch vụ -->
 
 
 
 
 
-        <app-footer-main-admin></app-footer-main-admin>
-      </main>
-    </div>
+      <app-footer-main-admin></app-footer-main-admin>
+    </main>
   </div>
+</div>

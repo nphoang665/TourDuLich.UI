@@ -48,7 +48,6 @@ export class HeaderComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private khachHangServices: KhachhangService,
     private nguoiDungServices: NguoiDungService,
-
   ) {
     iconRegistry.addSvgIconLiteral('icon_Logout', sanitizer.bypassSecurityTrustHtml(icon_Logout));
     iconRegistry.addSvgIconLiteral('icon_User', sanitizer.bypassSecurityTrustHtml(icon_User));
@@ -73,7 +72,7 @@ export class HeaderComponent implements OnInit {
       });
     this.user = this.authService.getUser();
     this.CapNhatThongTinKhachHang = this._formBuilder.group({
-      tenKhachHang: ['', Validators.required],
+      // tenKhachHang: ['', Validators.required],
       soDienThoai: ['', Validators.required],
       diaChi: ['', Validators.required],
       cccd: ['', Validators.required],
@@ -81,7 +80,6 @@ export class HeaderComponent implements OnInit {
       gioiTinh: ['', Validators.required]
     });
   }
-
   nguoiDung: any = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
   CapNhatThongTinKhachHangFn() {
     if (this.CapNhatThongTinKhachHang.valid) {
@@ -92,8 +90,6 @@ export class HeaderComponent implements OnInit {
         const nguoiDung: NguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
         if ('idKhachHang' in nguoiDung) {
           const temp = resultKh.find(s => s.email == nguoiDung.email);
-          console.log(temp);
-
           if (temp !== undefined) {
             const findNguoiDung: Partial<SuaKhachHang> = temp;
             //tiến hành cập nhật thông tin khách hàng
@@ -104,7 +100,6 @@ export class HeaderComponent implements OnInit {
             }
             this.khachHangServices.suaKhachHang(nguoiDung.idKhachHang, findNguoiDung as any).subscribe(result => {
               console.log(result);
-
             })
           }
           else {
@@ -117,12 +112,10 @@ export class HeaderComponent implements OnInit {
       })
     }
   }
-
   onLogout(): void {
     this.authService.logout();
     this.user = undefined;
     console.log(this.user);
     this.router.navigateByUrl('/');
   }
-
 }

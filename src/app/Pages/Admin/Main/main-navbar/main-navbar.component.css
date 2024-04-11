@@ -1,0 +1,6 @@
+.dropDown_dv {
+  background-color: white;
+  color: black; /* Đặt màu chữ là màu đen để đảm bảo rằng nó vẫn có thể đọc được trên nền trắng */
+  background-clip: padding-box; /* Ngăn chặn nền xuyên thấu */
+  opacity: 1; /* Đảm bảo menu không trong suốt */
+}

@@ -122,7 +122,7 @@
     </div>
 </div>
 
-@if(nguoiDung && nguoiDung.tenKhachHang ===''){
+@if(nguoiDung && nguoiDung.soDienThoai ===''){
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -136,10 +136,10 @@
                     <mat-step>
                         <form [formGroup]="CapNhatThongTinKhachHang">
                             <ng-template matStepLabel>Thông tin cá nhân</ng-template>
-                            <mat-form-field class="mt-3 col-5">
+                            <!-- <mat-form-field class="mt-3 col-5">
                                 <mat-label>Tên Khách Hàng</mat-label>
                                 <input matInput formControlName="tenKhachHang" placeholder="Tên Khách Hàng">
-                            </mat-form-field>
+                            </mat-form-field> -->
                             <mat-form-field class="mt-3 col-5">
                                 <mat-label>Số điện thoại</mat-label>
                                 <input matInput formControlName="soDienThoai" placeholder="Số điện thoại">
