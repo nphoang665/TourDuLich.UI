@@ -54,6 +54,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.minLength(4),
       Validators.maxLength(50),
       this.noSpecialCharValidator(),
+      this.noWhitespaceValidator()
     ]),
     loaiTour: new FormControl('',
       Validators.required),
@@ -87,21 +88,21 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(50),
-
+      this.noWhitespaceValidator()
     ]),
     soChoConNhan: new FormControl(''),
     idDoiTac: new FormControl('',
       Validators.required),
     giaTreEm: new FormControl('', [
       Validators.required,
-      Validators.min(0),
-      Validators.max(10000000),
+      Validators.min(10000),
+      this.noWhitespaceValidator()
 
     ]),
     giaNguoiLon: new FormControl('', [
       Validators.required,
-      Validators.min(0),
-      Validators.max(10000000),
+      Validators.min(10000),
+      this.noWhitespaceValidator()
 
     ]),
     ngayThem: new FormControl(new Date()),
@@ -109,7 +110,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(0),
       Validators.maxLength(50),
-
+      this.noWhitespaceValidator()
     ]),
     tinhTrang: new FormControl('z')
   });
@@ -163,6 +164,12 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       const invalidChar = /^[^\d~`!@#$%\^&*()_+=\-\[\]\\';,/{}|\\":<>\?]*$/.test(control.value);
       return invalidChar ? null : { 'invalidChar': { value: control.value } };
     };
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return !isWhitespace ? null : { 'whitespace': true };
+    }
   }
   kiemLoiNgayNhoHonHienTai(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
