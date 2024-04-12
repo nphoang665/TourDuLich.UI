@@ -64,13 +64,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required),
     soLuongNguoiLon: new FormControl(1, [
       Validators.required,
-      Validators.min(0),
+      Validators.min(1),
       Validators.max(100),
 
     ]),
     soLuongTreEm: new FormControl(1, [
       Validators.required,
-      Validators.min(0),
+      Validators.min(1),
       Validators.max(100),
 
     ]),
@@ -88,7 +88,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(50),
-      this.noWhitespaceValidator()
+      // this.noWhitespaceValidator()
     ]),
     soChoConNhan: new FormControl(''),
     idDoiTac: new FormControl('',
@@ -96,13 +96,13 @@ export class ThemTourComponent implements OnInit, OnDestroy {
     giaTreEm: new FormControl('', [
       Validators.required,
       Validators.min(10000),
-      this.noWhitespaceValidator()
+      // this.noWhitespaceValidator()
 
     ]),
     giaNguoiLon: new FormControl('', [
       Validators.required,
       Validators.min(10000),
-      this.noWhitespaceValidator()
+      // this.noWhitespaceValidator()
 
     ]),
     ngayThem: new FormControl(new Date()),
@@ -110,7 +110,7 @@ export class ThemTourComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(0),
       Validators.maxLength(50),
-      this.noWhitespaceValidator()
+      // this.noWhitespaceValidator()
     ]),
     tinhTrang: new FormControl('z')
   });
