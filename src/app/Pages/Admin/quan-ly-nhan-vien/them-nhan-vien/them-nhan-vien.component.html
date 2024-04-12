@@ -23,7 +23,7 @@
 
     <mat-form-field>
       <mat-label>Số điện thoại</mat-label>
-      <input type="text" maxlength="10" matInput formControlName="soDienThoai" [errorStateMatcher]="matcher"/>
+      <input type="text" maxlength="10" matInput formControlName="soDienThoai" [errorStateMatcher]="matcher" (keypress)="numberOnly($event)"/>
       @if (soDienThoai?.errors?.['required']) {
         <mat-error>Số điện thoại không được để trống</mat-error>
         } 
@@ -46,7 +46,8 @@
 
     <mat-form-field>
       <mat-label>CCCD</mat-label>
-      <input type="text" maxlength="12" matInput formControlName="cccd" [errorStateMatcher]="matcher"/>
+      <input type="text" maxlength="12" matInput formControlName="cccd" [errorStateMatcher]="matcher" (keypress)="numberOnly($event)" />
+
       @if (cccd?.errors?.['required']) {
         <mat-error>CCCD không được để trống</mat-error>
         } 

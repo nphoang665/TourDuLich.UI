@@ -67,12 +67,13 @@ export class ThemNhanVienComponent implements OnInit{
       Validators.maxLength(50), 
       this.noWhitespaceValidator()
     ]),
+    
     cccd:new FormControl('', {
       validators: [
         Validators.required,
         Validators.maxLength(12),
         Validators.minLength(12),
-        Validators.pattern(/^(0|[1-9][0-9]*)$/),
+        // Validators.pattern(/^(0|[1-9][0-9]*)$/),
         this.noWhitespaceValidator()
       ],
       asyncValidators: [this.checkCCCD()],
@@ -136,6 +137,14 @@ export class ThemNhanVienComponent implements OnInit{
       return !isWhitespace ? null : { 'whitespace': true };
     }
   }
+  numberOnly(event: { which: any; keyCode: any; }): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
   checkCCCD(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {
         if (control.value.length === 12) {
