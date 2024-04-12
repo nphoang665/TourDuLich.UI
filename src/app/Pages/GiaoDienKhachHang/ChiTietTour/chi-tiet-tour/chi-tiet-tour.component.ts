@@ -68,9 +68,9 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
 
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe(resultDatTour => {
 
-        this.TourChiTiet.soChoConNhan = resultDatTour.SoChoConNhanTrongTour;
-        this.TourChiTiet.soLuongNguoiLon = resultDatTour.TongSoLuongNguoiLonDaDatTrongTour;
-        this.TourChiTiet.soLuongTreEm = resultDatTour.TongSoLuongTreEmDaDatTrongTour;
+        this.TourChiTiet.soChoConNhanDaTinh = resultDatTour.SoChoConNhanTrongTour;
+        this.TourChiTiet.soLuongNguoiLonDaTinh = resultDatTour.TongSoLuongNguoiLonDaDatTrongTour;
+        this.TourChiTiet.soLuongTreEmDaTinh = resultDatTour.TongSoLuongTreEmDaDatTrongTour;
       })
       this.TourChiTiet.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
       this.TourChiTiet.SoNgayDem = this.calculateDaysAndNights(this.TourChiTiet.thoiGianBatDau, this.TourChiTiet.thoiGianKetThuc);

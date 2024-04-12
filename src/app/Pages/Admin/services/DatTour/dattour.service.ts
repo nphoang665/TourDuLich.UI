@@ -58,15 +58,14 @@ export class DattourService {
             TongSoLuongTreEmDaDatTrongTour += element.soLuongTreEm;
           }
         });
-        // Biến đổi dữ liệu trả về tại đây nếu cần
         return this.tourDuLichServices.getTourDuLichById(idTour).pipe(
           map((resTour: TourDuLich) => {
-            console.log(resTour, TongSoLuongNguoiLonDaDatTrongTour);
+
+
 
             TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
-            // console.log(SoChoConNhanTrongTour);
 
             return {
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,
@@ -84,6 +83,7 @@ export class DattourService {
       })
     );
   }
+
   //hàm này không trừ hết số chỗ còn nhận của một tour, loại ra những đặt tour đang target là không lấy
   LaySoChoConNhanTruIdDatTourDangTarget(idTour: string, idDatTour: string): Observable<any> {
     let TongSoLuongNguoiLonDaDatTrongTour = 0;

@@ -75,7 +75,7 @@ export class SecondHeaderComponent implements OnInit {
         }
       });
     this.user = this.authService.getUser();
-    console.log(this.user);
+    // console.log(this.user);
     this.CapNhatThongTinKhachHang = this._formBuilder.group({
       tenKhachHang: ['', Validators.required],
       soDienThoai: ['', Validators.required],

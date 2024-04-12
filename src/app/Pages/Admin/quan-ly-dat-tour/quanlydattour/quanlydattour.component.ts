@@ -336,6 +336,8 @@ export class QuanlydattourComponent implements OnInit {
     this.GetDichVu();
     this.KiemTraChonKhachHangThanhToan();
 
+
+
   }
 
   //xử lý select khách hàng
@@ -550,33 +552,45 @@ export class QuanlydattourComponent implements OnInit {
         idNhanVien: this.NguoiDung.idNhanVien
       };
       // console.log(dataToSave);
-      this.http.post<any>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, dataToSave)
-        .subscribe(response => {
-          // console.log(response);
-          if (this.TongDichVu_Db.length > 0) {
-            this.onThemDichVuChiTiet(response);
-          }
-          const closeButton = this.myModal1?.nativeElement.querySelector('.closee');
-          if (closeButton) {
-            closeButton.click();
-          }
-          if (dataToSave.idTour) {
-            this.LayKhachHang(dataToSave.idTour);
-          }
+      //gọi test data
+      if (dataToSave.idKhachHang && dataToSave.idTour) {
+        this.datTourService.kiemTraKhachHangDatTour(dataToSave.idKhachHang, dataToSave.idTour).subscribe(result => {
+          if (result === false) {
+            this.http.post<any>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, dataToSave)
+              .subscribe(response => {
+                // console.log(response);
+                if (this.TongDichVu_Db.length > 0) {
+                  this.onThemDichVuChiTiet(response);
+                }
+                const closeButton = this.myModal1?.nativeElement.querySelector('.closee');
+                if (closeButton) {
+                  closeButton.click();
+                }
+                if (dataToSave.idTour) {
+                  this.LayKhachHang(dataToSave.idTour);
+                }
 
-          this.myForm.reset();
-          this.KhachHang.reset();
-          this.GhiChu_DatTour = '';
-          this.TongDichVu = [];
-          this.SoLuongNguoiLon_DatTour = 0,
-            this.SoLuongTreEm_DatTour = 0;
+                this.myForm.reset();
+                this.KhachHang.reset();
+                this.GhiChu_DatTour = '';
+                this.TongDichVu = [];
+                this.SoLuongNguoiLon_DatTour = 0,
+                  this.SoLuongTreEm_DatTour = 0;
 
-          this.toastr.success('Đặt tour thành công', 'Thông báo', {
-            timeOut: 1000,
-          });
-          this.ngOnInit();
-          return;
+                this.toastr.success('Đặt tour thành công', 'Thông báo', {
+                  timeOut: 1000,
+                });
+                this.ngOnInit();
+                return;
+              });
+          }
+          else {
+            this.toastr.error('Khách hàng đã đặt tour này. Vui lòng thử lại sau', 'Thông báo', {
+              timeOut: 1000,
+            });
+          }
         });
+      }
     } else {
       this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
         timeOut: 1000,
