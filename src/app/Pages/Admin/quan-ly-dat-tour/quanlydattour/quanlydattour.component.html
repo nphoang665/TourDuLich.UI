@@ -48,8 +48,8 @@
                                     <div class="div_img" style="height: 150px;">
                                         <div class="tinhTrang" style="font-size: 1.2rem;">
                                             <span class="badge rounded-0"
-                                                [class]="getTinhTrangClass(item.tinhTrang,item.soChoConNhan)">
-                                                @if(item.soChoConNhan ===0){
+                                                [class]="getTinhTrangClass(item.tinhTrang,item.soChoConNhanDatTour)">
+                                                @if(item.soChoConNhanDatTour ===0){
                                                 Hết chỗ
                                                 }
                                                 @else {
@@ -75,7 +75,7 @@
                                         </div>
 
                                         <div class="spot_remaining">
-                                            <i class="bi bi-person"></i> Còn {{item.soChoConNhan}} chỗ
+                                            <i class="bi bi-person"></i> Còn {{item.soChoConNhanDatTour}} chỗ
                                         </div>
                                         <div class="price_tour d-flex justify-content-end">
                                             <span class="price_tour_text">{{item.giaNguoiLon | number:'':'en'}}
@@ -83,7 +83,7 @@
                                         </div>
                                         <div class="btn_bothBuy row gx-2">
                                             <div *ngIf="item.tinhTrang !== 'Tạm hoãn'" class="col-sm-6 mt-1">
-                                                <button [disabled]="item.soChoConNhan === 0" type="button"
+                                                <button [disabled]="item.soChoConNhanDatTour === 0" type="button"
                                                     class="btn_DatTour equal w-100" data-bs-toggle="modal"
                                                     data-bs-target="#datTourModal" (click)="LayTourDuLich(item.idTour)">
                                                     Đặt tour
@@ -179,23 +179,23 @@
 
 
                         <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
-                            <mat-label>Số lượng người lớn({{model.soLuongNguoiLon}})</mat-label>
+                            <mat-label>Số lượng người lớn({{soLuongNguoi.soLuongNguoiLon}})</mat-label>
                             <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Tru')"
                                 svgIcon="icon_DauTru"></mat-icon>
                             <input matInput type="number" style="appearance: none;" id="SoLuongNguoiLon"
                                 (input)="TinhTongTien()" [(ngModel)]="SoLuongNguoiLon_DatTour" [min]="1"
-                                [max]="model.soLuongNguoiLon">
+                                [max]="soLuongNguoi.soLuongNguoiLon">
                             <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('NguoiLon','Cong')"
                                 svgIcon="icon_DauCong"></mat-icon>
                         </mat-form-field>
 
                         <mat-form-field class="col-sm-6 col-md-6 col-lg-3">
-                            <mat-label>Số lượng trẻ em({{model.soLuongTreEm}})</mat-label>
+                            <mat-label>Số lượng trẻ em({{soLuongNguoi.soLuongTreEm}})</mat-label>
                             <mat-icon matPrefix (click)="TinhSoLuongNguoiDuTour('TreEm','Tru')"
                                 svgIcon="icon_DauTru"></mat-icon>
                             <input matInput type="number" style="appearance: none;" id="SoLuongTreEm"
                                 (input)="TinhTongTien()" [(ngModel)]="SoLuongTreEm_DatTour" [min]="0"
-                                [max]="model.soLuongTreEm">
+                                [max]="soLuongNguoi.soLuongTreEm">
                             <mat-icon matSuffix (click)="TinhSoLuongNguoiDuTour('TreEm','Cong')"
                                 svgIcon="icon_DauCong"></mat-icon>
                         </mat-form-field>
@@ -221,7 +221,7 @@
 
                         <mat-form-field class="col-lg-3">
                             <mat-label>Số chỗ còn nhận</mat-label>
-                            <input matInput type="text" disabled [(ngModel)]="model.soChoConNhan">
+                            <input matInput type="text" disabled [(ngModel)]="soLuongNguoi.soChoConNhan">
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3">
@@ -304,10 +304,10 @@
                                     <strong>Tình trạng:</strong> {{model.tinhTrang}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Số lượng người lớn:</strong> {{model.soLuongNguoiLon}}
+                                    <strong>Số lượng người lớn:</strong> {{soLuongNguoi.soLuongNguoiLon}}
                                 </div>
                                 <div class="col text-nowrap">
-                                    <strong>Số lượng trẻ em:</strong> {{model.soLuongTreEm}}
+                                    <strong>Số lượng trẻ em:</strong> {{soLuongNguoi.soLuongTreEm}}
                                 </div>
                             </div>
                         </mat-list-item>
@@ -335,7 +335,7 @@
                         <mat-list-item>
                             <div class="row">
                                 <div class="col text-nowrap">
-                                    <strong>Số chỗ còn nhận:</strong> {{model.soChoConNhan}}
+                                    <strong>Số chỗ còn nhận:</strong> {{soLuongNguoi.soChoConNhan}}
                                 </div>
                                 <div class="col text-nowrap">
                                     <strong>Đối tác:</strong> {{model.idDoiTac}}
@@ -608,7 +608,7 @@
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn"
                     class="closee">Đóng</button>
                 <button mat-raised-button type="button" color="primary"
-                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(model.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(model.soLuongTreEm) || SoLuongTreEm_DatTour <0) || isDisableButton"
+                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(soLuongNguoi.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(soLuongNguoi.soLuongTreEm) || SoLuongTreEm_DatTour <0) || isDisableButton"
                     (click)="DatTour()">Đặt tour</button>
 
 

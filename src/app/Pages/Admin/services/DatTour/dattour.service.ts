@@ -23,7 +23,7 @@ export class DattourService {
     return this.http.post<ThemDatTour>(`${environment.apiBaseUrl}/api/datTour?addAuth=true`, data);
   }
   getDatTourById(id: string): Observable<DatTour> {
-    return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}`);
+    return this.http.get<DatTour>(`${environment.apiBaseUrl}/timkiemdattourtheoidtour/${id}?_=${Date.now()}`);
   }
 
   getDatTourByIdDatTour(id: string): Observable<DatTour> {
@@ -34,7 +34,8 @@ export class DattourService {
   }
 
   getAllDatTour(): Observable<DatTour[]> {
-    return this.http.get<DatTour[]>(`${environment.apiBaseUrl}/api/datTour`);
+    const url = `${environment.apiBaseUrl}/api/datTour?_=${Date.now()}`;
+    return this.http.get<DatTour[]>(url);
   }
 
   putDatTour(data: SuaDatTour, id: string): Observable<SuaDatTour> {
@@ -66,6 +67,8 @@ export class DattourService {
             TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
+            console.log(resTour, TongSoLuongNguoiLonDaDatTrongTour, TongSoLuongNguoiLonDaDatTrongTour);
+
 
             return {
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,

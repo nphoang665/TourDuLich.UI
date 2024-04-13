@@ -320,9 +320,9 @@ export class QuanlydattourComponent implements OnInit {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe({
           next: (responseTinhSoLuongNguoiConNhan: any) => {
             if (element) {
-              element.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
-              element.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
-              element.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
+              element.soLuongNguoiLonDatTour = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
+              element.soLuongTreEmDatTour = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
+              element.soChoConNhanDatTour = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
             }
           },
           error: (err: any) => {
@@ -417,6 +417,8 @@ export class QuanlydattourComponent implements OnInit {
   SoLuongTreEm_DatTour: number = 0;
   SoNgayDem: string = '';
   TongTien_DatTour!: number;
+  soLuongNguoi: any = {};
+
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
@@ -426,9 +428,9 @@ export class QuanlydattourComponent implements OnInit {
       this.datTourService.tinhSoLuongNguoiConNhan(idTour).subscribe({
         next: (responseTinhSoLuongNguoiConNhan: any) => {
           if (this.model) {
-            this.model.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
-            this.model.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
-            this.model.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
+            this.soLuongNguoi.soLuongNguoiLon = responseTinhSoLuongNguoiConNhan.TongSoLuongNguoiLonDaDatTrongTour;
+            this.soLuongNguoi.soLuongTreEm = responseTinhSoLuongNguoiConNhan.TongSoLuongTreEmDaDatTrongTour;
+            this.soLuongNguoi.soChoConNhan = responseTinhSoLuongNguoiConNhan.SoChoConNhanTrongTour;
           }
         },
         error: (err: any) => {
@@ -637,6 +639,8 @@ export class QuanlydattourComponent implements OnInit {
     this.arrKhachHangThanhToan = [];
     this.idTour_ThanhToan = idTour;
     this.datTourService.getDatTourById(idTour).subscribe((data: any) => {
+      console.log(data);
+
       this.Tour_ThanhToan = data;
 
       for (let index = 0; index < data.length; index++) {
@@ -660,6 +664,8 @@ export class QuanlydattourComponent implements OnInit {
     return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
   }
   private _filterKhachHangThanhToan(value: string): KhachHang[] {
+    console.log(1);
+
     const filterValue = value.toLowerCase();
     // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
     let filteredOptionsThanhToan = this.optionsKhachHangThanhToan.filter(option => {
@@ -696,6 +702,7 @@ export class QuanlydattourComponent implements OnInit {
   LayTourDangThanhToan: any = {};
   ThongTinDichVuThanhToan: DichVuChiTietDto[] = [];
   ThongTinThanhToan() {
+
     const nhanVienThanhToan = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     this.TourThanhToan_HienThi = [];
     this.TourThanhToan_HienThi = this.Tour_ThanhToan.filter((s: any) => s.idTour == this.idTour_ThanhToan && s.idKhachHang === this.TenKhachHang_ThanhToan.value.idKhachHang);
