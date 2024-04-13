@@ -91,9 +91,9 @@ export class DatTourComponent implements OnInit {
       // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe((resulDt: any) => {
-          element.soLuongNguoiLon = resulDt.TongSoLuongNguoiLonDaDatTrongTour,
-            element.soLuongTreEm = resulDt.TongSoLuongTreEmDaDatTrongTour
-          element.soChoConNhan = resulDt.SoChoConNhanTrongTour;
+          element.soLuongNguoiLonDatTour = resulDt.TongSoLuongNguoiLonDaDatTrongTour;
+          element.soLuongTreEmDatTour = resulDt.TongSoLuongTreEmDaDatTrongTour;
+          element.soChoConNhanDatTour = resulDt.SoChoConNhanTrongTour;
         });
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
         element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
@@ -108,17 +108,20 @@ export class DatTourComponent implements OnInit {
       }
     }
   }
+  soLuongNguoiDung: any = {};
   async TimKiemTheoYeuCauKhachHang(tentour: string, ngaydi: string, songuoilon: string, sotreem: string) {
-    const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+    const data: any = await this.quanLyTourServices.getAllTourDuLich().toPromise();
 
     // Lọc danh sách tour dựa trên các tham số tìm kiếm
     let now = new Date();
     if (data) {
-      const promises = data.map(element =>
+      const promises = data.map((element: any) =>
         this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).toPromise().then((result: any) => {
-          element.soLuongNguoiLon = result.TongSoLuongNguoiLonDaDatTrongTour;
-          element.soLuongTreEm = result.TongSoLuongTreEmDaDatTrongTour;
-          element.soChoConNhan = result.SoChoConNhanTrongTour;
+          element.soLuongNguoiLonDatTour = result.TongSoLuongNguoiLonDaDatTrongTour;
+          element.soLuongTreEmDatTour = result.TongSoLuongTreEmDaDatTrongTour;
+          element.soChoConNhanDatTour = result.SoChoConNhanTrongTour;
+          console.log(result.SoChoConNhanTrongTour);
+
         })
       );
       await Promise.all(promises);
