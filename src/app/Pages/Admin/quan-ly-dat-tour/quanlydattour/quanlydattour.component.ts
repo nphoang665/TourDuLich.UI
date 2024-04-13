@@ -82,6 +82,7 @@ export class QuanlydattourComponent implements OnInit {
   @ViewChild('myModal') myModal?: ElementRef;
   @ViewChild('myModal1') myModal1?: ElementRef;
   mauButton = 0;
+  isDisableButton: boolean = false;
 
   selectedStatus: string = '';
   filteredTours: any[] = [];
@@ -538,7 +539,9 @@ export class QuanlydattourComponent implements OnInit {
       })
   }
   onDatTour(khachHangRes: any) {
+    this.isDisableButton = true;
     if (this.NguoiDung) {
+
       // console.log(this.KhachHang.value, khachHangRes);
       let dataToSave = {
         idDatTour: '123',
@@ -576,7 +579,7 @@ export class QuanlydattourComponent implements OnInit {
                 this.TongDichVu = [];
                 this.SoLuongNguoiLon_DatTour = 0,
                   this.SoLuongTreEm_DatTour = 0;
-
+                this.isDisableButton = false;
                 this.toastr.success('Đặt tour thành công', 'Thông báo', {
                   timeOut: 1000,
                 });
@@ -585,6 +588,8 @@ export class QuanlydattourComponent implements OnInit {
               });
           }
           else {
+            this.isDisableButton = false;
+
             this.toastr.error('Khách hàng đã đặt tour này. Vui lòng thử lại sau', 'Thông báo', {
               timeOut: 1000,
             });
@@ -592,6 +597,8 @@ export class QuanlydattourComponent implements OnInit {
         });
       }
     } else {
+      this.isDisableButton = false;
+
       this.toastr.warning('Chưa có thông tin nhân viên', 'Thông báo', {
         timeOut: 1000,
       });
@@ -740,6 +747,7 @@ export class QuanlydattourComponent implements OnInit {
   //hàm thanh toán
   PhuongThucThanhToan!: string;
   onThanhToan() {
+    this.isDisableButton = true;
     var ngayGioHienTai = new Date();
     var ngayGioHienTaiFormatted = ngayGioHienTai.toISOString();
     // Kiểm tra xem checkbox "Trả trước" đã được chọn hay không
@@ -799,13 +807,14 @@ export class QuanlydattourComponent implements OnInit {
                     }
                     this.LayThanhToanTourDuLich(this.TourThanhToan_HienThi.idTour);
                     console.log(this.TourThanhToan_HienThi);
-
+                    this.isDisableButton = false;
                     // this.LayThanhToanTourDuLich(response.)
                     this.toastr.success('Thanh toán thành công', 'Thông báo', {
                       timeOut: 1000,
                     });
                   },
                   error: (err) => {
+                    this.isDisableButton = false;
                     console.log(err);
                     this.toastr.error('Thanh toán thất bại', 'Thông báo', {
                       timeOut: 1000,

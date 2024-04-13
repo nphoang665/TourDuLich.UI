@@ -608,7 +608,7 @@
                 <button data-bs-dismiss="modal" type="button" mat-raised-button color="warn"
                     class="closee">Đóng</button>
                 <button mat-raised-button type="button" color="primary"
-                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(model.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(model.soLuongTreEm) || SoLuongTreEm_DatTour <0)"
+                    [disabled]="(myForm.invalid && !KhachHang.value) || (!myForm.value && KhachHang.value.length === 0 || SoLuongNguoiLon_DatTour > toNumber(model.soLuongNguoiLon) || SoLuongNguoiLon_DatTour <1 || SoLuongTreEm_DatTour > toNumber(model.soLuongTreEm) || SoLuongTreEm_DatTour <0) || isDisableButton"
                     (click)="DatTour()">Đặt tour</button>
 
 
@@ -870,7 +870,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" (click)="onThanhToan()">Thanh toán</button>
+                <button type="button" class="btn btn-primary" [disabled]="isDisableButton" (click)="onThanhToan()">Thanh
+                    toán</button>
             </div>
         </div>
     </div>
