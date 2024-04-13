@@ -86,7 +86,7 @@
                 </mat-form-field>
                 <mat-form-field class="col-lg-2">
                   <mat-label>Số lượng người lớn</mat-label>
-                  <input matInput type="number" formControlName="soLuongNguoiLon" [errorStateMatcher]="matcher" />
+                  <input matInput type="number" formControlName="soLuongNguoiLon" min="1" [errorStateMatcher]="matcher" />
                   @if (soLuongNguoiLon?.errors?.['required']) {
                   <mat-error>Vui lòng nhập số lượng người lớn</mat-error>
                   }
@@ -97,11 +97,11 @@
                   <mat-error>Số lượng người vượt quá mức cho phép</mat-error>
                   }
 
-                </mat-form-field>
+                </mat-form-field> 
 
                 <mat-form-field class="col-lg-2">
                   <mat-label>Số lượng trẻ em</mat-label>
-                  <input matInput type="number" formControlName="soLuongTreEm" [errorStateMatcher]="matcher" />
+                  <input matInput type="number" min="1" formControlName="soLuongTreEm" [errorStateMatcher]="matcher" />
                   @if (soLuongTreEm?.errors?.['required']) {
                   <mat-error>Vui lòng nhập số lượng trẻ em</mat-error>
                   }
