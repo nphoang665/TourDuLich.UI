@@ -104,6 +104,8 @@ export class SecondHeaderComponent implements OnInit {
                 (findNguoiDung as any)[key] = (thongTinKhachHang as any)[key];
               }
             }
+            findNguoiDung.ngaySinh = this.CapNhatThongTinKhachHang.get('ngaySinh')?.value;
+
             this.khachHangServices.suaKhachHang(nguoiDung.idKhachHang, findNguoiDung as any).subscribe(result => {
               console.log(result);
 
