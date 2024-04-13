@@ -90,6 +90,8 @@ export class HeaderComponent implements OnInit {
         const nguoiDung: NguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
         if ('idKhachHang' in nguoiDung) {
           const temp = resultKh.find(s => s.email == nguoiDung.email);
+          console.log(resultKh);
+
           if (temp !== undefined) {
             const findNguoiDung: Partial<SuaKhachHang> = temp;
             //tiến hành cập nhật thông tin khách hàng
