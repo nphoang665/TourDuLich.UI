@@ -2,81 +2,64 @@
 <div *ngIf="loaderServices.isLoading | async">
     <app-loading-giaodien></app-loading-giaodien>
 </div>
-<div style="margin-top: 100px" class="container-fluid">
-    <!-- <h3 class="pt-3 ps-2 pe-2 ">Lịch sử đặt tour của bạn</h3> -->
-    <div class="ps-2 pe-2 gx-0 container pt-5">
-        <h5>LỊCH SỬ ĐẶT TOUR CỦA BẠN</h5>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="col-1">STT</th>
-                        <th class="col-2">Mã đặt tour</th>
-                        <th class="col-5">Tour du dịch</th>
-                        <th class="col-2">Ngày đặt</th>
-                        <th class="col-2">Tình trạng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(DatTour.length ===0){
-                    <tr>
-                        <td colspan="5" class="text-center">Không tìm thấy lịch sử đặt tour của bạn</td>
-                    </tr>
-                    }
-                    @else {
-                    @for( item of DatTour; track $index ){
-                    <tr
-                        class="align-items-center {{item.tinhTrang === 'table-success' ? 'status-paid' : item.tinhTrang === 'Đang đợi duyệt' ? 'table-warning' : item.tinhTrang === 'Đã hủy' ? 'table-danger' : 'table-success'}}">
-                        <td class="align-items-center"><b>{{$index +1}}</b></td>
-                        <td class="align-items-center">{{item.idDatTour}}</td>
-                        @if(item.TourDuLich){
-                        <td class="align-items-center">{{item.TourDuLich.tenTour}}</td>
-                        }
-                        <td class="align-items-center">{{item.thoiGianDatTour | date: "dd/MM/yyyy-hh:mm:ss"}}</td>
-                        @if(item.tinhTrang ==='Đã thanh toán'){
-                        <td class="d-flex align-items-center">
-                            <span class="badge bg-success">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center">
-                                <mat-icon svgIcon="icon_eye" class="ms-2"></mat-icon>
-                                <mat-icon hidden svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
-                            </div>
-                        </td>
-                        }
-                        @else if(item.tinhTrang ==='Đang đợi duyệt'){
-                        <td class="d-flex align-items-center">
-                            <span class="badge bg-warning">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center">
-                                <mat-icon svgIcon="icon_eye" class="me-2 ms-2"></mat-icon>
-                                <mat-icon svgIcon="icon_close" (click)="huyDatTour(item.idDatTour)"
-                                    style="height: 100%;" class=""></mat-icon>
-                            </div>
-                        </td>
-                        }
-                        @else if(item.tinhTrang ==='Đã hủy'){
-                        <td class="d-flex align-items-center">
-                            <span class="badge bg-danger">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center">
-                                <mat-icon svgIcon="icon_eye" class="me-2 ms-2"></mat-icon>
-                                <mat-icon hidden svgIcon="icon_close" style="height: 100%;" class=""></mat-icon>
-                            </div>
-                        </td>
-                        }
-                        @else{
-                        <td class="d-flex align-items-center">
-                            <span class="badge bg-info">{{item.tinhTrang}}</span>
-                            <div class="d-flex align-items-center">
-                                <mat-icon svgIcon="icon_eye" class="me-2 ms-2"></mat-icon>
-                                <mat-icon style="height: 100%;" svgIcon="icon_close" class=""
-                                    (click)="huyDatTour(item.idDatTour)"></mat-icon>
-                            </div>
-                        </td>
-                        }
-                    </tr>
-                    }
-                    }
+<div class="mat-elevation-z2 container" style="margin-top: 100px;">
+    <div class="mat-title pt-3 ps-2 pe-2">LỊCH SỬ ĐẶT TOUR CỦA BẠN</div>
+    <div class="mat-body-1 ps-2 pe-2 pt-5">
+        <table mat-table [dataSource]="DatTour" class="mat-elevation-z8">
+            <!-- STT Column -->
+            <ng-container matColumnDef="STT">
+                <th mat-header-cell *matHeaderCellDef class="col-1"> STT </th>
+                <td mat-cell *matCellDef="let element; let i = index;" class="col-1"> {{i + 1}} </td>
+            </ng-container>
 
-                </tbody>
-            </table>
-        </div>
+            <!-- Mã đặt tour Column -->
+            <ng-container matColumnDef="MaDatTour">
+                <th mat-header-cell *matHeaderCellDef class="col-2"> Mã đặt tour </th>
+                <td mat-cell *matCellDef="let element;" class="col-2"> {{element.idDatTour}} </td>
+            </ng-container>
+
+            <!-- Tour du dịch Column -->
+            <ng-container matColumnDef="TourDuLich">
+                <th mat-header-cell *matHeaderCellDef class="col-5"> Tour du dịch </th>
+                <td mat-cell *matCellDef="let element;"> {{element.TourDuLich?.tenTour || 'N/A'}} </td>
+            </ng-container>
+
+            <!-- Ngày đặt Column -->
+            <ng-container matColumnDef="NgayDat">
+                <th mat-header-cell *matHeaderCellDef class="col-2"> Ngày đặt </th>
+                <td mat-cell *matCellDef="let element;"> {{element.thoiGianDatTour | date: "dd/MM/yyyy-hh:mm:ss"}} </td>
+            </ng-container>
+
+            <!-- Tình trạng Column -->
+            <ng-container matColumnDef="TinhTrang">
+                <th mat-header-cell *matHeaderCellDef class="col-2"> Tình trạng </th>
+                <td mat-cell *matCellDef="let element;" [ngClass]="{
+                    'table-success': element.tinhTrang === 'Đã thanh toán',
+                    'table-warning': element.tinhTrang === 'Đang đợi duyệt',
+                    'table-danger': element.tinhTrang === 'Đã hủy',
+                    'table-info': !(element.tinhTrang === 'Đã thanh toán' || element.tinhTrang === 'Đang đợi duyệt' || element.tinhTrang === 'Đã hủy')
+                }">
+                        <div class="d-flex align-items-center">
+                    <span class="badge" [ngClass]="{
+                        'bg-success': element.tinhTrang === 'Đã thanh toán',
+                        'bg-warning': element.tinhTrang === 'Đang đợi duyệt',
+                        'bg-danger': element.tinhTrang === 'Đã hủy',
+                        'bg-info': !(element.tinhTrang === 'Đã thanh toán' || element.tinhTrang === 'Đang đợi duyệt' || element.tinhTrang === 'Đã hủy')
+                    }"> {{element.tinhTrang}} </span>
+                        <button mat-icon-button *ngIf="element.tinhTrang === 'Đã thanh toán'" (click)="viewDetail(element.idDatTour)">
+                            <mat-icon svgIcon="icon_eye"></mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="element.tinhTrang === 'Đang đợi duyệt'" (click)="cancelBooking(element.idDatTour)">
+                            <mat-icon svgIcon="icon_close"></mat-icon>
+                        </button>
+                       
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['STT', 'MaDatTour', 'TourDuLich', 'NgayDat', 'TinhTrang']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['STT', 'MaDatTour', 'TourDuLich', 'NgayDat', 'TinhTrang'];"></tr>
+        </table>
+        <div class="mat-body-1 text-center" *ngIf="DatTour.length === 0">Không tìm thấy lịch sử đặt tour của bạn</div>
     </div>
 </div>
