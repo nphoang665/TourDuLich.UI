@@ -79,35 +79,33 @@ export class DatTourComponent implements OnInit {
     }
     this.isLoading = false;
   }
+  async capNhatThongTinTour(tour: any) {
+    const resulDt = await this.datTourService.tinhSoLuongNguoiConNhan(tour.idTour).toPromise();
+    tour.soLuongNguoiLonDatTour = resulDt.TongSoLuongNguoiLonDaDatTrongTour;
+    tour.soLuongTreEmDatTour = resulDt.TongSoLuongTreEmDaDatTrongTour;
+    tour.soChoConNhanDatTour = resulDt.SoChoConNhanTrongTour;
+    const tourData = await this.quanLyTourServices.getTourDuLichById(tour.idTour).toPromise();
+    tour.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
+    tour.SoNgayDem = this.calculateDaysAndNights(tour.thoiGianBatDau, tour.thoiGianKetThuc);
+    const result = await this.danhGiaServices.LayTrungBinhSaoMotTour(tour.idTour).toPromise();
+    if (result) {
+      tour.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
+      tour.SoLuongDanhGia = result.soLuongDanhGia;
+    }
+
+  }
 
   async TimKiemTatCa() {
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
     let now = new Date();
     if (data) {
-      // this.TourDuLich = data;
       this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
-
-
-      // Tính toán ngày đêm cho tour
-      for (const element of this.TourDuLich) {
-        this.datTourService.tinhSoLuongNguoiConNhan(element.idTour).subscribe((resulDt: any) => {
-          element.soLuongNguoiLonDatTour = resulDt.TongSoLuongNguoiLonDaDatTrongTour;
-          element.soLuongTreEmDatTour = resulDt.TongSoLuongTreEmDaDatTrongTour;
-          element.soChoConNhanDatTour = resulDt.SoChoConNhanTrongTour;
-        });
-        const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
-        element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
-        element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
-        this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
-          element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
-          element.SoLuongDanhGia = result.soLuongDanhGia;
-
-
-
-        });
+      for (const tour of this.TourDuLich) {
+        await this.capNhatThongTinTour(tour);
       }
     }
   }
+
   soLuongNguoiDung: any = {};
   async TimKiemTheoYeuCauKhachHang(tentour: string, ngaydi: string, songuoilon: string, sotreem: string) {
     const data: any = await this.quanLyTourServices.getAllTourDuLich().toPromise();
@@ -139,11 +137,21 @@ export class DatTourComponent implements OnInit {
       );
 
       // Tính toán ngày đêm cho tour
+      // Tính toán ngày đêm cho tour
       for (const element of this.TourDuLich) {
         const tourData = await this.quanLyTourServices.getTourDuLichById(element.idTour).toPromise();
         element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + tourData?.anhTour[0].imgTour;
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
+
+        // Thêm lời gọi API để lấy TrungBinhDiemDanhGia và SoLuongDanhGia
+        const danhGia = await this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).toPromise();
+        if (danhGia) {
+          element.TrungBinhDiemDanhGia = danhGia.trungBinhDiemDanhGia;
+          element.SoLuongDanhGia = danhGia.soLuongDanhGia;
+        }
+
       }
+
     }
   }
 
@@ -165,6 +173,8 @@ export class DatTourComponent implements OnInit {
   }
   currentSortCriteria: SortCriteria = SortCriteria.DeXuat;
   sortTourDuLich() {
+
+
     switch (this.activeIndex) {
       case 1:
         // Sắp xếp theo đề xuất
@@ -212,6 +222,7 @@ export class DatTourComponent implements OnInit {
   }
   async SwitchOptionSortTour(option: any) {
     await this.TimKiem();
+
     option.forEach((element: any) => {
 
 
@@ -274,14 +285,16 @@ export class DatTourComponent implements OnInit {
         case 'SortTatCaDanhGia':
           break;
         case 'SortTour5Sao':
+
+
           this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia === 5);
-          break;
-        case 'SortTour4Sao':
-          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 4);
 
           break;
+        case 'SortTour4Sao':
+          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 4 && s.TrungBinhDiemDanhGia < 5);
+          break;
         case 'SortTour3Sao':
-          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 3);
+          this.TourDuLich = this.TourDuLich.filter(s => s.TrungBinhDiemDanhGia >= 3 && s.TrungBinhDiemDanhGia < 4);
           break;
         default:
 
