@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     ]),
     password: new FormControl('',[
       Validators.required,
-      Validators.minLength(4),
+      Validators.minLength(6),
       Validators.maxLength(50),
       this.noWhitespaceValidator()
     ]),

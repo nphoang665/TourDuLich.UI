@@ -85,7 +85,7 @@
                                         <mat-error>Vui lòng nhập mật khẩu</mat-error>
                                         } 
                                         @else if (password?.errors?.['minlength']) {
-                                        <mat-error>Mật khẩu quá ngắn</mat-error>
+                                        <mat-error>Mật khẩu tối thiểu chứa 6 ký tự</mat-error>
                                         }
                                         @else if (password?.errors?.['maxlength']) {
                                           <mat-error>Mật khẩu quá dài</mat-error>
