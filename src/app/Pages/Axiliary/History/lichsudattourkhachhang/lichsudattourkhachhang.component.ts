@@ -21,77 +21,72 @@ const icon_close = `
   styleUrl: './lichsudattourkhachhang.component.css'
 })
 export class LichsudattourkhachhangComponent implements OnInit {
-  constructor(iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
+  DatTour: any[] = [];
+  idKhachHang: any;
+
+  constructor(
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer,
     private datTourServices: DattourService,
     private tourServces: QuanLyTourService,
     private nguoiDungServices: NguoiDungService,
     private toastr: ToastrService,
-    public loaderServices: LoadingSanphamService,
-
-
+    public loaderServices: LoadingSanphamService
   ) {
-    iconRegistry.addSvgIconLiteral('icon_eye', sanitizer.bypassSecurityTrustHtml(icon_eye));
-    iconRegistry.addSvgIconLiteral('icon_close', sanitizer.bypassSecurityTrustHtml(icon_close));
-
+    this.iconRegistry.addSvgIconLiteral('icon_eye', this.sanitizer.bypassSecurityTrustHtml(icon_eye));
+    this.iconRegistry.addSvgIconLiteral('icon_close', this.sanitizer.bypassSecurityTrustHtml(icon_close));
   }
-  idKhachHang: any;
 
   ngOnInit(): void {
-    // this.idKhachHang = this.route.snapshot.paramMap.get('id');
-    let KhachHang = this.nguoiDungServices.LayNguoiDungTuLocalStorage()
+    const KhachHang = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
     if (KhachHang && KhachHang.idKhachHang) {
       this.idKhachHang = KhachHang.idKhachHang;
-      console.log(this.idKhachHang);
-
-
       this.getDatTourByIdKhachHang();
     }
-
-
   }
-  DatTour: any[] = [];
-  getDatTourByIdKhachHang() {
+
+  getDatTourByIdKhachHang(): void {
     this.datTourServices.getAllDatTour().subscribe((result: any) => {
-      let layKetQuaKhachHang = result.filter((tour: any) => tour.idKhachHang === this.idKhachHang);
+      const layKetQuaKhachHang = result.filter((tour: any) => tour.idKhachHang === this.idKhachHang);
       layKetQuaKhachHang.sort((a: any, b: any) => new Date(b.thoiGianDatTour).getTime() - new Date(a.thoiGianDatTour).getTime());
       this.DatTour = layKetQuaKhachHang;
+
       this.DatTour.forEach(element => {
         this.tourServces.getTourDuLichById(element.idTour).subscribe((resultTour: any) => {
           element.TourDuLich = resultTour;
-        })
+        });
       });
     });
   }
-  huyDatTour(idDatTour: string) {
-    console.log(idDatTour);
 
+  viewDetail(idDatTour: string): void {
+
+  }
+
+  cancelBooking(idDatTour: string): void {
     this.datTourServices.getDatTourByIdDatTour(idDatTour).subscribe({
       next: (resultDatTour: any) => {
-        resultDatTour.ghiChu = 'Khách hàng ' + resultDatTour.idKhachHang + ' đã hủy đặt tour';
+        resultDatTour.ghiChu = `Khách hàng ${resultDatTour.idKhachHang} đã hủy đặt tour`;
         resultDatTour.tinhTrang = 'Đã hủy';
-        console.log(resultDatTour);
         this.datTourServices.putDatTour(resultDatTour, idDatTour).subscribe({
           next: (responseSuaTour: any) => {
             this.getDatTourByIdKhachHang();
-            // nếu sửa thành công
             this.toastr.success('Hủy đặt tour thành công', 'Thông báo', {
               timeOut: 1000,
             });
           },
-          error: (err) => {
+          error: () => {
             this.toastr.error('Hủy đặt tour thất bại', 'Thông báo', {
               timeOut: 1000,
             });
           }
-        })
+        });
       },
-      error: (err) => {
+      error: () => {
         this.toastr.error('Lấy đặt tour theo id thất bại', 'Thông báo', {
           timeOut: 1000,
         });
       }
     });
   }
-
 }
