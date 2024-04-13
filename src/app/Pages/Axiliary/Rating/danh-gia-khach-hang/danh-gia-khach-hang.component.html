@@ -23,7 +23,7 @@
             </div>
             <!-- </div> -->
 
-        </div> @if(KiemTraNguoiDungDaDanhGiaChua===false){
+        </div> @if(!KiemTraNguoiDungDaDanhGiaChua && isDatTour){
         <div class="txt_startReview mt-3">
             <span class="spn_startReview txt_title_ratingandreview">
                 Bắt đầu trải nghiệm
@@ -88,7 +88,7 @@
 
     <div class="dv_user_Review mt-3 ">
         <span class="txt_title_ratingandreview">Đánh giá người dùng</span>
-        <div class="_item_userReview mt-3 ms-1">
+        <div class="_item_userReview mt-3 ms-1" hidden>
             <div class="row">
                 <div class=" col-md-12 mb-lg-0 mb-md-2  mb-2 col-lg-7 order-lg-1 order-md-2 order-sm-2 order-2">
                     <div class="dv_tag">

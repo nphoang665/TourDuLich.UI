@@ -15,7 +15,7 @@ export class DanhgiaService {
     return this.http.get<DanhGia[]>(`${environment.apiBaseUrl}/api/DanhGia`);
   }
   themDanhGia(data: ThemDanhGia): Observable<ThemDanhGia> {
-    return this.http.post<ThemDanhGia>(`${environment.apiBaseUrl}/api/DanhGia`, data);
+    return this.http.post<ThemDanhGia>(`${environment.apiBaseUrl}/api/DanhGia?_=${Date.now()}`, data);
   }
 
   LayTrungBinhSaoMotTour(idTour: string) {

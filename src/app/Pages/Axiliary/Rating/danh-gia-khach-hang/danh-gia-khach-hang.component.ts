@@ -4,6 +4,8 @@ import { DanhGia } from '../../../Admin/models/danh-gia.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThemDanhGia } from '../../../Admin/models/them-danh-gia.model';
 import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
+import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
+import { TourDuLich } from '../../../Admin/models/tour-du-lich.model';
 
 @Component({
   selector: 'app-danh-gia-khach-hang',
@@ -19,7 +21,8 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   constructor(private danhGiaServices: DanhgiaService,
     private router: ActivatedRoute,
     private nguoiDung: NguoiDungService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private datTourServices: DattourService,
   ) { }
   DanhGiaItem(event: Event) {
     const clickedElement = event.target as HTMLElement;
@@ -55,8 +58,6 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
   SendDanhGia() {
     const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
     if (khachHang) {
-
-
       var data_nhanxet: ThemDanhGia;
       data_nhanxet = {
         idDanhGia: '1',
@@ -75,7 +76,6 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
         else {
           alert('Lỗi thêm đánh giá');
         }
-
       })
     } else {
       alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để được đánh giá');
@@ -113,7 +113,6 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
 
       }
       else {
-
         this.DanhGia = data.filter(data => data.idTour === this.router.snapshot.paramMap.get('id'));
         this.kiemTraNguoiDungDaDanhGia(this.DanhGia);
       }
@@ -125,6 +124,7 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
         this.TrungBinhDiemDanhGia = Number(averageScore.toFixed(1));
       }
     });
+    this.KiemTraKhachHangDaDatTourChua();
   }
   KiemTraNguoiDungDaDanhGiaChua: boolean = false;
   kiemTraNguoiDungDaDanhGia(danhGia: any) {
@@ -145,5 +145,24 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
         this.KiemTraNguoiDungDaDanhGiaChua = false;
       }
     }
+  }
+  isDatTour: boolean = false;
+  KiemTraKhachHangDaDatTourChua(): boolean {
+    let idTour = this.router.snapshot.paramMap.get('id');
+    const khachHang = this.nguoiDung.LayNguoiDungTuLocalStorage();
+    if (khachHang && khachHang.idKhachHang) {
+      if (idTour) {
+        this.datTourServices.kiemTraKhachHangDatTour(khachHang.idKhachHang, idTour).subscribe((result: any) => {
+          this.isDatTour = result
+          console.log(this.isDatTour);
+
+          return result;
+
+        });
+
+      }
+    }
+    return false;
+
   }
 }
