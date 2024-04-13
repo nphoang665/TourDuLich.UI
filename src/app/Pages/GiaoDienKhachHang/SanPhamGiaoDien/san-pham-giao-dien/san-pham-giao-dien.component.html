@@ -40,7 +40,7 @@
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
+                <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
                     tours</button>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn_XemThemTour" [routerLink]="'/dattour/'+ tourType">Xem thêm
+                <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
                     tours</button>
             </div>
         </div>

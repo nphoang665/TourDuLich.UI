@@ -11,6 +11,7 @@ import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-s
 import { Observable } from 'rxjs';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 import { now } from 'moment';
+import { Router } from '@angular/router';
 
 
 // Định nghĩa metadata cho component
@@ -28,9 +29,9 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
     private quanLyTourServices: QuanLyTourService,
     private cdr: ChangeDetectorRef,
     public loaderServices: LoadingSanphamService,
-    private danhGiaServices: DanhgiaService
+    private danhGiaServices: DanhgiaService,
 
-
+    private router: Router
   ) {
   }
   // Khai báo và nhận dữ liệu đầu vào từ component cha thông qua property binding
@@ -53,7 +54,17 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
 
   //lấy tour
 
+  strUrlTour(tourType: string) {
 
+    let now = new Date();
+    let formattedDate = now.toLocaleDateString();
+
+    let stringUrl = '/dattour/' + tourType + '/' + now + '/1/1';
+    console.log(stringUrl);
+    this.router.navigate([stringUrl]);
+
+
+  }
   async LayTour() {
     // Gọi hàm getAllTourDuLich từ dịch vụ QuanLyTourService để lấy danh sách tất cả tour du lịch
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();

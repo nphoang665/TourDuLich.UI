@@ -12,12 +12,11 @@ import { Router } from '@angular/router';
 })
 export class MainNavbarComponent implements OnInit, OnDestroy {
 
-  user?:User;
-  clock = new Date().toISOString();
+  user?: User;
 
 
-  constructor(private authService:AuthService,
-    @Inject(PLATFORM_ID) private platformId: Object,private router:Router) {
+  constructor(private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
 
   }
   ngOnInit(): void {
@@ -27,16 +26,28 @@ export class MainNavbarComponent implements OnInit, OnDestroy {
     }
 
     this.authService.user()
-    .subscribe({
-      next:(response)=>{
-       this.user = response;
-        
-      }
-    });
+      .subscribe({
+        next: (response) => {
+          this.user = response;
+
+        }
+      });
     this.user = this.authService.getUser();
+    // this.clockRealtime();
+  }
+  clock: any;
+  clockRealtime() {
+    setTimeout(() => {
+      let now = new Date();
+      // Set the locale to Vietnamese and the timezone to Indochina Time
+      let formattedDateTime = now.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+      this.clock = formattedDateTime;
+      return formattedDateTime;
+    }, 1000);
   }
 
-  onLogout():void{
+
+  onLogout(): void {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }

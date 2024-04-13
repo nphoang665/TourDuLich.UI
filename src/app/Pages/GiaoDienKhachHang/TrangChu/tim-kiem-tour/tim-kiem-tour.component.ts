@@ -98,6 +98,7 @@ export class TimKiemTourComponent implements OnInit {
       SoNguoiLon: this.SoNguoiLon.value,
       SoTreEm: this.SoTreEm.value
     } as any;
+    console.log(this.ngayDi);
 
     this.router.navigate(['/dattour', params.NoiDen, params.NgayDi, params.SoNguoiLon, params.SoTreEm]);
   }
