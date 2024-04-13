@@ -422,6 +422,9 @@ export class QuanlydattourComponent implements OnInit {
   //hàm lấy tour theo id
   LayTourDuLich(idTour: string) {
     this.quanLyTourService.getTourDuLichById(idTour).subscribe((data: TourDuLich) => {
+      console.log(data);
+      data.giaNguoiLon = data.giaNguoiLon.toString().replace(/,/g, '');
+      data.giaTreEm = data.giaTreEm.toString().replace(/,/g, '');
       this.model = data;
       this.LayKhachHang(idTour);
       //gọi services xử lý số lượng người dùng
@@ -664,7 +667,6 @@ export class QuanlydattourComponent implements OnInit {
     return kh && kh.tenKhachHang && kh.email ? `${kh.tenKhachHang}` : '';
   }
   private _filterKhachHangThanhToan(value: string): KhachHang[] {
-    console.log(1);
 
     const filterValue = value.toLowerCase();
     // Lọc các tùy chọn dựa trên đoạn văn bản tìm kiếm
@@ -714,7 +716,13 @@ export class QuanlydattourComponent implements OnInit {
 
     });
     this.quanLyTourService.getTourDuLichById(this.idTour_ThanhToan).subscribe((data: TourDuLich) => {
+
       this.LayTourDangThanhToan = data;
+      data.giaNguoiLon = data.giaNguoiLon.toString().replace(/,/g, '');
+      data.giaTreEm = data.giaTreEm.toString().replace(/,/g, '');
+      console.log(data);
+
+
       this.TongTien_DichVu_ThanhToan = 0;
       this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(this.TourThanhToan_HienThi[0].idDatTour).subscribe((result: DichVuChiTietDto[]) => {
         this.ThongTinDichVuThanhToan = result;
@@ -741,12 +749,15 @@ export class QuanlydattourComponent implements OnInit {
     });
 
   }
+
+
   //tính tổng tiền thanh toán
   TongTien_DichVu_ThanhToan: number = 0;
   TongTien_ThanhToan!: number;
   TinhTongTienThanhToan() {
     //tính tổng tiền dịch vụ
     this.TongTien_ThanhToan = (this.TourThanhToan_HienThi[0].soLuongNguoiLon * Number(this.LayTourDangThanhToan.giaNguoiLon)) + (this.TourThanhToan_HienThi[0].soLuongTreEm * Number(this.LayTourDangThanhToan.giaTreEm) + this.TongTien_DichVu_ThanhToan);
+
   }
   //hàm thanh toán
   PhuongThucThanhToan!: string;

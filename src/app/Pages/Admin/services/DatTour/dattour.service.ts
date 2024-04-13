@@ -67,7 +67,7 @@ export class DattourService {
             TongSoLuongNguoiLonDaDatTrongTour = Number(resTour.soLuongNguoiLon) - TongSoLuongNguoiLonDaDatTrongTour;
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
-            console.log(resTour, TongSoLuongNguoiLonDaDatTrongTour, TongSoLuongNguoiLonDaDatTrongTour);
+            // console.log(resTour, TongSoLuongNguoiLonDaDatTrongTour, TongSoLuongNguoiLonDaDatTrongTour);
 
 
             return {
