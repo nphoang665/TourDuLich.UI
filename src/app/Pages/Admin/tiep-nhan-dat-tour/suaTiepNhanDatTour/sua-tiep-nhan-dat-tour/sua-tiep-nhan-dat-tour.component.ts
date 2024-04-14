@@ -24,6 +24,7 @@ interface DichVuThemVaoDb {
   templateUrl: './sua-tiep-nhan-dat-tour.component.html',
   styleUrl: './sua-tiep-nhan-dat-tour.component.css'
 })
+
 export class SuaTiepNhanDatTourComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private datTourService: DattourService,
@@ -42,7 +43,6 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
       this.id = params['id'];
       this.getDuLieu();
       this.GetDichVu();
-
     })
   }
 
@@ -60,7 +60,11 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     khachHang: new FormControl(''),
     tinhTrang: new FormControl(''),
   });
-  //
+  soChoConNhan: SoChoConNhan = {
+    TongSoLuongNguoiLonDaDatTrongTour: '0',
+    TongSoLuongTreEmDaDatTrongTour: '0',
+    SoChoConNhanTrongTour: '0',
+  };  //
   hienThongTin() {
     this.suaTiepNhanDatTour.getRawValue();
     const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
@@ -88,6 +92,17 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
 
 
     this.suaTiepNhanDatTour.get('tinhTrang')?.setValue(this.datTour.tinhTrang);
+
+    //get số lượng người lớn và trẻ em còn trống.
+    console.log(this.datTour.idDatTour, this.datTour.idTour);
+
+    this.datTourService.LaySoChoConNhanTruIdDatTourDangTarget(this.datTour.idTour, this.datTour.idDatTour).subscribe((resultSoCho: SoChoConNhan) => {
+      this.soChoConNhan = {
+        TongSoLuongNguoiLonDaDatTrongTour: resultSoCho.TongSoLuongNguoiLonDaDatTrongTour,
+        TongSoLuongTreEmDaDatTrongTour: resultSoCho.TongSoLuongTreEmDaDatTrongTour,
+        SoChoConNhanTrongTour: resultSoCho.SoChoConNhanTrongTour,
+      };
+    });
   }
   //
   suaDatTour() {
@@ -298,4 +313,9 @@ export class SuaTiepNhanDatTourComponent implements OnInit {
     });
   }
 
+}
+export interface SoChoConNhan {
+  TongSoLuongNguoiLonDaDatTrongTour: string,
+  TongSoLuongTreEmDaDatTrongTour: string,
+  SoChoConNhanTrongTour: string,
 }

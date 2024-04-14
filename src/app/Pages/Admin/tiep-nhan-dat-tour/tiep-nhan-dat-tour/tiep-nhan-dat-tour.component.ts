@@ -42,7 +42,6 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
   }
   datTour: any;
   ngOnInit(): void {
-    // this.datToursServices.getAllDatTour().subscribe((data: any) => { this.datTour = data })
 
   }
 
