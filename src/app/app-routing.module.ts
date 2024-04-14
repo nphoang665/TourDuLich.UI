@@ -26,6 +26,7 @@ import { GuestGuard, adminGuard, adminOrEmployeeGuard, customerGuard, employeeGu
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { ThanhToanComponent } from './Pages/Admin/thanh-toan/thanh-toan.component';
 import { LichsudattourkhachhangComponent } from './Pages/Axiliary/History/lichsudattourkhachhang/lichsudattourkhachhang.component';
+import { QuenMatKhauComponent } from './Pages/Auth/forgotPassword/quen-mat-khau/quen-mat-khau.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent, title: 'Trang chủ' },
@@ -50,6 +51,8 @@ const routes: Routes = [
   { path: 'suaKhachHang/:id', component: SuaKhachHangComponent, canActivate: [adminOrEmployeeGuard], title: 'Sửa khách hàng' },
   { path: 'themKhachHang', component: ThemKhachHangComponent, canActivate: [adminOrEmployeeGuard], title: 'Thêm khách hàng' },
   { path: 'login', component: LoginComponent, title: 'Đăng nhập' },
+  { path: 'forgotpassword', component: QuenMatKhauComponent, title: 'Quên mật khẩu' },
+
   { path: 'register', component: RegisterComponent, title: 'Đăng ký' },
   { path: 'themTour', component: ThemTourComponent, canActivate: [adminGuard], title: 'Thêm tour' },
   { path: 'suaTour/:id', component: SuaTourComponent, canActivate: [adminGuard], title: 'Sửa tour' },
