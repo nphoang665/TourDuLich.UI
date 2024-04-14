@@ -28,7 +28,7 @@
     <ul class="nav flex-column">
       <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
         <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/trangChuAdmin">
+          <a class="nav-link" [routerLinkActive]="['active']" href="trangChuAdmin">
             <i class="material-icons">edit</i>
             <span>Trang chủ</span>
           </a>
