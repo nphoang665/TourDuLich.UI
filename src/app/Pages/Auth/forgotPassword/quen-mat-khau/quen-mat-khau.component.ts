@@ -47,13 +47,16 @@ const google_login = `
   styleUrl: './quen-mat-khau.component.css'
 })
 export class QuenMatKhauComponent implements OnInit {
+  toastr: any;
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private quenMatKhauServies: QuenmatkhauService,
     private formBuilder: FormBuilder,
     private khachHangServices: KhachhangService,
-    private nhanVienServices: NhanVienService
+    private nhanVienServices: NhanVienService,
+    private router:Router,
+    private toastr2:ToastrService
   ) {
     iconRegistry.addSvgIconLiteral('user-login', sanitizer.bypassSecurityTrustHtml(icon_User));
     iconRegistry.addSvgIconLiteral('password-login', sanitizer.bypassSecurityTrustHtml(icon_Password));
@@ -170,11 +173,20 @@ export class QuenMatKhauComponent implements OnInit {
 
       this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
         (result: any) => {
-          // Hàm này được gọi khi có dữ liệu mới
+          
+          console.log(result);
         },
         (error: any) => {
+          // Hàm này được gọi khi có dữ liệu mới
+         
+          
+          this.toastr2.success('Đổi mật khẩu thành công', 'Thông báo', {
+            timeOut: 1000,
+          });
+          this.router.navigateByUrl('/login');
           // Hàm này được gọi khi có lỗi xảy ra
           console.error('Error:', error);
+
         },
       );
     });
