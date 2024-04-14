@@ -89,6 +89,8 @@ export class ChiTietTourComponent implements OnInit, AfterViewInit {
       const nguoiDung = this.nguoiDungServices.LayNguoiDungTuLocalStorage();
       if (nguoiDung && nguoiDung.idKhachHang) {
         this.datTourService.kiemTraKhachHangDatTour(nguoiDung.idKhachHang, idTour).subscribe(ketQua => {
+          console.log(ketQua);
+
           this.kiemTraTour = ketQua;
           // console.log(this.kiemTraTour);
 

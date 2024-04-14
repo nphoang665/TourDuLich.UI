@@ -54,7 +54,7 @@ export class DattourService {
     return this.getDatTourById(idTour).pipe(
       switchMap((response: any) => {
         response.forEach((element: any) => {
-          if (element.tinhTrang != 'Đã từ chối') {
+          if (element.tinhTrang != 'Đã hủy') {
             TongSoLuongNguoiLonDaDatTrongTour += element.soLuongNguoiLon;
             TongSoLuongTreEmDaDatTrongTour += element.soLuongTreEm;
           }
