@@ -27,7 +27,7 @@ export class DattourService {
   }
 
   getDatTourByIdDatTour(id: string): Observable<DatTour> {
-    return this.http.get<DatTour>(`${environment.apiBaseUrl}/api/datTour/${id}`);
+    return this.http.get<DatTour>(`${environment.apiBaseUrl}/api/datTour/${id}?_=${Date.now()}`);
   }
   DatTourChoKhachHang(data: DatTourChoKhachHang): any {
     return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang`, data);

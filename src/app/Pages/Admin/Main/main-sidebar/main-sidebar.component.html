@@ -1,87 +1,89 @@
 <aside class="main-sidebar col-12 col-md-3 col-lg-2 p-0">
-    <div class="main-navbar">
-      <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-        <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
-          <div class="d-table m-auto">
-            <img id="main-logo" class="d-inline-block mr-1" style="max-width: 55px;" src="https://upload.wikimedia.org/wikipedia/en/6/6c/Asap-logo.png" alt="Shards Dashboard">
-            <span class="d-none d-md-inline ml-1">Tour Du Lịch ASAP</span>
-          </div>
-        </a>
-        <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
-          <i class="material-icons">&#xE5C4;</i>
-        </a>
-      </nav>
-    </div>
-    <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
-      <div class="input-group input-group-seamless ml-3">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i class="fas fa-search"></i>
-          </div>
+  <div class="main-navbar">
+    <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+      <a class="navbar-brand w-100 mr-0" routerLink="/trangchu" style="line-height: 25px;">
+        <div class="d-table m-auto">
+          <img id="main-logo" class="d-inline-block mr-1" style="max-width: 55px;"
+            src="https://upload.wikimedia.org/wikipedia/en/6/6c/Asap-logo.png" alt="Shards Dashboard">
+          <span class="d-none d-md-inline ml-1">Tour Du Lịch ASAP</span>
         </div>
-        <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
-    </form>
-
-    <div class="nav-wrapper">
-      <ul class="nav flex-column">
-        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
-          <li class="nav-item">
-            <a class="nav-link" [routerLinkActive]="['active']" routerLink="/trangChuAdmin">
-              <i class="material-icons">edit</i>
-              <span>Trang chủ</span>
-            </a>
-          </li>
-        </ng-container>
-        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
-          <li class="nav-item">
-                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanlytour">
-                  <i class="material-icons">vertical_split</i>
-                  <span>Quản lý tour</span>
-                </a>
-              </li>
-        </ng-container>
-
-       
-        <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" routerLink="/quanLyDatTour">
-            <i class="material-icons">vertical_split</i>
-            <span>Quản lý đặt tour</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyKhachHang">
-            <i class="fa-solid fa-users"></i>
-            <span>Khách hàng</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/tiepNhanDatTour">
-            <i class="fa-solid fa-bell-concierge"></i>
-            <span>Tiếp nhận đặt tour</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/thanhToan">
-            <i class="fa-solid fa-receipt"></i>
-            <span>Hóa đơn</span>
-          </a>
-        </li>
-
-        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
-          <li class="nav-item">
-                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyNhanVien">
-                  <i class="fa-solid fa-user-tie"></i>
-                  <span>Nhân viên</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyDichVu">
-                  <i class="fa-solid fa-bell-concierge"></i>
-                  <span>Dịch vụ</span>
-                </a>
-              </li>
-        </ng-container>
-        
-      </ul>
+      </a>
+      <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+        <i class="material-icons">&#xE5C4;</i>
+      </a>
+    </nav>
+  </div>
+  <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
+    <div class="input-group input-group-seamless ml-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">
     </div>
-  </aside>
+  </form>
+
+  <div class="nav-wrapper">
+    <ul class="nav flex-column">
+      <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" href="trangChuAdmin">
+            <i class="material-icons">edit</i>
+            <span>Trang chủ</span>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+        <li class="nav-item">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanlytour">
+            <i class="material-icons">vertical_split</i>
+            <span>Quản lý tour</span>
+          </a>
+        </li>
+      </ng-container>
+
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" routerLink="/quanLyDatTour">
+          <i class="material-icons">vertical_split</i>
+          <span>Quản lý đặt tour</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyKhachHang">
+          <i class="fa-solid fa-users"></i>
+          <span>Khách hàng</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " [routerLinkActive]="['active']" routerLink="/tiepNhanDatTour">
+          <i class="fa-solid fa-bell-concierge"></i>
+          <span>Tiếp nhận đặt tour</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " [routerLinkActive]="['active']" routerLink="/thanhToan">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Hóa đơn</span>
+        </a>
+      </li>
+
+      <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
+        <li class="nav-item">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyNhanVien">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Nhân viên</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " [routerLinkActive]="['active']" routerLink="/quanLyDichVu">
+            <i class="fa-solid fa-bell-concierge"></i>
+            <span>Dịch vụ</span>
+          </a>
+        </li>
+      </ng-container>
+
+    </ul>
+  </div>
+</aside>

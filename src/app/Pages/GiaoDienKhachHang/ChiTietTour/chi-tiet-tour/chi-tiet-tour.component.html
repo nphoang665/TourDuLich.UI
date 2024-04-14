@@ -5,14 +5,17 @@
 <div style="background-color: #ecf0f5;">
 
     <div class="container">
+        <div class="mt-md-2 mt-lg-0 mt-3 pt-lg-0 ">
 
-        <span class="text_tour">
-            {{TourChiTiet.tenTour}}
-        </span>
-        <span class="badge me-1" style="background: linear-gradient(130deg, rgba(0,123,255,1) 0%, rgba(0,103,219,1) 75%, rgba(0,87,187,1) 100%);
+
+            <span class="text_tour ">
+                {{TourChiTiet.tenTour}}
+            </span>
+            <span class="badge me-1" style="background: linear-gradient(130deg, rgba(0,123,255,1) 0%, rgba(0,103,219,1) 75%, rgba(0,87,187,1) 100%);
         ">{{TourChiTiet.TrungBinhDiemDanhGia}} </span><span>|
-            {{TourChiTiet.soLuongDanhGia}} đánh
-            giá</span>
+                {{TourChiTiet.soLuongDanhGia}} đánh
+                giá</span>
+        </div>
         <div class="row mt-2 tour_item ">
             <div class="col-md-7 col-lg-8 ">
                 <div class="chitiet_img_tour">
@@ -102,7 +105,7 @@
                                     <span class="text-nowrap">Người lớn ({{TourChiTiet.soLuongNguoiLonDaTinh}})</span>
 
                                 </div>
-                                <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
+                                <div class="ms-3 col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
                                     <span class="text-nowrap txt_TongGiaTour">
                                         x {{TourChiTiet.giaNguoiLon | number:'':'en'}}
                                     </span>
@@ -134,7 +137,7 @@
 
                                 </div>
                                 <div class="col-4 col-sm-3 col-md-4 col-lg-4 d-flex align-items-center ">
-                                    <span class="text-nowrap txt_TongGiaTour">
+                                    <span class="ms-3 text-nowrap txt_TongGiaTour">
                                         x {{TourChiTiet.giaTreEm| number:'':'en'}}
                                     </span>
                                 </div>

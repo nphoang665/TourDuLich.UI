@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { DanhgiaService } from '../../../Admin/services/DanhGia/danhgia.service';
 import { now } from 'moment';
 import { Router } from '@angular/router';
+import { DattourService } from '../../../Admin/services/DatTour/dattour.service';
 
 
 // Định nghĩa metadata cho component
@@ -30,7 +31,7 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     public loaderServices: LoadingSanphamService,
     private danhGiaServices: DanhgiaService,
-
+    private datTourServices: DattourService,
     private router: Router
   ) {
   }
@@ -66,50 +67,75 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
 
   }
   async LayTour() {
-    // Gọi hàm getAllTourDuLich từ dịch vụ QuanLyTourService để lấy danh sách tất cả tour du lịch
+    let allBookings = await this.datTourServices.getAllDatTour().toPromise();
+    let allReviews = await this.danhGiaServices.layTatCaDanhGia().toPromise();
+
     const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
     let now = new Date();
     if (data) {
-      // Gán dữ liệu nhận được từ server cho mảng TourDuLich
       this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
-      // Khởi tạo object tourCounts để lưu trữ số lượng tour của mỗi loại
       let tourCounts: { [key: string]: number } = {};
 
-      // Duyệt qua mỗi phần tử trong mảng TourDuLich
-      this.TourDuLich.forEach(element => {
+      // Add two more tour types
+      let hotTours: TourDuLich[] = [];
+      let mostReviewedTours: TourDuLich[] = [];
 
-        // Gọi hàm getTourDuLichById từ dịch vụ QuanLyTourService để lấy thông tin chi tiết của tour
+      this.TourDuLich.forEach(element => {
         this.quanLyTourServices.getTourDuLichById(element.idTour).subscribe((data: TourDuLich) => {
-          // Gán đường dẫn hình ảnh đầu tiên cho tour
           element.HinhAnhDauTien = environment.apiBaseUrl + '/uploads/' + data.anhTour[0].imgTour;
         })
         this.danhGiaServices.LayTrungBinhSaoMotTour(element.idTour).subscribe((result: any) => {
           element.TrungBinhDiemDanhGia = result.trungBinhDiemDanhGia;
           element.SoLuongDanhGia = result.soLuongDanhGia;
 
+          // Update the hotTours and mostReviewedTours lists
+          if (allBookings) {
+            let tourBookings = allBookings.filter((booking: any) => booking.idTour === element.idTour);
+            console.log(tourBookings);
+
+            if (tourBookings.length >= 1) {
+              element.isHotTour = true; // Set the hot tour flag
+              hotTours.push(element);
+            }
+            if (element.SoLuongDanhGia >= 1) {
+              element.isMostReviewed = true; // Set the most reviewed flag
+              mostReviewedTours.push(element);
+            }
+          }
 
         });
-        // Tính toán số ngày đêm của tour
         element.SoNgayDem = this.calculateDaysAndNights(element.thoiGianBatDau, element.thoiGianKetThuc);
-        // Tính toán số lượng tour của mỗi loại và lưu vào object tourCounts
         tourCounts[element.loaiTour] = (tourCounts[element.loaiTour] || 0) + 1;
       });
 
-      // Sắp xếp các loại tour theo số lượng tour giảm dần
       let sortedTourTypes = Object.keys(tourCounts).sort((a, b) => tourCounts[b] - tourCounts[a]);
-      // Chọn ra 4 loại tour có số lượng tour nhiều nhất
-      this.topTourTypes = sortedTourTypes.slice(0, 4);
-      // Lấy danh sách các tour thuộc 4 loại tour đã chọn
-      this.selectedTours = this.TourDuLich.filter(tour => this.topTourTypes.includes(tour.loaiTour));
-      // In danh sách các tour đã chọn ra console
+      this.topTourTypes = sortedTourTypes.slice(0, 6);
 
+
+      // Add the new tour types to the topTourTypes list
+      this.topTourTypes.push("Tour hot", "Đánh giá nhiều");
+
+      this.selectedTours = this.TourDuLich.filter(tour => this.topTourTypes.includes(tour.loaiTour) || tour.isHotTour || tour.isMostReviewed);
+
+
+      // Add the hotTours and mostReviewedTours to the selectedTours list
+      this.selectedTours = this.selectedTours.concat(hotTours, mostReviewedTours);
 
     }
   }
-  // Hàm getToursByType nhận vào một loại tour và trả về danh sách các tour thuộc loại tour đó
+
   getToursByType(tourType: string) {
-    return this.selectedTours.filter(tour => tour.loaiTour === tourType).splice(0, 6);
+    if (tourType === "Tour hot") {
+      return this.selectedTours.filter(tour => tour.isHotTour).splice(0, 6);
+    } else if (tourType === "Đánh giá nhiều") {
+      return this.selectedTours.filter(tour => tour.isMostReviewed).splice(0, 6);
+    } else {
+      return this.selectedTours.filter(tour => tour.loaiTour === tourType).splice(0, 6);
+    }
   }
+
+
+
 
   // Hàm calculateDaysAndNights nhận vào thời gian bắt đầu và kết thúc của tour, và trả về số ngày đêm của tour
   calculateDaysAndNights(thoiGianBatDau: any, thoiGianKetThuc: any): string {

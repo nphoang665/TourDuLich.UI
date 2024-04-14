@@ -12,7 +12,10 @@
                     <span class="travel-card w-md-100" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="image" [style.backgroundImage]="'url(' + tour.HinhAnhDauTien + ')'">
                             <div class="card__ribbon" style="z-index: 1;">
-                                <div class="ribbon-content">tour mới</div>
+                                <div *ngIf="tourType!='Tour hot' &&  tourType!='Đánh giá nhiều'" class="ribbon-content">
+                                    Tour du lịch</div>
+                                <div *ngIf="tourType=='Tour hot'" class="ribbon-content">Tour hot</div>
+                                <div *ngIf="tourType=='Đánh giá nhiều'" class="ribbon-content">Đánh giá nhiều</div>
                             </div>
                             <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
@@ -60,7 +63,10 @@
                     <span class="travel-card w-md-100" [routerLink]="'/chitiettour/'+tour.idTour">
                         <div class="image">
                             <div class="card__ribbon" style="z-index: 1;">
-                                <div class="ribbon-content">tour đặt nhiều</div>
+                                <div *ngIf="tourType!='Tour hot' &&  tourType!='Đánh giá nhiều'" class="ribbon-content">
+                                    Tour du lịch</div>
+                                <div *ngIf="tourType=='Tour hot'" class="ribbon-content">Tour hot</div>
+                                <div *ngIf="tourType=='Đánh giá nhiều'" class="ribbon-content">Đánh giá nhiều</div>
                             </div>
                             <img [style.background-image]="'url(' + tour.HinhAnhDauTien + ')'">
                         </div>
@@ -94,12 +100,4 @@
         </div>
     </div>
     }
-
-
-
-
-
-
-
-    <!-- <mat-divider></mat-divider> -->
 </ng-container>
