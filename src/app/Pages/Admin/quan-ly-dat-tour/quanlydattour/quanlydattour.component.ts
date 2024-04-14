@@ -778,7 +778,7 @@ export class QuanlydattourComponent implements OnInit {
     } else if (!traTruocChecked && traSauChecked) {
       this.PhuongThucThanhToan = 'Trả sau';
     }
-    const tongTienTour = this.TongTien_ThanhToan;
+    const tongTienTour = (this.TourThanhToan_HienThi[0].soLuongTreEm * this.LayTourDangThanhToan.giaTreEm) + (this.TourThanhToan_HienThi[0].soLuongNguoiLon * this.LayTourDangThanhToan.giaNguoiLon);
     const thanhToanData = {
       idThanhToan: 'Test',
       idDatTour: this.TourThanhToan_HienThi[0].idDatTour,
@@ -786,7 +786,7 @@ export class QuanlydattourComponent implements OnInit {
       idNhanVien: this.TourThanhToan_HienThi[0].idNhanVien,
       tongTienTour: tongTienTour.toString(),
       tongTienDichVu: this.TongTien_DichVu_ThanhToan.toString(),
-      tongTien: tongTienTour.toString(),
+      tongTien: (tongTienTour + this.TongTien_DichVu_ThanhToan).toString(),
       // tinhTrang: 'Đã thanh toán',
       tinhTrang: 'Đã thanh toán',
       ngayThanhToan: ngayGioHienTaiFormatted,
