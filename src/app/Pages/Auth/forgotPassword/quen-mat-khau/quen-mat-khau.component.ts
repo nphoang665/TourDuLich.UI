@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { QuenmatkhauService } from '../../../Admin/services/QuenMatKhau/quenmatkhau.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
+import { NhanVienService } from '../../../Admin/services/NhanVien/nhan-vien.service';
+import { forkJoin } from 'rxjs';
 const icon_User = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.7274 20.4471C19.2716 19.1713 18.2672 18.0439 16.8701 17.2399C15.4729 16.4358 13.7611 16 12 16C10.2389 16 8.52706 16.4358 7.12991 17.2399C5.73276 18.0439 4.72839 19.1713 4.27259 20.4471" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
@@ -44,18 +47,13 @@ const google_login = `
   styleUrl: './quen-mat-khau.component.css'
 })
 export class QuenMatKhauComponent implements OnInit {
-  constructor(private authService: AuthService,
-    private cookieService: CookieService,
-    private router: Router,
-    private toastr: ToastrService,
+  constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private quenMatKhauServies: QuenmatkhauService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-
-
-    private socialAuthService: SocialAuthService, private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private khachHangServices: KhachhangService,
+    private nhanVienServices: NhanVienService
   ) {
     iconRegistry.addSvgIconLiteral('user-login', sanitizer.bypassSecurityTrustHtml(icon_User));
     iconRegistry.addSvgIconLiteral('password-login', sanitizer.bypassSecurityTrustHtml(icon_Password));
@@ -77,34 +75,67 @@ export class QuenMatKhauComponent implements OnInit {
   }
 
   GuiEmailHoacSoDienThoai() {
-
     let emailOrPhone = this.form.get('emailOrPhone')?.value;
     if (emailOrPhone) {
       let optionOtp = emailOrPhone.includes('@') ? 'guiEmail' : 'guiSdt';
       let requestData: RequestData = {
         optionOtp: optionOtp,
-        thongTin: emailOrPhone,
+        email: optionOtp == 'guiEmail' ? this.form.get('emailOrPhone')?.value : '',
+        soDienThoai: optionOtp == 'guiSdt' ? this.form.get('emailOrPhone')?.value : '',
         matKhauMoi: '',
       };
-      this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
-        (result: any) => {
-          // Hàm này được gọi khi có dữ liệu mới
-          this.OTP = result;
-          this.buttonState = 1;
-        },
-        (error: any) => {
-          // Hàm này được gọi khi có lỗi xảy ra
-          console.error('Error:', error);
-        },
-      );
+
+      if (optionOtp == 'guiEmail') {
+        this.khachHangServices.getAllKhachHang().subscribe(resultKh => {
+          let khachHangExists = resultKh.some(kh => kh.email == requestData.email);
+          this.nhanVienServices.getAllNhanVien().subscribe(resulNv => {
+            let nhanVienExists = resulNv.some(nv => nv.email == requestData.email);
+            console.log(nhanVienExists, khachHangExists);
+
+            if (!khachHangExists && !nhanVienExists) {
+              alert('Email không tồn tại trong hệ thống');
+            } else {
+              this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
+                (result: any) => {
+                  console.log(3);
+                  this.OTP = result;
+                  this.buttonState = 1;
+                },
+                (error: any) => {
+                  console.error('Error:', error);
+                },
+              );
+            }
+          });
+        });
+      } else if (optionOtp == 'guiSdt') {
+        this.khachHangServices.getAllKhachHang().subscribe(resultKh => {
+          let khachHangExists = resultKh.some(kh => kh.soDienThoai == requestData.soDienThoai);
+          this.nhanVienServices.getAllNhanVien().subscribe(resulNv => {
+            let nhanVienExists = resulNv.some(nv => nv.soDienThoai == requestData.soDienThoai);
+            console.log(nhanVienExists, khachHangExists);
+
+            if (!khachHangExists && !nhanVienExists) {
+              alert('Số điện thoại không tồn tại trong hệ thống');
+            } else {
+              this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
+                (result: any) => {
+                  console.log(3);
+                  this.OTP = result;
+                  this.buttonState = 1;
+                },
+                (error: any) => {
+                  console.error('Error:', error);
+                },
+              );
+            }
+          });
+        });
+      }
     }
-
-
-
   }
-  KiemTraMaOTP() {
-    console.log();
 
+  KiemTraMaOTP() {
     if (this.form.get('otp')?.value == this.OTP) {
       this.buttonState = 2;
     }
@@ -114,26 +145,45 @@ export class QuenMatKhauComponent implements OnInit {
   }
   LayLaiMatKhau() {
     this.buttonState = 2;
-    let requestData: RequestData = {
-      optionOtp: 'layLaiMatKhau',
-      thongTin: this.form.get('emailOrPhone')?.value,
-      matKhauMoi: this.form.get('password')?.value,
-    };
-    this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
-      (result: any) => {
-        // Hàm này được gọi khi có dữ liệu mới
+    let emailOrPhone = this.form.get('emailOrPhone')?.value;
+    let optionOtp = emailOrPhone.includes('@') ? 'guiEmail' : 'guiSdt';
 
-      },
-      (error: any) => {
-        // Hàm này được gọi khi có lỗi xảy ra
-        console.error('Error:', error);
-      },
+    forkJoin({
+      khachHang: this.khachHangServices.getAllKhachHang(),
+      nhanVien: this.nhanVienServices.getAllNhanVien()
+    }).subscribe(({ khachHang: resultKh, nhanVien: resulNv }) => {
+      let email = '';
+      if (optionOtp == 'guiSdt') {
+        let khachHang = resultKh.find(kh => kh.soDienThoai == emailOrPhone);
+        let nhanVien = resulNv.find(nv => nv.soDienThoai == emailOrPhone);
+        email = khachHang ? khachHang.email : nhanVien ? nhanVien.email : '';
+      } else {
+        email = emailOrPhone;
+      }
 
-    );
+      let requestData: RequestData = {
+        optionOtp: 'layLaiMatKhau',
+        email: email,
+        soDienThoai: optionOtp == 'guiSdt' ? emailOrPhone : '',
+        matKhauMoi: this.form.get('password')?.value,
+      };
+
+      this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
+        (result: any) => {
+          // Hàm này được gọi khi có dữ liệu mới
+        },
+        (error: any) => {
+          // Hàm này được gọi khi có lỗi xảy ra
+          console.error('Error:', error);
+        },
+      );
+    });
   }
+
 }
 interface RequestData {
   optionOtp: string;
-  thongTin: string;
+  email: string;
+  soDienThoai: string;
   matKhauMoi: string;
 }

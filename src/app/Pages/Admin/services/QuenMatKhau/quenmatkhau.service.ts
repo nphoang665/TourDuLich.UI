@@ -16,6 +16,7 @@ export class QuenmatkhauService {
 }
 export interface RequestData {
   optionOtp: string,
-  thongTin: string,
+  email: string;
+  soDienThoai: string;
   matKhauMoi: string,
 }
