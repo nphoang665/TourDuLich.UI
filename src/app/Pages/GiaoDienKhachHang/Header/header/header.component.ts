@@ -10,6 +10,7 @@ import { KhachHang, SuaKhachHang } from '../../../Admin/models/khach-hang.model'
 import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
 import { NguoiDungService } from '../../../Admin/services/NguoiDung/nguoi-dung.service';
 import { NhanVien } from '../../../Admin/models/nhan-vien.model';
+import { ToastrService } from 'ngx-toastr';
 const icon_Logout = `
 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8.90002 7.55999C9.21002 3.95999 11.06 2.48999 15.11 2.48999H15.24C19.71 2.48999 21.5 4.27999 21.5 8.74999V15.27C21.5 19.74 19.71 21.53 15.24 21.53H15.11C11.09 21.53 9.24002 20.08 8.91002 16.54" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15 12H3.62" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M5.85 8.6499L2.5 11.9999L5.85 15.3499" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
 `
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
+    private toastr: ToastrService,
     private _formBuilder: FormBuilder,
     private khachHangServices: KhachhangService,
     private nguoiDungServices: NguoiDungService,
@@ -102,11 +104,16 @@ export class HeaderComponent implements OnInit {
             }
             findNguoiDung.ngaySinh = this.CapNhatThongTinKhachHang.get('ngaySinh')?.value;
             this.khachHangServices.suaKhachHang(nguoiDung.idKhachHang, findNguoiDung as any).subscribe(result => {
+              this.toastr.success('Cập nhật thông tin thành công', 'Thông báo', {
+                timeOut: 1000,
+              });
+              this.onLogout();
+              
               console.log(result);
             })
           }
           else {
-            alert('Có 2 khách hàng trùng email')
+            alert('Có 1 khách hàng trùng email')
           }
         }
         else if ('idNhanVien' in nguoiDung) {
@@ -119,6 +126,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.user = undefined;
     console.log(this.user);
+    window.location.reload();
     this.router.navigateByUrl('/');
   }
 }
