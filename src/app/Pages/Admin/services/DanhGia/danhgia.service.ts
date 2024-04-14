@@ -12,7 +12,7 @@ export class DanhgiaService {
 
   constructor(private http: HttpClient) { }
   layTatCaDanhGia(): Observable<DanhGia[]> {
-    return this.http.get<DanhGia[]>(`${environment.apiBaseUrl}/api/DanhGia`);
+    return this.http.get<DanhGia[]>(`${environment.apiBaseUrl}/api/DanhGia?_=${Date.now()}`);
   }
   themDanhGia(data: ThemDanhGia): Observable<ThemDanhGia> {
     return this.http.post<ThemDanhGia>(`${environment.apiBaseUrl}/api/DanhGia?_=${Date.now()}`, data);
