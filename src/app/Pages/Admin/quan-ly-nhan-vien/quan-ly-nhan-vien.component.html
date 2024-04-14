@@ -27,20 +27,12 @@
                   <input matInput (keyup)="applyFilter($event)" placeholder="Nhập từ khóa tìm kiếm" #input />
                 </mat-form-field>
               </div>
-              <div class="col-lg-3 d-flex align-items-center justify-content-end">
+              <div class="col-lg-2 d-flex align-items-center justify-content-end " >
                 <div class="example-disabled" style="z-index: 0;">
-                  <button mat-stroked-button class="ms-1">
-                    <i class="bi bi-printer"></i>
-                  </button>
-                  <button mat-stroked-button class="ms-1">
-                    <i class="bi bi-copy"></i>
-                  </button>
-                  <button mat-stroked-button class="ms-1" (click)="getNhanVienDataAndExportToExcel()">
-                    <i class="bi bi-file-earmark-spreadsheet"></i>
-                  </button>
-                  <button mat-stroked-button class="ms-1">
-                    <i class="bi bi-filetype-pdf"></i>
-                  </button>
+                  <button mat-raised-button style="background-color: #009628; color: white;" class="mb-3"
+                  (click)="getNhanVienDataAndExportToExcel()">
+                  <i class="fa-solid fa-file-export"></i>
+                </button>
                 </div>
 
               </div>

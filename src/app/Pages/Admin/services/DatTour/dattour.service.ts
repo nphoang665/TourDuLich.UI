@@ -32,7 +32,9 @@ export class DattourService {
   DatTourChoKhachHang(data: DatTourChoKhachHang): any {
     return this.http.post<DatTourChoKhachHang>(`${environment.apiBaseUrl}/DatTourChoKhachHang`, data);
   }
-
+  getThanhToanByIdDatTour(id: string): Observable<ThanhToan> {
+    return this.http.get<ThanhToan>(`${environment.apiBaseUrl}/api/ThanhToan/GetThanhToanByIdDatTour/${id}?_=${Date.now()}`);
+  }
   getAllDatTour(): Observable<DatTour[]> {
     const url = `${environment.apiBaseUrl}/api/datTour?_=${Date.now()}`;
     return this.http.get<DatTour[]>(url);
