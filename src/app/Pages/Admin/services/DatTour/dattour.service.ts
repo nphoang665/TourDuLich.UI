@@ -97,7 +97,7 @@ export class DattourService {
       switchMap((response: any) => {
         response.forEach((element: any) => {
 
-          if (element.tinhTrang != 'Đã từ chối' && element.idDatTour != idDatTour) {
+          if (element.tinhTrang != 'Đã hủy' && element.idDatTour != idDatTour) {
             console.log(1);
 
             TongSoLuongNguoiLonDaDatTrongTour += element.soLuongNguoiLon;
@@ -112,6 +112,7 @@ export class DattourService {
             TongSoLuongTreEmDaDatTrongTour = Number(resTour.soLuongTreEm) - TongSoLuongTreEmDaDatTrongTour;
             SoChoConNhanTrongTour = TongSoLuongNguoiLonDaDatTrongTour + TongSoLuongTreEmDaDatTrongTour;
             // console.log(SoChoConNhanTrongTour);
+            console.log(TongSoLuongNguoiLonDaDatTrongTour, TongSoLuongTreEmDaDatTrongTour);
 
             return {
               TongSoLuongNguoiLonDaDatTrongTour: TongSoLuongNguoiLonDaDatTrongTour,

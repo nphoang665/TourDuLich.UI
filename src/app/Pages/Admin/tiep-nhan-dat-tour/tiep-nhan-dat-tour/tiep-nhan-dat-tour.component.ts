@@ -72,7 +72,7 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
       }
     }
 
-    this.datToursServices.tinhSoLuongNguoiConNhan(tourById.idTour).subscribe((resDatTour: any) => {
+    this.datToursServices.LaySoChoConNhanTruIdDatTourDangTarget(tourById.idTour, id).subscribe((resDatTour: any) => {
       if (tourById.soLuongNguoiLon <= resDatTour.TongSoLuongNguoiLonDaDatTrongTour && tourById.soLuongTreEm <= resDatTour.TongSoLuongTreEmDaDatTrongTour) {
         // Gán giá trị khi đặt tour thành công
         tourById.idNhanVien = nguoiDung.idNhanVien;
@@ -98,7 +98,7 @@ export class TiepNhanDatTourComponent implements AfterViewInit, OnInit {
     for (let index = 0; index < this.datTour.length; index++) {
       if (this.datTour[index].idDatTour == id) {
         this.tourById = this.datTour[index];
-        this.tourById.tinhTrang = "Đã từ chối";
+        this.tourById.tinhTrang = "Đã hủy";
         this.tourById.idNhanVien = nguoiDung.idNhanVien;
         this.tourById.ghiChu = `Nhân viên ${nguoiDung.idNhanVien} hủy tour`;
 
