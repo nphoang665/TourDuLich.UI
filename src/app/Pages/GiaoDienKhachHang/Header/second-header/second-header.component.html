@@ -34,8 +34,11 @@
                             <button mat-button [matMenuTriggerFor]="menu" class="text-white">Xin chào!
                                 {{user?.email}}</button>
                             <mat-menu #menu="matMenu" style="z-index: 10000;">
-                                <button mat-menu-item routerLink="/quanLyDatTour"><mat-icon
+                                <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')"> 
+                                    <button mat-menu-item routerLink="/quanLyDatTour"><mat-icon
                                         svgIcon="icon_Manager"></mat-icon> Trang quản lý</button>
+                                </ng-container>
+                               
                                 <button mat-menu-item data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon
                                         svgIcon="icon_User"></mat-icon> Thông tin cá
                                     nhân</button>
