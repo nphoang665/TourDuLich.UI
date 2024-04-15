@@ -204,7 +204,7 @@ export class SuaDichVuComponent implements OnInit {
     if (this.model && this.id) {
       const suaDichVU: SuaDichVu = { ...this.myForm.value };
       this.dichVuService.updateDichVu(this.id, formData).subscribe((response) => {
-        console.log(response);
+        // console.log(response);
         this.toastr.success('Sửa dịch vụ thành công', 'Thông báo', {
           timeOut: 1000,
         });
