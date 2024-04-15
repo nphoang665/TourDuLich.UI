@@ -88,9 +88,9 @@
   /* background-color: #496989; */
   background: linear-gradient(
     130deg,
-    rgba(0, 123, 255, 1) 0%,
-    rgba(0, 103, 219, 1) 75%,
-    rgba(0, 87, 187, 1) 100%
+   #E52822 0%,
+   #E52822 75%,
+    #E52822 100%
   );
 
   transform: rotate(-45deg) translateY(-1.7em);
@@ -114,8 +114,8 @@
   height: 1em;
   bottom: 0.3em;
 
-  background-color: #124076;
-  box-shadow: 8.7em -8.7em #124076;
+  background-color: #9C0000;
+  box-shadow: 8.7em -8.7em #9C0000;
 }
 
 @media screen and (max-width: 800px) {
@@ -143,8 +143,8 @@
   font-size: 1.2em;
   font-weight: 600;
   padding: 8px;
-  border: 1px solid rgba(0, 87, 187, 1);
-  color: rgba(0, 87, 187, 1);
+  border: 2px solid #26BED6;
+  color: #26BED6;
   background-color: transparent;
   padding-left: 20px;
   padding-right: 20px;
@@ -154,9 +154,9 @@
   /* background-color: #26bed6; */
   background: linear-gradient(
     130deg,
-    rgba(0, 123, 255, 1) 0%,
-    rgba(0, 103, 219, 1) 75%,
-    rgba(0, 87, 187, 1) 100%
+    #26BED6 0%,
+    #26BED6 75%,
+   #26BED6 100%
   );
 
   color: white;

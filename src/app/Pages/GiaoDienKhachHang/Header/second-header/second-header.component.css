@@ -65,6 +65,7 @@
 }
 .container_medium_first_header li .submenu_first_header li:hover a {
   color: white;
+  cursor: pointer;
 }
 .container_medium_first_header li .submenu_first_header {
   display: none;
@@ -141,6 +142,7 @@
 
 .container_medium_second_header li:hover a {
   color: #221314;
+  cursor: pointer;
 }
 
 .mobile_hide {

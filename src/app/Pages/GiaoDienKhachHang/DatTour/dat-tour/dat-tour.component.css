@@ -23,6 +23,7 @@
 .sort_tour .item_sort_tour:hover {
   background-color: #edeff2;
   transition: background-color 0.4s ease;
+  cursor: pointer;
 }
 .total-tour {
   /* margin-top: 15px; */

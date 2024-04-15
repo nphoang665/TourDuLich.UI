@@ -103,6 +103,10 @@ export class QuenMatKhauComponent implements OnInit {
             console.log(nhanVienExists, khachHangExists);
 
             if (!khachHangExists && !nhanVienExists) {
+              this.toastr2.warning('Email không tồn tại trong hệ thống', 'Thông báo', {
+                timeOut: 1000,
+              });
+
               alert('Email không tồn tại trong hệ thống');
               this.isLoading = false;
             } else {
@@ -126,6 +130,9 @@ export class QuenMatKhauComponent implements OnInit {
             let nhanVienExists = resulNv.some(nv => nv.soDienThoai == requestData.soDienThoai);
 
             if (!khachHangExists && !nhanVienExists) {
+              this.toastr2.warning('Số điện thoại không tồn tại trong hệ thống', 'Thông báo', {
+                timeOut: 1000,
+              });
               alert('Số điện thoại không tồn tại trong hệ thống');
               this.isLoading = false;
             } else {
@@ -156,6 +163,9 @@ export class QuenMatKhauComponent implements OnInit {
       this.isLoadingOtp = false;
     }
     else {
+      this.toastr2.warning('OTP không hợp lệ', 'Thông báo', {
+        timeOut: 1000,
+      });
       alert('OTP sai');
       this.isLoadingOtp = false;
     }
