@@ -107,7 +107,6 @@ export class QuenMatKhauComponent implements OnInit {
                 timeOut: 1000,
               });
 
-              alert('Email không tồn tại trong hệ thống');
               this.isLoading = false;
             } else {
               this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
