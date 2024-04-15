@@ -59,6 +59,8 @@ export class XemThanhToanComponent implements OnInit {
                   })
                   this.dichVuChiTietServices.GetAllDichVuChiTietByIdDatTour(datTour.idDatTour).subscribe((resultDichVuChiTiet: DichVuChiTietDto[]) => {
                     this.DichVuChiTiet = resultDichVuChiTiet;
+                    console.log(resultDichVuChiTiet);
+
                   })
 
 

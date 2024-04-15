@@ -30,8 +30,10 @@
                                 <div class="comment" style="color: #000;">({{tour.SoLuongDanhGia}} Đánh giá)</div>
                             </div>
                             <div class="price">
-                                <div class="discount-info" style="color: #76CFFA; font-size: 1.2rem;">{{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}</div>
-                                <div class="original-price" style="color: #F79321;">{{tour.giaNguoiLon | number :'':'en'}} đ</div>
+                                <div class="discount-info" style="color: #76CFFA; font-size: 1.2rem;">
+                                    {{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}</div>
+                                <div class="original-price" style="color: #F79321;">{{tour.giaNguoiLon | number
+                                    :'':'en'}} đ</div>
                             </div>
                         </div>
 
@@ -43,8 +45,15 @@
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
+                @if(tourType=='Tour hot' || tourType =='Đánh giá nhiều'){
+                <button class="btn_XemThemTour" routerLink="/dattour/tatca">Xem thêm
                     tours</button>
+                }
+                @else { <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
+                    tours</button>}
+
+
+
             </div>
         </div>
     </div>
@@ -81,8 +90,10 @@
                                 <div class="comment">({{tour.SoLuongDanhGia}} Đánh giá)</div>
                             </div>
                             <div class="price">
-                                <div class="discount-info" style="color: #76CFFA; font-size: 1.2rem;">{{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}</div>
-                                <div class="original-price" style="color: #F79321;">{{tour.giaNguoiLon | number :'':'en'}} đ</div>
+                                <div class="discount-info" style="color: #76CFFA; font-size: 1.2rem;">
+                                    {{tour.thoiGianBatDau | date:'dd/MM/yyyy' }}</div>
+                                <div class="original-price" style="color: #F79321;">{{tour.giaNguoiLon | number
+                                    :'':'en'}} đ</div>
                             </div>
                         </div>
 
@@ -94,8 +105,12 @@
                 </div>
             </ng-container>
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
+                @if(tourType=='Tour hot' || tourType =='Đánh giá nhiều'){
+                <button class="btn_XemThemTour" routerLink="/dattour/tatca">Xem thêm
                     tours</button>
+                }
+                @else { <button class="btn_XemThemTour" (click)="strUrlTour(tourType)">Xem thêm
+                    tours</button>}
             </div>
         </div>
     </div>

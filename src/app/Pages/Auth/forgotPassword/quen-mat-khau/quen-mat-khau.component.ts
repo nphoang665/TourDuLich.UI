@@ -132,7 +132,6 @@ export class QuenMatKhauComponent implements OnInit {
               this.toastr2.warning('Số điện thoại không tồn tại trong hệ thống', 'Thông báo', {
                 timeOut: 1000,
               });
-              alert('Số điện thoại không tồn tại trong hệ thống');
               this.isLoading = false;
             } else {
               this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
@@ -165,7 +164,6 @@ export class QuenMatKhauComponent implements OnInit {
       this.toastr2.warning('OTP không hợp lệ', 'Thông báo', {
         timeOut: 1000,
       });
-      alert('OTP sai');
       this.isLoadingOtp = false;
     }
   }

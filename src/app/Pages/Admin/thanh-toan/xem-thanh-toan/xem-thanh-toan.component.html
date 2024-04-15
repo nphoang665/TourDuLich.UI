@@ -118,7 +118,7 @@
     }
 </style>
 
-<div class="invoice-box container-fluid">
+<div class="invoice-box container-fluid" style="overflow-y: hidden;overflow-x: hidden;">
     <table cellpadding="0" cellspacing="0">
         <div class="row">
             <div class="col-6" style="white-space: nowrap; font-size: 17px;">Tour du lịch: ASAP</div>
@@ -200,8 +200,8 @@
                     <tr class="item tr_item_DichVu">
                         <td style="width:25%;">{{item.dichVu.tenDichVu}}</td>
                         <td style="width:10%; text-align:center;">{{item.soLuong}}</td>
-                        <td style="width:10%; text-align:center;">{{item.dichVu.donGia}}</td>
-                        <td style="width:15%; text-align:center;">{{item.thoiGianDichVu}}</td>
+                        <td style="width:10%; text-align:center;">{{item.dichVu.giaTien}}</td>
+                        <td style="width:15%; text-align:center;">{{item.thoiGianDichVu|date:"dd/MM/yyyy HH:ss"}}</td>
 
                     </tr>
                     }

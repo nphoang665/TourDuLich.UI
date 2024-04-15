@@ -34,11 +34,11 @@
                             <button mat-button [matMenuTriggerFor]="menu" class="text-white">Xin chào!
                                 {{user?.email}}</button>
                             <mat-menu #menu="matMenu" style="z-index: 10000;">
-                                <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')"> 
+                                <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
                                     <button mat-menu-item routerLink="/quanLyDatTour"><mat-icon
-                                        svgIcon="icon_Manager"></mat-icon> Trang quản lý</button>
+                                            svgIcon="icon_Manager"></mat-icon> Trang quản lý</button>
                                 </ng-container>
-                               
+
                                 <button mat-menu-item data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon
                                         svgIcon="icon_User"></mat-icon> Thông tin cá
                                     nhân</button>
@@ -94,7 +94,7 @@
                     </div>
                 </li>
                 <li routerLink="/trangchu"><a class="item_medium_second_header text-dark">Trang chủ</a></li>
-                <li routerLink="/lienhe"><a class="item_medium_second_header text-dark">Liên hệ</a></li>
+                <li><a class="item_medium_second_header text-dark">Liên hệ</a></li>
                 <li routerLink="/dattour/tatca"><a class="item_medium_second_header text-dark">Đặt tour</a></li>
                 <li routerLink="/diemden"><a class="item_medium_second_header text-dark">Điểm đến</a></li>
                 <!-- <li routerLink="/lichsudattour"><a class="item_medium_second_header text-dark">Lịch sử</a></li> -->
