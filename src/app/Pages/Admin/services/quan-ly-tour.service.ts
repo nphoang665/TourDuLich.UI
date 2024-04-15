@@ -17,7 +17,7 @@ export class QuanLyTourService {
   }
 
   getAllTourDuLich(): Observable<TourDuLich[]> {
-    return this.http.get<TourDuLich[]>(`${environment.apiBaseUrl}/api/TourDuLich`);
+    return this.http.get<TourDuLich[]>(`${environment.apiBaseUrl}/api/TourDuLich?_=${Date.now()}`);
   }
 
   suaTourDuLich(id: string, suaTuor: SuaTour): Observable<TourDuLich> {
@@ -25,7 +25,7 @@ export class QuanLyTourService {
   }
 
   getTourDuLichById(id: string): Observable<TourDuLich> {
-    return this.http.get<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}`);
+    return this.http.get<TourDuLich>(`${environment.apiBaseUrl}/api/TourDuLich/${id}?_=${Date.now()}`);
   }
 
   xoaTourDuLich(id: string): Observable<TourDuLich> {

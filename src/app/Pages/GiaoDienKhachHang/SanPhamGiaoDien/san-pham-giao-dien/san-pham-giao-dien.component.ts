@@ -120,7 +120,20 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
 
       // Add the hotTours and mostReviewedTours to the selectedTours list
       this.selectedTours = this.selectedTours.concat(hotTours, mostReviewedTours);
+      //để tour hot lên đầu mảng 
+      // Tìm vị trí của "Tour hot" và "Đánh giá nhiều"
+      let tourHotIndex = this.topTourTypes.indexOf("Tour hot");
+      let danhGiaNhieuIndex = this.topTourTypes.indexOf("Đánh giá nhiều");
 
+      // Xóa "Tour hot" và "Đánh giá nhiều" khỏi mảng
+      this.topTourTypes.splice(tourHotIndex, 1);
+      this.topTourTypes.splice(danhGiaNhieuIndex - 1, 1); // Trừ đi 1 vì mảng đã bị xóa 1 phần tử
+
+      // Thêm "Tour hot" và "Đánh giá nhiều" vào đầu mảng
+      this.topTourTypes.unshift("Đánh giá nhiều");
+      this.topTourTypes.unshift("Tour hot");
+
+      // console.log(topTourTypes);
     }
   }
 

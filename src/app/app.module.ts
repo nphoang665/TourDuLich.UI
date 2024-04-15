@@ -132,7 +132,6 @@ import { QuenMatKhauComponent } from './Pages/Auth/forgotPassword/quen-mat-khau/
     CommonModule,
     HttpClientModule,
     MaterialModule,
-    ToastrModule.forRoot(),
     GoogleSigninButtonModule,
     ToastrModule.forRoot(),
     HighchartsChartModule,

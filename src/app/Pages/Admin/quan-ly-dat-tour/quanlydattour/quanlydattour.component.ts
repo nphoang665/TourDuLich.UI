@@ -581,9 +581,12 @@ export class QuanlydattourComponent implements OnInit {
                 this.SoLuongNguoiLon_DatTour = 0,
                   this.SoLuongTreEm_DatTour = 0;
                 this.isDisableButton = false;
-                this.toastr.success('Đặt tour thành công', 'Thông báo', {
-                  timeOut: 1000,
-                });
+                setTimeout(() => {
+                  this.toastr.success('Đặt tour thành công', 'Thông báo', {
+                    timeOut: 1000,
+                  });
+
+                }, 0);
 
                 this.ngOnInit();
                 return;
