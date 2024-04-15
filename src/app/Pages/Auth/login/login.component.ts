@@ -150,6 +150,11 @@ export class LoginComponent implements OnInit {
   //     }
   //   );
   // }
+  onFacebookLogin(){
+    this.toastr.warning('Tính năng đang được cập nhật', 'Thông báo', {
+      timeOut: 1000,
+    });
+  }
 
   onGoogleLogin(): void {
     console.log('demo');
