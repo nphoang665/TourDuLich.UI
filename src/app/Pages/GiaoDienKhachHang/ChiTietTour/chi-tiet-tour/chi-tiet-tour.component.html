@@ -187,14 +187,19 @@
                                 </div>
                                 <div class="col-6 gx-1">
                                     @if(TourChiTiet.soChoConNhanDaTinh ==0){
-                                    <button class="btn_DatTour w-100" style="background-color: gray; border: 0;"
-                                        disabled>Đã hết
+                                    <button class="btn_DatTour w-100 bg-danger" style=" border: 0;" disabled>Đã hết
                                         chỗ</button>
 
                                     }
+                                    @else if(TourChiTiet.tinhTrang =='Tạm hoãn'){
+                                    <button class="btn_DatTour w-100 bg-warning" style=" border: 0;" disabled>Tour đang
+                                        tạm
+                                        hoãn</button>
+
+                                    }
                                     @else if(kiemTraTour ===true){
-                                    <button class="btn_DatTour w-100" disabled
-                                        style="background-color: gray; border: 0;" (click)="ChuyenTrangThanhToan()">Đã
+                                    <button class="btn_DatTour w-100 bg-success" disabled style=" border: 0;"
+                                        (click)="ChuyenTrangThanhToan()">Đã
                                         đặt tour
                                     </button>
                                     }

@@ -70,7 +70,7 @@ export class SanPhamGiaoDienComponent implements OnInit, AfterViewInit {
     let allBookings = await this.datTourServices.getAllDatTour().toPromise();
     let allReviews = await this.danhGiaServices.layTatCaDanhGia().toPromise();
 
-    const data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
+    let data = await this.quanLyTourServices.getAllTourDuLich().toPromise();
     let now = new Date();
     if (data) {
       this.TourDuLich = data.filter(tour => new Date(tour.thoiGianBatDau) >= now);
