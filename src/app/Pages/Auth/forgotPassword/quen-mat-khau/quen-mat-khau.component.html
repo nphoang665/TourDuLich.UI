@@ -35,22 +35,40 @@
                                 </mat-form-field>
 
                                 <div class="_dv_btn_login  mt-2">
-                                    <button class="btn_login w-100" *ngIf="buttonState === 0"
+                                    <button class="btn_login w-100" [disabled]="isLoading" *ngIf="buttonState === 0"
                                         (click)="GuiEmailHoacSoDienThoai()">
-                                        Quên mật khẩu
+                                        <span *ngIf="isLoading == false">Quên mật khẩu</span>
+                                        <span *ngIf="isLoading == true">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Đang gửi mail...
+                                        </span>
+
                                     </button>
-                                    <button class="btn_login w-100" *ngIf="buttonState === 1" (click)="KiemTraMaOTP()">
-                                        Lấy mã
+                                    <button class="btn_login w-100" [disabled]="isLoadingOtp" *ngIf="buttonState === 1"
+                                        (click)="KiemTraMaOTP()">
+                                        <span *ngIf="isLoadingOtp == false">Lấy mã</span>
+                                        <span *ngIf="isLoadingOtp == true">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Kiểm tra otp...
+                                        </span>
                                     </button>
-                                    <button class="btn_login w-100" *ngIf="buttonState === 2" (click)="LayLaiMatKhau()">
-                                        Lấy lại mật khẩu
+                                    <button class="btn_login w-100" [disabled]="isLoadingLayLaiMk"
+                                        *ngIf="buttonState === 2" (click)="LayLaiMatKhau()">
+                                        <span *ngIf="isLoadingLayLaiMk == false">Lấy lại mật khẩu</span>
+                                        <span *ngIf="isLoadingLayLaiMk == true">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Đang lấy lại mật khẩu...
+                                        </span>
                                     </button>
                                 </div>
                             </div>
                         </form>
                         <div>
                             <div class="_dv_quenmk mt-2 text-right">
-                                <span class="">
+                                <span class="" style="cursor: pointer;">
                                     Đăng nhập. <i><u routerLink="/login">Nhấn tại đây</u></i> !!!
                                 </span>
                             </div>
@@ -58,6 +76,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

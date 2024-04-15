@@ -113,7 +113,7 @@ import { QuenMatKhauComponent } from './Pages/Auth/forgotPassword/quen-mat-khau/
     ThanhToanComponent,
     XemThanhToanComponent,
     LichsudattourkhachhangComponent,
-    QuenMatKhauComponent
+    QuenMatKhauComponent,
   ],
   imports: [
     BrowserModule,

@@ -869,8 +869,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" [disabled]="isDisableButton" (click)="onThanhToan()">Thanh
+                <button type="button" mat-raised-button mat-dialog-close color="warn"
+                    data-bs-dismiss="modal">Đóng</button>
+                <button type="button" mat-raised-button color="primary" [disabled]="isDisableButton"
+                    (click)="onThanhToan()">Thanh
                     toán</button>
             </div>
         </div>

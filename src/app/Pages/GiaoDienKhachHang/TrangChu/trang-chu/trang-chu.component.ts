@@ -41,6 +41,7 @@ export class TrangChuComponent implements AfterViewInit, OnInit, OnDestroy {
     //khởi tạo subscriptions
 
   }
+
   ngAfterViewInit() {
 
     const textTyping = this.elRef.nativeElement.querySelector('.Text_Typing');

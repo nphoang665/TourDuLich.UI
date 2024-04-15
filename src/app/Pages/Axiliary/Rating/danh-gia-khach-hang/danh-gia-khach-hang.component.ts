@@ -153,7 +153,11 @@ export class DanhGiaKhachHangComponent implements AfterViewInit, OnInit {
     if (khachHang && khachHang.idKhachHang) {
       if (idTour) {
         this.datTourServices.kiemTraKhachHangDatTour(khachHang.idKhachHang, idTour).subscribe((result: any) => {
-          this.isDatTour = result
+
+          this.isDatTour = result;
+          console.log(result);
+
+
           console.log(this.isDatTour);
 
           return result;

@@ -36,9 +36,9 @@
                             <mat-menu #menu="matMenu" style="z-index: 10000;">
                                 <ng-container *ngIf="user !== undefined && user?.roles?.includes('Admin')">
                                     <button mat-menu-item routerLink="/quanLyDatTour"><mat-icon
-                                        svgIcon="icon_Manager"></mat-icon> Trang quản lý</button>
+                                            svgIcon="icon_Manager"></mat-icon> Trang quản lý</button>
                                 </ng-container>
-                               
+
                                 <button mat-menu-item data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon
                                         svgIcon="icon_User"></mat-icon> Thông tin cá
                                     nhân</button>
@@ -93,7 +93,7 @@
                     </div>
                 </li>
                 <li routerLink="/trangchu"><a class="item_medium_second_header">Trang chủ</a></li>
-                <li routerLink="/lienhe"><a class="item_medium_second_header">Liên hệ</a></li>
+                <li><a class="item_medium_second_header">Liên hệ</a></li>
                 <li routerLink="/dattour/tatca"><a class="item_medium_second_header">Đặt tour</a></li>
                 <li routerLink="/diemden"><a class="item_medium_second_header">Điểm đến</a></li>
                 <!-- <li routerLink="/lichsudattour"><a class="item_medium_second_header">Lịch sử</a></li> -->
@@ -297,7 +297,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -386,7 +386,7 @@
                 <!-- Tương tự cho các trường khác -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" mat-raised-button color="warn" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>

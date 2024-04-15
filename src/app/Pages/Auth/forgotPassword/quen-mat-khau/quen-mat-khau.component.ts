@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KhachhangService } from '../../../Admin/services/KhachHang/khachhang.service';
 import { NhanVienService } from '../../../Admin/services/NhanVien/nhan-vien.service';
 import { forkJoin } from 'rxjs';
+import { LoadingSanphamService } from '../../../Admin/services/Loading/loading-sanpham.service';
 const icon_User = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.7274 20.4471C19.2716 19.1713 18.2672 18.0439 16.8701 17.2399C15.4729 16.4358 13.7611 16 12 16C10.2389 16 8.52706 16.4358 7.12991 17.2399C5.73276 18.0439 4.72839 19.1713 4.27259 20.4471" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
@@ -55,8 +56,10 @@ export class QuenMatKhauComponent implements OnInit {
     private formBuilder: FormBuilder,
     private khachHangServices: KhachhangService,
     private nhanVienServices: NhanVienService,
-    private router:Router,
-    private toastr2:ToastrService
+    private router: Router,
+    private toastr2: ToastrService,
+    public loaderServices: LoadingSanphamService,
+
   ) {
     iconRegistry.addSvgIconLiteral('user-login', sanitizer.bypassSecurityTrustHtml(icon_User));
     iconRegistry.addSvgIconLiteral('password-login', sanitizer.bypassSecurityTrustHtml(icon_Password));
@@ -75,8 +78,11 @@ export class QuenMatKhauComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
-  }
+    this.nhanVienServices.getAllNhanVien().subscribe(result => {
 
+    });
+  }
+  public isLoading: boolean = false;
   GuiEmailHoacSoDienThoai() {
     let emailOrPhone = this.form.get('emailOrPhone')?.value;
     if (emailOrPhone) {
@@ -89,6 +95,7 @@ export class QuenMatKhauComponent implements OnInit {
       };
 
       if (optionOtp == 'guiEmail') {
+        this.isLoading = true;
         this.khachHangServices.getAllKhachHang().subscribe(resultKh => {
           let khachHangExists = resultKh.some(kh => kh.email == requestData.email);
           this.nhanVienServices.getAllNhanVien().subscribe(resulNv => {
@@ -97,10 +104,10 @@ export class QuenMatKhauComponent implements OnInit {
 
             if (!khachHangExists && !nhanVienExists) {
               alert('Email không tồn tại trong hệ thống');
+              this.isLoading = false;
             } else {
               this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
                 (result: any) => {
-                  console.log(3);
                   this.OTP = result;
                   this.buttonState = 1;
                 },
@@ -112,23 +119,26 @@ export class QuenMatKhauComponent implements OnInit {
           });
         });
       } else if (optionOtp == 'guiSdt') {
+        this.isLoading = true;
         this.khachHangServices.getAllKhachHang().subscribe(resultKh => {
           let khachHangExists = resultKh.some(kh => kh.soDienThoai == requestData.soDienThoai);
           this.nhanVienServices.getAllNhanVien().subscribe(resulNv => {
             let nhanVienExists = resulNv.some(nv => nv.soDienThoai == requestData.soDienThoai);
-            console.log(nhanVienExists, khachHangExists);
 
             if (!khachHangExists && !nhanVienExists) {
               alert('Số điện thoại không tồn tại trong hệ thống');
+              this.isLoading = false;
             } else {
               this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
                 (result: any) => {
-                  console.log(3);
+
+
                   this.OTP = result;
                   this.buttonState = 1;
                 },
                 (error: any) => {
                   console.error('Error:', error);
+
                 },
               );
             }
@@ -137,16 +147,23 @@ export class QuenMatKhauComponent implements OnInit {
       }
     }
   }
+  public isLoadingOtp: boolean = false;
 
   KiemTraMaOTP() {
+    this.isLoading = true;
     if (this.form.get('otp')?.value == this.OTP) {
       this.buttonState = 2;
+      this.isLoadingOtp = false;
     }
     else {
       alert('OTP sai');
+      this.isLoadingOtp = false;
     }
   }
+  public isLoadingLayLaiMk: boolean = false;
   LayLaiMatKhau() {
+    this.isLoadingLayLaiMk = true;
+
     this.buttonState = 2;
     let emailOrPhone = this.form.get('emailOrPhone')?.value;
     let optionOtp = emailOrPhone.includes('@') ? 'guiEmail' : 'guiSdt';
@@ -173,13 +190,14 @@ export class QuenMatKhauComponent implements OnInit {
 
       this.quenMatKhauServies.LayLaiMatKhau(requestData).subscribe(
         (result: any) => {
-          
+
           console.log(result);
         },
         (error: any) => {
           // Hàm này được gọi khi có dữ liệu mới
-         
-          
+
+          this.isLoadingLayLaiMk = false;
+
           this.toastr2.success('Đổi mật khẩu thành công', 'Thông báo', {
             timeOut: 1000,
           });
